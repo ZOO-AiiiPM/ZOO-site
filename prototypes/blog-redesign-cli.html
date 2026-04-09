@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Redesign — CLI v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #09090b;
+  --surface: #131316;
+  --surface2: #1a1a1f;
+  --border: #25252a;
+  --text: #ededef;
+  --text2: #8a8a94;
+  --text3: #55555f;
+  --green: #6ee7b7;
+  --purple: #a78bfa;
+  --gold: #fbbf24;
+  --pink: #f472b6;
+  --blue: #60a5fa;
+  --max: 1060px;
+  --font-body: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--green); color: var(--bg); }
+a { color: inherit; text-decoration: none; }
+
+/* Layout — match home */
+.page { display: none; }
+.page.active { display: block; }
+.page-container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 48px 40px 120px;
+}
+
+/* ==========================================================
+   BLOG LIST PAGE
+   ========================================================== */
+
+.blog-head {
+  margin-bottom: 36px;
+  font-family: var(--font-mono);
+}
+.blog-title-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.blog-arrow-lg {
+  color: var(--green);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+.blog-pixel-title {
+  image-rendering: pixelated;
+}
+.blog-sub {
+  margin-bottom: 14px;
+  padding-left: 40px;
+}
+.blog-comment {
+  font-size: 13px;
+  color: var(--text3);
+}
+.blog-stats {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 40px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+.blog-sep { color: var(--border); }
+.blog-stat-vibe { color: var(--green); }
+.blog-stat-pm { color: var(--purple); }
+.blog-stat-agent { color: var(--pink); }
+.blog-stat-think { color: var(--gold); }
+
+/* Filters */
+.blog-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.blog-filter-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.blog-filter-btn:hover { border-color: var(--green); color: var(--green); }
+.blog-filter-btn.active { background: var(--green); color: var(--bg); border-color: var(--green); }
+
+/* Article rows */
+.blog-list {
+  display: flex;
+  flex-direction: column;
+}
+.blog-row {
+  display: grid;
+  grid-template-columns: 20px 72px 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 12px;
+  border-radius: 6px;
+  color: var(--text);
+  transition: background 0.15s;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  position: relative;
+}
+.blog-row:last-child { border-bottom: none; }
+.blog-row:hover { background: var(--surface); }
+.blog-row:hover .blog-row-title { color: var(--green); }
+.blog-row:hover .blog-row-cursor { opacity: 1; }
+
+.blog-row-cursor {
+  font-family: var(--font-mono); font-size: 16px; font-weight: 700;
+  color: var(--green); opacity: 0;
+  transition: opacity 0.15s; user-select: none;
+}
+.blog-row-date {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text3); white-space: nowrap;
+}
+.blog-row-title {
+  font-size: 15px; font-weight: 500;
+  color: var(--text); transition: color 0.15s; line-height: 1.5;
+}
+.blog-row-tag {
+  font-family: var(--font-mono); font-size: 11px;
+  padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+}
+
+.tag-vibe { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); }
+.tag-pm { background: color-mix(in srgb, var(--purple) 12%, transparent); color: var(--purple); }
+.tag-agent { background: color-mix(in srgb, var(--pink) 12%, transparent); color: var(--pink); }
+.tag-think { background: color-mix(in srgb, var(--gold) 12%, transparent); color: var(--gold); }
+
+@media (max-width: 640px) {
+  .page-container { padding: 32px 16px 64px; }
+  .blog-row { grid-template-columns: 1fr auto; gap: 12px; }
+  .blog-row-date, .blog-row-cursor { display: none; }
+  .blog-sub, .blog-stats { padding-left: 0; }
+  .blog-stats { flex-wrap: wrap; gap: 4px 8px; }
+}
+
+
+/* ==========================================================
+   BLOG DETAIL PAGE
+   ========================================================== */
+
+/* Two-column layout: content + TOC */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 48px;
+  align-items: start;
+}
+
+.detail-main {
+  min-width: 0;
+  max-width: 720px;
+}
+
+/* File path breadcrumb + back button */
+.detail-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.detail-path {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.detail-path .path-sep { color: var(--border); }
+.detail-path .path-file { color: var(--green); }
+
+.detail-back-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.detail-back-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+/* Header */
+.detail-header { margin-bottom: 40px; }
+
+.detail-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.detail-tag {
+  font-family: var(--font-mono); font-size: 12px;
+  padding: 3px 10px; border-radius: 4px;
+}
+
+.detail-title {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.3px;
+  margin-bottom: 20px;
+}
+
+/* Meta line — includes cd back + date/stats */
+.detail-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.detail-meta-sep { color: var(--border); }
+
+/* TOC sidebar */
+.detail-toc {
+  position: sticky;
+  top: 80px;
+  padding-top: 8px;
+}
+.detail-toc-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 16px;
+}
+.detail-toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.detail-toc-item {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  padding: 7px 0 7px 14px;
+  border-left: 2px solid var(--border);
+  transition: all 0.15s;
+  line-height: 1.5;
+}
+.detail-toc-item:hover {
+  color: var(--purple);
+  border-left-color: var(--purple);
+}
+.detail-toc-item.active {
+  color: var(--green);
+  border-left-color: var(--green);
+}
+
+/* Article Body */
+.detail-body {
+  font-size: 16px;
+  line-height: 1.9;
+  color: color-mix(in srgb, var(--text) 82%, transparent);
+  padding-top: 32px;
+}
+.detail-body p { margin-bottom: 22px; }
+
+.detail-body h2 {
+  font-size: 20px; font-weight: 700; color: var(--text);
+  margin: 44px 0 16px;
+  display: flex; align-items: baseline; gap: 10px;
+  scroll-margin-top: 80px;
+}
+.detail-body h2::before {
+  content: "##";
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--purple); opacity: 0.5; font-weight: 400; flex-shrink: 0;
+}
+.detail-body strong { color: var(--text); font-weight: 600; }
+
+/* Blockquote */
+.detail-body blockquote {
+  border-left: 2px solid var(--purple);
+  padding: 16px 20px; margin: 28px 0;
+  background: var(--surface); border-radius: 0 8px 8px 0;
+  position: relative;
+}
+.detail-body blockquote::before {
+  content: ">"; position: absolute; left: -20px; top: 16px;
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--purple); opacity: 0.4;
+}
+.detail-body blockquote p { margin-bottom: 0; font-style: italic; color: color-mix(in srgb, var(--text) 75%, transparent); }
+
+/* Inline code */
+.detail-body code {
+  font-family: var(--font-mono); background: var(--surface2);
+  padding: 2px 7px; border-radius: 4px; font-size: 14px; color: var(--green);
+}
+
+/* Code block */
+.code-block { position: relative; margin: 28px 0; }
+.code-lang {
+  position: absolute; top: 0; left: 0;
+  font-family: var(--font-mono); font-size: 11px; color: var(--text3);
+  background: var(--surface2); padding: 4px 12px;
+  border-radius: 10px 0 8px 0;
+  border-bottom: 1px solid var(--border); border-right: 1px solid var(--border);
+  z-index: 1;
+}
+.detail-body pre {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 20px; padding-top: 36px; border-radius: 10px;
+  overflow-x: auto; font-size: 13px;
+  font-family: var(--font-mono); color: var(--text2); line-height: 1.7;
+  counter-reset: line;
+}
+.detail-body pre code {
+  background: none; padding: 0; font-size: inherit; color: inherit;
+}
+.code-line { display: block; }
+.code-line::before {
+  counter-increment: line; content: counter(line);
+  display: inline-block; width: 24px; margin-right: 16px;
+  text-align: right; color: var(--text3); opacity: 0.4;
+  font-size: 12px; user-select: none;
+}
+.cm { color: var(--text3); font-style: italic; }
+.str { color: var(--green); }
+
+/* Insight list */
+.insight-list {
+  display: flex; flex-direction: column; gap: 2px;
+  margin: 24px 0; font-family: var(--font-mono); font-size: 14px;
+}
+.insight-item {
+  display: grid; grid-template-columns: 24px 1fr;
+  gap: 12px; padding: 12px 14px; border-radius: 6px;
+  transition: background 0.15s;
+}
+.insight-item:hover { background: var(--surface); }
+.insight-idx {
+  color: var(--purple); opacity: 0.5; font-size: 13px;
+  text-align: right; line-height: 1.7; user-select: none;
+}
+.insight-content {
+  font-family: var(--font-body); font-size: 15px;
+  line-height: 1.7; color: color-mix(in srgb, var(--text) 78%, transparent);
+}
+.insight-content strong { color: var(--text); font-weight: 600; }
+
+/* ===== Article footer ===== */
+.detail-footer {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 2px solid var(--text3);
+}
+
+/* Tags — highlighted, comes first */
+.detail-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.detail-bottom-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: all 0.15s;
+}
+/* highlighted tag colors */
+.detail-bottom-tag.t-vibe { background: color-mix(in srgb, var(--green) 12%, transparent); color: var(--green); }
+.detail-bottom-tag.t-code { background: color-mix(in srgb, var(--blue) 12%, transparent); color: var(--blue); }
+.detail-bottom-tag.t-saas { background: color-mix(in srgb, var(--purple) 12%, transparent); color: var(--purple); }
+.detail-bottom-tag.t-pm { background: color-mix(in srgb, var(--pink) 12%, transparent); color: var(--pink); }
+
+.detail-bottom-tag:hover { opacity: 0.75; }
+
+/* Prev/Next nav — no border, side by side */
+.detail-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.detail-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+.detail-nav-item:hover {
+  background: var(--surface);
+}
+.detail-nav-item:hover .detail-nav-title.purple { color: var(--purple); }
+.detail-nav-item:hover .detail-nav-title.green { color: var(--green); }
+.detail-nav-item.next { text-align: right; }
+.detail-nav-label {
+  font-family: var(--font-mono); font-size: 12px;
+}
+.detail-nav-label.purple { color: var(--purple); }
+.detail-nav-label.green { color: var(--green); }
+.detail-nav-title {
+  font-size: 15px; font-weight: 500;
+  color: var(--text); transition: color 0.15s; line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .detail-toc { display: none; }
+}
+@media (max-width: 640px) {
+  .detail-title { font-size: 26px; }
+  .detail-path { display: none; }
+  .detail-nav { grid-template-columns: 1fr; }
+  .detail-nav-item.next { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== BLOG LIST PAGE ==================== -->
+<div id="page-list" class="page active">
+  <div class="page-container">
+
+    <div class="blog-head">
+      <div class="blog-title-line">
+        <span class="blog-arrow-lg">›</span>
+        <canvas id="blog-pixel-title" class="blog-pixel-title" aria-label="Blog"></canvas>
+      </div>
+      <div class="blog-sub">
+        <span class="blog-comment">// 关于 AI 产品、Vibe Coding 和独立思考</span>
+      </div>
+      <div class="blog-stats">
+        <span>total 8</span>
+        <span class="blog-sep">|</span>
+        <span class="blog-stat-vibe">● 3 vibe coding</span>
+        <span class="blog-sep">|</span>
+        <span class="blog-stat-pm">● 2 ai pm</span>
+        <span class="blog-sep">|</span>
+        <span class="blog-stat-agent">● 1 agent</span>
+        <span class="blog-sep">|</span>
+        <span class="blog-stat-think">● 2 观点</span>
+      </div>
+    </div>
+
+    <div class="blog-filters">
+      <button class="blog-filter-btn active">全部</button>
+      <button class="blog-filter-btn">AI PM</button>
+      <button class="blog-filter-btn">Vibe Coding</button>
+      <button class="blog-filter-btn">Agent</button>
+      <button class="blog-filter-btn">观点</button>
+    </div>
+
+    <div class="blog-list">
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Apr 08</span>
+        <span class="blog-row-title">用 Claude Code 三天做了一个完整的 SaaS 产品</span>
+        <span class="blog-row-tag tag-vibe">vibe coding</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Apr 02</span>
+        <span class="blog-row-title">AI PM 的核心能力模型：不只是写 PRD</span>
+        <span class="blog-row-tag tag-pm">ai pm</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Mar 25</span>
+        <span class="blog-row-title">为什么 Agent 产品的用户留存这么难做？</span>
+        <span class="blog-row-tag tag-agent">agent</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Mar 18</span>
+        <span class="blog-row-title">Prompt Engineering 不是 AI PM 的核心竞争力</span>
+        <span class="blog-row-tag tag-think">观点</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Mar 10</span>
+        <span class="blog-row-title">一个周末，用 AI 从零搭建了这个个人网站</span>
+        <span class="blog-row-tag tag-vibe">vibe coding</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Feb 20</span>
+        <span class="blog-row-title">我在大厂做 AI 产品的 300 天</span>
+        <span class="blog-row-tag tag-pm">ai pm</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Feb 05</span>
+        <span class="blog-row-title">大模型产品的 PMF 在哪里？</span>
+        <span class="blog-row-tag tag-think">观点</span>
+      </a>
+      <a class="blog-row" onclick="goDetail(event)">
+        <span class="blog-row-cursor">›</span>
+        <span class="blog-row-date">Jan 20</span>
+        <span class="blog-row-title">用 Streamlit + Embedding 做了个反馈分析工具</span>
+        <span class="blog-row-tag tag-vibe">vibe coding</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== BLOG DETAIL PAGE ==================== -->
+<div id="page-detail" class="page">
+  <div class="page-container">
+
+    <div class="detail-top-bar">
+      <div class="detail-path">
+        <span>~</span>
+        <span class="path-sep">/</span>
+        <span>blog</span>
+        <span class="path-sep">/</span>
+        <span class="path-file">claude-code-saas-3-days.md</span>
+      </div>
+      <a class="detail-back-btn" onclick="goList(event)">← back</a>
+    </div>
+
+    <div class="detail-layout">
+      <!-- Main content -->
+      <div class="detail-main">
+        <div class="detail-header">
+          <h1 class="detail-title">用 Claude Code 三天做了一个完整的 SaaS 产品</h1>
+
+          <div class="detail-meta">
+            <span class="detail-tag tag-vibe">vibe coding</span>
+            <span class="detail-meta-sep">·</span>
+            <span>2026-04-08</span>
+            <span class="detail-meta-sep">·</span>
+            <span>~2800 字</span>
+            <span class="detail-meta-sep">·</span>
+            <span>8 min read</span>
+          </div>
+        </div>
+
+        <div class="detail-body">
+          <p>上周我用 Claude Code 做了一个实验：能不能在三天内，从一个想法变成一个可用的 SaaS 产品？结果超出预期。</p>
+
+          <h2 id="sec-why">为什么做这个实验</h2>
+          <p>作为一个 AI PM，我一直在思考：<strong>当 AI 能帮你写代码时，PM 的价值到底在哪？</strong>不是 Prompt 写得好不好，而是你能不能把模糊的想法变成结构清晰、逻辑自洽的产品。</p>
+
+          <blockquote>
+            <p>Vibe Coding 不是让 AI 替你写代码，而是让你用产品思维和 AI 协作，把想法快速变成现实。</p>
+          </blockquote>
+
+          <h2 id="sec-day1">Day 1：需求定义与架构设计</h2>
+          <p>第一天没写一行代码。全部时间花在需求文档和信息架构上。我用 <code>CLAUDE.md</code> 把项目背景、技术约束、设计规范全部写清楚，这份文档后来成了整个项目的「宪法」。</p>
+
+          <h2 id="sec-day2">Day 2：核心功能开发</h2>
+          <p>有了清晰的需求文档，Claude Code 表现非常稳定。关键心得：</p>
+
+          <div class="code-block">
+            <span class="code-lang">prompt</span>
+            <pre><code><span class="code-line"><span class="cm">// 不要这样：</span></span><span class="code-line"><span class="str">"帮我做一个用户管理系统"</span></span><span class="code-line"></span><span class="code-line"><span class="cm">// 要这样：</span></span><span class="code-line"><span class="str">"参照 CLAUDE.md 中的用户模型，</span></span><span class="code-line"><span class="str"> 实现 /api/users CRUD，</span></span><span class="code-line"><span class="str"> 用 Supabase Auth，</span></span><span class="code-line"><span class="str"> 错误处理参考 lib/errors.ts"</span></span></code></pre>
+          </div>
+
+          <p>指令越具体，输出质量越高。这和写 PRD 是一回事——模糊的需求只会得到模糊的交付。</p>
+
+          <h2 id="sec-insights">几个反直觉的发现</h2>
+
+          <div class="insight-list">
+            <div class="insight-item">
+              <span class="insight-idx">1.</span>
+              <div class="insight-content">
+                <strong>写需求文档的时间不能省</strong> —— 花在需求上的时间会在开发阶段 10 倍返还。CLAUDE.md 越清晰，AI 输出越稳定。
+              </div>
+            </div>
+            <div class="insight-item">
+              <span class="insight-idx">2.</span>
+              <div class="insight-content">
+                <strong>PM 的价值不降反升</strong> —— 当开发成本趋近于零，决定做什么比怎么做更重要。产品判断力才是核心。
+              </div>
+            </div>
+            <div class="insight-item">
+              <span class="insight-idx">3.</span>
+              <div class="insight-content">
+                <strong>审美是新的技术壁垒</strong> —— AI 能写代码但不能替你做审美判断。好的设计品味变成了稀缺能力。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOC sidebar -->
+      <aside class="detail-toc">
+        <div class="detail-toc-title">Contents</div>
+        <nav class="detail-toc-list">
+          <a class="detail-toc-item active" href="#sec-why">为什么做这个实验</a>
+          <a class="detail-toc-item" href="#sec-day1">Day 1：需求定义与架构设计</a>
+          <a class="detail-toc-item" href="#sec-day2">Day 2：核心功能开发</a>
+          <a class="detail-toc-item" href="#sec-insights">几个反直觉的发现</a>
+        </nav>
+      </aside>
+    </div>
+
+    <!-- Footer: full width, outside the grid -->
+    <div class="detail-footer">
+      <div class="detail-tags">
+        <span class="detail-bottom-tag t-vibe">#vibe-coding</span>
+        <span class="detail-bottom-tag t-code">#claude-code</span>
+        <span class="detail-bottom-tag t-saas">#saas</span>
+        <span class="detail-bottom-tag t-pm">#ai-pm</span>
+      </div>
+
+      <div class="detail-nav">
+        <a class="detail-nav-item prev" href="#">
+          <span class="detail-nav-title purple">一个周末，用 AI 从零搭建了这个个人网站</span>
+          <span class="detail-nav-label purple">← 上一篇</span>
+        </a>
+        <a class="detail-nav-item next" href="#">
+          <span class="detail-nav-title green">AI PM 的核心能力模型：不只是写 PRD</span>
+          <span class="detail-nav-label green">下一篇 →</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Pixel title renderer
+(function() {
+  const G = "#6ee7b7", P = "#a78bfa";
+  const FONT = {
+    B: ["1111.","1...1","1...1","1111.","1...1","1...1","1111."],
+    L: ["1....","1....","1....","1....","1....","1....","11111"],
+    O: [".111.","1...1","1...1","1...1","1...1","1...1",".111."],
+    G: [".1111","1....","1....","1.111","1...1","1...1",".111."],
+  };
+  const text = "BLOG";
+  const lW = 5, lH = 7, gap = 1, scale = 6;
+  const totalW = text.length * lW + (text.length - 1) * gap;
+  const canvas = document.getElementById('blog-pixel-title');
+  canvas.width = totalW;
+  canvas.height = lH;
+  canvas.style.width = totalW * scale + 'px';
+  canvas.style.height = lH * scale + 'px';
+  const ctx = canvas.getContext('2d');
+  let ox = 0;
+  [...text].forEach(ch => {
+    const data = FONT[ch];
+    if (!data) { ox += lW + gap; return; }
+    data.forEach((row, ry) => {
+      [...row].forEach((px, rx) => {
+        if (px === '1') {
+          const t = (ox + rx) / (totalW - 1);
+          const pa = [parseInt(G.slice(1,3),16),parseInt(G.slice(3,5),16),parseInt(G.slice(5,7),16)];
+          const pb = [parseInt(P.slice(1,3),16),parseInt(P.slice(3,5),16),parseInt(P.slice(5,7),16)];
+          ctx.fillStyle = '#' + pa.map((v,i) => Math.round(v+(pb[i]-v)*t).toString(16).padStart(2,'0')).join('');
+          ctx.fillRect(ox+rx, ry, 1, 1);
+        }
+      });
+    });
+    ox += lW + gap;
+  });
+})();
+
+// Navigate between list and detail
+function goDetail(e) {
+  e.preventDefault();
+  document.getElementById('page-list').classList.remove('active');
+  document.getElementById('page-detail').classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goList(e) {
+  e.preventDefault();
+  document.getElementById('page-detail').classList.remove('active');
+  document.getElementById('page-list').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Filter buttons
+document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// TOC scroll spy
+const tocItems = document.querySelectorAll('.detail-toc-item');
+const sections = document.querySelectorAll('.detail-body h2[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 120) {
+      current = sec.id;
+    }
+  });
+  tocItems.forEach(item => {
+    item.classList.toggle('active', item.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e7]:
+        - link "home" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "blog" [ref=e9] [cursor=pointer]:
+          - /url: /blog
+        - link "projects" [ref=e10] [cursor=pointer]:
+          - /url: /projects
+        - link "about" [ref=e11] [cursor=pointer]:
+          - /url: /about
+        - link "ask zoo" [ref=e12] [cursor=pointer]:
+          - /url: /ask-zoo
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]: zoo@portfolio:~/projects $
+      - generic [ref=e16]:
+        - generic [ref=e17]: ❯
+        - heading "Projects" [ref=e18]
+      - generic [ref=e21]: // 用 Vibe Coding 构建的实际产品和工具
+      - generic [ref=e22]:
+        - generic [ref=e23]: total 6
+        - generic [ref=e24]: │
+        - generic [ref=e25]: ● 3 running
+        - generic [ref=e26]: │
+        - generic [ref=e27]: ✓ 2 shipped
+    - generic [ref=e28]:
+      - generic [ref=e29] [cursor=pointer]:
+        - generic [ref=e30]:
+          - generic [ref=e35]: ai-daily-report
+          - generic [ref=e36]: ● RUNNING
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - generic [ref=e39]: ❯
+            - heading "AI 日报生成器" [level=3] [ref=e40]
+          - paragraph [ref=e41]: 自动抓取 AI 领域最新动态，生成每日摘要推送到飞书群。支持自定义关注领域和推送时间。
+          - generic [ref=e42]:
+            - generic [ref=e43]: stack
+            - generic [ref=e44]: =
+            - generic [ref=e45]:
+              - text: "["
+              - generic [ref=e46]:
+                - generic [ref=e47]: "\"Python\""
+                - text: ","
+              - generic [ref=e48]:
+                - generic [ref=e49]: "\"Claude API\""
+                - text: ","
+              - generic [ref=e50]:
+                - generic [ref=e51]: "\"飞书\""
+                - text: ","
+              - generic [ref=e53]: "\"Cron\""
+              - text: "]"
+          - generic [ref=e55]: PID 2847
+      - generic [ref=e56] [cursor=pointer]:
+        - generic [ref=e57]:
+          - generic [ref=e62]: competitor-monitor
+          - generic [ref=e63]: ✓ SHIPPED
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - generic [ref=e66]: ❯
+            - heading "竞品监控看板" [level=3] [ref=e67]
+          - paragraph [ref=e68]: 自动追踪竞品官网、App Store 更新日志，AI 提取关键变化生成对比报告。
+          - generic [ref=e69]:
+            - generic [ref=e70]: stack
+            - generic [ref=e71]: =
+            - generic [ref=e72]:
+              - text: "["
+              - generic [ref=e73]:
+                - generic [ref=e74]: "\"Next.js\""
+                - text: ","
+              - generic [ref=e75]:
+                - generic [ref=e76]: "\"Puppeteer\""
+                - text: ","
+              - generic [ref=e78]: "\"Vercel\""
+              - text: "]"
+          - generic [ref=e80]: PID 3012
+      - generic [ref=e81] [cursor=pointer]:
+        - generic [ref=e82]:
+          - generic [ref=e87]: prd-assistant
+          - generic [ref=e88]: ◌ BUILDING
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: ❯
+            - heading "PRD 智能助手" [level=3] [ref=e92]
+          - paragraph [ref=e93]: Chrome 插件，输入需求描述自动生成结构化 PRD，支持导出 Notion/飞书文档格式。
+          - generic [ref=e94]:
+            - generic [ref=e95]: stack
+            - generic [ref=e96]: =
+            - generic [ref=e97]:
+              - text: "["
+              - generic [ref=e98]:
+                - generic [ref=e99]: "\"Chrome Extension\""
+                - text: ","
+              - generic [ref=e100]:
+                - generic [ref=e101]: "\"DeepSeek\""
+                - text: ","
+              - generic [ref=e103]: "\"React\""
+              - text: "]"
+          - generic [ref=e105]: PID 3156
+      - generic [ref=e106] [cursor=pointer]:
+        - generic [ref=e107]:
+          - generic [ref=e112]: feedback-cluster
+          - generic [ref=e113]: ✓ SHIPPED
+        - generic [ref=e114]:
+          - generic [ref=e115]:
+            - generic [ref=e116]: ❯
+            - heading "用户反馈聚类工具" [level=3] [ref=e117]
+          - paragraph [ref=e118]: 接入 App Store 评论和客服工单，AI 自动聚类分析，生成可视化的需求优先级矩阵。
+          - generic [ref=e119]:
+            - generic [ref=e120]: stack
+            - generic [ref=e121]: =
+            - generic [ref=e122]:
+              - text: "["
+              - generic [ref=e123]:
+                - generic [ref=e124]: "\"Python\""
+                - text: ","
+              - generic [ref=e125]:
+                - generic [ref=e126]: "\"Streamlit\""
+                - text: ","
+              - generic [ref=e128]: "\"Embedding\""
+              - text: "]"
+          - generic [ref=e130]: PID 3289
+      - generic [ref=e131] [cursor=pointer]:
+        - generic [ref=e132]:
+          - generic [ref=e137]: ask-zoo
+          - generic [ref=e138]: ● RUNNING
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: ❯
+            - heading "AI 分身对话" [level=3] [ref=e142]
+          - paragraph [ref=e143]: 基于 DeepSeek API 的个人 AI 分身，了解我的经历和性格。就是右下角那个。
+          - generic [ref=e144]:
+            - generic [ref=e145]: stack
+            - generic [ref=e146]: =
+            - generic [ref=e147]:
+              - text: "["
+              - generic [ref=e148]:
+                - generic [ref=e149]: "\"Next.js\""
+                - text: ","
+              - generic [ref=e150]:
+                - generic [ref=e151]: "\"DeepSeek\""
+                - text: ","
+              - generic [ref=e153]: "\"SSE\""
+              - text: "]"
+          - generic [ref=e155]: PID 3401
+      - generic [ref=e156] [cursor=pointer]:
+        - generic [ref=e157]:
+          - generic [ref=e162]: zoo.dev
+          - generic [ref=e163]: ● RUNNING
+        - generic [ref=e164]:
+          - generic [ref=e165]:
+            - generic [ref=e166]: ❯
+            - heading "这个网站" [level=3] [ref=e167]
+          - paragraph [ref=e168]: 你正在看的个人网站，也是一个 Vibe Coding 项目。从设计到代码全程 AI 协作。
+          - generic [ref=e169]:
+            - generic [ref=e170]: stack
+            - generic [ref=e171]: =
+            - generic [ref=e172]:
+              - text: "["
+              - generic [ref=e173]:
+                - generic [ref=e174]: "\"Next.js\""
+                - text: ","
+              - generic [ref=e175]:
+                - generic [ref=e176]: "\"Tailwind\""
+                - text: ","
+              - generic [ref=e178]: "\"MDX\""
+              - text: "]"
+          - generic [ref=e180]: PID 3567
+  - contentinfo [ref=e181]:
+    - paragraph [ref=e182]: © 2026 Zoo · Built with Vibe Coding & Claude Code
+  - button "Open Next.js Dev Tools" [ref=e188] [cursor=pointer]:
+    - img [ref=e189]
+  - alert [ref=e192]

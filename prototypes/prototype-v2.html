@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoo — AI PM & Vibe Coder</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0b; --surface: #141416; --surface2: #1c1c1f;
+    --border: #2a2a2e; --text: #e8e8e8; --text2: #888;
+    --accent: #6ee7b7; --accent2: #a78bfa; --accent3: #fbbf24;
+    --pink: #f472b6; --blue: #60a5fa;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+    --radius: 12px;
+  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; }
+  a { color: var(--accent); text-decoration: none; transition: color .2s; }
+  a:hover { color: var(--accent2); }
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  /* ===== Layout: macOS Window Feel ===== */
+  .window-frame { max-width: 1200px; margin: 24px auto; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; min-height: calc(100vh - 48px); display: flex; flex-direction: column; }
+
+  /* Title Bar */
+  .title-bar { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--surface); gap: 12px; }
+  .traffic-lights { display: flex; gap: 8px; }
+  .traffic-lights span { width: 12px; height: 12px; border-radius: 50%; }
+  .traffic-lights .red { background: #ff5f57; }
+  .traffic-lights .yellow { background: #febc2e; }
+  .traffic-lights .green { background: #28c840; }
+  .title-bar-text { flex: 1; text-align: center; font-family: var(--mono); font-size: 13px; color: var(--text2); }
+  .title-bar-clock { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+
+  /* Main Content Area */
+  .main-area { display: grid; grid-template-columns: 220px 1fr; flex: 1; }
+
+  /* Sidebar */
+  .sidebar { border-right: 1px solid var(--border); padding: 24px 0; display: flex; flex-direction: column; }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 2px; padding: 0 12px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; cursor: pointer; transition: all .15s; color: var(--text2); font-size: 14px; font-weight: 500; }
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active { background: var(--surface2); color: var(--accent); }
+  .nav-item .icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 16px; background: var(--surface2); }
+  .nav-item.active .icon { background: rgba(110,231,183,.1); }
+  .sidebar-footer { margin-top: auto; padding: 16px 24px; border-top: 1px solid var(--border); }
+  .sidebar-social { display: flex; gap: 12px; }
+  .sidebar-social a { color: var(--text2); font-size: 18px; transition: color .2s; }
+  .sidebar-social a:hover { color: var(--accent); }
+
+  /* Content */
+  .content { padding: 0; overflow-y: auto; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== Home Page ===== */
+  .home-hero { padding: 60px 48px 40px; }
+  .greeting { font-family: var(--mono); font-size: 14px; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .greeting .cursor { display: inline-block; width: 2px; height: 16px; background: var(--accent); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .home-hero h1 { font-size: 48px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; letter-spacing: -1px; }
+  .home-hero h1 .highlight { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .home-hero .subtitle { font-size: 18px; color: var(--text2); max-width: 520px; line-height: 1.7; }
+  .tags-row { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+  .tag { font-family: var(--mono); font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 1px solid var(--border); color: var(--text2); transition: all .2s; cursor: default; }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Section Headers */
+  .section { padding: 0 48px 48px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .section-header h2 { font-size: 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 2px; color: var(--accent); }
+  .section-header a { font-family: var(--mono); font-size: 13px; color: var(--text2); }
+  .section-header a:hover { color: var(--accent); }
+  .section-divider { height: 1px; background: var(--border); margin: 0 48px 40px; }
+
+  /* Article List */
+  .article-list { display: flex; flex-direction: column; }
+  .article-row { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.04); cursor: pointer; transition: all .15s; }
+  .article-row:hover { padding-left: 8px; }
+  .article-row:hover .article-title { color: var(--accent); }
+  .article-date { font-family: var(--mono); font-size: 13px; color: var(--text2); white-space: nowrap; min-width: 100px; }
+  .article-title { font-size: 16px; font-weight: 500; flex: 1; transition: color .15s; }
+  .article-tag { font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .tag-vibe { background: rgba(110,231,183,.12); color: var(--accent); }
+  .tag-pm { background: rgba(167,139,250,.12); color: var(--accent2); }
+  .tag-think { background: rgba(251,191,36,.12); color: var(--accent3); }
+  .tag-agent { background: rgba(244,114,182,.12); color: var(--pink); }
+
+  /* Project Grid */
+  .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .project-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: all .2s; cursor: pointer; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity .2s; }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-card .emoji { font-size: 28px; margin-bottom: 12px; }
+  .project-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .project-card p { font-size: 13px; color: var(--text2); margin-bottom: 12px; line-height: 1.6; }
+  .project-card .tech { display: flex; gap: 6px; flex-wrap: wrap; }
+  .project-card .tech span { font-family: var(--mono); font-size: 11px; color: var(--text2); background: var(--surface); padding: 2px 8px; border-radius: 4px; }
+
+  /* ===== Blog Page ===== */
+  .page-header { padding: 48px 48px 32px; }
+  .page-header h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+  .page-header p { color: var(--text2); font-size: 15px; }
+  .filter-row { display: flex; gap: 8px; padding: 0 48px 24px; flex-wrap: wrap; }
+  .filter-btn { font-family: var(--mono); font-size: 12px; padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text2); cursor: pointer; transition: all .2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+  /* ===== Article Detail ===== */
+  .detail { max-width: 680px; padding: 48px; }
+  .detail .back { font-family: var(--mono); font-size: 13px; color: var(--text2); cursor: pointer; margin-bottom: 32px; display: inline-flex; align-items: center; gap: 6px; }
+  .detail .back:hover { color: var(--accent); }
+  .detail h1 { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 16px; }
+  .detail .meta { font-family: var(--mono); font-size: 13px; color: var(--text2); margin-bottom: 40px; display: flex; gap: 20px; }
+  .detail .body { font-size: 16px; line-height: 1.9; color: #ccc; }
+  .detail .body p { margin-bottom: 20px; }
+  .detail .body h2 { font-size: 22px; font-weight: 700; color: var(--text); margin: 40px 0 16px; }
+  .detail .body strong { color: var(--text); }
+  .detail .body blockquote { border-left: 3px solid var(--accent); padding: 12px 20px; margin: 24px 0; color: var(--text2); background: var(--surface2); border-radius: 0 8px 8px 0; font-style: italic; }
+  .detail .body code { font-family: var(--mono); background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 14px; color: var(--accent); }
+  .detail .body pre { background: #0d0d0f; border: 1px solid var(--border); padding: 20px; border-radius: var(--radius); overflow-x: auto; margin: 24px 0; font-size: 14px; font-family: var(--mono); color: #ccc; line-height: 1.6; }
+
+  /* ===== About Page ===== */
+  .about { padding: 48px; max-width: 640px; }
+  .about h1 { font-size: 32px; font-weight: 800; margin-bottom: 24px; }
+  .about p { color: var(--text2); margin-bottom: 16px; font-size: 15px; }
+  .about h2 { font-size: 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin: 40px 0 16px; }
+  .timeline { position: relative; padding-left: 20px; border-left: 1px solid var(--border); }
+  .timeline-item { margin-bottom: 28px; position: relative; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .timeline-item .time { font-family: var(--mono); font-size: 12px; color: var(--text2); }
+  .timeline-item .role { font-weight: 600; font-size: 15px; margin: 4px 0; }
+  .timeline-item .desc { font-size: 13px; color: var(--text2); }
+
+  /* ===== Chat Widget ===== */
+  .chat-trigger { position: fixed; bottom: 28px; right: 28px; z-index: 1000; display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); padding: 12px 20px; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 24px rgba(110,231,183,.25); transition: transform .2s, box-shadow .2s; color: var(--bg); font-weight: 600; font-size: 14px; }
+  .chat-trigger:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(110,231,183,.35); }
+  .chat-trigger .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bg); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+  .chat-panel { position: fixed; bottom: 80px; right: 28px; width: 400px; max-height: 540px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.4); z-index: 1000; display: none; flex-direction: column; overflow: hidden; }
+  .chat-panel.open { display: flex; }
+  .chat-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .chat-head-left { display: flex; align-items: center; gap: 12px; }
+  .chat-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--bg); font-size: 15px; }
+  .chat-head-name { font-weight: 600; font-size: 14px; }
+  .chat-head-hint { font-size: 12px; color: var(--accent); font-family: var(--mono); }
+  .chat-close { background: none; border: none; color: var(--text2); font-size: 20px; cursor: pointer; padding: 4px; }
+  .chat-close:hover { color: var(--text); }
+  .chat-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-height: 320px; }
+  .msg { max-width: 82%; padding: 10px 16px; border-radius: 12px; font-size: 14px; line-height: 1.6; }
+  .msg.bot { background: var(--surface2); align-self: flex-start; border-bottom-left-radius: 4px; color: var(--text); }
+  .msg.user { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--bg); align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+  .chat-input { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+  .chat-input input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--text); outline: none; font-family: var(--sans); }
+  .chat-input input:focus { border-color: var(--accent); }
+  .chat-input input::placeholder { color: var(--text2); }
+  .chat-input button { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: var(--bg); border: none; border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .2s; }
+  .chat-input button:hover { opacity: .85; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .main-area { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .window-frame { margin: 0; border-radius: 0; border: none; min-height: 100vh; }
+    .home-hero { padding: 32px 20px 24px; }
+    .home-hero h1 { font-size: 32px; }
+    .section, .page-header, .filter-row, .detail, .about { padding-left: 20px; padding-right: 20px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .chat-panel { right: 8px; left: 8px; width: auto; bottom: 72px; }
+    /* Mobile nav */
+    .mobile-nav { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 8px 0; z-index: 999; justify-content: space-around; }
+    .mobile-nav .m-item { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 10px; color: var(--text2); padding: 6px 12px; cursor: pointer; }
+    .mobile-nav .m-item.active { color: var(--accent); }
+    .mobile-nav .m-item .m-icon { font-size: 20px; }
+  }
+  @media (min-width: 769px) { .mobile-nav { display: none; } }
+</style>
+</head>
+<body>
+
+<!-- ===== Window Frame ===== -->
+<div class="window-frame">
+  <div class="title-bar">
+    <div class="traffic-lights"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+    <div class="title-bar-text">zoo@ai-pm — ~/portfolio</div>
+    <div class="title-bar-clock" id="clock"></div>
+  </div>
+
+  <div class="main-area">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-nav">
+        <div class="nav-item active" data-page="home" onclick="showPage('home')">
+          <div class="icon">🏠</div> home
+        </div>
+        <div class="nav-item" data-page="blog" onclick="showPage('blog')">
+          <div class="icon">📝</div> blog
+        </div>
+        <div class="nav-item" data-page="projects" onclick="showPage('projects')">
+          <div class="icon">🚀</div> projects
+        </div>
+        <div class="nav-item" data-page="about" onclick="showPage('about')">
+          <div class="icon">👤</div> about
+        </div>
+      </div>
+      <div class="sidebar-footer">
+        <div class="sidebar-social">
+          <a href="#" title="GitHub">⌨</a>
+          <a href="#" title="Twitter">𝕏</a>
+          <a href="#" title="即刻">📱</a>
+          <a href="#" title="Email">✉</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- HOME -->
+      <div class="page active" id="page-home">
+        <div class="home-hero">
+          <div class="greeting"><span>$</span> Hi, I'm Zoo <span class="cursor"></span></div>
+          <h1>用<span class="highlight">产品思维</span>理解 AI<br>用 AI <span class="highlight">构建产品</span></h1>
+          <p class="subtitle">AI Product Manager / Vibe Coder / Builder。我写关于 AI 产品的思考，也用 AI 亲手造工具。</p>
+          <div class="tags-row">
+            <span class="tag">AI 产品</span>
+            <span class="tag">Vibe Coding</span>
+            <span class="tag">Agent</span>
+            <span class="tag">独立开发</span>
+            <span class="tag">产品方法论</span>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="section">
+          <div class="section-header">
+            <h2>Writing</h2>
+            <a href="#" onclick="showPage('blog');return false">View all →</a>
+          </div>
+          <div class="article-list">
+            <div class="article-row" onclick="showPage('detail')">
+              <span class="article-date">Apr 08</span>
+              <span class="article-title">用 Claude Code 三天做了一个完整的 SaaS 产品</span>
+              <span class="article-tag tag-vibe">vibe coding</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Apr 02</span>
+              <span class="article-title">AI PM 的核心能力模型：不只是写 PRD</span>
+              <span class="article-tag tag-pm">ai pm</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 25</span>
+              <span class="article-title">为什么 Agent 产品的用户留存这么难做？</span>
+              <span class="article-tag tag-agent">agent</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 18</span>
+              <span class="article-title">Prompt Engineering 不是 AI PM 的核心竞争力</span>
+              <span class="article-tag tag-think">观点</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 10</span>
+              <span class="article-title">一个周末，用 AI 从零搭建了这个个人网站</span>
+              <span class="article-tag tag-vibe">vibe coding</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="section">
+          <div class="section-header">
+            <h2>Projects</h2>
+            <a href="#" onclick="showPage('projects');return false">View all →</a>
+          </div>
+          <div class="project-grid">
+            <div class="project-card">
+              <div class="emoji">🤖</div>
+              <h3>AI 日报生成器</h3>
+              <p>自动抓取 AI 领域动态，生成每日摘要推送到飞书群</p>
+              <div class="tech"><span>Python</span><span>Claude API</span><span>飞书</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">📊</div>
+              <h3>竞品监控看板</h3>
+              <p>追踪竞品更新日志，AI 提取关键变化生成对比报告</p>
+              <div class="tech"><span>Next.js</span><span>Puppeteer</span><span>Vercel</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">✍️</div>
+              <h3>PRD 智能助手</h3>
+              <p>Chrome 插件，输入需求自动生成结构化 PRD 文档</p>
+              <div class="tech"><span>Extension</span><span>DeepSeek</span><span>React</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">🎯</div>
+              <h3>用户反馈聚类</h3>
+              <p>接入评论和工单，AI 聚类分析生成需求优先级矩阵</p>
+              <div class="tech"><span>Python</span><span>Streamlit</span><span>Embedding</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOG -->
+      <div class="page" id="page-blog">
+        <div class="page-header">
+          <h1>Blog</h1>
+          <p>关于 AI 产品、Vibe Coding 和独立思考的记录</p>
+        </div>
+        <div class="filter-row">
+          <button class="filter-btn active">all</button>
+          <button class="filter-btn">ai pm</button>
+          <button class="filter-btn">vibe coding</button>
+          <button class="filter-btn">agent</button>
+          <button class="filter-btn">观点</button>
+        </div>
+        <div class="section" style="padding-top: 8px;">
+          <div class="article-list">
+            <div class="article-row" onclick="showPage('detail')">
+              <span class="article-date">Apr 08</span>
+              <span class="article-title">用 Claude Code 三天做了一个完整的 SaaS 产品</span>
+              <span class="article-tag tag-vibe">vibe coding</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Apr 02</span>
+              <span class="article-title">AI PM 的核心能力模型：不只是写 PRD</span>
+              <span class="article-tag tag-pm">ai pm</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 25</span>
+              <span class="article-title">为什么 Agent 产品的用户留存这么难做？</span>
+              <span class="article-tag tag-agent">agent</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 18</span>
+              <span class="article-title">Prompt Engineering 不是 AI PM 的核心竞争力</span>
+              <span class="article-tag tag-think">观点</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Mar 10</span>
+              <span class="article-title">一个周末，用 AI 从零搭建了这个个人网站</span>
+              <span class="article-tag tag-vibe">vibe coding</span>
+            </div>
+            <div class="article-row">
+              <span class="article-date">Feb 20</span>
+              <span class="article-title">我在大厂做 AI 产品的 300 天</span>
+              <span class="article-tag tag-pm">ai pm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ARTICLE DETAIL -->
+      <div class="page" id="page-detail">
+        <div class="detail">
+          <div class="back" onclick="showPage('blog')">← back to blog</div>
+          <h1>用 Claude Code 三天做了一个完整的 SaaS 产品</h1>
+          <div class="meta">
+            <span>2026-04-08</span>
+            <span>~2800 字</span>
+            <span>8 min read</span>
+          </div>
+          <div class="body">
+            <p>上周我用 Claude Code 做了一个实验：能不能在三天内，从一个想法变成一个可用的 SaaS 产品？结果超出预期。</p>
+            <h2>为什么做这个实验</h2>
+            <p>作为一个 AI PM，我一直在思考：<strong>当 AI 能帮你写代码时，PM 的价值到底在哪？</strong>不是 Prompt 写得好不好，而是你能不能把一个模糊的想法变成一个结构清晰、逻辑自洽的产品。</p>
+            <blockquote>Vibe Coding 不是让 AI 替你写代码，而是让你用产品思维和 AI 协作，把想法快速变成现实。</blockquote>
+            <h2>Day 1：需求定义与架构设计</h2>
+            <p>第一天没写一行代码。全部时间花在需求文档和信息架构上。我用 <code>CLAUDE.md</code> 把项目背景、技术约束、设计规范全部写清楚。</p>
+            <h2>Day 2：核心功能开发</h2>
+            <p>有了清晰的需求文档，Claude Code 的表现非常稳定。关键心得：指令越具体，输出质量越高。这和写 PRD 是一回事。</p>
+            <pre>// 不要这样：
+"帮我做一个用户管理系统"
+
+// 要这样：
+"参照 CLAUDE.md 中的用户模型定义，
+ 实现 /api/users 的 CRUD 接口，
+ 使用 Supabase Auth，
+ 错误处理参考 lib/errors.ts"</pre>
+            <h2>几个反直觉的发现</h2>
+            <p>1. <strong>写需求文档的时间不能省</strong>——花在需求上的时间会在开发阶段 10 倍返还。</p>
+            <p>2. <strong>PM 的价值不降反升</strong>——当开发成本趋近于零，决定做什么比怎么做更重要。</p>
+            <p>3. <strong>审美是新的技术壁垒</strong>——AI 能写代码但不能替你做审美判断。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="page" id="page-projects">
+        <div class="page-header">
+          <h1>Projects</h1>
+          <p>用 Vibe Coding 构建的实际产品和工具</p>
+        </div>
+        <div class="section" style="padding-top: 8px;">
+          <div class="project-grid">
+            <div class="project-card">
+              <div class="emoji">🤖</div>
+              <h3>AI 日报生成器</h3>
+              <p>自动抓取 AI 领域最新动态，生成每日摘要推送到飞书群。支持自定义关注领域和推送时间。</p>
+              <div class="tech"><span>Python</span><span>Claude API</span><span>飞书</span><span>Cron</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">📊</div>
+              <h3>竞品监控看板</h3>
+              <p>自动追踪竞品官网、App Store 更新日志，AI 提取关键变化生成对比报告。</p>
+              <div class="tech"><span>Next.js</span><span>Puppeteer</span><span>Vercel</span><span>Cron</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">✍️</div>
+              <h3>PRD 智能助手</h3>
+              <p>Chrome 插件，输入需求描述自动生成结构化 PRD，支持导出 Notion/飞书格式。</p>
+              <div class="tech"><span>Extension</span><span>DeepSeek</span><span>React</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">🎯</div>
+              <h3>用户反馈聚类工具</h3>
+              <p>接入 App Store 评论和客服工单，AI 自动聚类分析生成需求优先级矩阵。</p>
+              <div class="tech"><span>Python</span><span>Streamlit</span><span>Embedding</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">💬</div>
+              <h3>AI 分身对话</h3>
+              <p>就是你在右下角看到的那个——基于 DeepSeek API 的个人 AI 分身。</p>
+              <div class="tech"><span>Next.js</span><span>DeepSeek</span><span>SSE</span></div>
+            </div>
+            <div class="project-card">
+              <div class="emoji">🌐</div>
+              <h3>这个网站</h3>
+              <p>你正在看的个人网站，也是一个 Vibe Coding 项目。</p>
+              <div class="tech"><span>Next.js</span><span>Tailwind</span><span>MDX</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="page" id="page-about">
+        <div class="about">
+          <h1>About</h1>
+          <p>嗨，我是 Zoo。一个在 AI 时代重新定义自己的产品经理。</p>
+          <p>我相信最好的 AI 产品不是炫技，而是让人感觉不到 AI 的存在。我写文章记录思考，用 Vibe Coding 验证想法，在这里和你分享这一切。</p>
+
+          <h2>Experience</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="time">2024 — Present</div>
+              <div class="role">AI 产品经理</div>
+              <div class="desc">负责 AI 产品线，从 0 到 1 搭建 AI 能力平台</div>
+            </div>
+            <div class="timeline-item">
+              <div class="time">2022 — 2024</div>
+              <div class="role">高级产品经理</div>
+              <div class="desc">负责核心业务产品的规划与迭代</div>
+            </div>
+            <div class="timeline-item">
+              <div class="time">2020 — 2022</div>
+              <div class="role">产品经理</div>
+              <div class="desc">从 0 到 1 构建用户增长体系</div>
+            </div>
+          </div>
+
+          <h2>Vibe Coding</h2>
+          <p>我不是专业程序员，但我用 AI 辅助编码构建了不少实际可用的工具和产品。在 AI 时代，PM 最大的杠杆就是能把想法快速变成可运行的产品。</p>
+
+          <h2>Contact</h2>
+          <p>点右下角和我的 AI 分身聊天，或者：</p>
+          <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap;">
+            <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;">𝕏 Twitter</a>
+            <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;">📱 即刻</a>
+            <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;">💻 GitHub</a>
+            <a href="#" style="padding:8px 16px;border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;">✉ Email</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main-area -->
+</div><!-- /window-frame -->
+
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+  <div class="m-item active" data-page="home" onclick="showPage('home')"><span class="m-icon">🏠</span>home</div>
+  <div class="m-item" data-page="blog" onclick="showPage('blog')"><span class="m-icon">📝</span>blog</div>
+  <div class="m-item" data-page="projects" onclick="showPage('projects')"><span class="m-icon">🚀</span>projects</div>
+  <div class="m-item" data-page="about" onclick="showPage('about')"><span class="m-icon">👤</span>about</div>
+</div>
+
+<!-- Chat -->
+<div class="chat-trigger" onclick="toggleChat()"><span class="dot"></span> 和 Zoo 聊聊</div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-left">
+      <div class="chat-avatar">Z</div>
+      <div><div class="chat-head-name">Zoo 的 AI 分身</div><div class="chat-head-hint">powered by DeepSeek</div></div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-body" id="chatMessages">
+    <div class="msg bot">嘿！我是 Zoo 的 AI 分身 👋 了解他的经历、想法和风格，随便问~</div>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="说点什么..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button onclick="sendMsg()">发送</button>
+  </div>
+</div>
+
+<script>
+// Clock
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+updateClock(); setInterval(updateClock, 1000);
+
+// Navigation
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  // sidebar
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === id || (id === 'detail' && n.dataset.page === 'blog'));
+  });
+  // mobile
+  document.querySelectorAll('.m-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.page === id || (id === 'detail' && n.dataset.page === 'blog'));
+  });
+  document.querySelector('.content').scrollTop = 0;
+}
+
+// Chat
+function toggleChat() {
+  document.getElementById('chatPanel').classList.toggle('open');
+}
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  const c = document.getElementById('chatMessages');
+  const u = document.createElement('div');
+  u.className = 'msg user'; u.textContent = msg; c.appendChild(u);
+  input.value = '';
+  setTimeout(() => {
+    const b = document.createElement('div');
+    b.className = 'msg bot';
+    b.textContent = '嗯，这个问题挺好的。按 Zoo 的风格来说，他大概会先问："数据怎么说？"——他做产品一向数据驱动，不太拍脑袋。你还想聊什么？';
+    c.appendChild(b);
+    c.scrollTop = c.scrollHeight;
+  }, 500);
+  c.scrollTop = c.scrollHeight;
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    b.parentElement.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

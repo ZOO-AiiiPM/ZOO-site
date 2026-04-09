@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Redesign Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== Design Tokens ===== */
+:root {
+  --bg: #09090b;
+  --surface: #131316;
+  --surface2: #1a1a1f;
+  --border: #25252a;
+  --text: #ededef;
+  --text2: #8a8a94;
+  --text3: #55555f;
+  --green: #6ee7b7;
+  --purple: #a78bfa;
+  --gold: #fbbf24;
+  --pink: #f472b6;
+  --blue: #60a5fa;
+  --max: 800px;
+  --font-body: 'Inter', 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--green); color: var(--bg); }
+a { color: inherit; text-decoration: none; }
+
+/* ===== Page Switcher ===== */
+.page-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  display: flex;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+}
+.page-switch button {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.page-switch button.active {
+  background: var(--green);
+  color: var(--bg);
+}
+.page-switch button:hover:not(.active) {
+  color: var(--text);
+}
+
+/* ===== Layout ===== */
+.page { display: none; }
+.page.active { display: block; }
+.container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 60px 24px 120px;
+}
+
+/* ==========================================================
+   BLOG LIST PAGE
+   ========================================================== */
+
+.blog-head { margin-bottom: 36px; }
+.blog-head h1 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+.blog-head p {
+  font-size: 15px;
+  color: var(--text2);
+}
+
+/* Filters */
+.blog-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.blog-filter-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.blog-filter-btn:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.blog-filter-btn.active {
+  background: var(--green);
+  color: var(--bg);
+  border-color: var(--green);
+}
+
+/* Article Cards */
+.blog-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blog-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+.blog-card:hover {
+  border-color: color-mix(in srgb, var(--green) 40%, transparent);
+  background: var(--surface2);
+}
+.blog-card:hover .blog-card-title {
+  color: var(--green);
+}
+
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.blog-card-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+.blog-card-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text3);
+  flex-shrink: 0;
+}
+.blog-card-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Tag Colors */
+.tag-vibe { background: color-mix(in srgb, var(--green) 14%, transparent); color: var(--green); }
+.tag-pm { background: color-mix(in srgb, var(--purple) 14%, transparent); color: var(--purple); }
+.tag-agent { background: color-mix(in srgb, var(--pink) 14%, transparent); color: var(--pink); }
+.tag-think { background: color-mix(in srgb, var(--gold) 14%, transparent); color: var(--gold); }
+
+.blog-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  transition: color 0.15s;
+  margin-bottom: 6px;
+}
+
+.blog-card-excerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text3);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.blog-card-stat {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.blog-card-stat svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.5;
+}
+
+.blog-card-arrow {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  opacity: 0;
+  transition: all 0.2s;
+  font-size: 18px;
+}
+.blog-card:hover .blog-card-arrow {
+  opacity: 1;
+  color: var(--green);
+  right: 18px;
+}
+
+/* Featured card (first article) */
+.blog-card.featured {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--green) 5%, var(--surface)), color-mix(in srgb, var(--purple) 5%, var(--surface)));
+  border-color: color-mix(in srgb, var(--green) 20%, var(--border));
+}
+.blog-card.featured .blog-card-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+.blog-card.featured .blog-card-excerpt {
+  color: var(--text2);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .blog-card { padding: 16px 18px; }
+  .blog-card-title { font-size: 15px; }
+  .blog-card-arrow { display: none; }
+}
+
+
+/* ==========================================================
+   BLOG DETAIL PAGE
+   ========================================================== */
+
+.detail-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 48px 24px 120px;
+}
+
+/* Back link */
+.detail-back {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  transition: color 0.15s;
+}
+.detail-back:hover { color: var(--green); }
+.detail-back svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s;
+}
+.detail-back:hover svg { transform: translateX(-3px); }
+
+/* Header area */
+.detail-header {
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.detail-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.detail-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+.detail-read-time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+
+.detail-title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+/* Gradient underline decoration */
+.detail-title-line {
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, var(--green), var(--purple));
+  margin-bottom: 20px;
+}
+
+.detail-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.detail-meta-sep {
+  color: var(--border);
+}
+
+/* Article Body */
+.detail-body {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: var(--text2);
+}
+.detail-body p {
+  margin-bottom: 24px;
+}
+.detail-body h2 {
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  padding-left: 14px;
+  border-left: 3px solid var(--green);
+}
+.detail-body h2:first-child {
+  margin-top: 0;
+}
+.detail-body strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Blockquote */
+.detail-body blockquote {
+  position: relative;
+  border: none;
+  border-left: 3px solid var(--green);
+  padding: 20px 24px 20px 24px;
+  margin: 32px 0;
+  background: var(--surface);
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+  color: var(--text2);
+}
+.detail-body blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  font-size: 48px;
+  font-family: Georgia, serif;
+  color: var(--green);
+  opacity: 0.3;
+  line-height: 1;
+}
+.detail-body blockquote p {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Inline code */
+.detail-body code {
+  font-family: var(--font-mono);
+  background: var(--surface2);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--green);
+}
+
+/* Code block */
+.detail-body .code-block {
+  position: relative;
+  margin: 28px 0;
+}
+.detail-body .code-lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--surface2);
+  padding: 4px 12px;
+  border-radius: 0 10px 0 8px;
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.detail-body pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  padding-top: 36px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  color: var(--text2);
+  line-height: 1.7;
+}
+.detail-body pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+/* Syntax highlights in code */
+.detail-body pre .cm { color: var(--text3); font-style: italic; }
+.detail-body pre .str { color: var(--green); }
+.detail-body pre .kw { color: var(--purple); }
+
+/* Numbered insights */
+.detail-body .insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 28px 0;
+}
+.insight-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.insight-num {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+  opacity: 0.6;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+.insight-text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text2);
+}
+.insight-text strong {
+  color: var(--text);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Article footer / navigation */
+.detail-footer {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.detail-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.detail-nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.detail-nav-item:hover {
+  border-color: color-mix(in srgb, var(--green) 40%, transparent);
+  background: var(--surface2);
+}
+.detail-nav-item:hover .detail-nav-title {
+  color: var(--green);
+}
+.detail-nav-item.next { text-align: right; }
+.detail-nav-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.detail-nav-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.15s;
+  line-height: 1.5;
+}
+
+/* Tags at bottom */
+.detail-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.detail-bottom-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+  transition: all 0.15s;
+}
+.detail-bottom-tag:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+@media (max-width: 640px) {
+  .detail-title { font-size: 26px; }
+  .detail-nav { grid-template-columns: 1fr; }
+  .detail-nav-item.next { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- Page Switcher -->
+<div class="page-switch">
+  <button class="active" onclick="switchPage('list')">List</button>
+  <button onclick="switchPage('detail')">Detail</button>
+</div>
+
+<!-- ==================== BLOG LIST PAGE ==================== -->
+<div id="page-list" class="page active">
+  <div class="container">
+    <div class="blog-head">
+      <h1>文章</h1>
+      <p>关于 AI 产品、Vibe Coding 和独立思考</p>
+    </div>
+
+    <div class="blog-filters">
+      <button class="blog-filter-btn active">全部</button>
+      <button class="blog-filter-btn">AI PM</button>
+      <button class="blog-filter-btn">Vibe Coding</button>
+      <button class="blog-filter-btn">Agent</button>
+      <button class="blog-filter-btn">观点</button>
+    </div>
+
+    <div class="blog-cards">
+      <!-- Featured -->
+      <a class="blog-card featured" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Apr 08</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-vibe">vibe coding</span>
+        </div>
+        <div class="blog-card-title">用 Claude Code 三天做了一个完整的 SaaS 产品</div>
+        <div class="blog-card-excerpt">从想法到可用产品，一次 Vibe Coding 的完整实验。三天时间，不写一行样板代码，用产品思维和 AI 协作的全过程记录。</div>
+        <div class="blog-card-footer">
+          <span class="blog-card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5V8l2.5 1.5"/></svg>
+            8 min read
+          </span>
+          <span class="blog-card-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h10v10H3z"/><path d="M6 1v4M10 1v4"/></svg>
+            ~2800 字
+          </span>
+        </div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <!-- Normal cards -->
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Apr 02</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-pm">ai pm</span>
+        </div>
+        <div class="blog-card-title">AI PM 的核心能力模型：不只是写 PRD</div>
+        <div class="blog-card-excerpt">AI 产品经理需要的不只是传统 PM 技能的升级，而是一套全新的能力框架——从 prompt 到 pipeline 的系统理解力。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Mar 25</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-agent">agent</span>
+        </div>
+        <div class="blog-card-title">为什么 Agent 产品的用户留存这么难做？</div>
+        <div class="blog-card-excerpt">Agent 类产品面临独特的留存困境：用户期待"自主"，但信任需要逐步建立。拆解三个核心挑战和可能的解法。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Mar 18</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-think">观点</span>
+        </div>
+        <div class="blog-card-title">Prompt Engineering 不是 AI PM 的核心竞争力</div>
+        <div class="blog-card-excerpt">当每个人都能写 prompt 时，AI PM 的护城河在哪？答案可能在于对产品边界和用户心智的深度理解。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Mar 10</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-vibe">vibe coding</span>
+        </div>
+        <div class="blog-card-title">一个周末，用 AI 从零搭建了这个个人网站</div>
+        <div class="blog-card-excerpt">没有设计稿、没有前端经验、只有一个模糊的想法。记录用 AI 辅助建站的真实过程和踩坑经验。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Feb 20</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-pm">ai pm</span>
+        </div>
+        <div class="blog-card-title">我在大厂做 AI 产品的 300 天</div>
+        <div class="blog-card-excerpt">复盘在大厂做 AI 产品的经历：从兴奋到迷茫再到找到方向，关于 AI PM 这个新角色的真实体感。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Feb 05</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-think">观点</span>
+        </div>
+        <div class="blog-card-title">大模型产品的 PMF 在哪里？</div>
+        <div class="blog-card-excerpt">ChatGPT 之后，大模型产品的 PMF 依然模糊。从 B 端和 C 端两个视角分析可能的突破口。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+
+      <a class="blog-card" href="#">
+        <div class="blog-card-meta">
+          <span class="blog-card-date">Jan 20</span>
+          <span class="blog-card-dot"></span>
+          <span class="blog-card-tag tag-vibe">vibe coding</span>
+        </div>
+        <div class="blog-card-title">用 Streamlit + Embedding 做了个反馈分析工具</div>
+        <div class="blog-card-excerpt">用户反馈太多看不完？用 Embedding 聚类 + Streamlit 可视化，两天做了个内部工具，分享思路和代码。</div>
+        <span class="blog-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BLOG DETAIL PAGE ==================== -->
+<div id="page-detail" class="page">
+  <div class="detail-container">
+
+    <a class="detail-back" href="#">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+      返回文章
+    </a>
+
+    <div class="detail-header">
+      <div class="detail-tag-row">
+        <span class="detail-tag tag-vibe">vibe coding</span>
+        <span class="detail-read-time">8 min read</span>
+      </div>
+
+      <h1 class="detail-title">用 Claude Code 三天做了一个完整的 SaaS 产品</h1>
+
+      <div class="detail-title-line"></div>
+
+      <div class="detail-meta">
+        <span>2026-04-08</span>
+        <span class="detail-meta-sep">·</span>
+        <span>~2800 字</span>
+        <span class="detail-meta-sep">·</span>
+        <span>Zoo</span>
+      </div>
+    </div>
+
+    <div class="detail-body">
+      <p>上周我用 Claude Code 做了一个实验：能不能在三天内，从一个想法变成一个可用的 SaaS 产品？结果超出预期。</p>
+
+      <h2>为什么做这个实验</h2>
+      <p>作为一个 AI PM，我一直在思考：<strong>当 AI 能帮你写代码时，PM 的价值到底在哪？</strong>不是 Prompt 写得好不好，而是你能不能把模糊的想法变成结构清晰、逻辑自洽的产品。</p>
+
+      <blockquote>
+        <p>Vibe Coding 不是让 AI 替你写代码，而是让你用产品思维和 AI 协作，把想法快速变成现实。</p>
+      </blockquote>
+
+      <h2>Day 1：需求定义与架构设计</h2>
+      <p>第一天没写一行代码。全部时间花在需求文档和信息架构上。我用 <code>CLAUDE.md</code> 把项目背景、技术约束、设计规范全部写清楚，这份文档后来成了整个项目的「宪法」。</p>
+
+      <h2>Day 2：核心功能开发</h2>
+      <p>有了清晰的需求文档，Claude Code 表现非常稳定。关键心得：</p>
+
+      <div class="code-block">
+        <span class="code-lang">prompt</span>
+        <pre><code><span class="cm">// 不要这样：</span>
+<span class="str">"帮我做一个用户管理系统"</span>
+
+<span class="cm">// 要这样：</span>
+<span class="str">"参照 CLAUDE.md 中的用户模型，
+ 实现 /api/users CRUD，
+ 用 Supabase Auth，
+ 错误处理参考 lib/errors.ts"</span></code></pre>
+      </div>
+
+      <p>指令越具体，输出质量越高。这和写 PRD 是一回事——模糊的需求只会得到模糊的交付。</p>
+
+      <h2>几个反直觉的发现</h2>
+
+      <div class="insight-list">
+        <div class="insight-item">
+          <span class="insight-num">01</span>
+          <div class="insight-text">
+            <strong>写需求文档的时间不能省</strong>
+            花在需求上的时间会在开发阶段 10 倍返还。CLAUDE.md 越清晰，AI 输出越稳定。
+          </div>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num">02</span>
+          <div class="insight-text">
+            <strong>PM 的价值不降反升</strong>
+            当开发成本趋近于零，决定做什么比怎么做更重要。产品判断力才是核心。
+          </div>
+        </div>
+        <div class="insight-item">
+          <span class="insight-num">03</span>
+          <div class="insight-text">
+            <strong>审美是新的技术壁垒</strong>
+            AI 能写代码但不能替你做审美判断。好的设计品味变成了稀缺能力。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article Footer -->
+    <div class="detail-footer">
+      <div class="detail-nav">
+        <a class="detail-nav-item prev" href="#">
+          <span class="detail-nav-label">← prev</span>
+          <span class="detail-nav-title">一个周末，用 AI 从零搭建了这个个人网站</span>
+        </a>
+        <a class="detail-nav-item next" href="#">
+          <span class="detail-nav-label">next →</span>
+          <span class="detail-nav-title">AI PM 的核心能力模型：不只是写 PRD</span>
+        </a>
+      </div>
+
+      <div class="detail-tags">
+        <a class="detail-bottom-tag" href="#">#vibe-coding</a>
+        <a class="detail-bottom-tag" href="#">#claude-code</a>
+        <a class="detail-bottom-tag" href="#">#saas</a>
+        <a class="detail-bottom-tag" href="#">#ai-pm</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function switchPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page-switch button').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelector('.page-switch button[onclick*="' + page + '"]').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// Filter interaction
+document.querySelectorAll('.blog-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.blog-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

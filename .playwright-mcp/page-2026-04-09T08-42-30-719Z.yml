@@ -1,0 +1,90 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e6]:
+      - link "home" [ref=e7] [cursor=pointer]:
+        - /url: "#"
+      - link "blog" [ref=e8] [cursor=pointer]:
+        - /url: "#"
+      - link "projects" [ref=e9] [cursor=pointer]:
+        - /url: "#"
+      - link "about" [ref=e10] [cursor=pointer]:
+        - /url: "#"
+      - link "ask zoo" [ref=e11] [cursor=pointer]:
+        - /url: "#"
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - heading "AI PM & Vibe Coder 👋" [level=1] [ref=e18]
+      - paragraph [ref=e19]: 用产品思维理解 AI，用 AI 构建产品。我写关于 AI 产品的思考，也用 AI 亲手造工具。
+      - generic [ref=e20]:
+        - generic [ref=e21]: AI 产品
+        - generic [ref=e22]: Vibe Coding
+        - generic [ref=e23]: Agent
+        - generic [ref=e24]: 独立开发
+        - generic [ref=e25]: 产品方法论
+    - generic [ref=e26]:
+      - generic [ref=e27]:
+        - heading "Writing" [level=2] [ref=e28]
+        - link "View all →" [ref=e29] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e30]:
+        - generic [ref=e31] [cursor=pointer]:
+          - generic [ref=e32]: Apr 08
+          - generic [ref=e33]: 用 Claude Code 三天做了一个完整的 SaaS 产品
+          - generic [ref=e34]: vibe coding
+        - generic [ref=e35] [cursor=pointer]:
+          - generic [ref=e36]: Apr 02
+          - generic [ref=e37]: AI PM 的核心能力模型：不只是写 PRD
+          - generic [ref=e38]: ai pm
+        - generic [ref=e39] [cursor=pointer]:
+          - generic [ref=e40]: Mar 25
+          - generic [ref=e41]: 为什么 Agent 产品的用户留存这么难做？
+          - generic [ref=e42]: agent
+        - generic [ref=e43] [cursor=pointer]:
+          - generic [ref=e44]: Mar 18
+          - generic [ref=e45]: Prompt Engineering 不是 AI PM 的核心竞争力
+          - generic [ref=e46]: 观点
+        - generic [ref=e47] [cursor=pointer]:
+          - generic [ref=e48]: Mar 10
+          - generic [ref=e49]: 一个周末，用 AI 从零搭建了这个个人网站
+          - generic [ref=e50]: vibe coding
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - heading "Projects" [level=2] [ref=e53]
+        - link "View all →" [ref=e54] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e55]:
+        - generic [ref=e56] [cursor=pointer]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: 🤖
+            - heading "AI 日报生成器" [level=3] [ref=e59]
+          - paragraph [ref=e60]: 自动抓取 AI 领域动态，生成每日摘要推送到飞书群
+          - generic [ref=e61]:
+            - generic [ref=e62]: Python
+            - generic [ref=e63]: Claude API
+            - generic [ref=e64]: 飞书
+        - generic [ref=e65] [cursor=pointer]:
+          - generic [ref=e66]:
+            - generic [ref=e67]: 📊
+            - heading "竞品监控看板" [level=3] [ref=e68]
+          - paragraph [ref=e69]: 追踪竞品更新日志，AI 提取关键变化生成对比报告
+          - generic [ref=e70]:
+            - generic [ref=e71]: Next.js
+            - generic [ref=e72]: Puppeteer
+            - generic [ref=e73]: Vercel
+        - generic [ref=e74] [cursor=pointer]:
+          - generic [ref=e75]:
+            - generic [ref=e76]: ✍️
+            - heading "PRD 智能助手" [level=3] [ref=e77]
+          - paragraph [ref=e78]: Chrome 插件，输入需求自动生成结构化 PRD 文档
+          - generic [ref=e79]:
+            - generic [ref=e80]: Extension
+            - generic [ref=e81]: DeepSeek
+        - generic [ref=e82] [cursor=pointer]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: 🎯
+            - heading "用户反馈聚类" [level=3] [ref=e85]
+          - paragraph [ref=e86]: 接入评论和工单，AI 聚类分析生成需求优先级矩阵
+          - generic [ref=e87]:
+            - generic [ref=e88]: Python
+            - generic [ref=e89]: Streamlit
+    - generic [ref=e90]: © 2026 Zoo · Built with Vibe Coding & Claude Code

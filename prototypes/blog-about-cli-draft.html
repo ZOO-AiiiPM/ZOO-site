@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog & About — CLI Style Draft</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #09090b; --surface: #131316; --surface2: #1a1a1f;
+    --border: #25252a;
+    --text: #ededef; --text2: #8a8a94; --text3: #55555f;
+    --green: #6ee7b7; --purple: #a78bfa; --gold: #fbbf24; --pink: #f472b6; --blue: #60a5fa;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+  ::selection { background: var(--green); color: var(--bg); }
+
+  /* Nav for switching */
+  .demo-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; gap: 0; background: var(--surface); border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-size: 13px;
+  }
+  .demo-nav button {
+    flex: 1; padding: 14px; background: none; border: none; color: var(--text3);
+    cursor: pointer; font-family: var(--mono); font-size: 13px; transition: all 0.2s;
+  }
+  .demo-nav button.active { color: var(--green); background: var(--bg); border-bottom: 2px solid var(--green); }
+  .demo-nav button:hover { color: var(--text2); }
+
+  .page { display: none; max-width: 800px; margin: 0 auto; padding: 80px 24px 60px; }
+  .page.active { display: block; }
+
+  /* ============================================ */
+  /* BLOG PAGE — CLI Style                        */
+  /* ============================================ */
+
+  /* Header */
+  .blog-head { margin-bottom: 36px; font-family: var(--mono); }
+  .blog-title-line { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .blog-arrow { color: var(--green); font-size: 28px; font-weight: 700; }
+  .blog-pixel-title {
+    font-size: 32px; font-weight: 800; font-family: var(--mono);
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+  .blog-cursor {
+    width: 14px; height: 32px; background: var(--green); border-radius: 1px;
+    animation: blink 1s step-end infinite; flex-shrink: 0;
+  }
+  @keyframes blink { 0%,100% { opacity: 0.9; } 50% { opacity: 0; } }
+
+  .blog-comment { font-family: var(--mono); font-size: 13px; color: var(--text3); padding-left: 42px; margin-bottom: 14px; }
+  .blog-stats {
+    font-family: var(--mono); font-size: 12px; color: var(--text3);
+    display: flex; gap: 8px; align-items: center; padding-left: 42px;
+    padding-top: 12px; border-top: 1px dashed var(--border);
+  }
+  .blog-stats .sep { color: var(--border); }
+
+  /* Filters as CLI flags */
+  .blog-filters { display: flex; gap: 6px; margin-bottom: 24px; flex-wrap: wrap; font-family: var(--mono); }
+  .blog-flag {
+    font-family: var(--mono); font-size: 12px; padding: 5px 12px; border-radius: 4px;
+    border: 1px solid var(--border); background: transparent; color: var(--text3);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .blog-flag::before { content: '--'; color: var(--text3); opacity: 0.5; }
+  .blog-flag:hover { border-color: var(--green); color: var(--green); }
+  .blog-flag:hover::before { color: var(--green); opacity: 0.7; }
+  .blog-flag.on {
+    background: rgba(110, 231, 183, 0.1); color: var(--green);
+    border-color: rgba(110, 231, 183, 0.3);
+  }
+  .blog-flag.on::before { color: var(--green); opacity: 0.7; }
+
+  /* Article list — log style */
+  .blog-list { display: flex; flex-direction: column; }
+
+  .blog-row {
+    display: grid; grid-template-columns: 32px 72px 1fr auto; align-items: center; gap: 16px;
+    padding: 13px 12px; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--text); cursor: pointer; transition: background 0.2s;
+  }
+  .blog-row:last-child { border-bottom: none; }
+  .blog-row:hover { background: var(--surface); }
+
+  .blog-row-num {
+    font-family: var(--mono); font-size: 11px; color: var(--text3); opacity: 0.35;
+    text-align: right;
+  }
+  .blog-row:hover .blog-row-num { opacity: 0.6; color: var(--green); }
+
+  .blog-row-date {
+    font-family: var(--mono); font-size: 12px; color: var(--text3);
+    white-space: nowrap; transition: color 0.2s;
+  }
+  .blog-row:hover .blog-row-date { color: var(--text2); }
+
+  .blog-row-title {
+    font-size: 15px; font-weight: 500; color: var(--text); transition: color 0.2s; line-height: 1.5;
+  }
+  .blog-row:hover .blog-row-title { color: var(--green); }
+
+  .blog-row-tag {
+    font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 4px;
+    white-space: nowrap; transition: all 0.2s;
+    /* Default: all gray */
+    background: rgba(85, 85, 95, 0.15); color: var(--text3);
+  }
+  /* hover reveals color */
+  .blog-row:hover .tag-vibe { background: rgba(110,231,183,.12); color: var(--green); }
+  .blog-row:hover .tag-pm { background: rgba(167,139,250,.12); color: var(--purple); }
+  .blog-row:hover .tag-agent { background: rgba(244,114,182,.12); color: var(--pink); }
+  .blog-row:hover .tag-think { background: rgba(251,191,36,.12); color: var(--gold); }
+
+
+  /* ============================================ */
+  /* ABOUT PAGE — CLI Style                       */
+  /* ============================================ */
+
+  .about-head { margin-bottom: 36px; font-family: var(--mono); }
+  .about-title-line { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .about-arrow { color: var(--green); font-size: 28px; font-weight: 700; }
+  .about-pixel-title {
+    font-size: 32px; font-weight: 800; font-family: var(--mono);
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+  .about-cursor {
+    width: 14px; height: 32px; background: var(--purple); border-radius: 1px;
+    animation: blink 1s step-end infinite; flex-shrink: 0;
+  }
+  .about-comment { font-family: var(--mono); font-size: 13px; color: var(--text3); padding-left: 42px; }
+
+  /* Intro */
+  .about-intro { margin-top: 32px; }
+  .about-intro p { font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 12px; }
+  .about-intro strong { color: var(--text); }
+
+  /* Section headers — comment style */
+  .about-section {
+    font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--green); margin: 44px 0 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .about-section::before { content: '//'; color: var(--text3); opacity: 0.5; }
+  .about-section::after {
+    content: ''; flex: 1; height: 1px; background: var(--border); margin-left: 8px;
+  }
+
+  /* Git log timeline */
+  .git-log { display: flex; flex-direction: column; gap: 0; }
+  .git-commit {
+    padding: 16px 18px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; margin-bottom: 10px; font-family: var(--mono); font-size: 13px;
+    transition: border-color 0.25s;
+  }
+  .git-commit:hover { border-color: var(--green); }
+
+  .git-hash { color: var(--gold); font-size: 12px; opacity: 0.7; }
+  .git-date { color: var(--text3); font-size: 12px; margin: 4px 0; }
+  .git-author { color: var(--text3); font-size: 12px; }
+  .git-author span { color: var(--green); }
+  .git-msg {
+    margin-top: 10px; padding-left: 16px; border-left: 2px solid var(--border);
+    font-family: var(--sans);
+  }
+  .git-role { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .git-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* Skills — package list */
+  .pkg-list {
+    font-family: var(--mono); font-size: 12px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px;
+  }
+  .pkg-header {
+    display: grid; grid-template-columns: 1fr 100px 80px; gap: 8px;
+    color: var(--text3); padding-bottom: 8px; margin-bottom: 8px;
+    border-bottom: 1px dashed var(--border); font-size: 11px; text-transform: uppercase;
+  }
+  .pkg-row {
+    display: grid; grid-template-columns: 1fr 100px 80px; gap: 8px;
+    padding: 4px 0; color: var(--text2); transition: color 0.2s;
+  }
+  .pkg-row:hover { color: var(--text); }
+  .pkg-row:hover .pkg-name { color: var(--green); }
+  .pkg-name { color: var(--text); transition: color 0.2s; }
+  .pkg-ver { color: var(--text3); }
+  .pkg-level { font-size: 11px; }
+  .pkg-level .bar { display: inline-block; height: 3px; border-radius: 1px; vertical-align: middle; margin-right: 4px; }
+
+  /* Contact — command style */
+  .cmd-contacts { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); }
+  .cmd-link {
+    display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    text-decoration: none; color: var(--text2); font-size: 13px; transition: all 0.2s;
+  }
+  .cmd-link:hover { border-color: var(--green); color: var(--green); background: var(--surface2); }
+  .cmd-prompt { color: var(--text3); opacity: 0.5; }
+  .cmd-name { color: var(--green); opacity: 0; transition: opacity 0.2s; }
+  .cmd-link:hover .cmd-name { opacity: 1; }
+  .cmd-link:hover .cmd-prompt { color: var(--green); opacity: 0.7; }
+
+  /* Vibe coding section */
+  .about-vibe-text { font-size: 15px; color: var(--text2); line-height: 1.8; }
+  .about-vibe-text strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="demo-nav">
+  <button class="active" onclick="show('blog')">Blog Page</button>
+  <button onclick="show('about')">About Page</button>
+</div>
+
+<!-- ============================================ -->
+<!-- BLOG PAGE                                     -->
+<!-- ============================================ -->
+<div class="page active" id="blog">
+  <div class="blog-head">
+    <div class="blog-title-line">
+      <span class="blog-arrow">❯</span>
+      <span class="blog-pixel-title">BLOG</span>
+      <span class="blog-cursor"></span>
+    </div>
+    <div class="blog-comment">// 关于 AI 产品、Vibe Coding 和独立思考</div>
+    <div class="blog-stats">
+      <span>8 posts</span>
+      <span class="sep">│</span>
+      <span>4 categories</span>
+      <span class="sep">│</span>
+      <span>2025</span>
+    </div>
+  </div>
+
+  <div class="blog-filters">
+    <button class="blog-flag on" onclick="filterBlog(this)">all</button>
+    <button class="blog-flag" onclick="filterBlog(this)">ai-pm</button>
+    <button class="blog-flag" onclick="filterBlog(this)">vibe</button>
+    <button class="blog-flag" onclick="filterBlog(this)">agent</button>
+    <button class="blog-flag" onclick="filterBlog(this)">think</button>
+  </div>
+
+  <div class="blog-list">
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">01</span>
+      <span class="blog-row-date">Apr 08</span>
+      <span class="blog-row-title">用 Claude Code 三天做了一个完整的 SaaS 产品</span>
+      <span class="blog-row-tag tag-vibe">vibe coding</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">02</span>
+      <span class="blog-row-date">Apr 02</span>
+      <span class="blog-row-title">AI PM 的核心能力模型：不只是写 PRD</span>
+      <span class="blog-row-tag tag-pm">ai pm</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">03</span>
+      <span class="blog-row-date">Mar 25</span>
+      <span class="blog-row-title">为什么 Agent 产品的用户留存这么难做？</span>
+      <span class="blog-row-tag tag-agent">agent</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">04</span>
+      <span class="blog-row-date">Mar 18</span>
+      <span class="blog-row-title">Prompt Engineering 不是 AI PM 的核心竞争力</span>
+      <span class="blog-row-tag tag-think">观点</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">05</span>
+      <span class="blog-row-date">Mar 10</span>
+      <span class="blog-row-title">一个周末，用 AI 从零搭建了这个个人网站</span>
+      <span class="blog-row-tag tag-vibe">vibe coding</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">06</span>
+      <span class="blog-row-date">Feb 20</span>
+      <span class="blog-row-title">我在大厂做 AI 产品的 300 天</span>
+      <span class="blog-row-tag tag-pm">ai pm</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">07</span>
+      <span class="blog-row-date">Feb 05</span>
+      <span class="blog-row-title">大模型产品的 PMF 在哪里？</span>
+      <span class="blog-row-tag tag-think">观点</span>
+    </a>
+    <a class="blog-row" href="#">
+      <span class="blog-row-num">08</span>
+      <span class="blog-row-date">Jan 20</span>
+      <span class="blog-row-title">用 Streamlit + Embedding 做了个反馈分析工具</span>
+      <span class="blog-row-tag tag-vibe">vibe coding</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- ABOUT PAGE                                    -->
+<!-- ============================================ -->
+<div class="page" id="about">
+  <div class="about-head">
+    <div class="about-title-line">
+      <span class="about-arrow">❯</span>
+      <span class="about-pixel-title">ABOUT</span>
+      <span class="about-cursor"></span>
+    </div>
+    <div class="about-comment">// AI PM & Vibe Coder</div>
+  </div>
+
+  <div class="about-intro">
+    <p>嗨，我是 Zoo。一个在 AI 时代重新定义自己的产品经理。</p>
+    <p>我相信最好的 AI 产品不是炫技，而是<strong>让人感觉不到 AI 的存在</strong>。当技术消隐于体验之中，用户才能真正感受到产品的价值。</p>
+  </div>
+
+  <div class="about-section">Experience</div>
+
+  <div class="git-log">
+    <div class="git-commit">
+      <div class="git-hash">commit a3f7c2d</div>
+      <div class="git-date">Date: 2024 - Present</div>
+      <div class="git-author">Author: <span>Zoo</span></div>
+      <div class="git-msg">
+        <div class="git-role">AI 产品经理</div>
+        <div class="git-desc">负责 AI 产品线，从 0 到 1 搭建 AI 能力平台，推动 AI 在核心业务的落地。</div>
+      </div>
+    </div>
+    <div class="git-commit">
+      <div class="git-hash">commit 8b1e4f9</div>
+      <div class="git-date">Date: 2022 - 2024</div>
+      <div class="git-author">Author: <span>Zoo</span></div>
+      <div class="git-msg">
+        <div class="git-role">高级产品经理</div>
+        <div class="git-desc">负责核心业务产品的规划与迭代，主导多个千万级用户产品的功能设计。</div>
+      </div>
+    </div>
+    <div class="git-commit">
+      <div class="git-hash">commit 2d6a8c1</div>
+      <div class="git-date">Date: 2020 - 2022</div>
+      <div class="git-author">Author: <span>Zoo</span></div>
+      <div class="git-msg">
+        <div class="git-role">产品经理</div>
+        <div class="git-desc">从 0 到 1 构建用户增长体系，负责拉新、留存和转化链路的产品设计。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-section">Skills</div>
+
+  <div class="pkg-list">
+    <div class="pkg-header">
+      <span>Package</span>
+      <span>Category</span>
+      <span>Level</span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">product-design</span>
+      <span class="pkg-ver">AI PM</span>
+      <span class="pkg-level"><span class="bar" style="width:48px;background:var(--green)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">user-research</span>
+      <span class="pkg-ver">PM</span>
+      <span class="pkg-level"><span class="bar" style="width:44px;background:var(--green)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">data-analysis</span>
+      <span class="pkg-ver">PM</span>
+      <span class="pkg-level"><span class="bar" style="width:40px;background:var(--green)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">prompt-engineering</span>
+      <span class="pkg-ver">AI</span>
+      <span class="pkg-level"><span class="bar" style="width:44px;background:var(--purple)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">claude-code</span>
+      <span class="pkg-ver">Vibe</span>
+      <span class="pkg-level"><span class="bar" style="width:46px;background:var(--purple)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">next.js</span>
+      <span class="pkg-ver">Vibe</span>
+      <span class="pkg-level"><span class="bar" style="width:32px;background:var(--purple)"></span></span>
+    </div>
+    <div class="pkg-row">
+      <span class="pkg-name">python</span>
+      <span class="pkg-ver">Vibe</span>
+      <span class="pkg-level"><span class="bar" style="width:28px;background:var(--purple)"></span></span>
+    </div>
+  </div>
+
+  <div class="about-section">Vibe Coding</div>
+
+  <p class="about-vibe-text">
+    我用 AI 工具写代码——不是为了成为工程师，而是为了<strong>把想法直接变成可以运行的产品</strong>。这个网站就是用 Claude Code 多 Agent 协作构建的。Vibe Coding 让产品经理第一次拥有了自己动手的能力。
+  </p>
+
+  <div class="about-section">Contact</div>
+
+  <div class="cmd-contacts">
+    <a class="cmd-link" href="#">
+      <span class="cmd-prompt">$</span>
+      <span>open twitter.com/zoo</span>
+      <span class="cmd-name" style="margin-left:auto">→ 𝕏 Twitter</span>
+    </a>
+    <a class="cmd-link" href="#">
+      <span class="cmd-prompt">$</span>
+      <span>open okjike.com/u/zoo</span>
+      <span class="cmd-name" style="margin-left:auto">→ 即刻</span>
+    </a>
+    <a class="cmd-link" href="#">
+      <span class="cmd-prompt">$</span>
+      <span>open github.com/zoo</span>
+      <span class="cmd-name" style="margin-left:auto">→ GitHub</span>
+    </a>
+    <a class="cmd-link" href="#">
+      <span class="cmd-prompt">$</span>
+      <span>mailto zoo@example.com</span>
+      <span class="cmd-name" style="margin-left:auto">→ Email</span>
+    </a>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.demo-nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+function filterBlog(el) {
+  document.querySelectorAll('.blog-flag').forEach(b => b.classList.remove('on'));
+  el.classList.add('on');
+}
+</script>
+</body>
+</html>
