@@ -2,87 +2,24 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { PixelTitle } from "../projects/PixelTitle";
+import { ARTICLES } from "./data";
+import { CliLine, Typewriter, StaggerReveal } from "../../components/CliAnimations";
 import "./blog.css";
 
 type Category = "全部" | "AI PM" | "Vibe Coding" | "Agent" | "观点";
 
-interface Article {
-  date: string;
-  title: string;
-  tag: string;
-  tagClass: string;
-  slug: string;
-  category: Exclude<Category, "全部">;
-}
-
-const ARTICLES: Article[] = [
-  {
-    date: "Apr 08",
-    title: "用 Claude Code 三天做了一个完整的 SaaS 产品",
-    tag: "vibe coding",
-    tagClass: "tag-vibe",
-    slug: "claude-code-saas-3-days",
-    category: "Vibe Coding",
-  },
-  {
-    date: "Apr 02",
-    title: "AI PM 的核心能力模型：不只是写 PRD",
-    tag: "ai pm",
-    tagClass: "tag-pm",
-    slug: "ai-pm-core-skills",
-    category: "AI PM",
-  },
-  {
-    date: "Mar 25",
-    title: "为什么 Agent 产品的用户留存这么难做？",
-    tag: "agent",
-    tagClass: "tag-agent",
-    slug: "agent-product-retention",
-    category: "Agent",
-  },
-  {
-    date: "Mar 18",
-    title: "Prompt Engineering 不是 AI PM 的核心竞争力",
-    tag: "观点",
-    tagClass: "tag-think",
-    slug: "prompt-engineering-not-core",
-    category: "观点",
-  },
-  {
-    date: "Mar 10",
-    title: "一个周末，用 AI 从零搭建了这个个人网站",
-    tag: "vibe coding",
-    tagClass: "tag-vibe",
-    slug: "ai-build-personal-site",
-    category: "Vibe Coding",
-  },
-  {
-    date: "Feb 20",
-    title: "我在大厂做 AI 产品的 300 天",
-    tag: "ai pm",
-    tagClass: "tag-pm",
-    slug: "ai-product-300-days",
-    category: "AI PM",
-  },
-  {
-    date: "Feb 05",
-    title: "大模型产品的 PMF 在哪里？",
-    tag: "观点",
-    tagClass: "tag-think",
-    slug: "llm-product-pmf",
-    category: "观点",
-  },
-  {
-    date: "Jan 20",
-    title: "用 Streamlit + Embedding 做了个反馈分析工具",
-    tag: "vibe coding",
-    tagClass: "tag-vibe",
-    slug: "streamlit-embedding-feedback",
-    category: "Vibe Coding",
-  },
+const FILTERS: { key: Category; path: string }[] = [
+  { key: "全部", path: "*" },
+  { key: "AI PM", path: "ai-pm" },
+  { key: "Vibe Coding", path: "vibe" },
+  { key: "Agent", path: "agent" },
+  { key: "观点", path: "think" },
 ];
 
-const FILTERS: Category[] = ["全部", "AI PM", "Vibe Coding", "Agent", "观点"];
+function countByCategory(cat: string) {
+  return ARTICLES.filter((a) => a.category === cat).length;
+}
 
 export default function BlogPage() {
   const [active, setActive] = useState<Category>("全部");
@@ -93,39 +30,65 @@ export default function BlogPage() {
       : ARTICLES.filter((a) => a.category === active);
 
   return (
-    <div className="page-container">
+    <div className="blog-page-container">
+      {/* Header — title static, comment typewriter */}
       <div className="blog-head">
-        <h1>文章</h1>
-        <p>关于 AI 产品、Vibe Coding 和独立思考</p>
+        <div className="blog-title-line">
+          <span className="blog-arrow-lg">›</span>
+          <PixelTitle text="BLOG" />
+        </div>
+        <div className="blog-sub">
+          <span className="blog-comment">{"// "}<Typewriter text="关于 AI 产品、Vibe Coding 和独立思考" /></span>
+        </div>
+        <div className="blog-stats">
+          <span>total {ARTICLES.length}</span>
+          <span className="blog-sep">│</span>
+          <span className="blog-stat-vibe">● {countByCategory("Vibe Coding")} vibe coding</span>
+          <span className="blog-sep">│</span>
+          <span className="blog-stat-pm">● {countByCategory("AI PM")} ai pm</span>
+          <span className="blog-sep">│</span>
+          <span className="blog-stat-agent">● {countByCategory("Agent")} agent</span>
+          <span className="blog-sep">│</span>
+          <span className="blog-stat-think">● {countByCategory("观点")} 观点</span>
+        </div>
       </div>
 
-      <div className="blog-filters">
-        {FILTERS.map((f) => (
-          <button
-            key={f}
-            className={`blog-filter-btn${active === f ? " active" : ""}`}
-            onClick={() => setActive(f)}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
+      {/* Filters — slide in */}
+      <CliLine delay={80}>
+        <div className="blog-filters">
+          {FILTERS.map((f) => (
+            <button
+              key={f.key}
+              className={`blog-filter-tab${active === f.key ? " active" : ""}`}
+              onClick={() => setActive(f.key)}
+            >
+              <svg className="blog-filter-chevron" viewBox="0 0 16 16" fill="currentColor"><path d="M6 4l4 4-4 4"/></svg>
+              <svg className="blog-filter-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M2 3.5h4.5l1.5 2H14v8H2z"/></svg>
+              <span className="blog-filter-name">~/{f.path}</span>
+            </button>
+          ))}
+        </div>
+      </CliLine>
 
-      <div className="blog-list">
-        {filtered.map((article) => (
-          <Link
-            key={article.slug}
-            href={`/blog/${article.slug}`}
-            className="blog-row"
-          >
-            <span className="blog-row-date">{article.date}</span>
-            <span className="blog-row-title">{article.title}</span>
-            <span className={`blog-row-tag ${article.tagClass}`}>
-              {article.tag}
-            </span>
-          </Link>
-        ))}
-      </div>
+      {/* Article rows — stagger reveal, re-animates on filter change */}
+      <StaggerReveal key={active} selector=".blog-row" interval={60}>
+        <div className="blog-list">
+          {filtered.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/blog/${article.slug}`}
+              className="blog-row cli-stagger-item"
+            >
+              <svg className="blog-row-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M3 1.5h6.5L13 5v9.5H3z"/><path d="M9.5 1.5V5H13"/></svg>
+              <span className="blog-row-date">{article.date}</span>
+              <span className="blog-row-title">{article.title}</span>
+              <span className={`blog-row-tag ${article.tagClass} cli-inner-stagger`}>
+                {article.tag}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </StaggerReveal>
     </div>
   );
 }

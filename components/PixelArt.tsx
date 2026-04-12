@@ -32,10 +32,12 @@ const O_LETTER = [".11111.", "1.....1", "1.....1", "1.....1", "1.....1", "1.....
 const Z_SMALL = ["11111", "....1", "...1.", "..1..", ".1...", "1....", "11111"];
 const O_SMALL = [".111.", "1...1", "1...1", "1...1", "1...1", "1...1", ".111."];
 
-function drawPixelData(ctx: CanvasRenderingContext2D, data: string[], colors: Record<string, string>, fallback: string) {
+function drawPixelData(ctx: CanvasRenderingContext2D, data: string[], colors: Record<string, string>) {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   data.forEach((row, y) => {
     [...row].forEach((ch, x) => {
-      ctx.fillStyle = colors[ch] || fallback;
+      if (ch === "_") return; // transparent
+      ctx.fillStyle = colors[ch] || "#09090b";
       ctx.fillRect(x, y, 1, 1);
     });
   });
@@ -89,7 +91,7 @@ export function PixelAvatar({ size = 80 }: { size?: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
   const draw = useCallback(() => {
     const ctx = ref.current?.getContext("2d");
-    if (ctx) drawPixelData(ctx, AVATAR_PIXELS, AVATAR_COLORS, "#09090b");
+    if (ctx) drawPixelData(ctx, AVATAR_PIXELS, AVATAR_COLORS);
   }, []);
 
   useEffect(() => { draw(); }, [draw]);
@@ -99,7 +101,7 @@ export function PixelAvatar({ size = 80 }: { size?: number }) {
       ref={ref}
       width={16}
       height={16}
-      style={{ imageRendering: "pixelated", width: size, height: size, borderRadius: Math.max(4, size * 0.15), background: "#1a1a1f" }}
+      style={{ imageRendering: "pixelated", width: size, height: size, borderRadius: Math.max(4, size * 0.15) }}
     />
   );
 }
@@ -152,7 +154,7 @@ export function PixelMiniAvatar() {
 
   useEffect(() => {
     const ctx = ref.current?.getContext("2d");
-    if (ctx) drawPixelData(ctx, AVATAR_PIXELS, { ...AVATAR_COLORS, _: "#131316" }, "#131316");
+    if (ctx) drawPixelData(ctx, AVATAR_PIXELS, AVATAR_COLORS);
   }, []);
 
   return (

@@ -30,13 +30,14 @@
   /* Welcome */
   .welcome { padding: 48px 24px; flex-shrink: 0; }
   .welcome.hidden { display: none; }
-  .welcome .logo-area { display: flex; align-items: center; gap: 20px; margin-bottom: 16px; }
-  .welcome .pixel-avatar { image-rendering: pixelated; width: 66px; height: 66px; border-radius: 10px; flex-shrink: 0; }
-  .ascii-art { font-size: 11px; line-height: 1.2; white-space: pre; background: linear-gradient(to right, var(--green), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
-  .welcome .info-line { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .welcome .logo-area { display: flex; align-items: center; gap: 28px; margin-bottom: 40px; justify-content: center; }
+  .welcome .pixel-avatar { image-rendering: pixelated; width: 100px; height: 100px; border-radius: 14px; flex-shrink: 0; }
+  .ascii-art { font-size: 16px; line-height: 1.2; white-space: pre; background: linear-gradient(to right, var(--green), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; flex-shrink: 0; }
+  .welcome .info-line { display: flex; align-items: center; gap: 12px; justify-content: center; margin-bottom: 4px; }
   .welcome .info-name { font-size: 15px; font-weight: 700; color: var(--text); }
   .welcome .info-label { font-size: 12px; color: var(--purple); }
-  .welcome .desc { color: var(--text2); font-size: 12px; margin-bottom: 28px; }
+  .welcome .desc { color: var(--text3); font-size: 12px; text-align: center; margin-bottom: 4px; }
+  .welcome .intro-text { color: var(--text2); font-size: 15px; text-align: center; margin-bottom: 32px; line-height: 1.8; }
   .welcome .hint { color: var(--text3); font-size: 12px; margin-bottom: 12px; }
   .welcome .cmds { display: flex; flex-direction: column; gap: 6px; }
   .welcome .cmd { color: var(--text2); font-size: 13px; cursor: pointer; padding: 4px 0; transition: color .12s; }
@@ -61,7 +62,9 @@
   .msg-bot .bot-label { color: var(--text); font-size: 14px; font-weight: 700; }
   .msg-bot .bot-sublabel { color: var(--purple); font-size: 12px; font-weight: 500; }
   .msg-bot .bot-model { color: var(--text3); font-size: 11px; }
-  .msg-bot .bot-text { color: var(--text2); font-size: 14px; line-height: 1.8; }
+  .msg-bot .bot-text { color: var(--text2); font-size: 14px; line-height: 1.8; display: flex; gap: 10px; }
+  .msg-bot .bot-text .done-dot { margin-top: 8px; }
+  .msg-bot .bot-text .text-content { flex: 1; }
 
   /* Block cursor — fat pixel style */
   .block-cursor { display: inline-block; width: 9px; height: 17px; background: var(--purple); margin-left: 2px; animation: blink-block 1s step-end infinite; vertical-align: text-bottom; }
@@ -77,8 +80,8 @@
     50% { opacity: 1; background: var(--green); }
   }
 
-  /* Done dot — green */
-  .done-dot { display: inline-block; width: 8px; height: 8px; background: var(--green); margin-top: 8px; }
+  /* Done dot — green, inline bullet before text */
+  .done-dot { display: inline-block; width: 8px; height: 8px; background: var(--green); margin-right: 8px; vertical-align: middle; flex-shrink: 0; }
 
   /* Input area */
   .input-area { padding: 14px 24px; flex-shrink: 0; position: relative; margin-bottom: 60px; }
@@ -121,11 +124,11 @@
 /____| \___/ \___/</pre>
     </div>
     <div class="info-line">
-      <span class="info-name">Zoo's AI</span>
+      <span class="info-name">zoo.skill</span>
       <span class="info-label">v1.0</span>
     </div>
     <div class="desc">deepseek-v3 · stream: on</div>
-    <p style="color:var(--text2);font-size:13px;max-width:500px;line-height:1.7;margin-bottom:28px;">我是 Zoo 的 AI 分身，了解他的经历、性格和想法。随便问我点什么吧。</p>
+    <p class="intro-text">这是赛博 Zoo (｡•̀ᴗ-)✧ 想了解真实的我，直接问就好~</p>
     <div class="hint">试试这些：</div>
     <div class="cmds">
       <div class="cmd" onclick="askCmd(this)"><span class="arrow">❯</span>who is Zoo?</div>
@@ -140,7 +143,7 @@
   <div class="input-area">
     <div class="input-row">
       <span class="input-prompt">❯</span>
-      <input class="input-field" id="chatInput" placeholder="输入消息..." onkeydown="if(event.key==='Enter')send()" autofocus>
+      <input class="input-field" id="chatInput" placeholder="和我聊聊天吧 ..." onkeydown="if(event.key==='Enter')send()" autofocus>
       <div class="input-actions">
         <button class="btn-new" id="btnNew" onclick="newChat()">⌃C clear</button>
         <button class="btn-send" onclick="send()">⏎ send</button>
@@ -245,7 +248,7 @@ function send() {
   const b = document.createElement('div');
   b.className = 'msg-bot';
   const avatarId = 'ba' + Date.now();
-  b.innerHTML = '<div class="bot-header"><canvas class="bot-avatar" id="' + avatarId + '" width="16" height="16"></canvas><span class="bot-sublabel">Zoo\'s AI</span><span class="bot-model">deepseek-v3</span></div><div class="bot-text"><span class="thinking-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>';
+  b.innerHTML = '<div class="bot-header"><canvas class="bot-avatar" id="' + avatarId + '" width="16" height="16"></canvas><span class="bot-sublabel">zoo.skill</span><span class="bot-model">deepseek-v3</span></div><div class="bot-text"><span class="thinking-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>';
   out.appendChild(b);
   out.scrollTop = out.scrollHeight;
   drawAvatar(avatarId);
@@ -263,15 +266,17 @@ function send() {
 
   // Thinking phase (800ms) then stream
   setTimeout(() => {
+    // Start with dot + cursor immediately
+    textEl.innerHTML = '<span class="done-dot"></span><span class="text-content"><span class="block-cursor"></span></span>';
+    const textContent = textEl.querySelector('.text-content');
     let i = 0;
     const timer = setInterval(() => {
       if (i < reply.length) {
-        textEl.innerHTML = escapeHtml(reply.substring(0, i + 1)) + '<span class="block-cursor"></span>';
+        textContent.innerHTML = escapeHtml(reply.substring(0, i + 1)) + '<span class="block-cursor"></span>';
         i++;
         out.scrollTop = out.scrollHeight;
       } else {
-        // Done: remove cursor, show green dot
-        textEl.innerHTML = escapeHtml(reply) + '<br><span class="done-dot"></span>';
+        textContent.innerHTML = escapeHtml(reply);
         clearInterval(timer);
       }
     }, 25);

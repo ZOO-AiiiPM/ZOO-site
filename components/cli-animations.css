@@ -1,0 +1,112 @@
+/* ===== Shared CLI Animations ===== */
+
+/* --- Scroll Reveal --- */
+.cli-line {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+.cli-line.cli-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Typewriter --- */
+.cli-typewriter::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+.cli-typewriter-active::after {
+  content: '█';
+  visibility: visible;
+  width: auto;
+  height: auto;
+  color: var(--green);
+  animation: cli-cursor-blink 0.6s step-end infinite;
+  margin-left: 1px;
+  font-size: 0.85em;
+}
+.cli-typewriter-done::after {
+  content: '';
+  visibility: hidden;
+}
+@keyframes cli-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- Stagger Reveal --- */
+.cli-stagger-item {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.cli-stagger-active .cli-stagger-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Section Header Cursor Flash --- */
+.cli-section-cursor {
+  color: var(--green);
+  font-weight: 700;
+  opacity: 0;
+  margin-left: 4px;
+  font-size: 0.9em;
+}
+.cli-section-cursor.flash {
+  animation: cli-section-cursor-flash 0.6s steps(1) 3;
+}
+@keyframes cli-section-cursor-flash {
+  0%, 49.9% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* --- Inner Stagger (children delayed after parent reveals) --- */
+.cli-inner-stagger {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.cli-revealed .cli-inner-stagger,
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger {
+  opacity: 1;
+  transform: translateX(0);
+}
+.cli-revealed .cli-inner-stagger:nth-child(1),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(1) { transition-delay: 0.3s; }
+.cli-revealed .cli-inner-stagger:nth-child(2),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(2) { transition-delay: 0.45s; }
+.cli-revealed .cli-inner-stagger:nth-child(3),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(3) { transition-delay: 0.6s; }
+.cli-revealed .cli-inner-stagger:nth-child(4),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(4) { transition-delay: 0.75s; }
+.cli-revealed .cli-inner-stagger:nth-child(5),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(5) { transition-delay: 0.9s; }
+.cli-revealed .cli-inner-stagger:nth-child(6),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(6) { transition-delay: 1.05s; }
+.cli-revealed .cli-inner-stagger:nth-child(7),
+.cli-stagger-active .cli-stagger-item .cli-inner-stagger:nth-child(7) { transition-delay: 1.2s; }
+
+/* --- RUNNING Badge Pulse --- */
+.cli-pulse {
+  animation: cli-pulse 2s ease-in-out infinite;
+}
+@keyframes cli-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(110,231,183,0); border-color: rgba(110,231,183,.2); }
+  50% { box-shadow: 0 0 12px 3px rgba(110,231,183,.25); border-color: rgba(110,231,183,.5); }
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .cli-line, .cli-stagger-item, .cli-inner-stagger {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cli-pulse { animation: none; }
+  .cli-section-cursor.flash { animation: none; opacity: 0; }
+}

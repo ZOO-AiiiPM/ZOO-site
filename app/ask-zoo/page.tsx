@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { PixelAvatar, PixelZooText } from "@/components/PixelArt";
+import { PixelAvatar } from "@/components/PixelArt";
+import ReactMarkdown from "react-markdown";
 
 interface Message {
   role: "user" | "assistant";
@@ -15,25 +16,111 @@ const SUGGESTIONS = [
   "你的性格是什么样的？",
 ];
 
+// All ASCII words: 5 lines, padded to 21 chars wide (fixed size, no layout shift)
+const FIXED_W = 21;
+const FIXED_H = 5;
+const ASCII_WORDS_RAW = [
+  `______  ___   ___\n|__  / / _ \\ / _ \\\n  / / | | | | | | |\n / /_ | |_| | |_| |\n/____| \\___/ \\___/`,
+  `    _    ___\n   / \\  |_ _|\n  / _ \\  | |\n / ___ \\ | |\n/_/   \\_\\___|`,
+  `  ____  __  __\n |  _ \\|  \\/  |\n | |_) | |\\/| |\n |  __/| |  | |\n |_|   |_|  |_|`,
+  `__     _____ ____  _____\n\\ \\   / /_ _| __ )| ____|\n \\ \\ / / | ||  _ \\|  _|\n  \\ V /  | || |_) | |___\n   \\_/  |___|____/|_____|`.split("\n").map(l => l.slice(0, FIXED_W)).join("\n"),
+];
+
+// Normalize: pad each to FIXED_W x FIXED_H
+const ASCII_WORDS = ASCII_WORDS_RAW.map(w => {
+  const lines = w.split("\n");
+  while (lines.length < FIXED_H) lines.push("");
+  return lines.map(l => l.padEnd(FIXED_W)).join("\n");
+});
+
+const SCRAMBLE_CHARS = "/\\|_-=+<>[]{}()#@$&!?*~:.";
+
+function AsciiCycler() {
+  const [display, setDisplay] = useState(ASCII_WORDS[0]);
+  const indexRef = useRef(0);
+
+  useEffect(() => {
+    const cycle = () => {
+      const nextIndex = (indexRef.current + 1) % ASCII_WORDS.length;
+      const target = ASCII_WORDS[nextIndex];
+      const current = ASCII_WORDS[indexRef.current];
+      const targetLines = target.split("\n");
+      const currentLines = current.split("\n");
+
+      let frame = 0;
+      const totalFrames = 20;
+      const scrambleInterval = setInterval(() => {
+        frame++;
+        if (frame >= totalFrames) {
+          setDisplay(target);
+          clearInterval(scrambleInterval);
+          indexRef.current = nextIndex;
+          return;
+        }
+
+        const progress = frame / totalFrames;
+        const lines: string[] = [];
+        for (let r = 0; r < FIXED_H; r++) {
+          let line = "";
+          for (let c = 0; c < FIXED_W; c++) {
+            const from = currentLines[r]?.[c] || " ";
+            const to = targetLines[r]?.[c] || " ";
+
+            // Column-based settle: left columns settle earlier
+            const settleAt = (c / FIXED_W) * 0.7 + 0.2;
+
+            if (progress >= settleAt) {
+              line += to;
+            } else if (from === " " && to === " ") {
+              line += " ";
+            } else if (progress < 0.15) {
+              line += from; // still showing old
+            } else {
+              line += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+            }
+          }
+          lines.push(line);
+        }
+        setDisplay(lines.join("\n"));
+      }, 45);
+    };
+
+    const timer = setInterval(cycle, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return <pre className="ask-zoo-ascii ask-zoo-anim-shimmer">{display}</pre>;
+}
+
 const STORAGE_KEY = "ask-zoo-messages";
 
+// ===== Main Page =====
 export default function AskZooPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
-  const chatStarted = messages.length > 0;
-  const msgsRef = useRef<HTMLDivElement>(null);
+  const [isThinking, setIsThinking] = useState(false);
+  const [welcomeExiting, setWelcomeExiting] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const chatStarted = messages.length > 0 || isStreaming;
+  const outputRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const msgCountRef = useRef(0);
 
-  // Restore messages from sessionStorage after hydration
+  // Restore from sessionStorage
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(STORAGE_KEY);
-      if (saved) setMessages(JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setMessages(parsed);
+        msgCountRef.current = Math.ceil(parsed.length / 2);
+        setShowWelcome(false);
+      }
     } catch { /* ignore */ }
   }, []);
 
-  // Persist messages to sessionStorage
+  // Persist to sessionStorage
   useEffect(() => {
     if (messages.length > 0) {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
@@ -43,8 +130,8 @@ export default function AskZooPage() {
   }, [messages]);
 
   const scrollToBottom = useCallback(() => {
-    if (msgsRef.current) {
-      msgsRef.current.scrollTop = msgsRef.current.scrollHeight;
+    if (outputRef.current) {
+      outputRef.current.scrollTop = outputRef.current.scrollHeight;
     }
   }, []);
 
@@ -52,29 +139,49 @@ export default function AskZooPage() {
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
+  // Global Ctrl+L to clear
+  useEffect(() => {
+    function handleGlobalKey(e: KeyboardEvent) {
+      if (e.ctrlKey && e.key === "l") {
+        e.preventDefault();
+        newChat();
+      }
+    }
+    document.addEventListener("keydown", handleGlobalKey);
+    return () => document.removeEventListener("keydown", handleGlobalKey);
+  });
+
   async function sendMessage(text: string) {
     if (!text.trim() || isStreaming) return;
 
+    // Trigger welcome exit animation
+    if (showWelcome) {
+      setWelcomeExiting(true);
+      await new Promise(r => setTimeout(r, 300));
+      setShowWelcome(false);
+      setWelcomeExiting(false);
+    }
+
     const userMsg: Message = { role: "user", content: text.trim() };
-    const newMessages = [...messages, userMsg];
+    const newMessages = [...messages, userMsg, { role: "assistant" as const, content: "" }];
     setMessages(newMessages);
     setInput("");
     setIsStreaming(true);
-
-    // Add empty assistant message for streaming
-    setMessages([...newMessages, { role: "assistant", content: "" }]);
+    setIsThinking(true);
+    msgCountRef.current++;
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: newMessages.map((m) => ({ role: m.role, content: m.content })),
+          messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
         }),
       });
 
       if (!res.ok) throw new Error("API error");
 
+      setIsThinking(false);
       const reader = res.body?.getReader();
       const decoder = new TextDecoder();
       let assistantContent = "";
@@ -94,151 +201,162 @@ export default function AskZooPage() {
               const parsed = JSON.parse(data);
               if (parsed.text) {
                 assistantContent += parsed.text;
-                setMessages([
-                  ...newMessages,
-                  { role: "assistant", content: assistantContent },
-                ]);
+                setMessages(prev => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = { role: "assistant", content: assistantContent };
+                  return updated;
+                });
               }
-            } catch {
-              // skip malformed chunks
-            }
+            } catch { /* skip */ }
           }
         }
       }
     } catch {
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: "抱歉，暂时无法连接。请稍后再试。" },
-      ]);
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: "assistant", content: "连接失败，请稍后再试。" };
+        return updated;
+      });
     } finally {
       setIsStreaming(false);
+      setIsThinking(false);
+      setTimeout(() => inputRef.current?.focus(), 0);
     }
   }
 
-  function handleSubmit() {
-    sendMessage(input);
-  }
-
   function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
       e.preventDefault();
-      handleSubmit();
+      sendMessage(input);
     }
   }
 
   function newChat() {
     setMessages([]);
     setInput("");
+    msgCountRef.current = 0;
+    setShowWelcome(true);
     inputRef.current?.focus();
   }
 
   return (
     <div className="ask-zoo-page">
-      {/* Header — hidden after chat starts */}
-      {!chatStarted && (
-        <div className="ask-zoo-header">
-          <div className="ask-zoo-header-visual">
-            <div className="ask-zoo-avatar">
-              <PixelAvatar size={80} />
+      {/* Welcome */}
+      {showWelcome && (
+        <div className={`ask-zoo-welcome ${welcomeExiting ? "ask-zoo-welcome-exit" : ""}`}>
+          <div className="ask-zoo-logo-area ask-zoo-type-line" style={{ "--d": 0 } as React.CSSProperties}>
+            <div className="ask-zoo-pixel-avatar">
+              <PixelAvatar size={100} />
             </div>
-            <div className="ask-zoo-zoo-text">
-              <PixelZooText scale={3} />
-            </div>
+            <AsciiCycler />
+          </div>
+          <div className="ask-zoo-info-line ask-zoo-type-line" style={{ "--d": 150 } as React.CSSProperties}>
+            <span className="ask-zoo-info-name">zoo.skill</span>
+            <span className="ask-zoo-info-label">v1.0</span>
+          </div>
+          <div className="ask-zoo-powered ask-zoo-type-line" style={{ "--d": 300 } as React.CSSProperties}>
+            powered by DeepSeek V3.2
+          </div>
+          <p className="ask-zoo-intro ask-zoo-type-line" style={{ "--d": 500 } as React.CSSProperties}>
+            这是赛博 Zoo (｡•̀ᴗ-)✧ 想了解真实的我，直接问就好~
+          </p>
+          <div className="ask-zoo-hint ask-zoo-type-line" style={{ "--d": 700 } as React.CSSProperties}>试试这些：</div>
+          <div className="ask-zoo-cmds">
+            {SUGGESTIONS.map((s, i) => (
+              <button
+                key={s}
+                className="ask-zoo-cmd ask-zoo-type-line"
+                style={{ "--d": 850 + i * 100 } as React.CSSProperties}
+                onClick={() => sendMessage(s)}
+              >
+                <span className="ask-zoo-cmd-arrow">❯</span>{s}
+              </button>
+            ))}
           </div>
         </div>
       )}
 
-      {/* Intro — hidden after first message */}
-      <div className={`ask-zoo-intro ${chatStarted ? "hidden" : ""}`}>
-        <p>
-          我是 Zoo 的 AI 分身，了解他的经历、性格和想法。
-          <br />
-          随便问我点什么吧。
-        </p>
-        <div className="ask-zoo-powered">powered by DeepSeek</div>
-        <div className="ask-zoo-suggestions">
-          {SUGGESTIONS.map((s) => (
-            <button
-              key={s}
-              className="ask-zoo-sug"
-              onClick={() => sendMessage(s)}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Messages */}
-      <div className="ask-zoo-msgs" ref={msgsRef}>
+      {/* Output */}
+      <div className="ask-zoo-output" ref={outputRef}>
         {messages.map((msg, i) => {
-          if (msg.role === "user") {
-            return (
-              <div key={i} className="ask-zoo-msg-u">
-                {msg.content}
-              </div>
-            );
-          }
+          const isUser = msg.role === "user";
+          const pairIndex = Math.floor(i / 2);
+          const showDivider = isUser && pairIndex > 0;
+          const isLastAssistant = !isUser && i === messages.length - 1;
+          const isActiveStream = isLastAssistant && isStreaming;
+
           return (
-            <div key={i} className="ask-zoo-msg-bot">
-              <div className="ask-zoo-bot-identity">
-                <div className="ask-zoo-bot-avatar">
-                  <PixelAvatar size={36} />
+            <div key={i}>
+              {showDivider && <div className="ask-zoo-divider" />}
+              {isUser ? (
+                <div className="ask-zoo-msg-user ask-zoo-msg-enter-user">
+                  <span className="prompt">❯</span>
+                  <span className="text">{msg.content}</span>
                 </div>
-                <span className="ask-zoo-bot-name">Zoo&apos;s AI</span>
-              </div>
-              <div className="ask-zoo-bot-bubble">
-                {msg.content || (
-                  <span className="ask-zoo-typing">
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                )}
-              </div>
+              ) : (
+                <div className="ask-zoo-msg-bot">
+                  <div className="ask-zoo-bot-header">
+                    <div className="ask-zoo-bot-avatar">
+                      <PixelAvatar size={22} />
+                    </div>
+                    <span className="ask-zoo-bot-sublabel">zoo.skill</span>
+                    <span className="ask-zoo-bot-model">deepseek-v3.2</span>
+                  </div>
+                  <div className="ask-zoo-bot-text">
+                    {isActiveStream && isThinking ? (
+                      <span className="ask-zoo-thinking">
+                        <span className="dot" />
+                        <span className="dot" />
+                        <span className="dot" />
+                      </span>
+                    ) : (
+                      <>
+                        <span className="ask-zoo-done-dot" />
+                        <div className="text-content">
+                          {isActiveStream ? (
+                            <>{msg.content}<span className="ask-zoo-cursor" /></>
+                          ) : (
+                            <ReactMarkdown>{msg.content}</ReactMarkdown>
+                          )}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
       </div>
 
-      {/* Input bar */}
-      <div className="ask-zoo-bar">
-        <button
-          className={`ask-zoo-new-chat-btn ${chatStarted ? "show" : ""}`}
-          onClick={newChat}
-          title="新对话"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="4" />
-            <path d="M15 6l3 3" />
-            <path d="M9.5 17.5L6 18l.5-3.5L15.5 5.5l3 3L9.5 17.5z" />
-          </svg>
-          <span className="btn-text">新对话</span>
-        </button>
-        <input
-          ref={inputRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="随便问点什么..."
-          disabled={isStreaming}
-        />
-        <button
-          className="ask-zoo-send-btn"
-          onClick={handleSubmit}
-          disabled={isStreaming || !input.trim()}
-        >
-          发送
-        </button>
+      {/* Input */}
+      <div className={`ask-zoo-input ${!showWelcome ? "" : "ask-zoo-input-enter"}`}>
+        <div className="ask-zoo-input-row">
+          <span className="ask-zoo-input-prompt">❯</span>
+          <input
+            ref={inputRef}
+            className="ask-zoo-input-field"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="和我聊聊天吧 ..."
+            autoFocus
+          />
+          <div className="ask-zoo-input-actions">
+            {chatStarted && !isStreaming && (
+              <button className="ask-zoo-btn-clear show" onClick={newChat}>
+                ⌃L clear
+              </button>
+            )}
+            <button
+              className="ask-zoo-btn-send"
+              onClick={() => sendMessage(input)}
+              disabled={isStreaming || !input.trim()}
+            >
+              ⏎ send
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zoo — Homepage V2 Prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #09090b; --surface: #131316; --surface2: #1a1a1f;
+    --border: #25252a;
+    --text: #ededef; --text2: #8a8a94; --text3: #55555f;
+    --green: #6ee7b7; --purple: #a78bfa; --gold: #fbbf24;
+    --pink: #f472b6; --blue: #60a5fa;
+    --max: 1060px;
+    --mono: 'JetBrains Mono', monospace; --sans: 'Inter', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); }
+  ::selection { background: var(--green); color: var(--bg); }
+  a { color: var(--green); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: #fff; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(9,9,11,0.8); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--max); margin: 0 auto; padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 8px; }
+  .nav-avatar {
+    width: 28px; height: 28px; border-radius: 4px;
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+  .nav-name { font-family: var(--mono); font-size: 14px; font-weight: 700; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--text3); font-weight: 500; text-transform: lowercase; letter-spacing: 0.5px; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--green); }
+  .nav-cursor { color: var(--purple); margin-right: 3px; }
+
+  .page { max-width: var(--max); margin: 0 auto; padding: 56px 32px 96px; }
+
+  /* Hero two-column */
+  .hero { display: flex; align-items: flex-start; gap: 48px; margin-bottom: 40px; }
+  .hero-left { flex: 1; min-width: 0; }
+  .hero-right { flex-shrink: 0; width: 320px; position: relative; }
+
+  .hero-avatar-area { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 28px; }
+  .hero-avatar {
+    width: 80px; height: 80px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    display: flex; align-items: center; justify-content: center; font-size: 40px;
+  }
+  .hero-zoo { font-family: var(--mono); font-size: 40px; font-weight: 900; letter-spacing: 4px; }
+  .hero-title { font-size: 36px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 20px; }
+  .hero-gradient {
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-desc { font-size: 18px; color: var(--text2); line-height: 1.8; margin-bottom: 28px; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-tag {
+    font-family: var(--mono); font-size: 12px; padding: 4px 10px; border-radius: 4px;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text2);
+  }
+
+  /* ===== ASCII Terminal ===== */
+  .ascii-terminal {
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface); overflow: hidden;
+  }
+  .ascii-titlebar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-size: 11px; color: var(--text3);
+  }
+  .ascii-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .ascii-dot.r { background: #ef4444; } .ascii-dot.y { background: #fbbf24; } .ascii-dot.g { background: #6ee7b7; }
+  .ascii-titlebar-text { margin-left: 4px; }
+  .ascii-titlebar-pid { margin-left: auto; font-size: 10px; }
+
+  .ascii-body {
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.4;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .ascii-art {
+    color: var(--green);
+    white-space: pre;
+    letter-spacing: 1px;
+    user-select: none;
+  }
+  .ascii-status {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--text3);
+    display: flex;
+    justify-content: space-between;
+  }
+  .ascii-status .mood { color: var(--purple); }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* Status Bar */
+  .status-bar {
+    font-family: var(--mono); font-size: 13px; line-height: 2;
+    padding: 16px 20px; border-radius: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    margin-bottom: 72px;
+  }
+  .status-bar::before {
+    content: '$ status --current'; display: block; color: var(--green); font-weight: 700; margin-bottom: 4px;
+  }
+  .status-line { color: var(--text2); }
+  .status-line .arrow { color: var(--purple); margin-right: 6px; }
+  .status-line .hl { color: var(--green); }
+  .status-line .num { color: var(--gold); }
+  .status-cursor {
+    display: inline-block; width: 8px; height: 15px; background: var(--purple);
+    animation: blink 1s step-end infinite; vertical-align: text-bottom; margin-left: 2px;
+  }
+
+  /* Section Headers */
+  .sec-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .sec-head h2 { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--green); }
+  .sec-head a { font-family: var(--mono); font-size: 12px; color: var(--text3); }
+
+  /* Featured Article */
+  .featured {
+    padding: 28px; border-radius: 12px; margin-bottom: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    transition: border-color 0.2s; cursor: pointer; display: block; color: var(--text);
+    position: relative; overflow: hidden;
+  }
+  .featured::after {
+    content: ""; position: absolute; inset: 0; border-radius: 12px; padding: 1px;
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .featured:hover::after { opacity: 1; }
+  .featured:hover { border-color: transparent; }
+  .featured-badge { font-family: var(--mono); font-size: 11px; color: var(--purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .featured-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; transition: color 0.15s; }
+  .featured:hover .featured-title { color: var(--green); }
+  .featured-excerpt { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 14px; max-width: 80%; }
+  .featured-meta { display: flex; align-items: center; gap: 12px; }
+  .featured-date { font-family: var(--mono); font-size: 12px; color: var(--text3); }
+  .featured-tag { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 4px; background: rgba(110,231,183,.1); color: var(--green); }
+
+  /* Article List */
+  .article-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 72px; }
+  .article-row {
+    display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 16px;
+    padding: 16px 14px; border-radius: 8px; color: var(--text);
+    transition: background 0.15s; cursor: pointer; position: relative;
+  }
+  .article-row:hover { background: var(--surface); }
+  .article-row:hover .article-title { color: var(--green); }
+  .article-row .article-date { font-family: var(--mono); font-size: 12px; color: var(--text3); transition: all 0.2s; }
+  .article-row:hover .article-date { opacity: 0; }
+  .article-row .article-arrow {
+    position: absolute; left: 14px; font-family: var(--mono); font-size: 14px; color: var(--purple);
+    opacity: 0; transform: translateX(-6px); transition: all 0.2s;
+  }
+  .article-row:hover .article-arrow { opacity: 1; transform: translateX(0); }
+  .article-title { font-size: 15px; transition: color 0.15s, transform 0.2s; }
+  .article-row:hover .article-title { transform: translateX(4px); }
+  .article-tag { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 4px; }
+  .tag-vibe { background: rgba(110,231,183,.1); color: var(--green); }
+  .tag-pm { background: rgba(167,139,250,.1); color: var(--purple); }
+  .tag-agent { background: rgba(244,114,182,.1); color: var(--pink); }
+  .tag-think { background: rgba(251,191,36,.1); color: var(--gold); }
+
+  /* Project Cards */
+  .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 72px; }
+  .project-card {
+    position: relative; padding: 22px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    cursor: default; overflow: hidden; transition: border-color 0.2s;
+  }
+  .project-card::after {
+    content: ""; position: absolute; inset: 0; border-radius: 10px; padding: 1px;
+    background: linear-gradient(135deg, var(--green), var(--purple));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .project-card:hover::after { opacity: 1; }
+  .project-card:hover { border-color: transparent; }
+  .project-pixel-icon { width: 32px; height: 32px; margin-bottom: 14px; image-rendering: pixelated; }
+  .project-card:hover .project-pixel-icon { animation: icon-bounce 0.4s ease; }
+  @keyframes icon-bounce { 0%{transform:scale(1)} 40%{transform:scale(1.15)} 70%{transform:scale(0.95)} 100%{transform:scale(1)} }
+  .project-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+  .project-desc { font-size: 13px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-chip { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 4px; background: var(--surface2); color: var(--text3); border: 1px solid var(--border); }
+
+  /* CTA */
+  .cta-section {
+    text-align: center; padding: 48px 24px; border: 1px solid var(--border);
+    border-radius: 12px; background: var(--surface); position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), var(--purple), transparent);
+  }
+  .cta-terminal { font-family: var(--mono); font-size: 14px; color: var(--text2); margin-bottom: 20px; line-height: 2; }
+  .cta-terminal .prompt { color: var(--green); font-weight: 700; }
+  .cta-terminal .cmd { color: var(--text); }
+  .cta-terminal .flag { color: var(--purple); }
+  .cta-terminal .output { color: var(--text3); font-size: 13px; }
+  .cta-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-btn {
+    font-family: var(--mono); font-size: 13px; padding: 10px 24px; border-radius: 6px;
+    border: 1px solid var(--border); background: transparent; color: var(--text2);
+    cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .cta-btn:hover { border-color: var(--green); color: var(--green); background: rgba(110,231,183,0.05); }
+  .cta-btn-primary { background: rgba(110,231,183,0.1); border-color: var(--green); color: var(--green); }
+  .cta-btn-primary:hover { background: rgba(110,231,183,0.2); }
+
+  .footer { text-align: center; padding: 32px 0; font-size: 13px; color: var(--text3); border-top: 1px solid var(--border); margin-top: 48px; }
+
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; gap: 32px; }
+    .hero-right { width: 100%; }
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-avatar">🐸</div>
+      <span class="nav-name">ZOO</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="active"><span class="nav-cursor">&gt;</span>home</a>
+      <a href="#">blog</a>
+      <a href="#">projects</a>
+      <a href="#">about</a>
+      <a href="#">ask zoo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+  <div style="height: 64px;"></div>
+
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-avatar-area">
+        <div class="hero-avatar">🐸</div>
+        <span class="hero-zoo">ZOO</span>
+      </div>
+      <h1 class="hero-title">AI PM &amp; <span class="hero-gradient">Vibe Coder</span> 👋</h1>
+      <p class="hero-desc">用产品思维理解 AI，用 AI 构建产品。我写关于 AI 产品的思考，也用 AI 亲手造工具。</p>
+      <div class="hero-tags">
+        <span class="hero-tag">AI 产品</span>
+        <span class="hero-tag">Vibe Coding</span>
+        <span class="hero-tag">Agent</span>
+        <span class="hero-tag">独立开发</span>
+        <span class="hero-tag">产品方法论</span>
+      </div>
+    </div>
+
+    <!-- ASCII Frog Terminal -->
+    <div class="hero-right">
+      <div class="ascii-terminal">
+        <div class="ascii-titlebar">
+          <span class="ascii-dot r"></span>
+          <span class="ascii-dot y"></span>
+          <span class="ascii-dot g"></span>
+          <span class="ascii-titlebar-text">zoo_frog.sh</span>
+          <span class="ascii-titlebar-pid">frame: <span id="frameNum">0</span>/7</span>
+        </div>
+        <div class="ascii-body">
+          <pre class="ascii-art" id="frogArt"></pre>
+          <div class="ascii-status">
+            <span>$ ./zoo_frog.sh --loop</span>
+            <span class="mood" id="frogMood">mood: chill</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <div class="status-line"><span class="arrow">→</span>正在探索 <span class="hl">Agent 产品的用户留存</span>问题</div>
+    <div class="status-line"><span class="arrow">→</span>最近发布: <span class="hl">Claude Code SaaS</span> · <span class="num">3 天前</span></div>
+    <div class="status-line"><span class="arrow">→</span>累计 <span class="num">8</span> 篇文章 · <span class="num">4</span> 个项目 · <span class="num">12k+</span> 字<span class="status-cursor"></span></div>
+  </div>
+
+  <!-- Writing -->
+  <section>
+    <div class="sec-head"><h2>WRITING</h2><a href="#">View all →</a></div>
+    <a class="featured" href="#">
+      <div class="featured-badge">Latest Post</div>
+      <div class="featured-title">用 Claude Code 三天做了一个完整的 SaaS 产品</div>
+      <div class="featured-excerpt">从零开始，用 Claude Code 做了一个完整的 SaaS 产品——包括用户系统、支付、仪表盘和部署。记录整个过程的思考和踩坑。</div>
+      <div class="featured-meta"><span class="featured-date">Apr 08, 2026</span><span class="featured-tag">vibe coding</span></div>
+    </a>
+    <div class="article-list">
+      <a class="article-row" href="#"><span class="article-arrow">→</span><span class="article-date">Apr 02</span><span class="article-title">AI PM 的核心能力模型：不只是写 PRD</span><span class="article-tag tag-pm">ai pm</span></a>
+      <a class="article-row" href="#"><span class="article-arrow">→</span><span class="article-date">Mar 25</span><span class="article-title">为什么 Agent 产品的用户留存这么难做？</span><span class="article-tag tag-agent">agent</span></a>
+      <a class="article-row" href="#"><span class="article-arrow">→</span><span class="article-date">Mar 18</span><span class="article-title">Prompt Engineering 不是 AI PM 的核心竞争力</span><span class="article-tag tag-think">观点</span></a>
+      <a class="article-row" href="#"><span class="article-arrow">→</span><span class="article-date">Mar 10</span><span class="article-title">一个周末，用 AI 从零搭建了这个个人网站</span><span class="article-tag tag-vibe">vibe coding</span></a>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section>
+    <div class="sec-head"><h2>PROJECTS</h2><a href="#">View all →</a></div>
+    <div class="project-grid">
+      <div class="project-card">
+        <canvas class="project-pixel-icon" id="icon-bot" width="32" height="32"></canvas>
+        <div class="project-name">AI 日报生成器</div>
+        <div class="project-desc">自动抓取 AI 领域动态，生成每日摘要推送到飞书群</div>
+        <div class="project-stack"><span class="project-chip">Python</span><span class="project-chip">Claude API</span><span class="project-chip">飞书</span></div>
+      </div>
+      <div class="project-card">
+        <canvas class="project-pixel-icon" id="icon-chart" width="32" height="32"></canvas>
+        <div class="project-name">竞品监控看板</div>
+        <div class="project-desc">追踪竞品更新日志，AI 提取关键变化生成对比报告</div>
+        <div class="project-stack"><span class="project-chip">Next.js</span><span class="project-chip">Puppeteer</span><span class="project-chip">Vercel</span></div>
+      </div>
+      <div class="project-card">
+        <canvas class="project-pixel-icon" id="icon-pen" width="32" height="32"></canvas>
+        <div class="project-name">PRD 智能助手</div>
+        <div class="project-desc">Chrome 插件，输入需求自动生成结构化 PRD 文档</div>
+        <div class="project-stack"><span class="project-chip">Extension</span><span class="project-chip">DeepSeek</span></div>
+      </div>
+      <div class="project-card">
+        <canvas class="project-pixel-icon" id="icon-target" width="32" height="32"></canvas>
+        <div class="project-name">用户反馈聚类</div>
+        <div class="project-desc">接入评论和工单，AI 聚类分析生成需求优先级矩阵</div>
+        <div class="project-stack"><span class="project-chip">Python</span><span class="project-chip">Streamlit</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-terminal">
+      <div><span class="prompt">$</span> <span class="cmd">zoo</span> <span class="flag">--hire</span></div>
+      <div class="output">如果你在找一个懂 AI、能写代码的产品经理 —</div>
+    </div>
+    <div class="cta-links">
+      <a class="cta-btn cta-btn-primary" href="#">💬 Ask Zoo</a>
+      <a class="cta-btn" href="#">📄 关于我</a>
+      <a class="cta-btn" href="#">✉️ zoo@example.com</a>
+    </div>
+  </section>
+</div>
+
+<footer class="footer"><p>© 2026 Zoo · Built with Vibe Coding & Claude Code</p></footer>
+
+<script>
+// ===== ASCII Frog Animation =====
+// All frames: 9 lines, padded to same width
+const FRAMES = [
+  // 0: idle — eyes open, sitting
+  { art: [
+    "            ",
+    "   .-.  .-. ",
+    "  ( o  )( o )",
+    "   '-'  '-' ",
+    "  /        \\",
+    " |  .----.  |",
+    "  \\ '----' /",
+    "   '-.  .-' ",
+    "    _||  ||_ ",
+  ], mood: "chill" },
+
+  // 1: blink
+  { art: [
+    "            ",
+    "   .-.  .-. ",
+    "  ( -  )( - )",
+    "   '-'  '-' ",
+    "  /        \\",
+    " |  .----.  |",
+    "  \\ '----' /",
+    "   '-.  .-' ",
+    "    _||  ||_ ",
+  ], mood: "chill" },
+
+  // 2: idle again
+  { art: [
+    "            ",
+    "   .-.  .-. ",
+    "  ( o  )( o )",
+    "   '-'  '-' ",
+    "  /        \\",
+    " |  .----.  |",
+    "  \\ '----' /",
+    "   '-.  .-' ",
+    "    _||  ||_ ",
+  ], mood: "chill" },
+
+  // 3: notice bug — eyes look right
+  { art: [
+    "           .",
+    "   .-.  .-.  ",
+    "  (  o)(  o) ",
+    "   '-'  '-'  ",
+    "  /        \\ ",
+    " |  .----.  |",
+    "  \\ '----' / ",
+    "   '-.  .-'  ",
+    "    _||  ||_  ",
+  ], mood: "alert!" },
+
+  // 4: tongue out — catching bug!
+  { art: [
+    "             ",
+    "   .-.  .-.  ",
+    "  ( o  )( o )~",
+    "   '-'  '-'  ",
+    "  /  .------>@",
+    " |  '----.  |",
+    "  \\ '----' / ",
+    "   '-.  .-'  ",
+    "    _||  ||_  ",
+  ], mood: "gotcha!" },
+
+  // 5: yum — happy eyes, mouth closed
+  { art: [
+    "             ",
+    "   .-.  .-.  ",
+    "  ( ^  )( ^ )",
+    "   '-'  '-'  ",
+    "  /        \\ ",
+    " |  .----.  |",
+    "  \\ '----' / ",
+    "   '-.  .-'  ",
+    "    _||  ||_  ",
+  ], mood: "yum!" },
+
+  // 6: happy bounce (shifted up)
+  { art: [
+    "   .-.  .-.  ",
+    "  ( ^  )( ^ )",
+    "   '-'  '-'  ",
+    "  /        \\ ",
+    " |  .----.  |",
+    "  \\ '----' / ",
+    "   '-.  .-'  ",
+    "    _||  ||_  ",
+    "             ",
+  ], mood: "happy!" },
+
+  // 7: settle back
+  { art: [
+    "            ",
+    "   .-.  .-. ",
+    "  ( o  )( o )",
+    "   '-'  '-' ",
+    "  /        \\",
+    " |  .----.  |",
+    "  \\ '----' /",
+    "   '-.  .-' ",
+    "    _||  ||_ ",
+  ], mood: "chill" },
+];
+
+// Timeline: [frameIndex, durationMs]
+const TIMELINE = [
+  [0, 1800],  // idle
+  [1, 150],   // blink
+  [2, 1200],  // idle
+  [1, 150],   // blink
+  [2, 800],   // idle
+  [3, 600],   // notice bug
+  [4, 500],   // tongue!
+  [5, 600],   // yum
+  [6, 300],   // bounce up
+  [5, 300],   // settle with happy eyes
+  [7, 1500],  // back to chill
+];
+
+const artEl = document.getElementById('frogArt');
+const moodEl = document.getElementById('frogMood');
+const frameNumEl = document.getElementById('frameNum');
+
+let timelineIdx = 0;
+
+function showFrame() {
+  const [frameIdx, duration] = TIMELINE[timelineIdx];
+  const frame = FRAMES[frameIdx];
+
+  artEl.textContent = frame.art.join('\n');
+  moodEl.textContent = 'mood: ' + frame.mood;
+  frameNumEl.textContent = frameIdx;
+
+  timelineIdx = (timelineIdx + 1) % TIMELINE.length;
+  setTimeout(showFrame, duration);
+}
+
+showFrame();
+
+// ===== Pixel Icons =====
+function drawPixelIcon(id, pixels, colors) {
+  const c = document.getElementById(id);
+  if (!c) return;
+  const ctx = c.getContext('2d'), s = 4;
+  pixels.forEach((row, y) => {
+    for (let x = 0; x < row.length; x++) {
+      if (row[x] !== ' ' && colors[row[x]]) {
+        ctx.fillStyle = colors[row[x]];
+        ctx.fillRect(x*s, y*s, s, s);
+      }
+    }
+  });
+}
+const C = { g:'#6ee7b7', p:'#a78bfa', w:'#ededef', k:'#55555f', y:'#fbbf24', r:'#f472b6', b:'#60a5fa' };
+drawPixelIcon('icon-bot', ['  gggg  ',' gwwwwg ',' gpggpg ',' gggggg ','  gppg  ',' gggggg ',' g gg g ',' g gg g '], C);
+drawPixelIcon('icon-chart', ['        ','      bb','    ppbb','  ggppbb','  ggppbb','kkggppbb','kkggppbb','kkkkkkkk'], C);
+drawPixelIcon('icon-pen', ['      pp','     pgg','    pggg','   pggg ','  pggg  ',' pggg   ',' pgg    ','pp      '], C);
+drawPixelIcon('icon-target', ['  rrrr  ',' r    r ','r  rr  r','r r  r r','r r  r r','r  rr  r',' r    r ','  rrrr  '], C);
+</script>
+</body>
+</html>

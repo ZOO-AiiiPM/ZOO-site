@@ -1,5 +1,8 @@
+"use client";
+
 import './projects.css';
 import { PixelTitle } from './PixelTitle';
+import { CliLine, Typewriter, StaggerReveal } from '../../components/CliAnimations';
 
 interface Project {
   name: string;
@@ -73,15 +76,14 @@ export default function ProjectsPage() {
 
   return (
     <div className="page-container">
-      {/* Page header */}
+      {/* Header — title static, comment typewriter, stats slide in */}
       <div className="proj-head">
         <div className="proj-title-line">
           <span className="proj-arrow-lg">❯</span>
           <PixelTitle />
-          <span className="proj-cursor" />
         </div>
         <div className="proj-sub">
-          <span className="proj-comment">{'//'} 用 Vibe Coding 构建的实际产品和工具</span>
+          <span className="proj-comment">{'// '}<Typewriter text="用 Vibe Coding 构建的实际产品和工具" /></span>
         </div>
         <div className="proj-stats">
           <span>total {projects.length}</span>
@@ -92,52 +94,51 @@ export default function ProjectsPage() {
         </div>
       </div>
 
-      {/* Project grid */}
-      <div className="proj-grid">
-        {projects.map((project) => {
-          const status = statusConfig[project.status];
-          return (
-            <div key={project.name} className="proj-card">
-              {/* Terminal title bar */}
-              <div className="proj-bar">
-                <div className="proj-dots">
-                  <span className="proj-dot proj-dot-r" />
-                  <span className="proj-dot proj-dot-y" />
-                  <span className="proj-dot proj-dot-g" />
-                </div>
-                <span className="proj-filename">{project.name}</span>
-                <span className={`proj-badge proj-badge-${project.status}`}>
-                  {status.dot} {status.label}
-                </span>
-              </div>
-
-              {/* Card body */}
-              <div className="proj-body">
-                <div className="proj-title-row">
-                  <span className="proj-arrow">❯</span>
-                  <h3 className="proj-name">{project.title}</h3>
-                </div>
-                <p className="proj-desc">{project.desc}</p>
-                <div className="proj-stack">
-                  <span className="proj-stack-key">stack</span>
-                  <span className="proj-stack-eq">=</span>
-                  <span className="proj-stack-val">
-                    [{project.tags.map((tag, i) => (
-                      <span key={tag}>
-                        <span className="proj-tag">&quot;{tag}&quot;</span>
-                        {i < project.tags.length - 1 && <span className="proj-tag-comma">, </span>}
-                      </span>
-                    ))}]
+      {/* Cards — stagger reveal, inner code lines delayed */}
+      <StaggerReveal selector=".proj-card" interval={100}>
+        <div className="proj-grid">
+          {projects.map((project) => {
+            const status = statusConfig[project.status];
+            return (
+              <div key={project.name} className="proj-card cli-stagger-item">
+                <div className="proj-bar">
+                  <div className="proj-dots">
+                    <span className="proj-dot proj-dot-r" />
+                    <span className="proj-dot proj-dot-y" />
+                    <span className="proj-dot proj-dot-g" />
+                  </div>
+                  <span className="proj-filename">{project.name}</span>
+                  <span className={`proj-badge proj-badge-${project.status}${project.status === 'running' ? ' cli-pulse' : ''}`}>
+                    {status.dot} {status.label}
                   </span>
                 </div>
-                <div className="proj-meta">
-                  <span>PID {project.pid}</span>
+                <div className="proj-body">
+                  <div className="proj-title-row">
+                    <span className="proj-arrow">❯</span>
+                    <h3 className="proj-name">{project.title}</h3>
+                  </div>
+                  <p className="proj-desc">{project.desc}</p>
+                  <div className="proj-stack cli-inner-stagger">
+                    <span className="proj-stack-key">stack</span>
+                    <span className="proj-stack-eq">=</span>
+                    <span className="proj-stack-val">
+                      [{project.tags.map((tag, i) => (
+                        <span key={tag}>
+                          <span className="proj-tag">&quot;{tag}&quot;</span>
+                          {i < project.tags.length - 1 && <span className="proj-tag-comma">, </span>}
+                        </span>
+                      ))}]
+                    </span>
+                  </div>
+                  <div className="proj-meta cli-inner-stagger">
+                    <span>PID {project.pid}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      </StaggerReveal>
     </div>
   );
 }

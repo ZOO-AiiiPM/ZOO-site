@@ -1,80 +1,194 @@
+"use client";
+
 import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useParams } from "next/navigation";
+import { getArticle, getAdjacentArticles } from "../data";
+import { getArticleContent } from "../content";
+import { CliLine, Typewriter, StaggerReveal } from "../../../components/CliAnimations";
+import type { TocItem } from "../data";
 import "../blog.css";
 
-export default function ArticlePage() {
+function smoothScroll(targetY: number) {
+  const startY = window.scrollY;
+  const distance = Math.abs(targetY - startY);
+  if (distance < 1) return;
+  const duration = Math.min(1200, Math.max(500, Math.sqrt(distance) * 25));
+  const startTime = performance.now();
+  function easeInOutCubic(t: number) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+  function step(now: number) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeInOutCubic(progress);
+    window.scrollTo(0, startY + (targetY - startY) * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const handler = () => setVisible(window.scrollY > 150);
+    window.addEventListener("scroll", handler, { passive: true });
+    handler();
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
   return (
-    <div className="page-container">
-      <div className="blog-detail-container">
-        <Link href="/blog" className="blog-detail-back">
-          ← 返回文章
+    <button
+      className={`detail-toc-btn blog-back-top${visible ? " visible" : ""}`}
+      onClick={() => smoothScroll(0)}
+      aria-label="返回顶部"
+    >
+      ↑ top
+    </button>
+  );
+}
+
+function TocSidebar({ toc }: { toc: TocItem[] }) {
+  const itemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  const handleClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      smoothScroll(el.offsetTop - 80);
+      history.replaceState(null, "", `#${id}`);
+    }
+  }, []);
+
+  useEffect(() => {
+    const sections = toc.map((t) => document.getElementById(t.id)).filter(Boolean) as HTMLElement[];
+    const handler = () => {
+      let current = "";
+      sections.forEach((sec) => {
+        if (window.scrollY >= sec.offsetTop - 120) {
+          current = sec.id;
+        }
+      });
+      itemsRef.current.forEach((el) => {
+        if (!el) return;
+        el.classList.toggle("active", el.getAttribute("href") === "#" + current);
+      });
+    };
+    window.addEventListener("scroll", handler, { passive: true });
+    handler();
+    return () => window.removeEventListener("scroll", handler);
+  }, [toc]);
+
+  return (
+    <aside className="detail-toc">
+      <div className="detail-toc-title">Contents</div>
+      <nav className="detail-toc-list">
+        {toc.map((t, i) => (
+          <a
+            key={t.id}
+            ref={(el) => { itemsRef.current[i] = el; }}
+            className="detail-toc-item"
+            href={`#${t.id}`}
+            onClick={(e) => handleClick(e, t.id)}
+          >
+            {t.label}
+          </a>
+        ))}
+      </nav>
+      <BackToTop />
+    </aside>
+  );
+}
+
+export default function ArticlePage() {
+  const params = useParams();
+  const slug = params.slug as string;
+
+  const article = getArticle(slug);
+  const content = getArticleContent(slug);
+  const { prev, next } = getAdjacentArticles(slug);
+
+  if (!article || !content) {
+    return (
+      <div className="blog-page-container">
+        <p style={{ color: "var(--text3)" }}>文章不存在</p>
+        <Link href="/blog" className="detail-back-btn" style={{ marginTop: 16 }}>
+          ← back
         </Link>
+      </div>
+    );
+  }
 
-        <h1 className="blog-detail-title">
-          用 Claude Code 三天做了一个完整的 SaaS 产品
-        </h1>
-
-        <div className="blog-detail-meta">
-          <span>2026-04-08</span>
-          <span>~2800 字</span>
-          <span>8 min read</span>
+  return (
+    <div className="blog-page-container">
+      <div className="detail-grid">
+        {/* Sidebar: sticky, spans full height */}
+        <div className="detail-sidebar">
+          <Link href="/blog" className="detail-toc-btn">← back</Link>
+          <TocSidebar toc={content.toc} />
         </div>
 
-        <div className="blog-detail-body">
-          <p>
-            上周我用 Claude Code 做了一个实验：能不能在三天内，从一个想法变成一个可用的
-            SaaS 产品？结果超出预期。
-          </p>
+        {/* Main content */}
+        <div className="detail-main">
+          <CliLine>
+            <div className="detail-path">
+              <span>~</span>
+              <span className="path-sep">/</span>
+              <span>blog</span>
+              <span className="path-sep">/</span>
+              <span className="path-file"><Typewriter text={`${slug}.md`} startDelay={200} speed={35} /></span>
+            </div>
+          </CliLine>
+          <CliLine delay={80}>
+            <div className="detail-header">
+              <h1 className="detail-title">{article.title}</h1>
+              <div className="detail-meta">
+                <span className={`detail-tag ${article.tagClass} cli-inner-stagger`}>{article.tag}</span>
+                <span className="detail-meta-sep cli-inner-stagger">·</span>
+                <span className="cli-inner-stagger">{article.fullDate}</span>
+                <span className="detail-meta-sep cli-inner-stagger">·</span>
+                <span className="cli-inner-stagger">{article.wordCount}</span>
+                <span className="detail-meta-sep cli-inner-stagger">·</span>
+                <span className="cli-inner-stagger">{article.readTime}</span>
+              </div>
+            </div>
+          </CliLine>
 
-          <h2>为什么做这个实验</h2>
-          <p>
-            作为一个 AI PM，我一直在思考：
-            <strong>当 AI 能帮你写代码时，PM 的价值到底在哪？</strong>
-            不是 Prompt 写得好不好，而是你能不能把模糊的想法变成结构清晰、逻辑自洽的产品。
-          </p>
-
-          <blockquote>
-            Vibe Coding 不是让 AI 替你写代码，而是让你用产品思维和 AI 协作，把想法快速变成现实。
-          </blockquote>
-
-          <h2>Day 1：需求定义与架构设计</h2>
-          <p>
-            第一天没写一行代码。全部时间花在需求文档和信息架构上。我用{" "}
-            <code>CLAUDE.md</code> 把项目背景、技术约束、设计规范全部写清楚，
-            这份文档后来成了整个项目的「宪法」。
-          </p>
-
-          <h2>Day 2：核心功能开发</h2>
-          <p>有了清晰的需求文档，Claude Code 表现非常稳定。关键心得：</p>
-          <pre>{`// 不要这样：
-"帮我做一个用户管理系统"
-
-// 要这样：
-"参照 CLAUDE.md 中的用户模型，
- 实现 /api/users CRUD，
- 用 Supabase Auth，
- 错误处理参考 lib/errors.ts"`}</pre>
-          <p>
-            指令越具体，输出质量越高。这和写 PRD 是一回事——模糊的需求只会得到模糊的交付。
-          </p>
-
-          <h2>几个反直觉的发现</h2>
-          <p>
-            1.{" "}
-            <strong>写需求文档的时间不能省</strong>
-            ——花在需求上的时间会在开发阶段 10 倍返还。
-          </p>
-          <p>
-            2.{" "}
-            <strong>PM 的价值不降反升</strong>
-            ——当开发成本趋近于零，决定做什么比怎么做更重要。
-          </p>
-          <p>
-            3.{" "}
-            <strong>审美是新的技术壁垒</strong>
-            ——AI 能写代码但不能替你做审美判断。
-          </p>
+          <CliLine delay={160}>
+            <div className="detail-body">
+              {content.body}
+            </div>
+          </CliLine>
         </div>
       </div>
+
+      {/* Footer — full width */}
+      <CliLine>
+        <div className="detail-footer">
+          <StaggerReveal selector=".detail-bottom-tag" interval={80}>
+            <div className="detail-tags">
+              {article.hashtags.map((t) => (
+                <span key={t.label} className={`detail-bottom-tag ${t.colorClass} cli-stagger-item`}>{t.label}</span>
+              ))}
+            </div>
+          </StaggerReveal>
+
+          <div className="detail-nav">
+            {prev ? (
+              <Link className="detail-nav-item prev" href={`/blog/${prev.slug}`}>
+                <span className="detail-nav-title purple">{prev.title}</span>
+                <span className="detail-nav-label purple">← 上一篇</span>
+              </Link>
+            ) : <div />}
+            {next ? (
+              <Link className="detail-nav-item next" href={`/blog/${next.slug}`}>
+                <span className="detail-nav-title green">{next.title}</span>
+                <span className="detail-nav-label green">下一篇 →</span>
+              </Link>
+            ) : <div />}
+          </div>
+        </div>
+      </CliLine>
     </div>
   );
 }

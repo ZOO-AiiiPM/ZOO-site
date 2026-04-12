@@ -27,21 +27,6 @@
   letter-spacing: -0.02em;
 }
 
-.proj-cursor {
-  display: inline-block;
-  width: 14px;
-  height: 32px;
-  background: var(--green);
-  animation: proj-blink 1s step-end infinite;
-  flex-shrink: 0;
-  border-radius: 1px;
-}
-
-@keyframes proj-blink {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 0; }
-}
-
 .proj-sub {
   margin-bottom: 14px;
   padding-left: 40px;
