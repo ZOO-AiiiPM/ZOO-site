@@ -179,7 +179,10 @@ export default function AskZooPage() {
         }),
       });
 
-      if (!res.ok) throw new Error("API error");
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "连接出了点问题，稍后再试试～");
+      }
 
       setIsThinking(false);
       const reader = res.body?.getReader();
@@ -211,10 +214,11 @@ export default function AskZooPage() {
           }
         }
       }
-    } catch {
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "网络好像不太稳，等会儿再来找我聊吧～";
       setMessages(prev => {
         const updated = [...prev];
-        updated[updated.length - 1] = { role: "assistant", content: "连接失败，请稍后再试。" };
+        updated[updated.length - 1] = { role: "assistant", content: errorMsg };
         return updated;
       });
     } finally {

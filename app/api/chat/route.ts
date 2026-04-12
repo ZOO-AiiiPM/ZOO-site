@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   const { allowed, retryAfter } = checkRateLimit(ip);
   if (!allowed) {
-    return new Response(JSON.stringify({ error: "请求太频繁，请稍后再试" }), {
+    return new Response(JSON.stringify({ error: "哈哈聊太快啦～ 我脑子转不过来了，等一会儿再来找我吧 (≧▽≦)" }), {
       status: 429,
       headers: { "Content-Type": "application/json", "Retry-After": String(retryAfter || 60) },
     });
@@ -90,16 +90,16 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     messages = body.messages;
     if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
-      return new Response(JSON.stringify({ error: "无效的消息格式" }), { status: 400 });
+      return new Response(JSON.stringify({ error: "这条消息有点奇怪，换个方式再问我一次？" }), { status: 400 });
     }
     // 限制单条消息长度
     for (const msg of messages) {
       if (typeof msg.content !== "string" || msg.content.length > 2000) {
-        return new Response(JSON.stringify({ error: "消息过长" }), { status: 400 });
+        return new Response(JSON.stringify({ error: "写太多啦！精简一下再发给我吧～" }), { status: 400 });
       }
     }
   } catch {
-    return new Response(JSON.stringify({ error: "无效的请求" }), { status: 400 });
+    return new Response(JSON.stringify({ error: "emmm 没看懂你发的什么，再试一次？" }), { status: 400 });
   }
 
   const stream = await client.chat.completions.create({
