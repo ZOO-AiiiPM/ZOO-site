@@ -1,9 +1,46 @@
 import OpenAI from "openai";
+import { NextRequest } from "next/server";
 
 const client = new OpenAI({
   apiKey: process.env.DEEPSEEK_API_KEY,
   baseURL: process.env.DEEPSEEK_BASE_URL,
 });
+
+// 简易内存速率限制：每个 IP 每分钟最多 6 次，每天最多 50 次
+const rateLimitMap = new Map<string, { count: number; dailyCount: number; resetAt: number; dailyResetAt: number }>();
+
+function checkRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    // 每分钟重置
+    const dailyCount = entry && now < entry.dailyResetAt ? entry.dailyCount : 0;
+    const dailyResetAt = entry && now < entry.dailyResetAt ? entry.dailyResetAt : now + 86400000;
+    rateLimitMap.set(ip, { count: 1, dailyCount: dailyCount + 1, resetAt: now + 60000, dailyResetAt });
+    return dailyCount >= 50 ? { allowed: false, retryAfter: 60 } : { allowed: true };
+  }
+
+  entry.count++;
+  entry.dailyCount++;
+
+  if (entry.dailyCount > 50) {
+    return { allowed: false, retryAfter: Math.ceil((entry.dailyResetAt - now) / 1000) };
+  }
+  if (entry.count > 6) {
+    return { allowed: false, retryAfter: Math.ceil((entry.resetAt - now) / 1000) };
+  }
+
+  return { allowed: true };
+}
+
+// 定期清理过期条目
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap) {
+    if (now > entry.dailyResetAt) rateLimitMap.delete(ip);
+  }
+}, 300000);
 
 const SYSTEM_PROMPT = `你是 Zoo 的赛博分身（zoo.skill），部署在 Zoo 的个人网站上。你的核心使命是：让每一个来访者都想进一步了解 Zoo 这个人。
 
@@ -36,8 +73,34 @@ Zoo，AI 产品实习生，INFP，金牛座。做 AI 产品设计和调研，同
 # 打招呼示例（参考语气，不要照抄）
 "嘿！欢迎来逛我的小站～ 有什么想了解的随便问，关于我、关于 AI 产品、或者 Vibe Coding 都行 (｡•̀ᴗ-)✧"`;
 
-export async function POST(req: Request) {
-  const { messages } = await req.json();
+export async function POST(req: NextRequest) {
+  // 速率限制
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const { allowed, retryAfter } = checkRateLimit(ip);
+  if (!allowed) {
+    return new Response(JSON.stringify({ error: "请求太频繁，请稍后再试" }), {
+      status: 429,
+      headers: { "Content-Type": "application/json", "Retry-After": String(retryAfter || 60) },
+    });
+  }
+
+  // 输入校验
+  let messages;
+  try {
+    const body = await req.json();
+    messages = body.messages;
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
+      return new Response(JSON.stringify({ error: "无效的消息格式" }), { status: 400 });
+    }
+    // 限制单条消息长度
+    for (const msg of messages) {
+      if (typeof msg.content !== "string" || msg.content.length > 2000) {
+        return new Response(JSON.stringify({ error: "消息过长" }), { status: 400 });
+      }
+    }
+  } catch {
+    return new Response(JSON.stringify({ error: "无效的请求" }), { status: 400 });
+  }
 
   const stream = await client.chat.completions.create({
     model: "DeepSeek-V3.2",
