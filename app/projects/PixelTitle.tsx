@@ -76,6 +76,7 @@ export function PixelTitle({ scale = 6, text = "PROJECTS", animated = false }: {
 
     function draw(now: number) {
       if (!startTime) startTime = now;
+      if (!ctx) return;
       const elapsed = now - startTime;
       const currentCol = Math.min(Math.floor(elapsed / msPerCol), totalPxW);
 
