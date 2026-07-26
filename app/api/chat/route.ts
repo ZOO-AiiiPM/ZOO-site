@@ -102,12 +102,15 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ error: "emmm 没看懂你发的什么，再试一次？" }), { status: 400 });
   }
 
+  // thinking 是 DeepSeek 扩展参数（v4-flash 默认开推理模式，聊天场景关掉直接回答），
+  // OpenAI SDK 类型里没有，整体断言绕过类型检查
   const stream = await client.chat.completions.create({
-    model: "DeepSeek-V3.2",
+    model: "deepseek-v4-flash",
     messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     stream: true,
     max_tokens: 1024,
-  });
+    thinking: { type: "disabled" },
+  } as unknown as OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming);
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({
