@@ -10,6 +10,21 @@ Zoo 的**求职用 AI PM 个人网站**。展示 AI 产品经理 + Vibe Coder �
 ## 当前状态
 
 所有页面迁移完成，进入打磨/优化阶段。CLI 动画系统已统一到 Blog/Projects/About 三个页面。
+**已上线生产**：https://zooooo.site
+
+## Spec 体系（Trellis）
+
+详细规范在 `.trellis/spec/`，按需加载，**不要全读**：
+
+| 什么时候读 | 读哪个 |
+|-----------|--------|
+| 动手改任何代码前 | [.trellis/spec/gotchas.md](.trellis/spec/gotchas.md) — 9 条反直觉，含最贵的 Vercel 部署陷阱 |
+| 需要理解项目结构 | [.trellis/spec/architecture.md](.trellis/spec/architecture.md) — 目录地图 / 页面清单 / scroll morph 原理 |
+| 部署、域名、环境变量 | [.trellis/spec/release.md](.trellis/spec/release.md) |
+| 写前端代码 | [.trellis/spec/frontend/](.trellis/spec/frontend/index.md) — 6 个规范文件 |
+| 想知道最近做了什么 | `.trellis/workspace/zoo/journal-*.md` — 历次 session 记录 |
+
+索引入口：[.trellis/spec/index.md](.trellis/spec/index.md)
 
 ## Commands
 
