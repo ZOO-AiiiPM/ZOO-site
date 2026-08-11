@@ -1339,8 +1339,8 @@ body:has(.home-ask-dialog[open]) {
   flex-direction: column;
   gap: 14px;
   width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .home-ask-message {
@@ -1552,24 +1552,57 @@ body:has(.home-ask-dialog[open]) {
   transition: width 120ms ease, height 120ms ease, opacity 120ms ease, background 120ms ease;
 }
 
+.home-proof-cursor::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
 .home-proof-cursor.is-visible {
   opacity: 1;
 }
 
 .home-proof-cursor.has-label {
-  top: -24px;
-  left: -24px;
-  width: 48px;
-  height: 48px;
-  color: var(--home-paper);
-  border-color: var(--home-primary);
-  background: var(--home-primary);
+  top: -26px;
+  left: -26px;
+  width: 52px;
+  height: 52px;
+  border-color: var(--home-secondary);
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--home-secondary-soft) inset, 0 0 20px var(--home-secondary-soft);
+}
+
+.home-proof-cursor.has-label::before {
+  opacity: 1;
+  background: var(--home-ink);
+  mix-blend-mode: difference;
 }
 
 .home-proof-cursor span {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 6px);
+  left: 50%;
+  width: max-content;
+  padding: 3px 6px;
+  border: 1px solid var(--home-primary);
+  color: var(--home-paper);
+  background: var(--home-primary);
   font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
   font-weight: 800;
+  line-height: 1;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 120ms ease;
+}
+
+.home-proof-cursor.has-label span {
+  opacity: 1;
 }
 
 /* 自定义光标接管：隐藏原生光标。
@@ -1577,8 +1610,8 @@ body:has(.home-ask-dialog[open]) {
    窄窗口(≤1100px)与 reduced-motion 下自定义光标会 display:none，
    此时必须保留原生光标，否则用户将没有任何光标。 */
 @media (pointer: fine) and (hover: hover) and (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
-  body:has(.home-portfolio),
-  body:has(.home-portfolio) * {
+  body:has(.home-portfolio):has(.home-proof-cursor.is-visible),
+  body:has(.home-portfolio):has(.home-proof-cursor.is-visible) * {
     cursor: none !important;
   }
 }
