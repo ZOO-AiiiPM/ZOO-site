@@ -1,0 +1,52 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+export function ProofCursor() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const positionRef = useRef({ x: -100, y: -100 });
+  const [label, setLabel] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine) and (hover: hover)").matches) return;
+
+    const render = () => {
+      const cursor = cursorRef.current;
+      if (cursor) {
+        cursor.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0)`;
+      }
+      frameRef.current = null;
+    };
+
+    const onMove = (event: PointerEvent) => {
+      positionRef.current = { x: event.clientX, y: event.clientY };
+      if (frameRef.current === null) frameRef.current = requestAnimationFrame(render);
+      setVisible(true);
+
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-cursor]") : null;
+      setLabel(target?.dataset.cursor ?? "");
+    };
+
+    const onLeave = () => setVisible(false);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={cursorRef}
+      className={`home-proof-cursor${visible ? " is-visible" : ""}${label ? " has-label" : ""}`}
+      aria-hidden="true"
+    >
+      <span>{label}</span>
+    </div>
+  );
+}
