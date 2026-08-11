@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { PixelAvatar, PixelLogo } from "@/components/PixelArt";
 
 const homeLinks = [
-  { id: "home", label: "HOME" },
+  { id: "about", label: "ABOUT" },
   { id: "work", label: "WORK" },
   { id: "projects", label: "PROJECTS" },
   { id: "skills", label: "SKILLS" },
@@ -23,7 +23,7 @@ const legacyLinks = [
 
 export function Nav() {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("about");
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -46,7 +46,7 @@ export function Nav() {
 
       activeId = current.id;
       setActiveSection(current.id);
-      const nextUrl = current.id === "home"
+      const nextUrl = current.id === "about"
         ? `${window.location.pathname}${window.location.search}`
         : `${window.location.pathname}${window.location.search}#${current.id}`;
       window.history.replaceState(window.history.state, "", nextUrl);
@@ -73,7 +73,7 @@ export function Nav() {
   if (pathname === "/") {
     return (
       <nav className="home-topnav" aria-label="页面目录">
-        <a className="home-topnav-name" href="#home" data-cursor="TOP">
+        <a className="home-topnav-name" href="#about" data-cursor="TOP">
           <strong>WINSTON</strong>
         </a>
         <div
