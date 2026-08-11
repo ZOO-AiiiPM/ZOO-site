@@ -585,3 +585,137 @@ body:has(.ask-zoo-page) .site-footer { display: none; }
   .ask-zoo-pixel-avatar { width: 64px; height: 64px; }
   .ask-zoo-ascii { font-size: 11px; }
 }
+
+/* ===== Single Page (Landing) Sections ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+.lp-section {
+  margin-bottom: 96px;
+  scroll-margin-top: 76px;
+}
+.lp-section:last-child {
+  margin-bottom: 0;
+}
+
+.lp-section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.lp-section-head .lp-arrow {
+  color: var(--purple);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 14px;
+}
+.lp-section-head h2 {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--green);
+  margin: 0;
+}
+
+/* --- Ask Zoo entry card --- */
+.lp-askzoo {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 32px;
+  overflow: hidden;
+}
+.lp-askzoo::before,
+.lp-askzoo::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+}
+.lp-askzoo::before {
+  top: 0;
+  background: linear-gradient(to right, var(--green), var(--purple));
+}
+.lp-askzoo::after {
+  bottom: 0;
+  background: linear-gradient(to left, var(--green), var(--purple));
+}
+.lp-askzoo-title {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.lp-askzoo-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.lp-askzoo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 13px 16px;
+  background: var(--bg);
+  transition: border-color 0.15s;
+}
+.lp-askzoo-row:focus-within {
+  border-color: var(--purple);
+}
+.lp-askzoo-prompt {
+  color: var(--purple);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.lp-askzoo-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 14px;
+  caret-color: var(--purple);
+}
+.lp-askzoo-input::placeholder {
+  color: var(--text3);
+}
+.lp-askzoo-enter {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 12px;
+  color: var(--text3);
+  flex-shrink: 0;
+}
+.lp-askzoo-hint {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lp-askzoo-hint .lp-hint-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .lp-section { margin-bottom: 64px; scroll-margin-top: 68px; }
+  .lp-askzoo { padding: 24px 20px; }
+  .lp-askzoo-enter { display: none; }
+}

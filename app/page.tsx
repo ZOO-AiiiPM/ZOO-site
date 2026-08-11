@@ -1,26 +1,132 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { CliLine, Typewriter, StaggerReveal } from "@/components/CliAnimations";
+import "./about/about.css";
+import "./projects/projects.css";
 
-const articles = [
-  { date: "Apr 08", title: "用 Claude Code 三天做了一个完整的 SaaS 产品", tag: "vibe coding", tagClass: "tag-vibe", slug: "claude-code-saas" },
-  { date: "Apr 02", title: "AI PM 的核心能力模型：不只是写 PRD", tag: "ai pm", tagClass: "tag-pm", slug: "ai-pm-core-skills" },
-  { date: "Mar 25", title: "为什么 Agent 产品的用户留存这么难做？", tag: "agent", tagClass: "tag-agent", slug: "agent-retention" },
-  { date: "Mar 18", title: "Prompt Engineering 不是 AI PM 的核心竞争力", tag: "观点", tagClass: "tag-think", slug: "prompt-not-core" },
-  { date: "Mar 10", title: "一个周末，用 AI 从零搭建了这个个人网站", tag: "vibe coding", tagClass: "tag-vibe", slug: "build-site-with-ai" },
+/* ---- Data ---- */
+
+const EXPERIENCES = [
+  {
+    role: "AI 产品经理",
+    desc: "负责 AI 产品线，从 0 到 1 搭建 AI 能力平台，推动 AI 在核心业务的落地。",
+    stack: ["AI Strategy", "LLM", "Agent", "Product Design"],
+    time: "2024 - present",
+    status: "running" as const,
+    pid: "2024",
+  },
+  {
+    role: "高级产品经理",
+    desc: "负责核心业务产品的规划与迭代，主导多个千万级用户产品的功能设计。",
+    stack: ["B2C", "Growth", "Data Analysis", "A/B Test"],
+    time: "2022 - 2024",
+    status: "exited" as const,
+    pid: "2022",
+  },
+  {
+    role: "产品经理",
+    desc: "从 0 到 1 构建用户增长体系，负责拉新、留存和转化链路的产品设计。",
+    stack: ["User Growth", "Retention", "Funnel", "SQL"],
+    time: "2020 - 2022",
+    status: "exited" as const,
+    pid: "2020",
+  },
 ];
 
-const projects = [
-  { icon: "🤖", name: "AI 日报生成器", desc: "自动抓取 AI 领域动态，生成每日摘要推送到飞书群", stack: ["Python", "Claude API", "飞书"] },
-  { icon: "📊", name: "竞品监控看板", desc: "追踪竞品更新日志，AI 提取关键变化生成对比报告", stack: ["Next.js", "Puppeteer", "Vercel"] },
-  { icon: "✍️", name: "PRD 智能助手", desc: "Chrome 插件，输入需求自动生成结构化 PRD 文档", stack: ["Extension", "DeepSeek"] },
-  { icon: "🎯", name: "用户反馈聚类", desc: "接入评论和工单，AI 聚类分析生成需求优先级矩阵", stack: ["Python", "Streamlit"] },
+const BELIEFS = [
+  { title: "用户价值优先", text: "最好的 AI 产品让人感觉不到 AI 的存在，技术是手段不是目的。" },
+  { title: "产品经理要会写代码", text: "不是为了取代工程师，而是为了把想法直接变成可运行的产品原型。" },
+  { title: "AI 时代的 PM 需要新能力模型", text: "Prompt Engineering 不是核心竞争力，理解 AI 的边界和产品化才是。" },
+  { title: "做出来比想出来重要", text: "一个能跑的 demo 胜过十页 PRD，Vibe Coding 让这件事成为可能。" },
 ];
+
+interface Project {
+  name: string;
+  title: string;
+  desc: string;
+  tags: string[];
+  status: "running" | "shipped" | "building";
+  pid: string;
+}
+
+const PROJECTS: Project[] = [
+  {
+    name: "ai-daily-report",
+    title: "AI 日报生成器",
+    desc: "自动抓取 AI 领域最新动态，生成每日摘要推送到飞书群。支持自定义关注领域和推送时间。",
+    tags: ["Python", "Claude API", "飞书", "Cron"],
+    status: "running",
+    pid: "2847",
+  },
+  {
+    name: "competitor-monitor",
+    title: "竞品监控看板",
+    desc: "自动追踪竞品官网、App Store 更新日志，AI 提取关键变化生成对比报告。",
+    tags: ["Next.js", "Puppeteer", "Vercel"],
+    status: "shipped",
+    pid: "3012",
+  },
+  {
+    name: "prd-assistant",
+    title: "PRD 智能助手",
+    desc: "Chrome 插件，输入需求描述自动生成结构化 PRD，支持导出 Notion/飞书文档格式。",
+    tags: ["Chrome Extension", "DeepSeek", "React"],
+    status: "building",
+    pid: "3156",
+  },
+  {
+    name: "feedback-cluster",
+    title: "用户反馈聚类工具",
+    desc: "接入 App Store 评论和客服工单，AI 自动聚类分析，生成可视化的需求优先级矩阵。",
+    tags: ["Python", "Streamlit", "Embedding"],
+    status: "shipped",
+    pid: "3289",
+  },
+  {
+    name: "ask-zoo",
+    title: "AI 分身对话",
+    desc: "基于 DeepSeek API 的个人 AI 分身，了解我的经历和性格。页面底部可以直接问它。",
+    tags: ["Next.js", "DeepSeek", "SSE"],
+    status: "running",
+    pid: "3401",
+  },
+  {
+    name: "zoo.dev",
+    title: "这个网站",
+    desc: "你正在看的个人网站，也是一个 Vibe Coding 项目。从设计到代码全程 AI 协作。",
+    tags: ["Next.js", "Tailwind", "Vercel"],
+    status: "running",
+    pid: "3567",
+  },
+];
+
+const statusConfig = {
+  running: { label: "RUNNING", dot: "●" },
+  shipped: { label: "SHIPPED", dot: "✓" },
+  building: { label: "BUILDING", dot: "◌" },
+};
+
+const CONTACTS = [
+  { flag: "--github", value: "github.com/zoo", link: "→ open", href: "https://github.com" },
+  { flag: "--email", value: "zoo@zooooo.site", link: "→ mailto:", href: "mailto:zoo@zooooo.site" },
+];
+
+function SectionHead({ label }: { label: string }) {
+  return (
+    <div className="lp-section-head">
+      <span className="lp-arrow">❯</span>
+      <h2>{label}</h2>
+    </div>
+  );
+}
 
 export default function Home() {
   const placeholderRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const router = useRouter();
+  const [askInput, setAskInput] = useState("");
   const d = (ms: number) => ({ "--d": ms }) as React.CSSProperties;
 
   useEffect(() => {
@@ -80,6 +186,12 @@ export default function Home() {
     };
   }, []);
 
+  function startAskZoo() {
+    const q = askInput.trim();
+    if (!q) return;
+    router.push(`/ask-zoo?q=${encodeURIComponent(q)}`);
+  }
+
   return (
     <div className="page-container">
       {/* Boot sequence */}
@@ -118,7 +230,7 @@ export default function Home() {
       </p>
 
       {/* Tags */}
-      <div className="boot-blur" style={{ ...d(2400), display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 72 }}>
+      <div className="boot-blur" style={{ ...d(2400), display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 80 }}>
         {["AI 产品", "Vibe Coding", "Agent", "独立开发", "产品方法论"].map((label) => (
           <span
             key={label}
@@ -137,43 +249,173 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Writing */}
-      <section style={{ marginBottom: 72 }}>
-        <div className="sec-head boot-blur" style={d(2600)}>
-          <h2>WRITING</h2>
-          <Link href="/blog">View all →</Link>
-        </div>
-        <div className="home-article-list">
-          {articles.map((a, idx) => (
-            <Link key={a.slug} href={`/blog/${a.slug}`} className="home-article-row boot-blur" style={d(2700 + idx * 60)}>
-              <span className="home-article-date">{a.date}</span>
-              <span className="home-article-title">{a.title}</span>
-              <span className={`home-article-tag ${a.tagClass}`}>{a.tag}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section>
-        <div className="sec-head boot-blur" style={d(3000)}>
-          <h2>PROJECTS</h2>
-          <Link href="/projects">View all →</Link>
-        </div>
-        <div className="home-project-grid">
-          {projects.map((p, idx) => (
-            <div key={p.name} className="home-project-card boot-blur" style={d(3100 + idx * 70)}>
-              <div className="home-project-icon">{p.icon}</div>
-              <div className="home-project-name">{p.name}</div>
-              <div className="home-project-desc">{p.desc}</div>
-              <div className="home-project-stack">
-                {p.stack.map((s) => (
-                  <span key={s} className="home-project-chip">{s}</span>
-                ))}
+      {/* ===== About ===== */}
+      <section id="about" className="lp-section">
+        <CliLine>
+          <SectionHead label="about" />
+        </CliLine>
+        <CliLine delay={60}>
+          <div className="about-bio">
+            <p>嗨，我是 Zoo。一个在 AI 时代重新定义自己的产品经理。</p>
+            <p>
+              我相信最好的 AI 产品不是炫技，而是<strong>让人感觉不到 AI 的存在</strong>。
+              当技术消隐于体验之中，用户才能真正感受到产品的价值。这是我做产品的核心信念，也是我持续探索的方向。
+            </p>
+          </div>
+        </CliLine>
+        <div style={{ height: 28 }} />
+        {EXPERIENCES.map((exp, i) => (
+          <CliLine key={exp.pid} delay={i * 120}>
+            <div className="about-exp-item">
+              <span className="about-exp-arrow">›</span>
+              <div className="about-exp-main">
+                <div className="about-exp-role">{exp.role}</div>
+                <div className="about-exp-desc">{exp.desc}</div>
+                <div className="about-exp-stack cli-inner-stagger">
+                  <span className="stack-key">stack</span>
+                  <span className="stack-eq">=</span>
+                  <span className="stack-val">
+                    [{exp.stack.map((s) => `"${s}"`).join(", ")}]
+                  </span>
+                </div>
+              </div>
+              <div className="about-exp-time">{exp.time}</div>
+              <div>
+                <span className={`about-exp-badge about-exp-badge-${exp.status}${exp.status === "running" ? " cli-pulse" : ""}`}>
+                  {exp.status === "running" ? "●" : "○"} {exp.status.toUpperCase()}
+                </span>
               </div>
             </div>
-          ))}
-        </div>
+          </CliLine>
+        ))}
+        <div style={{ height: 32 }} />
+        {BELIEFS.map((b, i) => (
+          <CliLine key={i} delay={i * 100}>
+            <div className="about-belief-item">
+              <span className="about-belief-idx">{String(i + 1).padStart(2, "0")}</span>
+              <div className="about-belief-content">
+                <strong>{b.title}</strong> — {b.text}
+              </div>
+            </div>
+          </CliLine>
+        ))}
+      </section>
+
+      {/* ===== Projects ===== */}
+      <section id="projects" className="lp-section">
+        <CliLine>
+          <SectionHead label="projects" />
+        </CliLine>
+        <StaggerReveal selector=".proj-card" interval={80}>
+          <div className="proj-grid">
+            {PROJECTS.map((project) => {
+              const status = statusConfig[project.status];
+              return (
+                <div key={project.name} className="proj-card cli-stagger-item">
+                  <div className="proj-bar">
+                    <div className="proj-dots">
+                      <span className="proj-dot proj-dot-r" />
+                      <span className="proj-dot proj-dot-y" />
+                      <span className="proj-dot proj-dot-g" />
+                    </div>
+                    <span className="proj-filename">{project.name}</span>
+                    <span className={`proj-badge proj-badge-${project.status}${project.status === "running" ? " cli-pulse" : ""}`}>
+                      {status.dot} {status.label}
+                    </span>
+                  </div>
+                  <div className="proj-body">
+                    <div className="proj-title-row">
+                      <span className="proj-arrow">❯</span>
+                      <h3 className="proj-name">{project.title}</h3>
+                    </div>
+                    <p className="proj-desc">{project.desc}</p>
+                    <div className="proj-stack cli-inner-stagger">
+                      <span className="proj-stack-key">stack</span>
+                      <span className="proj-stack-eq">=</span>
+                      <span className="proj-stack-val">
+                        [{project.tags.map((tag, i) => (
+                          <span key={tag}>
+                            <span className="proj-tag">&quot;{tag}&quot;</span>
+                            {i < project.tags.length - 1 && <span className="proj-tag-comma">, </span>}
+                          </span>
+                        ))}]
+                      </span>
+                    </div>
+                    <div className="proj-meta cli-inner-stagger">
+                      <span>PID {project.pid}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </StaggerReveal>
+      </section>
+
+      {/* ===== Contact ===== */}
+      <section id="contact" className="lp-section">
+        <CliLine>
+          <SectionHead label="contact" />
+        </CliLine>
+        <CliLine delay={60}>
+          <div className="about-contact-cmd" style={{ marginBottom: 16 }}>
+            <span className="cmd-arrow">$</span>
+            <span className="cmd-name"><Typewriter text="zoo --contact" startDelay={200} speed={60} /></span>
+          </div>
+        </CliLine>
+        <StaggerReveal selector=".about-contact-row" interval={100}>
+          <div className="about-contact-list">
+            {CONTACTS.map((c) => (
+              <a
+                key={c.flag}
+                href={c.href}
+                className="about-contact-row cli-stagger-item"
+                target={c.flag !== "--email" ? "_blank" : undefined}
+                rel={c.flag !== "--email" ? "noopener noreferrer" : undefined}
+              >
+                <span className="about-contact-cursor">›</span>
+                <span className="about-contact-flag">{c.flag}</span>
+                <span className="about-contact-value">{c.value}</span>
+                <span className="about-contact-link">{c.link}</span>
+              </a>
+            ))}
+          </div>
+        </StaggerReveal>
+      </section>
+
+      {/* ===== Ask Zoo ===== */}
+      <section id="ask-zoo" className="lp-section">
+        <CliLine>
+          <SectionHead label="ask zoo" />
+        </CliLine>
+        <CliLine delay={60}>
+          <div className="lp-askzoo">
+            <div className="lp-askzoo-title">zoo.skill v1.0 — 我的 AI 分身</div>
+            <p className="lp-askzoo-desc">
+              想了解真实的我？直接问它。对话会在独立的终端页面进行，支持深度的自由提问。 (｡•̀ᴗ-)✧
+            </p>
+            <div className="lp-askzoo-row">
+              <span className="lp-askzoo-prompt">❯</span>
+              <input
+                className="lp-askzoo-input"
+                value={askInput}
+                onChange={(e) => setAskInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                    e.preventDefault();
+                    startAskZoo();
+                  }
+                }}
+                placeholder="问点什么，比如：who is Zoo?"
+              />
+              <span className="lp-askzoo-enter">⏎ enter</span>
+            </div>
+            <div className="lp-askzoo-hint">
+              <span className="lp-hint-dot" />
+              powered by DeepSeek · 输入后自动进入对话页
+            </div>
+          </div>
+        </CliLine>
       </section>
     </div>
   );

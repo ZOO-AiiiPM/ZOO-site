@@ -107,7 +107,7 @@ export default function AskZooPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const msgCountRef = useRef(0);
 
-  // Restore from sessionStorage
+  // Restore from sessionStorage；无历史时若带 ?q= 参数则自动开始对话
   useEffect(() => {
     try {
       const saved = sessionStorage.getItem(STORAGE_KEY);
@@ -116,8 +116,16 @@ export default function AskZooPage() {
         setMessages(parsed);
         msgCountRef.current = Math.ceil(parsed.length / 2);
         setShowWelcome(false);
+        return; // 已有历史，忽略 q 参数
       }
     } catch { /* ignore */ }
+
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) {
+      setShowWelcome(false);
+      sendMessage(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Persist to sessionStorage

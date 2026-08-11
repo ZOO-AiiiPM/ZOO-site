@@ -6,10 +6,9 @@ import { useRef, useEffect, useState, useCallback, useLayoutEffect } from "react
 import { PixelAvatar, PixelLogo } from "@/components/PixelArt";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/about", label: "About" },
+  { href: "/#about", label: "About" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#contact", label: "Contact" },
   { href: "/ask-zoo", label: "Ask Zoo" },
 ];
 
@@ -21,10 +20,31 @@ export function Nav() {
   const linksRef = useRef<HTMLDivElement>(null);
   const [underline, setUnderline] = useState({ left: 0, width: 0 });
   const [ready, setReady] = useState(false);
+  const [hash, setHash] = useState("");
+
+  // 首页锚点导航：监听 hash 变化用于 active 状态
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash);
+    window.addEventListener("hashchange", onHash);
+    onHash();
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
 
   const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    if (href === "/ask-zoo") return pathname.startsWith("/ask-zoo");
+    const id = href.split("#")[1];
+    return pathname === "/" && hash === `#${id}`;
+  };
+
+  // 首页点击锚点：平滑滚动 + 更新 hash；其他页：原生跳转首页锚点
+  const handleAnchorClick = (e: React.MouseEvent, href: string) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      const id = href.split("#")[1];
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      history.pushState(null, "", `#${id}`);
+      setHash(`#${id}`);
+    }
   };
 
   const updateUnderline = useCallback(() => {
@@ -60,14 +80,15 @@ export function Nav() {
         </Link>
         <div className="nav-links" ref={linksRef}>
           {links.map(({ href, label }) => (
-            <Link
+            <a
               key={href}
               href={href}
               className={isActive(href) ? "active" : ""}
+              onClick={(e) => handleAnchorClick(e, href)}
             >
               {isActive(href) && <span className="nav-cursor">&gt;</span>}
               {label}
-            </Link>
+            </a>
           ))}
           <div
             className={`nav-underline${ready ? " nav-underline-ready" : ""}`}
