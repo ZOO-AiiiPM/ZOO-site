@@ -267,7 +267,7 @@ export default function AskZooPage() {
             <span className="ask-zoo-info-label">v1.0</span>
           </div>
           <div className="ask-zoo-powered ask-zoo-type-line" style={{ "--d": 300 } as React.CSSProperties}>
-            powered by Claude Sonnet
+            powered by DeepSeek V4 Flash
           </div>
           <p className="ask-zoo-intro ask-zoo-type-line" style={{ "--d": 500 } as React.CSSProperties}>
             这是赛博 Zoo (｡•̀ᴗ-)✧ 想了解真实的我，直接问就好~

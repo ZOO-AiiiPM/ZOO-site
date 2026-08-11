@@ -108,7 +108,7 @@ export async function POST(req: NextRequest) {
   let stream;
   try {
     stream = await client.chat.completions.create({
-      model: "claude-sonnet-4",
+      model: "deepseek-v4-flash-free",
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream: true,
       max_tokens: 1024,
