@@ -1,9 +1,11 @@
 import OpenAI from "openai";
 import { NextRequest } from "next/server";
 
+// ZEN_BASE_URL 可能是完整端点（含 /chat/completions），OpenAI SDK 会再补一次，
+// 这里统一规整为 base，避免路径翻倍导致 404。
 const client = new OpenAI({
   apiKey: process.env.ZEN_API_KEY,
-  baseURL: process.env.ZEN_BASE_URL,
+  baseURL: (process.env.ZEN_BASE_URL || "").replace(/\/chat\/completions\/?$/, "") || undefined,
 });
 
 // 简易内存速率限制：每个 IP 每分钟最多 6 次，每天最多 50 次
@@ -103,12 +105,22 @@ export async function POST(req: NextRequest) {
   }
 
   // model id 由 Zen 网关提供；streaming 输出
-  const stream = await client.chat.completions.create({
-    model: "deepseek-v4-flash-free",
-    messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
-    stream: true,
-    max_tokens: 1024,
-  });
+  let stream;
+  try {
+    stream = await client.chat.completions.create({
+      model: "claude-sonnet-4",
+      messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      stream: true,
+      max_tokens: 1024,
+    });
+  } catch (err) {
+    const apiErr = err as { status?: number; message?: string; error?: { message?: string } };
+    const detail = apiErr?.error?.message || apiErr?.message || "模型服务暂时不可用";
+    return new Response(
+      JSON.stringify({ error: `哎呀，AI 分身暂时醒不过来啦：\n${detail}` }),
+      { status: 502, headers: { "Content-Type": "application/json" } },
+    );
+  }
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({

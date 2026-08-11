@@ -1,8 +1,14 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { PixelAvatar } from "@/components/PixelArt";
 import { ProofCursor } from "./ProofCursor";
+
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
 
 const suggestions = [
   "为什么想做 AI 产品经理？",
@@ -10,19 +16,17 @@ const suggestions = [
   "你是怎么和研发协作的？",
 ];
 
-const answers: Record<string, string> = {
-  "为什么想做 AI 产品经理？": "因为 AI 产品最迷人的地方，不是模型有多强，而是我们要重新设计人与能力之间的关系。我想做那个把能力变成好体验的人。",
-  "挑一个项目讲讲你的判断": "在信息助手项目里，我最重要的判断是：用户缺的不是更多摘要，而是知道哪条变化值得采取行动。所以产品先做优先级与证据回链，再做信息规模。",
-  "你是怎么和研发协作的？": "我会尽量把需求变成可验证的交互和边界条件，再和研发一起讨论最低成本的验证路径。目标不是把 PRD 交出去，而是让团队对结果有共同理解。",
-};
-
 export function AskZooPrototype() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [docked, setDocked] = useState(false);
   const [question, setQuestion] = useState("");
-  const [conversation, setConversation] = useState<{ question: string; answer: string } | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -38,25 +42,96 @@ export function AskZooPrototype() {
     return () => observer.disconnect();
   }, []);
 
+  // 新消息进来时自动滚动到底部
+  useEffect(() => {
+    const el = contentRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [messages]);
+
   const openDialog = () => dialogRef.current?.showModal();
   const closeDialog = () => {
     dialogRef.current?.close();
     triggerRef.current?.focus();
   };
 
-  const ask = (text: string) => {
+  const sendMessage = async (text: string) => {
     const cleaned = text.trim();
-    if (!cleaned) return;
-    setConversation({
-      question: cleaned,
-      answer: answers[cleaned] ?? "这是视觉原型里的示例回答。下一轮接入真实 Ask Zoo 后，我会基于 Zoo 的经历继续聊这个问题。",
-    });
+    if (!cleaned || isStreaming) return;
+
+    const userMsg: Message = { role: "user", content: cleaned };
+    const history = [...messages, userMsg];
+    setMessages([...history, { role: "assistant", content: "" }]);
     setQuestion("");
+    setIsStreaming(true);
+    setIsThinking(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: history.map((m) => ({ role: m.role, content: m.content })),
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "连接出了点问题，稍后再试试～");
+      }
+
+      setIsThinking(false);
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
+      let assistantContent = "";
+
+      while (reader) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        const lines = chunk.split("\n");
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const data = line.slice(6);
+            if (data === "[DONE]") break;
+            try {
+              const parsed = JSON.parse(data);
+              if (parsed.text) {
+                assistantContent += parsed.text;
+                setMessages((prev) => {
+                  const updated = [...prev];
+                  updated[updated.length - 1] = { role: "assistant", content: assistantContent };
+                  return updated;
+                });
+              }
+            } catch {
+              /* 跳过非 JSON 行 */
+            }
+          }
+        }
+      }
+    } catch (err) {
+      const errorMsg = err instanceof Error ? err.message : "网络好像不太稳，等会儿再来找我聊吧～";
+      setMessages((prev) => {
+        const updated = [...prev];
+        updated[updated.length - 1] = { role: "assistant", content: errorMsg };
+        return updated;
+      });
+    } finally {
+      setIsStreaming(false);
+      setIsThinking(false);
+      inputRef.current?.focus();
+    }
   };
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    ask(question);
+    sendMessage(question);
+  };
+
+  const resetChat = () => {
+    setMessages([]);
+    setQuestion("");
+    inputRef.current?.focus();
   };
 
   return (
@@ -100,13 +175,16 @@ export function AskZooPrototype() {
             <button type="button" className="home-ask-close" onClick={closeDialog} data-cursor="CLOSE" aria-label="关闭">×</button>
           </header>
 
-          <div className="home-ask-content">
-            {!conversation ? (
+          <div
+            ref={contentRef}
+            className={`home-ask-content${messages.length === 0 ? " is-empty" : ""}`}
+          >
+            {messages.length === 0 ? (
               <>
                 <p className="home-ask-intro">除了简历还想了解什么，尽管问吧！</p>
                 <div className="home-ask-suggestions">
                   {suggestions.map((item) => (
-                    <button key={item} type="button" onClick={() => ask(item)} data-cursor="ASK">
+                    <button key={item} type="button" onClick={() => sendMessage(item)} data-cursor="ASK">
                       {item}
                     </button>
                   ))}
@@ -114,9 +192,17 @@ export function AskZooPrototype() {
               </>
             ) : (
               <div className="home-ask-thread" aria-live="polite">
-                <div className="home-ask-message is-user"><span>YOU</span><p>{conversation.question}</p></div>
-                <div className="home-ask-message is-zoo"><span>ZOO.AI</span><p>{conversation.answer}</p></div>
-                <button type="button" className="home-ask-reset" onClick={() => setConversation(null)}>← 换个问题</button>
+                {messages.map((m, i) => (
+                  <div key={i} className={`home-ask-message ${m.role === "user" ? "is-user" : "is-zoo"}`}>
+                    <span>{m.role === "user" ? "YOU" : "ZOO.AI"}</span>
+                    {m.role === "assistant" ? (
+                      <div className="home-ask-markdown"><ReactMarkdown>{m.content}</ReactMarkdown></div>
+                    ) : (
+                      <p>{m.content}</p>
+                    )}
+                  </div>
+                ))}
+                {isThinking && <div className="home-ask-thinking">正在思考…</div>}
               </div>
             )}
           </div>
@@ -124,14 +210,24 @@ export function AskZooPrototype() {
           <div className="home-ask-bottom">
             <form className="home-ask-form" onSubmit={submit}>
               <div className="home-ask-input-bar">
-                <input id="home-ask-input" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="问问我…" />
-                <button type="submit" data-cursor="SEND" aria-label="发送问题">
+                <input
+                  ref={inputRef}
+                  id="home-ask-input"
+                  value={question}
+                  onChange={(event) => setQuestion(event.target.value)}
+                  placeholder="问问我…"
+                  disabled={isStreaming}
+                />
+                <button type="submit" data-cursor="SEND" aria-label="发送问题" disabled={isStreaming}>
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                   </svg>
                 </button>
               </div>
             </form>
+            {messages.length > 0 && (
+              <button type="button" className="home-ask-reset" onClick={resetChat}>← 换个话题</button>
+            )}
           </div>
         </div>
 

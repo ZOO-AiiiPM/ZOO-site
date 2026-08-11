@@ -1243,16 +1243,20 @@ body:has(.home-portfolio) a {
 }
 .home-ask-close:hover { color: var(--home-paper); background: var(--home-ice); }
 
-/* ── 内容区（问候 / 对话流）── 居中 ── */
+/* ── 内容区（问候 / 对话流）── 默认顶对齐可滚动；空状态才居中 ── */
 .home-ask-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 24px;
   overflow-y: auto;
   background-image: radial-gradient(var(--home-faint) 1px, transparent 1px);
   background-size: 18px 18px;
+}
+
+.home-ask-content.is-empty {
+  justify-content: center;
+  text-align: center;
 }
 
 .home-ask-intro {
@@ -1297,13 +1301,16 @@ body:has(.home-portfolio) a {
 /* ── 对话流 ── */
 .home-ask-thread {
   display: grid;
-  gap: 22px;
+  gap: 18px;
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
   text-align: left;
 }
 
 .home-ask-message {
-  max-width: 76%;
-  padding: 22px;
+  max-width: 82%;
+  padding: 18px 20px;
   border: 2px solid var(--home-ink);
   background: var(--home-sheet);
 }
@@ -1319,18 +1326,59 @@ body:has(.home-portfolio) a {
   font-size: 8px;
 }
 
-.home-ask-message p {
-  margin: 12px 0 0;
+/* 仅用户消息的直接 <p> 段落（assistant 用 .home-ask-markdown 渲染） */
+.home-ask-message > p {
+  margin: 10px 0 0;
   font-size: 16px;
   line-height: 1.7;
 }
 
+/* assistant 流式/富文本渲染 */
+.home-ask-markdown {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.home-ask-markdown p { margin: 10px 0 0; }
+.home-ask-markdown p:first-child { margin-top: 0; }
+.home-ask-markdown ul,
+.home-ask-markdown ol { margin: 10px 0 0; padding-left: 22px; }
+.home-ask-markdown li { margin: 4px 0; }
+.home-ask-markdown code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--home-sheet-2);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.9em;
+}
+.home-ask-markdown pre {
+  margin: 10px 0 0;
+  padding: 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  background: var(--home-sheet-2);
+}
+.home-ask-markdown pre code { padding: 0; background: none; }
+.home-ask-markdown a { color: var(--home-signal); text-decoration: underline; }
+.home-ask-markdown strong { font-weight: 700; }
+
+.home-ask-thinking {
+  justify-self: start;
+  margin-top: 4px;
+  color: var(--home-pencil);
+  font-size: 13px;
+  font-style: italic;
+}
+
 .home-ask-reset {
   width: fit-content;
+  margin: 4px auto 0;
   border: 0;
   color: var(--home-signal);
   background: transparent;
+  font-size: 13px;
+  transition: color 160ms ease;
 }
+.home-ask-reset:hover { color: var(--home-ink); }
 
 /* ── 底部区：圆角药丸输入条 + 下方快捷提示 ── */
 .home-ask-bottom {
