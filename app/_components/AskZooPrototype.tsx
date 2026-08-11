@@ -209,23 +209,20 @@ export function AskZooPrototype() {
           <div className="home-ask-bottom">
             <form className="home-ask-form" onSubmit={submit}>
               <div className="home-ask-input-bar">
-                {messages.length > 0 && (
-                  <button type="button" className="home-ask-new-chat" onClick={resetChat} data-cursor="NEW" aria-label="新建对话">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                  </button>
-                )}
+                <button type="button" className="home-ask-new-chat" onClick={resetChat} data-cursor="NEW" aria-label="新建对话">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                </button>
                 <input
                   ref={inputRef}
                   id="home-ask-input"
                   value={question}
                   onChange={(event) => setQuestion(event.target.value)}
-                  placeholder="问问我…"
                   disabled={isStreaming}
                 />
                 <button type="submit" data-cursor="SEND" aria-label="发送问题" disabled={isStreaming}>
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                     <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                   </svg>
                 </button>
