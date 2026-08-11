@@ -35,7 +35,7 @@
   --color-gold: var(--gold);
   --color-pink: var(--pink);
   --color-blue: var(--blue);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-albert-sans), var(--font-noto-sans-sc);
   --font-mono: var(--font-jetbrains-mono);
 }
 
@@ -43,7 +43,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-inter), 'Noto Sans SC', sans-serif;
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
 }
 
 ::selection {

@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Albert_Sans, JetBrains_Mono, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 import { Spotlight } from "@/components/Spotlight";
 import { Nav } from "@/components/Nav";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({
-  variable: "--font-inter",
+const albertSans = Albert_Sans({
+  variable: "--font-albert-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const notoSansSC = Noto_Sans_SC({
+  variable: "--font-noto-sans-sc",
+  weight: "variable",
+  display: "swap",
+  preload: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -27,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="zh-CN" className={`${albertSans.variable} ${notoSansSC.variable} ${jetbrainsMono.variable}`}>
       <body>
         <Spotlight />
         <Nav />

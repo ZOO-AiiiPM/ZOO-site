@@ -467,7 +467,7 @@
   user-select: none;
 }
 .blog-insight-content {
-  font-family: var(--font-inter), 'Noto Sans SC', sans-serif;
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
   font-size: 15px;
   line-height: 1.7;
   color: color-mix(in srgb, var(--text) 78%, transparent);

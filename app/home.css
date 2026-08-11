@@ -9,7 +9,7 @@ body:has(.home-portfolio) {
   --home-faint: #30363e;
   background: var(--home-paper);
   color: var(--home-ink);
-  font-family: var(--font-inter), "Noto Sans SC", sans-serif;
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
 }
 
 body:has(.home-portfolio) > .spotlight,
@@ -82,7 +82,7 @@ body:has(.home-portfolio) a {
 .home-ask-form label,
 .home-ask-form small,
 .home-ask-message > span {
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -353,7 +353,7 @@ body:has(.home-portfolio) a {
 
 .home-decision-index {
   fill: var(--home-ink);
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 12px;
   pointer-events: none;
 }
@@ -745,7 +745,7 @@ body:has(.home-portfolio) a {
 
 .home-project-windowbar b {
   margin-left: auto;
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 9px;
   letter-spacing: 0.08em;
 }
@@ -803,7 +803,7 @@ body:has(.home-portfolio) a {
   display: block;
   margin-bottom: 12px;
   color: var(--home-signal);
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
 }
 
@@ -844,7 +844,7 @@ body:has(.home-portfolio) a {
 
 .home-project-persona-id small {
   color: var(--home-signal);
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
 }
 
@@ -920,7 +920,7 @@ body:has(.home-portfolio) a {
   position: absolute;
   left: 34px;
   color: var(--home-pencil);
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 11px;
 }
 
@@ -1109,7 +1109,7 @@ body:has(.home-portfolio) a {
 .home-footer-actions > a {
   padding: 18px 0;
   border-bottom: 2px solid var(--home-paper);
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 11px;
 }
 
@@ -1401,7 +1401,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-proof-cursor span {
-  font-family: var(--font-jetbrains-mono), monospace;
+  font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
   font-weight: 800;
 }
