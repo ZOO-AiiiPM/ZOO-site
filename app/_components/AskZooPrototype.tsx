@@ -42,13 +42,19 @@ export function AskZooPrototype() {
     return () => observer.disconnect();
   }, []);
 
-  // 新消息进来时自动滚动到底部
+  // 新消息、首个 token 或流式 token 到达后，只滚动对话窗口内部。
   useEffect(() => {
-    const el = contentRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [messages]);
+    const frame = window.requestAnimationFrame(() => {
+      const el = contentRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [messages, isThinking]);
 
-  const openDialog = () => dialogRef.current?.showModal();
+  const openDialog = () => {
+    dialogRef.current?.showModal();
+    window.requestAnimationFrame(() => inputRef.current?.focus());
+  };
   const closeDialog = () => {
     dialogRef.current?.close();
     triggerRef.current?.focus();
@@ -79,36 +85,53 @@ export function AskZooPrototype() {
         throw new Error(data?.error || "连接出了点问题，稍后再试试～");
       }
 
-      setIsThinking(false);
       const reader = res.body?.getReader();
+      if (!reader) throw new Error("没有收到有效的回复流，换个问题再试试～");
+
       const decoder = new TextDecoder();
       let assistantContent = "";
+      let buffer = "";
+      let streamDone = false;
 
-      while (reader) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value);
-        const lines = chunk.split("\n");
-        for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6);
-            if (data === "[DONE]") break;
-            try {
-              const parsed = JSON.parse(data);
-              if (parsed.text) {
-                assistantContent += parsed.text;
-                setMessages((prev) => {
-                  const updated = [...prev];
-                  updated[updated.length - 1] = { role: "assistant", content: assistantContent };
-                  return updated;
-                });
-              }
-            } catch {
-              /* 跳过非 JSON 行 */
-            }
-          }
+      // SSE 事件可能被网络拆成半行，先按空行缓冲完整事件再解析。
+      const consumeEvent = (event: string) => {
+        const dataLine = event.split(/\r?\n/).find((line) => line.startsWith("data:"));
+        if (!dataLine) return;
+
+        const data = dataLine.slice(5).trim();
+        if (data === "[DONE]") {
+          streamDone = true;
+          return;
         }
+
+        try {
+          const parsed = JSON.parse(data) as { text?: unknown };
+          if (typeof parsed.text === "string" && parsed.text) {
+            setIsThinking(false);
+            assistantContent += parsed.text;
+            setMessages((prev) => {
+              const updated = [...prev];
+              updated[updated.length - 1] = { role: "assistant", content: assistantContent };
+              return updated;
+            });
+          }
+        } catch {
+          /* 跳过非 JSON 行 */
+        }
+      };
+
+      while (!streamDone) {
+        const { done, value } = await reader.read();
+        buffer += decoder.decode(value ?? new Uint8Array(), { stream: !done });
+        const events = buffer.split(/\r?\n\r?\n/);
+        buffer = events.pop() ?? "";
+        events.forEach(consumeEvent);
+        if (done) break;
       }
+
+      const trailingEvent = buffer.trim();
+      if (!streamDone && trailingEvent) consumeEvent(trailingEvent);
+      if (!assistantContent) throw new Error("我刚才没有收到有效回复，换个问题再试试～");
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : "网络好像不太稳，等会儿再来找我聊吧～";
       setMessages((prev) => {
@@ -192,16 +215,29 @@ export function AskZooPrototype() {
               </>
             ) : (
               <div className="home-ask-thread" aria-live="polite">
-                {messages.map((m, i) => (
-                  <div key={i} className={`home-ask-message ${m.role === "user" ? "is-user" : "is-zoo"}`}>
-                    {m.role === "assistant" ? (
-                      <div className="home-ask-markdown"><ReactMarkdown>{m.content}</ReactMarkdown></div>
-                    ) : (
-                      <p>{m.content}</p>
-                    )}
-                  </div>
-                ))}
-                {isThinking && <div className="home-ask-thinking">正在思考…</div>}
+                {messages.map((m, i) => {
+                  const isWaitingForReply = m.role === "assistant" && i === messages.length - 1 && isThinking;
+
+                  return (
+                    <div
+                      key={i}
+                      className={`home-ask-message ${m.role === "user" ? "is-user" : "is-zoo"}${isWaitingForReply ? " is-thinking" : ""}`}
+                    >
+                      {m.role === "assistant" ? (
+                        isWaitingForReply ? (
+                          <div className="home-ask-thinking" role="status">
+                            <span className="home-ask-thinking-mark" aria-hidden="true"><i /><i /><i /></span>
+                            <span className="home-ask-thinking-copy"><small>THINKING</small><strong>正在组织回答</strong></span>
+                          </div>
+                        ) : (
+                          <div className="home-ask-markdown"><ReactMarkdown>{m.content}</ReactMarkdown></div>
+                        )
+                      ) : (
+                        <p>{m.content}</p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

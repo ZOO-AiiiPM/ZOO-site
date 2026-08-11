@@ -1,12 +1,15 @@
 body:has(.home-portfolio) {
-  --home-paper: #090a0c;
-  --home-sheet: #13161a;
-  --home-sheet-2: #191e24;
-  --home-ink: #f2eee6;
-  --home-ice: #a9d8ff;
-  --home-signal: #4f8dff;
-  --home-pencil: #8c929b;
-  --home-faint: #30363e;
+  --home-paper: var(--bg);
+  --home-sheet: var(--surface);
+  --home-sheet-2: var(--surface2);
+  --home-ink: var(--text);
+  --home-primary: var(--green);
+  --home-secondary: var(--purple);
+  --home-brand-gradient: linear-gradient(135deg, var(--home-primary), var(--home-secondary));
+  --home-primary-soft: color-mix(in srgb, var(--home-primary) 16%, transparent);
+  --home-secondary-soft: color-mix(in srgb, var(--home-secondary) 16%, transparent);
+  --home-pencil: var(--text2);
+  --home-faint: var(--border);
   background: var(--home-paper);
   color: var(--home-ink);
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
@@ -19,6 +22,12 @@ body:has(.home-portfolio) > .site-footer {
 
 body:has(.home-portfolio) a {
   color: inherit;
+}
+
+html:has(.home-ask-dialog[open]),
+body:has(.home-ask-dialog[open]) {
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .home-portfolio {
@@ -125,7 +134,7 @@ body:has(.home-portfolio) a {
 
 .home-topnav-links a.is-active {
   color: var(--home-paper);
-  background: var(--home-ice);
+  background: var(--home-primary);
 }
 
 .home-hero,
@@ -160,8 +169,8 @@ body:has(.home-portfolio) a {
   width: fit-content;
   margin-bottom: clamp(24px, 3vh, 38px);
   padding: 8px 12px;
-  border: 1px solid var(--home-ice);
-  color: var(--home-ice);
+  border: 1px solid var(--home-primary);
+  color: var(--home-primary);
   font-size: 10px;
 }
 
@@ -186,7 +195,11 @@ body:has(.home-portfolio) a {
 
 .home-hero h1 em {
   position: relative;
-  color: var(--home-ice);
+  color: var(--home-primary);
+  background-image: var(--home-brand-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-style: normal;
   white-space: nowrap;
 }
@@ -198,7 +211,7 @@ body:has(.home-portfolio) a {
   left: 0;
   right: 0;
   bottom: -0.08em;
-  background: var(--home-ice);
+  background: var(--home-brand-gradient);
 }
 
 .home-hero-intro {
@@ -257,7 +270,7 @@ body:has(.home-portfolio) a {
   height: 34px;
   border: 1px solid var(--home-ink);
   border-radius: 50%;
-  color: var(--home-ice);
+  color: var(--home-primary);
   animation: home-cue-bob 1.8s ease-in-out infinite;
 }
 
@@ -304,7 +317,7 @@ body:has(.home-portfolio) a {
 
 .home-decision-path {
   fill: none;
-  stroke: var(--home-ice);
+  stroke: var(--home-secondary);
   stroke-width: 3;
   stroke-linecap: butt;
   stroke-dasharray: 850;
@@ -337,8 +350,8 @@ body:has(.home-portfolio) a {
 
 .home-decision-node.is-active circle,
 .home-decision-node:focus circle {
-  fill: var(--home-ice);
-  stroke: var(--home-ice);
+  fill: var(--home-secondary);
+  stroke: var(--home-secondary);
 }
 
 .home-decision-index {
@@ -368,12 +381,12 @@ body:has(.home-portfolio) a {
   min-height: 86px;
   margin: 0;
   padding: 20px;
-  border: 1px solid var(--home-ice);
+  border: 1px solid var(--home-secondary);
   background: var(--home-paper);
 }
 
 .home-decision-note-mark {
-  color: var(--home-ice);
+  color: var(--home-secondary);
   font-size: 22px;
 }
 
@@ -389,8 +402,8 @@ body:has(.home-portfolio) a {
   justify-self: end;
   margin-top: 18px;
   padding: 9px 18px;
-  border: 1px solid var(--home-ice);
-  color: var(--home-ice);
+  border: 1px solid var(--home-primary);
+  color: var(--home-primary);
   background: transparent;
   font-size: 10px;
 }
@@ -422,7 +435,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-section-title > span {
-  color: var(--home-ice);
+  color: var(--home-primary);
   font-size: 13px;
 }
 
@@ -505,8 +518,8 @@ body:has(.home-portfolio) a {
 }
 
 .home-work-item.is-active .home-work-node {
-  border-color: var(--home-ice);
-  background: var(--home-ice);
+  border-color: var(--home-secondary);
+  background: var(--home-secondary);
 }
 
 .home-work-item.is-locked .home-work-node::after {
@@ -549,7 +562,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-work-detail-top b {
-  color: var(--home-ice);
+  color: var(--home-primary);
 }
 
 .home-work-detail h3 {
@@ -586,7 +599,7 @@ body:has(.home-portfolio) a {
   content: "↳";
   position: absolute;
   left: 0;
-  color: var(--home-ice);
+  color: var(--home-primary);
 }
 
 .home-work-detail footer {
@@ -599,7 +612,7 @@ body:has(.home-portfolio) a {
 
 .home-work-detail footer span {
   margin-right: 18px;
-  color: var(--home-ice);
+  color: var(--home-secondary);
 }
 
 .home-project-stack {
@@ -632,7 +645,7 @@ body:has(.home-portfolio) a {
 .home-project-number {
   display: flex;
   justify-content: space-between;
-  color: var(--home-ice);
+  color: var(--home-secondary);
   font-size: 10px;
 }
 
@@ -666,7 +679,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-work > span {
-  color: var(--home-ice);
+  color: var(--home-primary);
   font-size: 9px;
 }
 
@@ -702,7 +715,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-meta a {
-  color: var(--home-ice) !important;
+  color: var(--home-primary) !important;
 }
 
 .home-project-screen {
@@ -751,7 +764,7 @@ body:has(.home-portfolio) a {
   flex-direction: column;
   padding: 36px 26px;
   border-right: 2px solid var(--home-ink);
-  background: var(--home-ice);
+  background: var(--home-primary);
   color: var(--home-paper);
 }
 
@@ -785,14 +798,14 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-signal-list > div.is-priority {
-  border: 2px solid var(--home-ice);
-  background: var(--home-sheet);
+  border: 2px solid var(--home-primary);
+  background: var(--home-primary-soft);
 }
 
 .home-project-signal-list small {
   display: block;
   margin-bottom: 12px;
-  color: var(--home-signal);
+  color: var(--home-secondary);
   font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
 }
@@ -833,7 +846,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-persona-id small {
-  color: var(--home-signal);
+  color: var(--home-secondary);
   font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
 }
@@ -850,8 +863,8 @@ body:has(.home-portfolio) a {
 .home-project-bubble.is-user {
   align-self: flex-end;
   color: var(--home-paper);
-  background: var(--home-ice);
-  border-color: var(--home-ice);
+  background: var(--home-primary);
+  border-color: var(--home-primary);
 }
 
 .home-project-composer {
@@ -864,7 +877,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-composer b {
-  color: var(--home-signal);
+  color: var(--home-secondary);
 }
 
 .home-skill-table {
@@ -902,8 +915,8 @@ body:has(.home-portfolio) a {
 }
 
 .home-skill-row:hover {
-  color: var(--home-paper);
-  background: var(--home-ice);
+  color: var(--home-ink);
+  background: var(--home-primary-soft);
 }
 
 .home-skill-index {
@@ -930,9 +943,12 @@ body:has(.home-portfolio) a {
 }
 
 .home-skill-row:hover .home-skill-index,
-.home-skill-row:hover > span,
+.home-skill-row:hover > span {
+  color: var(--home-primary);
+}
+
 .home-skill-row:hover p {
-  color: var(--home-paper);
+  color: var(--home-ink);
 }
 
 .home-contact-grid {
@@ -954,7 +970,7 @@ body:has(.home-portfolio) a {
 .home-contact-avatar {
   width: fit-content;
   padding: 8px;
-  border: 2px solid var(--home-ice);
+  border: 2px solid var(--home-secondary);
 }
 
 .home-contact-profile h3 {
@@ -1026,7 +1042,17 @@ body:has(.home-portfolio) a {
 
 .home-contact-form input:focus,
 .home-contact-form textarea:focus {
-  border-color: var(--home-ice);
+  border-color: var(--home-secondary);
+}
+
+.home-contact-form input:valid:not(:placeholder-shown),
+.home-contact-form textarea:valid:not(:placeholder-shown) {
+  border-color: var(--home-primary);
+}
+
+.home-contact-form input:user-invalid,
+.home-contact-form textarea:user-invalid {
+  border-color: var(--home-secondary);
 }
 
 .home-contact-form input::placeholder,
@@ -1036,9 +1062,9 @@ body:has(.home-portfolio) a {
 
 .home-contact-form button {
   min-height: 54px;
-  border: 2px solid var(--home-ice);
+  border: 2px solid var(--home-primary);
   color: var(--home-paper);
-  background: var(--home-ice);
+  background: var(--home-primary);
   font-size: 16px;
   font-weight: 800;
   transition: color 160ms ease, background 160ms ease;
@@ -1046,8 +1072,9 @@ body:has(.home-portfolio) a {
 
 .home-contact-form button:hover,
 .home-contact-form button:focus-visible {
-  color: var(--home-ice);
-  background: transparent;
+  border-color: var(--home-secondary);
+  color: var(--home-paper);
+  background: var(--home-secondary);
 }
 
 .home-contact-form small {
@@ -1066,7 +1093,7 @@ body:has(.home-portfolio) a {
   grid-template-rows: 1fr auto;
   gap: 40px;
   border-block: 2px solid var(--home-ink);
-  background: var(--home-ice);
+  background: var(--home-secondary);
   color: var(--home-paper);
   scroll-margin-top: 80px;
 }
@@ -1127,7 +1154,7 @@ body:has(.home-portfolio) a {
   border: 2px solid var(--home-ink);
   border-radius: 999px;
   color: var(--home-paper);
-  background: var(--home-ice);
+  background: var(--home-primary);
   transition: color 180ms ease, background 180ms ease;
 }
 
@@ -1137,13 +1164,16 @@ body:has(.home-portfolio) a {
   bottom: 120px;
   min-width: min(420px, 32vw);
   border-radius: 0;
+  border-color: var(--home-secondary);
+  color: var(--home-ink);
   background: var(--home-paper);
 }
 
 .home-ask-trigger:hover,
 .home-ask-trigger:focus-visible {
-  color: var(--home-ice);
-  background: var(--home-paper);
+  border-color: var(--home-secondary);
+  color: var(--home-paper);
+  background: var(--home-secondary);
   outline: none;
 }
 
@@ -1178,8 +1208,9 @@ body:has(.home-portfolio) a {
 .home-ask-dialog {
   width: 1080px;
   max-width: calc(100vw - 16px);
-  min-height: 720px;
-  max-height: 96vh;
+  height: min(760px, calc(100dvh - 32px));
+  min-height: 0;
+  max-height: calc(100dvh - 32px);
   margin: auto;
   padding: 0;
   overflow: hidden;
@@ -1188,13 +1219,13 @@ body:has(.home-portfolio) a {
   color: var(--home-ink);
   background: var(--home-paper);
   box-shadow:
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 24px 80px rgba(0,0,0,.45),
-    0 8px 28px rgba(0,0,0,.25);
+    0 0 0 1px var(--home-primary-soft) inset,
+    0 0 48px var(--home-secondary-soft),
+    0 24px 80px color-mix(in srgb, var(--home-paper) 72%, transparent);
 }
 
 .home-ask-dialog::backdrop {
-  background: color-mix(in srgb, #000 60%, transparent);
+  background: color-mix(in srgb, var(--home-paper) 72%, transparent);
 }
 
 /* ── panel：顶栏 + 居中内容 + 底部输入区 ── */
@@ -1202,7 +1233,7 @@ body:has(.home-portfolio) a {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   height: 100%;
-  min-height: 720px;
+  min-height: 0;
 }
 
 .home-ask-header {
@@ -1221,7 +1252,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-ask-identity span {
-  color: var(--home-signal);
+  color: var(--home-secondary);
   font-size: 8px;
 }
 
@@ -1241,15 +1272,18 @@ body:has(.home-portfolio) a {
   line-height: 1;
   transition: color 160ms ease, background 160ms ease;
 }
-.home-ask-close:hover { color: var(--home-paper); background: var(--home-ice); }
+.home-ask-close:hover { color: var(--home-paper); background: var(--home-secondary); }
 
 /* ── 内容区（问候 / 对话流）── 默认顶对齐可滚动；空状态才居中 ── */
 .home-ask-content {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 0;
   padding: 24px;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   background-image: radial-gradient(var(--home-faint) 1px, transparent 1px);
   background-size: 18px 18px;
 }
@@ -1295,7 +1329,8 @@ body:has(.home-portfolio) a {
 .home-ask-suggestions button:hover,
 .home-ask-suggestions button:focus-visible {
   color: var(--home-paper);
-  background: var(--home-ice);
+  border-color: var(--home-secondary);
+  background: var(--home-secondary);
 }
 
 /* ── 对话流：左右分布气泡 ── */
@@ -1304,12 +1339,12 @@ body:has(.home-portfolio) a {
   flex-direction: column;
   gap: 14px;
   width: 100%;
-  max-width: 680px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
 .home-ask-message {
-  max-width: 78%;
+  max-width: min(86%, 720px);
   padding: 14px 18px;
   border-radius: 16px;
   border: none;
@@ -1323,7 +1358,7 @@ body:has(.home-portfolio) a {
   align-self: flex-end;
   border-bottom-right-radius: 4px;
   color: var(--home-paper);
-  background: var(--home-ice);
+  background: var(--home-primary);
 }
 
 .home-ask-message.is-zoo {
@@ -1361,15 +1396,62 @@ body:has(.home-portfolio) a {
   background: var(--home-sheet-2);
 }
 .home-ask-markdown pre code { padding: 0; background: none; }
-.home-ask-markdown a { color: var(--home-signal); text-decoration: underline; }
+.home-ask-markdown a { color: var(--home-primary); text-decoration: underline; }
 .home-ask-markdown strong { font-weight: 700; }
 
+.home-ask-message.is-thinking {
+  min-width: 230px;
+}
+
 .home-ask-thinking {
-  justify-self: start;
-  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
   color: var(--home-pencil);
-  font-size: 13px;
-  font-style: italic;
+}
+
+.home-ask-thinking-mark {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+}
+
+.home-ask-thinking-mark i {
+  width: 5px;
+  height: 5px;
+  display: block;
+  border-radius: 50%;
+  background: var(--home-secondary);
+  animation: home-ask-thinking-pulse 960ms ease-in-out infinite;
+}
+
+.home-ask-thinking-mark i:nth-child(2) { background: var(--home-primary); animation-delay: 120ms; }
+.home-ask-thinking-mark i:nth-child(3) { animation-delay: 240ms; }
+
+.home-ask-thinking-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.home-ask-thinking-copy small {
+  color: var(--home-secondary);
+  font-family: var(--font-albert-sans), sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.home-ask-thinking-copy strong {
+  color: var(--home-ink);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@keyframes home-ask-thinking-pulse {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-4px); }
 }
 
 /* ── 新建对话图标（输入条左侧）── 和发送按钮同风格 ── */
@@ -1394,6 +1476,9 @@ body:has(.home-portfolio) a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
   padding: 22px 48px;
   border-top: 2px solid var(--home-ink);
   background: var(--home-sheet);
@@ -1412,6 +1497,11 @@ body:has(.home-portfolio) a {
   border: 2px solid var(--home-ink);
   border-radius: 999px;
   background: var(--home-sheet);
+  transition: border-color 160ms ease;
+}
+
+.home-ask-input-bar:focus-within {
+  border-color: var(--home-secondary);
 }
 
 .home-ask-input-bar input {
@@ -1436,7 +1526,12 @@ body:has(.home-portfolio) a {
   border: 0;
   border-radius: 50%;
   color: var(--home-paper);
-  background: var(--home-ice);
+  background: var(--home-primary);
+}
+
+.home-ask-input-bar button:disabled {
+  color: var(--home-pencil);
+  background: var(--home-faint);
 }
 
 .home-proof-cursor {
@@ -1448,11 +1543,12 @@ body:has(.home-portfolio) a {
   height: 36px;
   display: grid;
   place-items: center;
-  border: 2px solid var(--home-ice);
+  border: 2px solid var(--home-secondary);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;
   will-change: transform;
+  box-shadow: 0 0 18px var(--home-secondary-soft);
   transition: width 120ms ease, height 120ms ease, opacity 120ms ease, background 120ms ease;
 }
 
@@ -1466,7 +1562,8 @@ body:has(.home-portfolio) a {
   width: 48px;
   height: 48px;
   color: var(--home-paper);
-  background: var(--home-ice);
+  border-color: var(--home-primary);
+  background: var(--home-primary);
 }
 
 .home-proof-cursor span {
@@ -1570,8 +1667,10 @@ body:has(.home-portfolio) a {
   .home-footer-actions { justify-content: end; }
   .home-ask-trigger { right: 16px; bottom: 16px; }
   .home-ask-trigger.is-docked { right: 24px; bottom: 86px; min-width: calc(100% - 48px); }
-  .home-ask-dialog { width: calc(100vw - 16px); max-height: calc(100svh - 16px); }
-  .home-ask-panel { min-height: calc(100svh - 20px); }
+  .home-ask-dialog { width: calc(100vw - 16px); height: calc(100dvh - 16px); max-height: calc(100dvh - 16px); }
+  .home-ask-panel { min-height: 0; }
+  .home-ask-content { padding: 20px; }
+  .home-ask-message { max-width: 92%; }
   .home-ask-intro { font-size: 18px; }
   .home-ask-bottom { padding: 16px 20px; }
   .home-ask-input-bar { padding: 5px 5px 5px 14px; }
