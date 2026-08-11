@@ -102,8 +102,9 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ error: "emmm 没看懂你发的什么，再试一次？" }), { status: 400 });
   }
 
-  // 不指定 model，由网关服务端决定；streaming 输出
+  // model id 由 Zen 网关提供；streaming 输出
   const stream = await client.chat.completions.create({
+    model: "deepseek-v4-flash-free",
     messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     stream: true,
     max_tokens: 1024,

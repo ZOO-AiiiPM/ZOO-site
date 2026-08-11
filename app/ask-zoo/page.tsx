@@ -312,7 +312,7 @@ export default function AskZooPage() {
                       <PixelAvatar size={22} />
                     </div>
                     <span className="ask-zoo-bot-sublabel">zoo</span>
-                    <span className="ask-zoo-bot-model">deepseek-v3.2</span>
+                    <span className="ask-zoo-bot-model">deepseek-v4-flash-free</span>
                   </div>
                   <div className="ask-zoo-bot-text">
                     {isActiveStream && isThinking ? (
