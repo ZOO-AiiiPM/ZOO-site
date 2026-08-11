@@ -4,7 +4,6 @@ import { FormEvent, useState } from "react";
 import { PixelAvatar } from "@/components/PixelArt";
 import { AskZooPrototype } from "./_components/AskZooPrototype";
 import { FooterWordmark } from "./_components/FooterWordmark";
-import { HeroDecisionMap } from "./_components/HeroDecisionMap";
 import { ProofCursor } from "./_components/ProofCursor";
 import { experiences, projects, skillRows, type PortfolioProject } from "./portfolio-data";
 import "./home.css";
@@ -65,18 +64,27 @@ export default function Home() {
       <ProofCursor />
 
       <section id="home" className="home-hero" aria-labelledby="home-hero-title">
-        <div className="home-hero-copy">
-          <div className="home-kicker"><span>AVAILABLE FOR</span> AI PRODUCT INTERN / 2026</div>
-          <h1 id="home-hero-title"><span>把模糊问题，</span><em>做成真实产品。</em></h1>
-          <p className="home-hero-intro">你好，我是 Winston，一名寻找 AI 产品经理校招 / 实习机会的产品创造者。我喜欢把不确定的问题拆开、判断，再快速做成可以验证的体验。</p>
-          <dl className="home-hero-meta">
-            <div><dt>EDUCATION</dt><dd>某某大学 · 专业待替换</dd></div>
-            <div><dt>FOCUS</dt><dd>AI Product / 0→1 / User Experience</dd></div>
-            <div><dt>BASED IN</dt><dd>China · Open to opportunities</dd></div>
+        <aside className="home-hero-profile" aria-label="个人信息">
+          <div className="home-hero-avatar">
+            <PixelAvatar size={180} />
+          </div>
+          <dl className="home-hero-profile-meta">
+            <div>
+              <dt>EDUCATION</dt>
+              <dd>某某大学<br />专业待替换</dd>
+            </div>
+            <div>
+              <dt>BASED IN</dt>
+              <dd>China<br />Open to opportunities</dd>
+            </div>
           </dl>
-          <a className="home-scroll-cue" href="#work" data-cursor="SCROLL"><span>↓</span>向下翻阅我的年鉴</a>
+        </aside>
+        <div className="home-hero-copy">
+          <div className="home-kicker"><span>AI PRODUCT MANAGER</span> AVAILABLE FOR 2026</div>
+          <h1 id="home-hero-title">WINSTON</h1>
+          <p className="home-hero-focus"><span>FOCUS ON</span> AI Product / 0→1 / User Experience</p>
+          <p className="home-hero-intro">你好，我是 Winston，一名寻找 AI 产品经理校招 / 实习机会的产品创造者。我喜欢把不确定的问题拆开、判断，再快速做成可以验证的体验。</p>
         </div>
-        <HeroDecisionMap />
       </section>
 
       <section id="work" className="home-section home-work" aria-labelledby="work-title">

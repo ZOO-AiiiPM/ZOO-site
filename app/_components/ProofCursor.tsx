@@ -7,6 +7,7 @@ export function ProofCursor() {
   const frameRef = useRef<number | null>(null);
   const positionRef = useRef({ x: -100, y: -100 });
   const [label, setLabel] = useState("");
+  const [textMode, setTextMode] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -26,6 +27,12 @@ export function ProofCursor() {
       setVisible(true);
 
       const target = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-cursor]") : null;
+      const element = event.target instanceof Element ? event.target : null;
+      const isFormText = element?.matches("input, textarea, [contenteditable='true']") ?? false;
+      const range = document.caretRangeFromPoint?.(event.clientX, event.clientY);
+      const isTextNode = range?.startContainer.nodeType === Node.TEXT_NODE;
+      const nextTextMode = !target && (isFormText || isTextNode);
+      setTextMode(nextTextMode);
       setLabel(target?.dataset.cursor ?? "");
     };
 
@@ -43,7 +50,7 @@ export function ProofCursor() {
   return (
     <div
       ref={cursorRef}
-      className={`home-proof-cursor${visible ? " is-visible" : ""}${label ? " has-label" : ""}`}
+      className={`home-proof-cursor${visible ? " is-visible" : ""}${label ? " has-label" : ""}${textMode ? " is-text" : ""}`}
       aria-hidden="true"
     >
       <span>{label}</span>

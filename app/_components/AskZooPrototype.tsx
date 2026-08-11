@@ -28,13 +28,32 @@ export function AskZooPrototype() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+  const [caretOffset, setCaretOffset] = useState(16);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const syncCaret = useCallback(() => {
+    const input = inputRef.current;
+    if (!input) return;
+
+    const selectionEnd = input.selectionEnd ?? input.value.length;
+    const styles = window.getComputedStyle(input);
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    context.font = styles.font;
+    const textWidth = context.measureText(input.value.slice(0, selectionEnd)).width;
+    setCaretOffset(16 + textWidth - input.scrollLeft);
+  }, []);
 
   const openDialog = useCallback(() => {
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) return;
     dialog.showModal();
-    window.requestAnimationFrame(() => inputRef.current?.focus());
-  }, []);
+    window.requestAnimationFrame(() => {
+      inputRef.current?.focus();
+      syncCaret();
+    });
+  }, [syncCaret]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -280,13 +299,31 @@ export function AskZooPrototype() {
                     <path d="m16.5 3.5 4 4L12 16l-4 1 1-4Z" />
                   </svg>
                 </button>
-                <input
-                  ref={inputRef}
-                  id="home-ask-input"
-                  value={question}
-                  onChange={(event) => setQuestion(event.target.value)}
-                  disabled={isStreaming}
-                />
+                <div className="home-ask-input-field">
+                  <input
+                    ref={inputRef}
+                    id="home-ask-input"
+                    value={question}
+                    onChange={(event) => {
+                      setQuestion(event.target.value);
+                      window.requestAnimationFrame(syncCaret);
+                    }}
+                    onFocus={() => {
+                      setIsInputFocused(true);
+                      syncCaret();
+                    }}
+                    onBlur={() => setIsInputFocused(false)}
+                    onClick={syncCaret}
+                    onKeyUp={syncCaret}
+                    onSelect={syncCaret}
+                    disabled={isStreaming}
+                  />
+                  <span
+                    className={`home-ask-input-caret${isInputFocused && !isStreaming ? " is-visible" : ""}`}
+                    style={{ left: `${caretOffset}px` }}
+                    aria-hidden="true"
+                  />
+                </div>
                 {isStreaming ? (
                   <button type="button" className="home-ask-pause" onClick={pauseStreaming} data-cursor="PAUSE" aria-label="暂停输出" title="暂停输出">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
