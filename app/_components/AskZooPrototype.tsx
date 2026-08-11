@@ -28,6 +28,7 @@ export function AskZooPrototype() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const [caretOffset, setCaretOffset] = useState(16);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -45,9 +46,15 @@ export function AskZooPrototype() {
     setCaretOffset(16 + textWidth - input.scrollLeft);
   }, []);
 
-  const openDialog = useCallback(() => {
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const openDialog = useCallback((event?: Event) => {
     const dialog = dialogRef.current;
     if (!dialog || dialog.open) return;
+    const requestedQuestion = event instanceof CustomEvent && typeof event.detail === "string" ? event.detail : "";
+    if (requestedQuestion) setQuestion(requestedQuestion);
     dialog.showModal();
     window.requestAnimationFrame(() => {
       inputRef.current?.focus();
@@ -58,14 +65,14 @@ export function AskZooPrototype() {
   useEffect(() => {
     const host = hostRef.current;
     if (!host) return;
-    const footer = host.closest("#footer");
-    if (!footer) return;
+    const askSection = host.closest("#ask");
+    if (!askSection) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => setDocked(entry.isIntersecting),
       { threshold: 0.4 },
     );
-    observer.observe(footer);
+    observer.observe(askSection);
     return () => observer.disconnect();
   }, []);
 
@@ -210,7 +217,7 @@ export function AskZooPrototype() {
         ref={triggerRef}
         type="button"
         className={`home-ask-trigger${docked ? " is-docked" : ""}`}
-        onClick={openDialog}
+        onClick={() => openDialog()}
         data-cursor="ASK"
         aria-haspopup="dialog"
       >
@@ -331,7 +338,7 @@ export function AskZooPrototype() {
                     </svg>
                   </button>
                 ) : (
-                  <button type="submit" className="home-ask-send" data-cursor="SEND" aria-label="发送问题" disabled={!question.trim()}>
+                  <button type="submit" className="home-ask-send" data-cursor="SEND" aria-label="发送问题" disabled={isHydrated && (!question.trim() || isStreaming)}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                       <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
                     </svg>

@@ -12,6 +12,7 @@ const homeLinks = [
   { id: "projects", label: "PROJECTS" },
   { id: "skills", label: "SKILLS" },
   { id: "contact", label: "CONTACT" },
+  { id: "ask", label: "ASK ME MORE" },
 ];
 
 const legacyLinks = [
@@ -91,14 +92,6 @@ export function Nav() {
               {label}
             </a>
           ))}
-          <button
-            type="button"
-            className="home-topnav-link home-topnav-ask"
-            data-cursor="ASK"
-            onClick={() => window.dispatchEvent(new Event("open-ask-zoo"))}
-          >
-            ASK ME MORE
-          </button>
           <span className="home-topnav-indicator" aria-hidden="true" />
         </div>
       </nav>

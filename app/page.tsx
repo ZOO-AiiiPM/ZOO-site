@@ -63,7 +63,7 @@ export default function Home() {
     <main className="home-portfolio">
       <ProofCursor />
 
-      <section id="home" className="home-hero" aria-labelledby="home-hero-title">
+      <section id="about" className="home-hero" aria-labelledby="home-hero-title">
         <aside className="home-hero-profile" aria-label="个人信息">
           <div className="home-hero-avatar">
             <PixelAvatar size={180} />
@@ -169,7 +169,7 @@ export default function Home() {
         <SectionTitle index="04" title="CONTACT" note="如果你也在做值得解决的问题，我很愿意聊聊。" />
         <div className="home-contact-grid">
           <div className="home-contact-profile">
-            <div className="home-contact-avatar"><PixelAvatar size={80} /></div>
+            <div className="home-contact-avatar"><PixelAvatar size={56} /></div>
             <h3>Have a role<br />in mind?</h3>
             <p>我的收件箱对实习、校招和有趣的产品问题保持开放。</p>
             <address>
@@ -189,17 +189,58 @@ export default function Home() {
         </div>
       </section>
 
-      <footer id="footer" className="home-footer">
-        <div className="home-footer-ask">
+      <section id="ask" className="home-section home-ask-section" aria-labelledby="ask-title">
+        <header className="home-section-title home-ask-title">
+          <span>05</span>
+          <h2 id="ask-title">ASK ME<br />ANYTHING</h2>
+          <p>这是我的 AI 分身。问我关于项目、判断，或者下一件想做的事。</p>
+        </header>
+        <div className="home-ask-stage">
+          <div className="home-ask-signal" aria-hidden="true">
+            <span>AI PERSONA / ONLINE</span>
+            <i />
+            <b>READY TO RESPOND</b>
+          </div>
+          <div className="home-ask-orbit" aria-hidden="true" />
+          <div className="home-ask-portrait">
+            <div className="home-ask-portrait-ring" />
+            <PixelAvatar size={132} />
+            <span>WINSTON.AI</span>
+          </div>
+          <div className="home-ask-copy">
+            <p className="home-ask-copy-kicker">A SECOND BRAIN, WITH A POINT OF VIEW</p>
+            <p>不确定该从哪里开始？先问一个具体的问题。</p>
+          </div>
+          <div className="home-ask-prompts">
+            {[
+              "为什么想做 AI 产品经理？",
+              "挑一个项目讲讲你的判断",
+              "你是怎么和研发协作的？",
+            ].map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                className="home-ask-prompt"
+                data-cursor="ASK"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-ask-zoo", { detail: prompt }))}
+              >
+                <span>{prompt}</span>
+                <b aria-hidden="true">↗</b>
+              </button>
+            ))}
+          </div>
           <AskZooPrototype />
         </div>
+      </section>
+
+      <footer id="footer" className="home-footer">
         <div className="home-footer-name">
           <span>AI PRODUCT MAKER</span>
           <FooterWordmark />
         </div>
         <div className="home-footer-bottom">
           <p className="home-footer-slogan">attention is all you need</p>
-          <a className="home-footer-top" href="#home" data-cursor="TOP" aria-label="回到顶部" title="回到顶部">
+          <a className="home-footer-top" href="#about" data-cursor="TOP" aria-label="回到顶部" title="回到顶部">
             <span aria-hidden="true">↑</span>
           </a>
         </div>
