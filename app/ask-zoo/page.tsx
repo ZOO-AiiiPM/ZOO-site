@@ -263,7 +263,7 @@ export default function AskZooPage() {
             <AsciiCycler />
           </div>
           <div className="ask-zoo-info-line ask-zoo-type-line" style={{ "--d": 150 } as React.CSSProperties}>
-            <span className="ask-zoo-info-name">zoo.skill</span>
+            <span className="ask-zoo-info-name">zoo</span>
             <span className="ask-zoo-info-label">v1.0</span>
           </div>
           <div className="ask-zoo-powered ask-zoo-type-line" style={{ "--d": 300 } as React.CSSProperties}>
@@ -311,7 +311,7 @@ export default function AskZooPage() {
                     <div className="ask-zoo-bot-avatar">
                       <PixelAvatar size={22} />
                     </div>
-                    <span className="ask-zoo-bot-sublabel">zoo.skill</span>
+                    <span className="ask-zoo-bot-sublabel">zoo</span>
                     <span className="ask-zoo-bot-model">deepseek-v3.2</span>
                   </div>
                   <div className="ask-zoo-bot-text">

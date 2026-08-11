@@ -2,8 +2,8 @@ import OpenAI from "openai";
 import { NextRequest } from "next/server";
 
 const client = new OpenAI({
-  apiKey: process.env.DEEPSEEK_API_KEY,
-  baseURL: process.env.DEEPSEEK_BASE_URL,
+  apiKey: process.env.ZEN_API_KEY,
+  baseURL: process.env.ZEN_BASE_URL,
 });
 
 // 简易内存速率限制：每个 IP 每分钟最多 6 次，每天最多 50 次
@@ -42,7 +42,7 @@ setInterval(() => {
   }
 }, 300000);
 
-const SYSTEM_PROMPT = `你是 Zoo 的赛博分身（zoo.skill），部署在 Zoo 的个人网站上。你的核心使命是：让每一个来访者都想进一步了解 Zoo 这个人。
+const SYSTEM_PROMPT = `你是 Zoo 的赛博分身（zoo），部署在 Zoo 的个人网站上。你的核心使命是：让每一个来访者都想进一步了解 Zoo 这个人。
 
 # 场景定位
 这是 Zoo 的求职个人网站。来的人可能是招聘方、同行、或者好奇的路人。你要像第一次见面聊天那样——热情、真诚、有趣，让人觉得"这个人挺有意思的，想多聊聊"。
@@ -102,15 +102,12 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ error: "emmm 没看懂你发的什么，再试一次？" }), { status: 400 });
   }
 
-  // thinking 是 DeepSeek 扩展参数（v4-flash 默认开推理模式，聊天场景关掉直接回答），
-  // OpenAI SDK 类型里没有，整体断言绕过类型检查
+  // 不指定 model，由网关服务端决定；streaming 输出
   const stream = await client.chat.completions.create({
-    model: "deepseek-v4-flash",
     messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
     stream: true,
     max_tokens: 1024,
-    thinking: { type: "disabled" },
-  } as unknown as OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming);
+  });
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream({

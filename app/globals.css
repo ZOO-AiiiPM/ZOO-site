@@ -591,6 +591,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hero title — responsive size (inline style can't be overridden by media query) */
+.home-hero-title {
+  font-size: 36px;
+}
+@media (max-width: 640px) {
+  .home-hero-title {
+    font-size: 26px;
+    letter-spacing: -0.5px;
+  }
+}
+
 .lp-section {
   margin-bottom: 96px;
   scroll-margin-top: 76px;

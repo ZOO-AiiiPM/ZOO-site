@@ -212,7 +212,7 @@ export default function Home() {
       <div style={{ height: 52 }} />
 
       {/* Title */}
-      <h1 ref={titleRef} className="boot-title" style={{ fontSize: 36, fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.2, marginBottom: 20 }}>
+      <h1 ref={titleRef} className="boot-title home-hero-title" style={{ fontWeight: 900, letterSpacing: "-1.5px", lineHeight: 1.2, marginBottom: 20 }}>
         AI PM &amp;{" "}
         <span style={{
           background: "linear-gradient(135deg, var(--green), var(--purple))",
@@ -390,7 +390,7 @@ export default function Home() {
         </CliLine>
         <CliLine delay={60}>
           <div className="lp-askzoo">
-            <div className="lp-askzoo-title">zoo.skill v1.0 — 我的 AI 分身</div>
+            <div className="lp-askzoo-title">zoo v1.0 — 我的 AI 分身</div>
             <p className="lp-askzoo-desc">
               想了解真实的我？直接问它。对话会在独立的终端页面进行，支持深度的自由提问。 (｡•̀ᴗ-)✧
             </p>
