@@ -1176,31 +1176,40 @@ body:has(.home-portfolio) a {
 }
 
 .home-ask-dialog {
-  width: min(1120px, calc(100vw - 48px));
-  max-width: none;
-  max-height: calc(100svh - 48px);
+  width: 1080px;
+  max-width: calc(100vw - 16px);
+  min-height: 720px;
+  max-height: 96vh;
+  margin: auto;
   padding: 0;
-  overflow: visible;
+  overflow: hidden;
   border: 2px solid var(--home-ink);
+  border-radius: 16px;
   color: var(--home-ink);
   background: var(--home-paper);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 24px 80px rgba(0,0,0,.45),
+    0 8px 28px rgba(0,0,0,.25);
 }
 
 .home-ask-dialog::backdrop {
-  background: color-mix(in srgb, var(--home-paper) 78%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, #000 60%, transparent);
 }
 
+/* ── panel：顶栏 + 居中内容 + 底部输入区 ── */
 .home-ask-panel {
   display: grid;
-  grid-template-rows: auto minmax(340px, 1fr) auto;
-  min-height: min(760px, calc(100svh - 52px));
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 720px;
 }
 
 .home-ask-header {
   display: flex;
   justify-content: space-between;
-  padding: 22px 24px;
+  align-items: center;
+  padding: 14px 18px;
   border-bottom: 2px solid var(--home-ink);
   background: var(--home-sheet);
 }
@@ -1218,56 +1227,65 @@ body:has(.home-portfolio) a {
 
 .home-ask-identity h2 {
   margin: 3px 0 0;
-  font-size: 26px;
+  font-size: 20px;
 }
 
 .home-ask-close {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 44px;
   border: 2px solid var(--home-ink);
   border-radius: 50%;
   color: var(--home-ink);
   background: transparent;
-  font-size: 28px;
+  font-size: 24px;
+  line-height: 1;
+  transition: color 160ms ease, background 160ms ease;
 }
+.home-ask-close:hover { color: var(--home-paper); background: var(--home-ice); }
 
+/* ── 内容区（问候 / 对话流）── 居中 ── */
 .home-ask-content {
-  display: grid;
-  align-content: center;
-  padding: clamp(34px, 6vw, 84px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
   background-image: radial-gradient(var(--home-faint) 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
 .home-ask-intro {
-  max-width: 760px;
-  margin: 0 0 48px;
-  font-size: clamp(32px, 5vw, 72px);
-  font-weight: 900;
-  line-height: 0.98;
-  letter-spacing: -0.06em;
+  margin: 0 0 28px;
+  max-width: 680px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--home-ink);
 }
 
+/* ── 快捷提示药丸：问候下方居中 ── */
 .home-ask-suggestions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 2px solid var(--home-ink);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
 .home-ask-suggestions button {
-  min-height: 120px;
-  padding: 22px;
-  border: 0;
-  border-right: 2px solid var(--home-ink);
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border: 2px solid var(--home-ink);
+  border-radius: 999px;
   color: var(--home-ink);
-  background: var(--home-sheet);
-  text-align: left;
+  background: transparent;
   font: inherit;
+  font-size: 13px;
+  line-height: 1;
   transition: color 160ms ease, background 160ms ease;
-}
-
-.home-ask-suggestions button:last-child {
-  border-right: 0;
 }
 
 .home-ask-suggestions button:hover,
@@ -1276,15 +1294,11 @@ body:has(.home-portfolio) a {
   background: var(--home-ice);
 }
 
-.home-ask-suggestions button span {
-  display: block;
-  margin-bottom: 20px;
-  color: var(--home-signal);
-}
-
+/* ── 对话流 ── */
 .home-ask-thread {
   display: grid;
   gap: 22px;
+  text-align: left;
 }
 
 .home-ask-message {
@@ -1318,46 +1332,54 @@ body:has(.home-portfolio) a {
   background: transparent;
 }
 
-.home-ask-form {
-  padding: 22px 24px;
+/* ── 底部区：圆角药丸输入条 + 下方快捷提示 ── */
+.home-ask-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 48px;
   border-top: 2px solid var(--home-ink);
   background: var(--home-sheet);
 }
 
-.home-ask-form label {
-  color: var(--home-pencil);
-  font-size: 8px;
+.home-ask-form {
+  width: 100%;
+  max-width: 560px;
 }
 
-.home-ask-form > div {
+.home-ask-input-bar {
   display: grid;
   grid-template-columns: 1fr auto;
-  margin: 8px 0;
+  align-items: center;
+  padding: 6px 6px 6px 18px;
   border: 2px solid var(--home-ink);
-  background: var(--home-paper);
+  border-radius: 999px;
+  background: var(--home-sheet);
 }
 
-.home-ask-form input {
-  padding: 16px;
+.home-ask-input-bar input {
+  padding: 10px 4px;
   border: 0;
   outline: none;
   color: var(--home-ink);
   background: transparent;
   font: inherit;
+  font-size: 15px;
 }
 
-.home-ask-form button {
-  width: 58px;
+.home-ask-input-bar input::placeholder {
+  color: var(--home-pencil);
+}
+
+.home-ask-input-bar button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
   border: 0;
-  border-left: 2px solid var(--home-ink);
+  border-radius: 50%;
   color: var(--home-paper);
   background: var(--home-ice);
-  font-size: 22px;
-}
-
-.home-ask-form small {
-  color: var(--home-pencil);
-  font-size: 8px;
 }
 
 .home-proof-cursor {
@@ -1394,6 +1416,17 @@ body:has(.home-portfolio) a {
   font-family: var(--font-albert-sans), sans-serif;
   font-size: 8px;
   font-weight: 800;
+}
+
+/* 自定义光标接管：隐藏原生光标。
+   条件与 .home-proof-cursor 的可见条件严格一致——
+   窄窗口(≤1100px)与 reduced-motion 下自定义光标会 display:none，
+   此时必须保留原生光标，否则用户将没有任何光标。 */
+@media (pointer: fine) and (hover: hover) and (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+  body:has(.home-portfolio),
+  body:has(.home-portfolio) * {
+    cursor: none !important;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -1482,11 +1515,9 @@ body:has(.home-portfolio) a {
   .home-ask-trigger.is-docked { right: 24px; bottom: 86px; min-width: calc(100% - 48px); }
   .home-ask-dialog { width: calc(100vw - 16px); max-height: calc(100svh - 16px); }
   .home-ask-panel { min-height: calc(100svh - 20px); }
-  .home-ask-content { padding: 30px 20px; }
-  .home-ask-intro { font-size: 40px; margin-bottom: 30px; }
-  .home-ask-suggestions { grid-template-columns: 1fr; }
-  .home-ask-suggestions button { min-height: 82px; border-right: 0; border-bottom: 2px solid var(--home-ink); }
-  .home-ask-suggestions button:last-child { border-bottom: 0; }
+  .home-ask-intro { font-size: 18px; }
+  .home-ask-bottom { padding: 16px 20px; }
+  .home-ask-input-bar { padding: 5px 5px 5px 14px; }
   .home-proof-cursor { display: none; }
 }
 

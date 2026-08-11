@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { PixelAvatar } from "@/components/PixelArt";
+import { ProofCursor } from "./ProofCursor";
 
 const suggestions = [
   "为什么想做 AI 产品经理？",
@@ -90,25 +91,23 @@ export function AskZooPrototype() {
         <div className="home-ask-panel">
           <header className="home-ask-header">
             <div className="home-ask-identity">
-              <PixelAvatar size={52} />
+              <PixelAvatar size={44} />
               <div>
                 <span>AI PERSONA / ONLINE</span>
-                <h2 id="home-ask-title">Ask Zoo</h2>
+                <h2 id="home-ask-title">Ask Me Anything</h2>
               </div>
             </div>
-            <button type="button" className="home-ask-close" onClick={closeDialog} data-cursor="CLOSE" aria-label="关闭 Ask Zoo">
-              ×
-            </button>
+            <button type="button" className="home-ask-close" onClick={closeDialog} data-cursor="CLOSE" aria-label="关闭">×</button>
           </header>
 
           <div className="home-ask-content">
             {!conversation ? (
               <>
-                <p className="home-ask-intro">简历只能回答写下来的事。你还想知道什么？</p>
+                <p className="home-ask-intro">除了简历还想了解什么，尽管问吧！</p>
                 <div className="home-ask-suggestions">
                   {suggestions.map((item) => (
                     <button key={item} type="button" onClick={() => ask(item)} data-cursor="ASK">
-                      <span>↳</span>{item}
+                      {item}
                     </button>
                   ))}
                 </div>
@@ -122,15 +121,24 @@ export function AskZooPrototype() {
             )}
           </div>
 
-          <form className="home-ask-form" onSubmit={submit}>
-            <label htmlFor="home-ask-input">Ask anything</label>
-            <div>
-              <input id="home-ask-input" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="输入你的问题…" />
-              <button type="submit" data-cursor="SEND" aria-label="发送问题">↗</button>
-            </div>
-            <small>PROTOTYPE RESPONSE · 下一轮接入真实对话</small>
-          </form>
+          <div className="home-ask-bottom">
+            <form className="home-ask-form" onSubmit={submit}>
+              <div className="home-ask-input-bar">
+                <input id="home-ask-input" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="问问我…" />
+                <button type="submit" data-cursor="SEND" aria-label="发送问题">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+
+        {/* 必须放在 <dialog> 内部：showModal() 会让对话框进入 top layer，
+            普通 fixed 光标层会被压在其下方。作为对话框子元素，光标随对话框
+            一同进入 top layer，因而显示在面板与遮罩之上。 */}
+        <ProofCursor />
       </dialog>
     </div>
   );
