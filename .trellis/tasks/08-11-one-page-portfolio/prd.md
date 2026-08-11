@@ -19,7 +19,7 @@
 
 - 整站为单一路由的连续纵向页面；主要内容段落各自形成接近独立一屏的章节，而不是独立 route。
 - 顶部 sticky 导航左侧显示姓名，右侧显示章节目录；点击平滑跳转，滚动时自动选中当前章节。
-- 章节顺序为：首页 / Work / Projects / Skills / Contact / Footer。
+- 章节顺序为：首页 / Work / Projects / Skills / Contact / Ask / Footer。
 
 ### Hero
 
@@ -53,14 +53,14 @@
 
 ### Footer
 
-- 左侧以大字号显示姓名，右侧包含 Back to top 与 Ask me more。
+- 左侧以大字号显示姓名，底部包含 Back to top。
 - Footer 不是普通版权条，而是完整的收束章节。
 
 ### Ask Zoo
 
-- 页面右下角常驻头像入口，hover/focus 显示 `Ask me more` 提示。
+- 页面右下角常驻头像入口，hover/focus 显示 `Ask me more` 提示；首页末尾提供独立一屏 Ask 章节。
 - 点击后在当前页面打开对话窗口/弹层，而不是导航到新页面。
-- 滚动至 Footer 后，浮动入口在视觉上融入 Footer 的 `Ask me more` 控件，形成连续的 morph/transition。
+- 滚动至 Ask 章节后，浮动入口在视觉上融入该章节的 AI persona 舞台，形成连续的 dock / transition；离开章节后恢复右下浮动。
 - 保留键盘可达性、关闭方式、移动端适配和 reduced-motion 降级。
 - 首页使用原生 `<dialog>` 承载窗口，旧 `/ask-zoo` 保留为独立 fallback；两者复用同一聊天组件与状态逻辑。
 - 抽取聊天逻辑时修复 SSE 跨网络 chunk 残片未缓冲导致的偶发丢字风险。
@@ -81,7 +81,7 @@
 - [ ] Work 时间线支持鼠标、键盘和触屏访问详情，不依赖 hover 才能获得核心信息。
 - [ ] 两个 Project 均拥有完整的一屏式叙事，在主流桌面和移动屏幕上不会出现内容被 sticky/折叠效果遮挡。
 - [ ] Contact 信息完整，邮件表单具备明确的提交中、成功与失败反馈。
-- [ ] Ask Zoo 可在首页内打开、对话、关闭，并在 Footer 处完成视觉归位；聊天能力不回退。
+- [ ] Ask Zoo 可在首页内打开、对话、关闭，并在独立 Ask 章节完成视觉归位；聊天能力不回退。
 - [ ] 自定义光标在交互元素上有可辨识反馈，并在触屏与 reduced-motion 环境下安全降级。
 - [ ] 页面在移动端可完整使用，键盘焦点清晰，核心内容不因动效或 JavaScript 失效而不可读。
 - [ ] 最终视觉不再以终端/代码 UI 为主语言，招聘方能优先感知产品判断、项目叙事和个人个性。
