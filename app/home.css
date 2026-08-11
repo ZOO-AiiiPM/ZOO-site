@@ -1579,8 +1579,19 @@ body:has(.home-ask-dialog[open]) {
 
 .home-proof-cursor.has-label::before {
   opacity: 1;
-  background: var(--home-ink);
+  border: 1px solid var(--home-ink);
   mix-blend-mode: difference;
+}
+
+.home-proof-cursor.has-label::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px dashed var(--home-primary);
+  border-radius: inherit;
+  opacity: 0.72;
+  pointer-events: none;
+  transform: rotate(45deg);
 }
 
 .home-proof-cursor span {
