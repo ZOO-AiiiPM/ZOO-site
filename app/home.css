@@ -31,12 +31,12 @@ body:has(.home-portfolio) a {
   position: sticky;
   top: 0;
   z-index: 300;
-  width: min(100% - 48px, 1440px);
+  width: 100%;
   height: 80px;
-  margin-inline: auto;
+  margin-inline: 0;
   display: flex;
   align-items: stretch;
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
   background: color-mix(in srgb, var(--home-paper) 88%, transparent);
   backdrop-filter: blur(18px);
@@ -49,7 +49,7 @@ body:has(.home-portfolio) a {
   align-items: baseline;
   gap: 14px;
   padding: 18px 40px 0;
-  border-right: 2px solid var(--home-ink);
+  border-right: 0;
 }
 
 .home-topnav-name strong {
@@ -141,8 +141,8 @@ body:has(.home-portfolio) a {
 .home-hero,
 .home-section,
 .home-footer {
-  width: min(100% - 48px, 1440px);
-  margin-inline: auto;
+  width: 100%;
+  margin-inline: 0;
 }
 
 .home-hero {
@@ -152,7 +152,7 @@ body:has(.home-portfolio) a {
   min-height: 640px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
   scroll-margin-top: 80px;
   scroll-snap-align: start;
@@ -163,7 +163,7 @@ body:has(.home-portfolio) a {
   flex-direction: column;
   justify-content: flex-start;
   padding: var(--home-hero-inset-y) var(--home-hero-inset-x);
-  border-right: 2px solid var(--home-ink);
+  border-right: 0;
 }
 
 .home-kicker {
@@ -427,7 +427,7 @@ body:has(.home-portfolio) a {
   align-items: end;
   gap: 28px;
   padding: 22px 36px 26px;
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
 }
 
@@ -454,14 +454,14 @@ body:has(.home-portfolio) a {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 0;
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
 }
 
 .home-work-list {
   position: relative;
   padding: 28px 0;
-  border-right: 2px solid var(--home-ink);
+  border-right: 0;
 }
 
 .home-work-list::before {
@@ -623,8 +623,8 @@ body:has(.home-portfolio) a {
   min-height: 640px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border: 2px solid var(--home-ink);
-  border-top: 0;
+  border: 0;
+  border-bottom: 2px solid var(--home-ink);
   background: var(--home-sheet);
 }
 
@@ -636,7 +636,7 @@ body:has(.home-portfolio) a {
   display: flex;
   flex-direction: column;
   padding: clamp(28px, 3vw, 46px);
-  border-right: 2px solid var(--home-ink);
+  border-right: 0;
 }
 
 .home-project-number {
@@ -881,7 +881,7 @@ body:has(.home-portfolio) a {
   min-height: 0;
   display: grid;
   grid-template-rows: auto repeat(5, minmax(0, 1fr));
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
 }
 
@@ -948,7 +948,7 @@ body:has(.home-portfolio) a {
 .home-contact-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-inline: 2px solid var(--home-ink);
+  border-inline: 0;
   border-bottom: 2px solid var(--home-ink);
 }
 
@@ -958,7 +958,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-contact-profile {
-  border-right: 2px solid var(--home-ink);
+  border-right: 0;
 }
 
 .home-contact-avatar {
@@ -1075,7 +1075,7 @@ body:has(.home-portfolio) a {
   grid-template-columns: 1fr minmax(300px, 0.45fr);
   grid-template-rows: 1fr auto;
   gap: 40px;
-  border: 2px solid var(--home-ink);
+  border-block: 2px solid var(--home-ink);
   background: var(--home-ice);
   color: var(--home-paper);
   scroll-margin-top: 80px;
@@ -1427,7 +1427,7 @@ body:has(.home-portfolio) a {
 }
 
 @media (max-width: 720px) {
-  .home-topnav { width: calc(100% - 24px); height: 66px; padding: 0; overflow-x: auto; }
+  .home-topnav { width: 100%; height: 66px; padding: 0; overflow-x: auto; }
   .home-topnav-name { flex-basis: 74px; min-width: 74px; padding: 19px 14px 0 0; }
   .home-topnav-name strong { font-size: 24px; }
   .home-topnav-links { min-width: 320px; }
@@ -1436,7 +1436,7 @@ body:has(.home-portfolio) a {
   .home-topnav-indicator::after { inset-inline: 10px; }
   .home-hero,
   .home-section,
-  .home-footer { width: calc(100% - 24px); }
+  .home-footer { width: 100%; }
   .home-hero { min-height: auto; }
   .home-hero-copy { padding: 72px 24px 48px; }
   .home-kicker { margin-bottom: 28px; }
