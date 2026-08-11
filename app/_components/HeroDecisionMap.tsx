@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 const nodes = [
-  { id: "noise", label: "模糊需求", note: "先听见所有声音，但不急着把每句话都做成功能。", x: 74, y: 92 },
-  { id: "signal", label: "真实问题", note: "寻找重复出现的阻力、动机和未被满足的场景。", x: 260, y: 158 },
-  { id: "choice", label: "产品判断", note: "明确不做什么，让有限资源集中到最高价值路径。", x: 450, y: 88 },
-  { id: "ship", label: "可交付", note: "用能运行的版本验证，而不是让结论停在文档里。", x: 628, y: 168 },
+  { id: "noise", label: "模糊需求", note: "先听见所有声音，但不急着把每句话都做成功能。", x: 80, y: 90 },
+  { id: "signal", label: "真实问题", note: "寻找重复出现的阻力、动机和未被满足的场景。", x: 266, y: 90 },
+  { id: "choice", label: "产品判断", note: "明确不做什么，让有限资源集中到最高价值路径。", x: 454, y: 90 },
+  { id: "ship", label: "可交付", note: "用能运行的版本验证，而不是让结论停在文档里。", x: 640, y: 90 },
 ];
 
 export function HeroDecisionMap() {
@@ -19,10 +19,10 @@ export function HeroDecisionMap() {
         <span>DECISION MAP</span>
         <span>01 — 04</span>
       </div>
-      <svg className="home-decision-svg" viewBox="0 0 720 270" role="img" aria-labelledby="decision-title">
+      <svg className="home-decision-svg" viewBox="0 0 720 190" role="img" aria-labelledby="decision-title">
         <title id="decision-title">模糊需求经过问题识别和产品判断，最终成为可交付产品</title>
-        <path className="home-decision-path home-decision-path-ghost" d="M74 92 C170 18 182 210 260 158 S360 36 450 88 S548 232 628 168" />
-        <path className="home-decision-path" d="M74 92 C170 18 182 210 260 158 S360 36 450 88 S548 232 628 168" />
+        <path className="home-decision-path home-decision-path-ghost" d="M80 90 H640" />
+        <path className="home-decision-path" d="M80 90 H640" />
         {nodes.map((node, index) => (
           <g
             key={node.id}
@@ -41,7 +41,7 @@ export function HeroDecisionMap() {
         ))}
       </svg>
       <div className="home-decision-note" aria-live="polite">
-        <span className="home-decision-note-mark">↳</span>
+        <span className="home-decision-note-mark">→</span>
         <p>{current.note}</p>
       </div>
       <div className="home-decision-stamp">MAKE IT REAL</div>
