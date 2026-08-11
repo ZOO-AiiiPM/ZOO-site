@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { PixelAvatar, PixelLogo } from "@/components/PixelArt";
 
@@ -29,21 +30,44 @@ export function Nav() {
     const sections = homeLinks
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
+    let observer: IntersectionObserver | null = null;
+    let activeId = "";
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!visible) return;
-        setActiveSection(visible.target.id);
-        history.replaceState(null, "", visible.target.id === "home" ? "/" : `#${visible.target.id}`);
-      },
-      { rootMargin: "-18% 0px -58% 0px", threshold: [0, 0.15, 0.35, 0.6] },
-    );
+    const updateActiveSection = () => {
+      const marker = 82 + Math.min(window.innerHeight * 0.22, 180);
+      let current = sections[0];
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= marker) current = section;
+        if (rect.top > marker) break;
+      }
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+      if (!current || current.id === activeId) return;
+
+      activeId = current.id;
+      setActiveSection(current.id);
+      const nextUrl = current.id === "home"
+        ? `${window.location.pathname}${window.location.search}`
+        : `${window.location.pathname}${window.location.search}#${current.id}`;
+      window.history.replaceState(window.history.state, "", nextUrl);
+    };
+
+    const observeSections = () => {
+      observer?.disconnect();
+      const marker = 82 + Math.min(window.innerHeight * 0.22, 180);
+      const bottomMargin = Math.max(window.innerHeight - marker - 1, 0);
+      observer = new IntersectionObserver(updateActiveSection, {
+        rootMargin: `-${marker}px 0px -${bottomMargin}px 0px`,
+      });
+      sections.forEach((section) => observer?.observe(section));
+    };
+
+    observeSections();
+    window.addEventListener("resize", observeSections);
+    return () => {
+      window.removeEventListener("resize", observeSections);
+      observer?.disconnect();
+    };
   }, [pathname]);
 
   if (pathname === "/") {
@@ -52,7 +76,10 @@ export function Nav() {
         <a className="home-topnav-name" href="#home" data-cursor="TOP">
           <strong>ZOO</strong><span>AI PRODUCT MAKER</span>
         </a>
-        <div className="home-topnav-links">
+        <div
+          className="home-topnav-links"
+          style={{ "--home-active-index": homeLinks.findIndex(({ id }) => id === activeSection) } as CSSProperties}
+        >
           {homeLinks.map(({ id, label }) => (
             <a
               key={id}
@@ -64,6 +91,7 @@ export function Nav() {
               {label}
             </a>
           ))}
+          <span className="home-topnav-indicator" aria-hidden="true" />
         </div>
       </nav>
     );

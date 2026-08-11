@@ -60,13 +60,13 @@ export default function Home() {
   };
 
   return (
-    <main id="home" className="home-portfolio">
+    <main className="home-portfolio">
       <ProofCursor />
 
-      <section className="home-hero" aria-labelledby="home-hero-title">
+      <section id="home" className="home-hero" aria-labelledby="home-hero-title">
         <div className="home-hero-copy">
           <div className="home-kicker"><span>AVAILABLE FOR</span> AI PRODUCT INTERN / 2026</div>
-          <h1 id="home-hero-title">把模糊问题，<br /><em>做成真实产品。</em></h1>
+          <h1 id="home-hero-title"><span>把模糊问题，</span><em>做成真实产品。</em></h1>
           <p className="home-hero-intro">你好，我是 Zoo，一名寻找 AI 产品经理校招 / 实习机会的产品创造者。我喜欢把不确定的问题拆开、判断，再快速做成可以验证的体验。</p>
           <dl className="home-hero-meta">
             <div><dt>EDUCATION</dt><dd>某某大学 · 专业待替换</dd></div>
@@ -160,7 +160,7 @@ export default function Home() {
         <SectionTitle index="04" title="CONTACT" note="如果你也在做值得解决的问题，我很愿意聊聊。" />
         <div className="home-contact-grid">
           <div className="home-contact-profile">
-            <div className="home-contact-avatar"><PixelAvatar size={108} /></div>
+            <div className="home-contact-avatar"><PixelAvatar size={80} /></div>
             <h3>Have a role<br />in mind?</h3>
             <p>我的收件箱对实习、校招和有趣的产品问题保持开放。</p>
             <address>
@@ -173,7 +173,7 @@ export default function Home() {
           <form className="home-contact-form" onSubmit={submitContact}>
             <label><span>YOUR EMAIL</span><input type="email" required placeholder="name@company.com" /></label>
             <label><span>SUBJECT</span><input type="text" required placeholder="想和你聊聊…" /></label>
-            <label><span>MESSAGE</span><textarea required rows={5} placeholder="告诉我机会、团队或你正在解决的问题。" /></label>
+            <label><span>MESSAGE</span><textarea required rows={4} placeholder="告诉我机会、团队或你正在解决的问题。" /></label>
             <button type="submit" data-cursor="SEND">{contactSent ? "已记录，这是原型状态 ✓" : "发送消息 ↗"}</button>
             <small>DESIGN PROTOTYPE · 当前不会真的发送邮件</small>
           </form>

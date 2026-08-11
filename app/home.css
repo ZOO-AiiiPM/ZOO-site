@@ -24,23 +24,19 @@ body:has(.home-portfolio) a {
 .home-portfolio {
   min-height: 100vh;
   overflow: clip;
-  background:
-    linear-gradient(var(--home-faint) 1px, transparent 1px),
-    linear-gradient(90deg, var(--home-faint) 1px, transparent 1px),
-    var(--home-paper);
-  background-size: 100% 160px, min(25vw, 360px) 100%;
-  background-position: 0 79px, max(24px, calc((100vw - 1440px) / 2)) 0;
+  background: var(--home-paper);
 }
 
 .home-topnav {
   position: sticky;
   top: 0;
   z-index: 300;
+  width: min(100% - 48px, 1440px);
   height: 80px;
-  padding: 0 max(24px, calc((100vw - 1440px) / 2));
+  margin-inline: auto;
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  border-inline: 2px solid var(--home-ink);
   border-bottom: 2px solid var(--home-ink);
   background: color-mix(in srgb, var(--home-paper) 88%, transparent);
   backdrop-filter: blur(18px);
@@ -48,12 +44,12 @@ body:has(.home-portfolio) a {
 }
 
 .home-topnav-name {
+  flex: 0 0 50%;
   display: flex;
   align-items: baseline;
   gap: 14px;
-  padding: 18px 24px 0 0;
+  padding: 18px 28px 0;
   border-right: 2px solid var(--home-ink);
-  min-width: 330px;
 }
 
 .home-topnav-name strong {
@@ -97,43 +93,49 @@ body:has(.home-portfolio) a {
 }
 
 .home-topnav-links {
-  display: flex;
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: stretch;
 }
 
 .home-topnav-links a {
   position: relative;
-  min-width: 112px;
   display: grid;
   place-items: center;
-  padding: 0 16px;
+  min-width: 0;
+  padding: 0 10px;
   border-left: 1px solid var(--home-faint);
   color: var(--home-pencil);
   font-size: 11px;
   transition: color 160ms ease, background 160ms ease;
 }
 
-.home-topnav-links a::after {
+.home-topnav-indicator {
   content: "";
   position: absolute;
-  left: 16px;
-  right: 16px;
+  z-index: 2;
+  left: calc((100% / 5) * var(--home-active-index));
+  width: calc(100% / 5);
   bottom: 15px;
-  height: 2px;
+  height: 3px;
+  pointer-events: none;
+  transition: left 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-topnav-indicator::after {
+  content: "";
+  position: absolute;
+  inset: 0 18px;
   background: var(--home-ice);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 180ms ease;
 }
 
 .home-topnav-links a:hover,
 .home-topnav-links a.is-active {
   color: var(--home-ink);
   background: var(--home-sheet);
-}
-
-.home-topnav-links a.is-active::after {
-  transform: scaleX(1);
 }
 
 .home-hero,
@@ -144,23 +146,27 @@ body:has(.home-portfolio) a {
 }
 
 .home-hero {
-  min-height: calc(100svh - 80px);
+  height: calc(100svh - 80px);
+  min-height: 640px;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(520px, 1.08fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-inline: 2px solid var(--home-ink);
+  border-bottom: 2px solid var(--home-ink);
+  scroll-margin-top: 80px;
+  scroll-snap-align: start;
 }
 
 .home-hero-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(70px, 8vw, 130px) clamp(32px, 5vw, 78px);
+  padding: clamp(54px, 6vh, 86px) clamp(32px, 4vw, 66px);
   border-right: 2px solid var(--home-ink);
 }
 
 .home-kicker {
   width: fit-content;
-  margin-bottom: 38px;
+  margin-bottom: clamp(24px, 3vh, 38px);
   padding: 8px 12px;
   border: 1px solid var(--home-ice);
   color: var(--home-ice);
@@ -173,12 +179,17 @@ body:has(.home-portfolio) a {
 }
 
 .home-hero h1 {
-  max-width: 770px;
   margin: 0;
-  font-size: clamp(58px, 6.6vw, 108px);
+  font-size: clamp(54px, 5vw, 84px);
   font-weight: 900;
   line-height: 0.92;
   letter-spacing: -0.075em;
+}
+
+.home-hero h1 span,
+.home-hero h1 em {
+  display: block;
+  white-space: nowrap;
 }
 
 .home-hero h1 em {
@@ -201,7 +212,7 @@ body:has(.home-portfolio) a {
 
 .home-hero-intro {
   max-width: 640px;
-  margin: 46px 0 38px;
+  margin: clamp(28px, 4vh, 44px) 0 clamp(24px, 3vh, 36px);
   color: var(--home-pencil);
   font-size: clamp(16px, 1.35vw, 20px);
   line-height: 1.85;
@@ -244,7 +255,7 @@ body:has(.home-portfolio) a {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  margin-top: 42px;
+  margin-top: clamp(24px, 3vh, 38px);
   font-size: 13px;
 }
 
@@ -265,23 +276,17 @@ body:has(.home-portfolio) a {
 
 .home-decision {
   position: relative;
-  min-height: 620px;
-  align-self: center;
-  margin: 48px clamp(28px, 4vw, 66px);
-  padding: 26px;
+  min-height: 0;
+  align-self: stretch;
+  margin: clamp(34px, 5vh, 64px) clamp(30px, 3.6vw, 58px);
+  padding: clamp(20px, 2vw, 28px);
   overflow: hidden;
   border: 2px solid var(--home-ink);
   background: var(--home-sheet);
 }
 
 .home-decision::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  background-image: radial-gradient(var(--home-pencil) 1px, transparent 1px);
-  background-size: 20px 20px;
-  pointer-events: none;
+  content: none;
 }
 
 .home-decision-topline {
@@ -299,7 +304,7 @@ body:has(.home-portfolio) a {
   position: relative;
   z-index: 1;
   width: 100%;
-  margin-top: 68px;
+  margin-top: clamp(34px, 5vh, 62px);
   overflow: visible;
 }
 
@@ -366,8 +371,8 @@ body:has(.home-portfolio) a {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 14px;
-  min-height: 94px;
-  margin: 30px 12px 0;
+  min-height: 86px;
+  margin: clamp(12px, 2vh, 26px) 0 0;
   padding: 20px;
   border: 1px solid var(--home-ice);
   background: var(--home-paper);
@@ -397,16 +402,28 @@ body:has(.home-portfolio) a {
 }
 
 .home-section {
-  padding-top: 126px;
-  scroll-margin-top: 78px;
+  min-height: calc(100svh - 80px);
+  display: grid;
+  grid-template-rows: clamp(120px, 15svh, 150px) minmax(0, 1fr);
+  padding-top: 0;
+  scroll-margin-top: 80px;
+  scroll-snap-align: start;
+}
+
+.home-work,
+.home-skills,
+.home-contact {
+  height: calc(100svh - 80px);
+  min-height: 640px;
 }
 
 .home-section-title {
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr) minmax(280px, 0.55fr);
+  grid-template-columns: 64px minmax(0, 1fr) minmax(280px, 0.55fr);
   align-items: end;
   gap: 28px;
-  padding: 0 0 30px;
+  padding: 22px 36px 26px;
+  border-inline: 2px solid var(--home-ink);
   border-bottom: 2px solid var(--home-ink);
 }
 
@@ -417,8 +434,8 @@ body:has(.home-portfolio) a {
 
 .home-section-title h2 {
   margin: 0;
-  font-size: clamp(54px, 8vw, 124px);
-  line-height: 0.76;
+  font-size: clamp(54px, 6.8vw, 102px);
+  line-height: 0.78;
   letter-spacing: -0.07em;
 }
 
@@ -431,15 +448,15 @@ body:has(.home-portfolio) a {
 
 .home-work-stage {
   display: grid;
-  grid-template-columns: minmax(420px, 0.8fr) minmax(0, 1.2fr);
-  min-height: 650px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 0;
   border-inline: 2px solid var(--home-ink);
   border-bottom: 2px solid var(--home-ink);
 }
 
 .home-work-list {
   position: relative;
-  padding: 50px 0;
+  padding: 28px 0;
   border-right: 2px solid var(--home-ink);
 }
 
@@ -447,8 +464,8 @@ body:has(.home-portfolio) a {
   content: "";
   position: absolute;
   left: 58px;
-  top: 76px;
-  bottom: 76px;
+  top: 54px;
+  bottom: 54px;
   width: 2px;
   background: var(--home-faint);
 }
@@ -457,9 +474,10 @@ body:has(.home-portfolio) a {
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px 0;
-  padding: 28px 36px 28px 92px;
+  min-height: calc((100svh - 80px - clamp(120px, 15svh, 150px) - 56px) / 3);
+  padding: 22px 32px 22px 92px;
   color: var(--home-pencil);
   border: 0;
   border-bottom: 1px solid var(--home-faint);
@@ -522,7 +540,8 @@ body:has(.home-portfolio) a {
 .home-work-detail {
   display: flex;
   flex-direction: column;
-  padding: clamp(42px, 6vw, 86px);
+  min-height: 0;
+  padding: clamp(26px, 3vw, 46px);
   background: var(--home-sheet);
 }
 
@@ -541,8 +560,8 @@ body:has(.home-portfolio) a {
 
 .home-work-detail h3 {
   max-width: 620px;
-  margin: 58px 0 24px;
-  font-size: clamp(34px, 4.2vw, 68px);
+  margin: clamp(20px, 3vh, 34px) 0 16px;
+  font-size: clamp(32px, 3.2vw, 52px);
   line-height: 1.02;
   letter-spacing: -0.055em;
 }
@@ -552,13 +571,13 @@ body:has(.home-portfolio) a {
   margin: 0;
   color: var(--home-pencil);
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.65;
 }
 
 .home-work-detail ul {
   display: grid;
-  gap: 14px;
-  margin: 38px 0 48px;
+  gap: 10px;
+  margin: 18px 0;
   padding: 0;
   list-style: none;
 }
@@ -566,7 +585,7 @@ body:has(.home-portfolio) a {
 .home-work-detail li {
   position: relative;
   padding-left: 30px;
-  line-height: 1.65;
+  line-height: 1.5;
 }
 
 .home-work-detail li::before {
@@ -596,9 +615,10 @@ body:has(.home-portfolio) a {
 .home-project-page {
   position: sticky;
   top: 80px;
-  min-height: calc(100svh - 80px);
+  height: calc(100svh - 80px);
+  min-height: 640px;
   display: grid;
-  grid-template-columns: minmax(380px, 0.82fr) minmax(0, 1.18fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border: 2px solid var(--home-ink);
   border-top: 0;
   background: var(--home-sheet);
@@ -611,7 +631,7 @@ body:has(.home-portfolio) a {
 .home-project-copy {
   display: flex;
   flex-direction: column;
-  padding: clamp(42px, 5vw, 74px);
+  padding: clamp(28px, 3vw, 46px);
   border-right: 2px solid var(--home-ink);
 }
 
@@ -629,25 +649,25 @@ body:has(.home-portfolio) a {
 }
 
 .home-project-copy h3 {
-  margin: 22px 0 28px;
-  font-size: clamp(38px, 4.6vw, 74px);
+  margin: 18px 0 20px;
+  font-size: clamp(36px, 3.6vw, 58px);
   line-height: 0.98;
   letter-spacing: -0.06em;
 }
 
 .home-project-copy > p {
   max-width: 620px;
-  margin: 0 0 42px;
+  margin: 0 0 24px;
   color: var(--home-pencil);
   font-size: 16px;
-  line-height: 1.8;
+  line-height: 1.65;
 }
 
 .home-project-work {
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 20px;
-  padding-block: 24px;
+  padding-block: 16px;
   border-block: 1px solid var(--home-faint);
 }
 
@@ -668,11 +688,11 @@ body:has(.home-portfolio) a {
 .home-project-meta {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 32px 0 0;
+  margin: 20px 0 0;
 }
 
 .home-project-meta div {
-  padding: 12px 12px 12px 0;
+  padding: 8px 12px 8px 0;
   border-bottom: 1px solid var(--home-faint);
 }
 
@@ -696,10 +716,10 @@ body:has(.home-portfolio) a {
   width: calc(100% - clamp(48px, 8vw, 132px));
   max-width: 840px;
   min-height: 580px;
-  margin: 50px auto;
+  margin: 28px auto;
   border: 2px solid var(--home-ink);
   background: var(--home-paper);
-  box-shadow: 18px 18px 0 var(--home-ice);
+  box-shadow: none;
   color: var(--home-ink);
 }
 
@@ -854,6 +874,9 @@ body:has(.home-portfolio) a {
 }
 
 .home-skill-table {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto repeat(5, minmax(0, 1fr));
   border-inline: 2px solid var(--home-ink);
   border-bottom: 2px solid var(--home-ink);
 }
@@ -874,8 +897,8 @@ body:has(.home-portfolio) a {
   grid-template-columns: 0.75fr 1fr 1fr;
   gap: 30px;
   align-items: center;
-  min-height: 108px;
-  padding: 22px 72px 22px 106px;
+  min-height: 0;
+  padding: clamp(14px, 2vh, 22px) 72px clamp(14px, 2vh, 22px) 106px;
   border-bottom: 1px solid var(--home-faint);
   transition: color 160ms ease, background 160ms ease;
 }
@@ -920,14 +943,14 @@ body:has(.home-portfolio) a {
 
 .home-contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   border-inline: 2px solid var(--home-ink);
   border-bottom: 2px solid var(--home-ink);
 }
 
 .home-contact-profile,
 .home-contact-form {
-  padding: clamp(42px, 6vw, 88px);
+  padding: clamp(24px, 3vw, 44px);
 }
 
 .home-contact-profile {
@@ -941,8 +964,8 @@ body:has(.home-portfolio) a {
 }
 
 .home-contact-profile h3 {
-  margin: 40px 0 24px;
-  font-size: clamp(48px, 6vw, 92px);
+  margin: 20px 0 14px;
+  font-size: clamp(42px, 4vw, 58px);
   line-height: 0.88;
   letter-spacing: -0.07em;
 }
@@ -950,20 +973,20 @@ body:has(.home-portfolio) a {
 .home-contact-profile > p {
   max-width: 520px;
   color: var(--home-pencil);
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .home-contact-profile address {
   display: grid;
-  margin-top: 48px;
+  margin-top: 16px;
   font-style: normal;
 }
 
 .home-contact-profile address > * {
   display: grid;
   grid-template-columns: 92px 1fr;
-  padding: 15px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--home-faint);
   color: var(--home-ink);
   font-size: 13px;
@@ -979,7 +1002,7 @@ body:has(.home-portfolio) a {
 .home-contact-form {
   display: grid;
   align-content: center;
-  gap: 32px;
+  gap: 16px;
   background: var(--home-sheet);
 }
 
@@ -1018,7 +1041,7 @@ body:has(.home-portfolio) a {
 }
 
 .home-contact-form button {
-  min-height: 62px;
+  min-height: 54px;
   border: 2px solid var(--home-ice);
   color: var(--home-paper);
   background: var(--home-ice);
@@ -1380,10 +1403,15 @@ body:has(.home-portfolio) a {
 }
 
 @media (max-width: 1100px) {
-  .home-topnav-name { min-width: 220px; }
+  .home-topnav-name { flex-basis: 36%; min-width: 220px; }
   .home-topnav-name span { display: none; }
   .home-topnav-links a { min-width: auto; padding-inline: 14px; }
   .home-hero { grid-template-columns: 1fr; }
+  .home-hero,
+  .home-work,
+  .home-skills,
+  .home-contact,
+  .home-project-page { height: auto; }
   .home-hero-copy { border-right: 0; border-bottom: 2px solid var(--home-ink); }
   .home-decision { min-height: 560px; }
   .home-work-stage { grid-template-columns: 0.8fr 1.2fr; }
@@ -1395,12 +1423,13 @@ body:has(.home-portfolio) a {
 }
 
 @media (max-width: 720px) {
-  .home-portfolio { background-size: 100% 120px, 50vw 100%; }
-  .home-topnav { height: 66px; padding: 0 14px; overflow-x: auto; }
-  .home-topnav-name { min-width: 74px; padding: 19px 14px 0 0; }
+  .home-topnav { width: calc(100% - 24px); height: 66px; padding: 0; overflow-x: auto; }
+  .home-topnav-name { flex-basis: 74px; min-width: 74px; padding: 19px 14px 0 0; }
   .home-topnav-name strong { font-size: 24px; }
+  .home-topnav-links { min-width: 320px; }
   .home-topnav-links a { padding-inline: 12px; font-size: 9px; }
-  .home-topnav-links a::after { left: 10px; right: 10px; bottom: 10px; }
+  .home-topnav-indicator { bottom: 10px; }
+  .home-topnav-indicator::after { inset-inline: 10px; }
   .home-hero,
   .home-section,
   .home-footer { width: calc(100% - 24px); }
@@ -1408,6 +1437,7 @@ body:has(.home-portfolio) a {
   .home-hero-copy { padding: 72px 24px 48px; }
   .home-kicker { margin-bottom: 28px; }
   .home-hero h1 { font-size: clamp(48px, 15vw, 72px); }
+  .home-hero h1 span,
   .home-hero h1 em { white-space: normal; }
   .home-hero-intro { margin: 34px 0 28px; }
   .home-hero-meta { grid-template-columns: 1fr; }
@@ -1419,8 +1449,8 @@ body:has(.home-portfolio) a {
   .home-decision-label { font-size: 12px; }
   .home-decision-note { min-height: 84px; margin-top: 8px; padding: 14px; }
   .home-decision-note p { font-size: 12px; }
-  .home-section { padding-top: 88px; scroll-margin-top: 66px; }
-  .home-section-title { grid-template-columns: 40px 1fr; gap: 14px; padding-bottom: 22px; }
+  .home-section { min-height: 0; grid-template-rows: auto minmax(0, 1fr); padding-top: 0; scroll-margin-top: 66px; }
+  .home-section-title { grid-template-columns: 40px 1fr; gap: 14px; padding: 22px 20px; }
   .home-section-title h2 { font-size: clamp(48px, 17vw, 76px); }
   .home-section-title p { grid-column: 2; font-size: 12px; }
   .home-work-stage { grid-template-columns: 1fr; min-height: 0; }
@@ -1435,7 +1465,7 @@ body:has(.home-portfolio) a {
   .home-project-copy { padding: 42px 24px; }
   .home-project-copy h3 { font-size: 44px; }
   .home-project-work { grid-template-columns: 1fr; }
-  .home-project-screen { width: calc(100% - 48px); min-height: 430px; margin: 30px auto 54px; box-shadow: 10px 10px 0 var(--home-ice); }
+  .home-project-screen { width: calc(100% - 48px); min-height: 430px; margin: 30px auto 54px; box-shadow: none; }
   .home-project-insight-grid { min-height: 386px; grid-template-columns: 1fr; }
   .home-project-insight-grid aside { min-height: 150px; border-right: 0; border-bottom: 2px solid var(--home-ink); }
   .home-project-insight-grid aside b { font-size: 74px; }
@@ -1445,6 +1475,7 @@ body:has(.home-portfolio) a {
   .home-project-persona-main { min-height: 430px; padding: 22px; }
   .home-project-bubble { max-width: 92%; }
   .home-skill-head { display: none; }
+  .home-skill-table { display: block; }
   .home-skill-row { grid-template-columns: 1fr; gap: 8px; min-height: 0; padding: 26px 22px 26px 64px; }
   .home-skill-index { left: 22px; top: 31px; }
   .home-contact-profile,
