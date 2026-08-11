@@ -194,7 +194,6 @@ export function AskZooPrototype() {
               <div className="home-ask-thread" aria-live="polite">
                 {messages.map((m, i) => (
                   <div key={i} className={`home-ask-message ${m.role === "user" ? "is-user" : "is-zoo"}`}>
-                    <span>{m.role === "user" ? "YOU" : "ZOO.AI"}</span>
                     {m.role === "assistant" ? (
                       <div className="home-ask-markdown"><ReactMarkdown>{m.content}</ReactMarkdown></div>
                     ) : (
@@ -210,6 +209,13 @@ export function AskZooPrototype() {
           <div className="home-ask-bottom">
             <form className="home-ask-form" onSubmit={submit}>
               <div className="home-ask-input-bar">
+                {messages.length > 0 && (
+                  <button type="button" className="home-ask-new-chat" onClick={resetChat} data-cursor="NEW" aria-label="新建对话">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                  </button>
+                )}
                 <input
                   ref={inputRef}
                   id="home-ask-input"
@@ -225,9 +231,6 @@ export function AskZooPrototype() {
                 </button>
               </div>
             </form>
-            {messages.length > 0 && (
-              <button type="button" className="home-ask-reset" onClick={resetChat}>← 换个话题</button>
-            )}
           </div>
         </div>
 

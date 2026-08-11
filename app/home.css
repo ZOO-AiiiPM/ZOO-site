@@ -1298,39 +1298,42 @@ body:has(.home-portfolio) a {
   background: var(--home-ice);
 }
 
-/* ── 对话流 ── */
+/* ── 对话流：左右分布气泡 ── */
 .home-ask-thread {
-  display: grid;
-  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
-  text-align: left;
 }
 
 .home-ask-message {
-  max-width: 82%;
-  padding: 18px 20px;
-  border: 2px solid var(--home-ink);
+  max-width: 78%;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: none;
   background: var(--home-sheet);
+  color: var(--home-ink);
+  font-size: 15px;
+  line-height: 1.65;
 }
 
 .home-ask-message.is-user {
-  justify-self: end;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
   color: var(--home-paper);
   background: var(--home-ice);
 }
 
-.home-ask-message > span {
-  color: var(--home-signal);
-  font-size: 8px;
+.home-ask-message.is-zoo {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
 }
 
 /* 仅用户消息的直接 <p> 段落（assistant 用 .home-ask-markdown 渲染） */
 .home-ask-message > p {
-  margin: 10px 0 0;
-  font-size: 16px;
-  line-height: 1.7;
+  margin: 0;
 }
 
 /* assistant 流式/富文本渲染 */
@@ -1369,18 +1372,24 @@ body:has(.home-portfolio) a {
   font-style: italic;
 }
 
-.home-ask-reset {
-  width: fit-content;
-  margin: 4px auto 0;
-  border: 0;
-  color: var(--home-signal);
+/* ── 新建对话图标（输入条左侧）── 和发送按钮同风格 ── */
+.home-ask-new-chat {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  color: var(--home-pencil);
   background: transparent;
-  font-size: 13px;
-  transition: color 160ms ease;
+  transition: color 160ms ease, background 160ms ease;
 }
-.home-ask-reset:hover { color: var(--home-ink); }
+.home-ask-new-chat:hover {
+  color: var(--home-ink);
+  background: var(--home-sheet-2);
+}
 
-/* ── 底部区：圆角药丸输入条 + 下方快捷提示 ── */
+/* ── 底部区：圆角药丸输入条 ── */
 .home-ask-bottom {
   display: flex;
   flex-direction: column;
@@ -1397,9 +1406,9 @@ body:has(.home-portfolio) a {
 
 .home-ask-input-bar {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 6px 6px 6px 18px;
+  padding: 6px 6px 6px 14px;
   border: 2px solid var(--home-ink);
   border-radius: 999px;
   background: var(--home-sheet);
