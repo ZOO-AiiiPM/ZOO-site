@@ -42,7 +42,7 @@ const BELIEFS = [
 
 const CONTACTS = [
   { flag: "--twitter", value: "@zoo", link: "→ twitter.com", href: "https://twitter.com" },
-  { flag: "--jike", value: "Zoo", link: "→ okjike.com", href: "https://okjike.com" },
+  { flag: "--jike", value: "Winston", link: "→ okjike.com", href: "https://okjike.com" },
   { flag: "--github", value: "zoo", link: "→ github.com", href: "https://github.com" },
   { flag: "--email", value: "zoo@example.com", link: "→ mailto:", href: "mailto:zoo@example.com" },
 ];
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <PixelTitle text="ABOUT" />
         </div>
         <div className="about-sub">
-          <span className="about-comment">{"// "}<Typewriter text="Zoo — AI PM × Vibe Coder" /></span>
+          <span className="about-comment">{"// "}<Typewriter text="Winston — AI PM × Vibe Coder" /></span>
         </div>
         <div className="about-stats">
           <span>type &quot;human&quot;</span>
@@ -75,7 +75,7 @@ export default function AboutPage() {
       {/* === Bio — slide in, first sentence typewriter === */}
       <CliLine delay={80}>
         <div className="about-bio">
-          <p>嗨，我是 Zoo。一个在 AI 时代重新定义自己的产品经理。</p>
+          <p>嗨，我是 Winston。一个在 AI 时代重新定义自己的产品经理。</p>
           <p>
             我相信最好的 AI 产品不是炫技，而是<strong>让人感觉不到 AI 的存在</strong>。
             当技术消隐于体验之中，用户才能真正感受到产品的价值。这是我做产品的核心信念，也是我持续探索的方向。
@@ -213,7 +213,7 @@ export default function AboutPage() {
         <CliLine delay={60}>
           <div className="about-contact-cmd">
             <span className="cmd-arrow">$</span>
-            <span className="cmd-name"><Typewriter text="zoo --contact" startDelay={200} speed={60} /></span>
+            <span className="cmd-name"><Typewriter text="winston --contact" startDelay={200} speed={60} /></span>
           </div>
         </CliLine>
         <StaggerReveal selector=".about-contact-row" interval={100}>

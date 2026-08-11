@@ -47,7 +47,7 @@ const projects: Project[] = [
     pid: '3289',
   },
   {
-    name: 'ask-zoo',
+    name: 'ask-winston',
     title: 'AI 分身对话',
     desc: '基于 DeepSeek API 的个人 AI 分身，了解我的经历和性格。就是右下角那个。',
     tags: ['Next.js', 'DeepSeek', 'SSE'],
@@ -55,7 +55,7 @@ const projects: Project[] = [
     pid: '3401',
   },
   {
-    name: 'zoo.dev',
+    name: 'winston.dev',
     title: '这个网站',
     desc: '你正在看的个人网站，也是一个 Vibe Coding 项目。从设计到代码全程 AI 协作。',
     tags: ['Next.js', 'Tailwind', 'MDX'],

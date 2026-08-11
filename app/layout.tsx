@@ -25,8 +25,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zoo — AI Product Maker",
-  description: "把模糊问题，做成真实产品。Zoo 的 AI 产品经理求职作品集。",
+  title: "Winston — AI Product Maker",
+  description: "把模糊问题，做成真实产品。Winston 的 AI 产品经理求职作品集。",
 };
 
 export default function RootLayout({
@@ -41,7 +41,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <footer className="site-footer">
-          <p>© 2026 Zoo · Built with Vibe Coding & Claude Code</p>
+          <p>© 2026 Winston · Built with Vibe Coding & Claude Code</p>
         </footer>
         <Analytics />
         <SpeedInsights />

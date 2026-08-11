@@ -10,7 +10,7 @@ interface Message {
 }
 
 const SUGGESTIONS = [
-  "who is Zoo?",
+  "who is Winston?",
   "聊聊 Vibe Coding",
   "AI PM 该怎么入行？",
   "你的性格是什么样的？",
@@ -20,7 +20,7 @@ const SUGGESTIONS = [
 const FIXED_W = 21;
 const FIXED_H = 5;
 const ASCII_WORDS_RAW = [
-  `______  ___   ___\n|__  / / _ \\ / _ \\\n  / / | | | | | | |\n / /_ | |_| | |_| |\n/____| \\___/ \\___/`,
+  `       WINSTON`,
   `    _    ___\n   / \\  |_ _|\n  / _ \\  | |\n / ___ \\ | |\n/_/   \\_\\___|`,
   `  ____  __  __\n |  _ \\|  \\/  |\n | |_) | |\\/| |\n |  __/| |  | |\n |_|   |_|  |_|`,
   `__     _____ ____  _____\n\\ \\   / /_ _| __ )| ____|\n \\ \\ / / | ||  _ \\|  _|\n  \\ V /  | || |_) | |___\n   \\_/  |___|____/|_____|`.split("\n").map(l => l.slice(0, FIXED_W)).join("\n"),
@@ -263,14 +263,14 @@ export default function AskZooPage() {
             <AsciiCycler />
           </div>
           <div className="ask-zoo-info-line ask-zoo-type-line" style={{ "--d": 150 } as React.CSSProperties}>
-            <span className="ask-zoo-info-name">zoo</span>
+            <span className="ask-zoo-info-name">winston</span>
             <span className="ask-zoo-info-label">v1.0</span>
           </div>
           <div className="ask-zoo-powered ask-zoo-type-line" style={{ "--d": 300 } as React.CSSProperties}>
             powered by DeepSeek V4 Flash
           </div>
           <p className="ask-zoo-intro ask-zoo-type-line" style={{ "--d": 500 } as React.CSSProperties}>
-            这是赛博 Zoo (｡•̀ᴗ-)✧ 想了解真实的我，直接问就好~
+            这是赛博 Winston (｡•̀ᴗ-)✧ 想了解真实的我，直接问就好~
           </p>
           <div className="ask-zoo-hint ask-zoo-type-line" style={{ "--d": 700 } as React.CSSProperties}>试试这些：</div>
           <div className="ask-zoo-cmds">
@@ -311,7 +311,7 @@ export default function AskZooPage() {
                     <div className="ask-zoo-bot-avatar">
                       <PixelAvatar size={22} />
                     </div>
-                    <span className="ask-zoo-bot-sublabel">zoo</span>
+                    <span className="ask-zoo-bot-sublabel">winston</span>
                     <span className="ask-zoo-bot-model">deepseek-v4-flash-free</span>
                   </div>
                   <div className="ask-zoo-bot-text">

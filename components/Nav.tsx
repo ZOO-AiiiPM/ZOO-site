@@ -18,7 +18,7 @@ const legacyLinks = [
   { href: "/#work", label: "Work" },
   { href: "/#projects", label: "Projects" },
   { href: "/#contact", label: "Contact" },
-  { href: "/ask-zoo", label: "Ask Zoo" },
+  { href: "/ask-zoo", label: "Ask Winston" },
 ];
 
 export function Nav() {
@@ -74,7 +74,7 @@ export function Nav() {
     return (
       <nav className="home-topnav" aria-label="页面目录">
         <a className="home-topnav-name" href="#home" data-cursor="TOP">
-          <strong>ZOO</strong><span>AI PRODUCT MAKER</span>
+          <strong>WINSTON</strong>
         </a>
         <div
           className="home-topnav-links"

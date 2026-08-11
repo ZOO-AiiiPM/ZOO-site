@@ -21,10 +21,10 @@ function SectionTitle({ index, title, note }: { index: string; title: string; no
 function ProductVisual({ project }: { project: PortfolioProject }) {
   if (project.visual === "persona") {
     return (
-      <div className="home-project-screen home-project-persona" aria-label="Ask Zoo 对话界面示意">
-        <div className="home-project-windowbar"><span /><span /><span /><b>ASK ZOO</b></div>
+      <div className="home-project-screen home-project-persona" aria-label="Ask Winston 对话界面示意">
+        <div className="home-project-windowbar"><span /><span /><span /><b>ASK WINSTON</b></div>
         <div className="home-project-persona-main">
-          <div className="home-project-persona-id"><PixelAvatar size={64} /><strong>ZOO.AI</strong><small>PERSONA ONLINE</small></div>
+          <div className="home-project-persona-id"><PixelAvatar size={64} /><strong>WINSTON.AI</strong><small>PERSONA ONLINE</small></div>
           <div className="home-project-bubble is-user">你做产品时最看重什么？</div>
           <div className="home-project-bubble is-bot">先看清问题，再决定什么值得做。技术应该消失在体验后面。</div>
           <div className="home-project-composer"><span>Ask something…</span><b>↗</b></div>
@@ -67,7 +67,7 @@ export default function Home() {
         <div className="home-hero-copy">
           <div className="home-kicker"><span>AVAILABLE FOR</span> AI PRODUCT INTERN / 2026</div>
           <h1 id="home-hero-title"><span>把模糊问题，</span><em>做成真实产品。</em></h1>
-          <p className="home-hero-intro">你好，我是 Zoo，一名寻找 AI 产品经理校招 / 实习机会的产品创造者。我喜欢把不确定的问题拆开、判断，再快速做成可以验证的体验。</p>
+          <p className="home-hero-intro">你好，我是 Winston，一名寻找 AI 产品经理校招 / 实习机会的产品创造者。我喜欢把不确定的问题拆开、判断，再快速做成可以验证的体验。</p>
           <dl className="home-hero-meta">
             <div><dt>EDUCATION</dt><dd>某某大学 · 专业待替换</dd></div>
             <div><dt>FOCUS</dt><dd>AI Product / 0→1 / User Experience</dd></div>
@@ -181,12 +181,12 @@ export default function Home() {
       </section>
 
       <footer id="footer" className="home-footer">
-        <div className="home-footer-name"><span>AI PRODUCT MAKER</span><strong>ZOO</strong></div>
+        <div className="home-footer-name"><span>AI PRODUCT MAKER</span><strong>WINSTON</strong></div>
         <div className="home-footer-actions">
           <a href="#home" data-cursor="TOP">BACK TO TOP ↑</a>
           <AskZooPrototype />
         </div>
-        <p>© 2026 ZOO · MADE BY DECIDING WHAT NOT TO BUILD.</p>
+        <p>© 2026 WINSTON · MADE BY DECIDING WHAT NOT TO BUILD.</p>
       </footer>
     </main>
   );

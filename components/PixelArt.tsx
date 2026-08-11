@@ -28,10 +28,6 @@ const AVATAR_COLORS: Record<string, string> = {
 const Z_LETTER = ["1111111", "......1", ".....1.", "....1..", "...1...", "..1....", ".1.....", "1......", "1111111"];
 const O_LETTER = [".11111.", "1.....1", "1.....1", "1.....1", "1.....1", "1.....1", "1.....1", "1.....1", ".11111."];
 
-// Small letter data (5-wide, for nav)
-const Z_SMALL = ["11111", "....1", "...1.", "..1..", ".1...", "1....", "11111"];
-const O_SMALL = [".111.", "1...1", "1...1", "1...1", "1...1", "1...1", ".111."];
-
 function drawPixelData(ctx: CanvasRenderingContext2D, data: string[], colors: Record<string, string>) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   data.forEach((row, y) => {
@@ -127,15 +123,23 @@ export function PixelZooText({ scale = 3 }: { scale?: number }) {
   );
 }
 
-/** Small pixel "ZOO" for nav */
+/** Compact Winston wordmark for legacy navigation */
 export function PixelLogo() {
   const ref = useRef<HTMLCanvasElement>(null);
-  const w = 38;
+  const w = 74;
   const h = 18;
 
   useEffect(() => {
     const ctx = ref.current?.getContext("2d");
-    if (ctx) drawZooText(ctx, [Z_SMALL, O_SMALL, O_SMALL], 2, w, h);
+    if (!ctx) return;
+    ctx.clearRect(0, 0, w, h);
+    const gradient = ctx.createLinearGradient(0, 0, w, 0);
+    gradient.addColorStop(0, G);
+    gradient.addColorStop(1, P);
+    ctx.fillStyle = gradient;
+    ctx.font = "700 10px monospace";
+    ctx.textBaseline = "middle";
+    ctx.fillText("WINSTON", 1, h / 2 + 1);
   }, []);
 
   return (
@@ -143,7 +147,7 @@ export function PixelLogo() {
       ref={ref}
       width={w}
       height={h}
-      style={{ imageRendering: "pixelated", width: 57, height: 27, cursor: "pointer" }}
+      style={{ imageRendering: "pixelated", width: 111, height: 27, cursor: "pointer" }}
     />
   );
 }

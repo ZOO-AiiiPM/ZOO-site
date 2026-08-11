@@ -81,7 +81,7 @@ export const projects: PortfolioProject[] = [
     eyebrow: "AI PERSONA / THIS WEBSITE",
     title: "让招聘方不只读简历，还能继续追问我。",
     description:
-      "Ask Zoo 是内置在个人网站中的 AI 分身。它把静态作品集变成一次可以继续探索的对话，并为每个回答保留个人事实边界。",
+      "Ask Winston 是内置在个人网站中的 AI 分身。它把静态作品集变成一次可以继续探索的对话，并为每个回答保留个人事实边界。",
     work: [
       "定义 AI 分身的回答边界与语气",
       "设计快捷问题、流式对话与错误状态",
@@ -91,7 +91,7 @@ export const projects: PortfolioProject[] = [
       { label: "ROLE", value: "Product / Design / Build" },
       { label: "MODEL", value: "DeepSeek" },
       { label: "YEAR", value: "2026" },
-      { label: "LINK", value: "Ask Zoo ↗", href: "/ask-zoo" },
+      { label: "LINK", value: "Ask Winston ↗", href: "/ask-zoo" },
     ],
     visual: "persona",
   },
