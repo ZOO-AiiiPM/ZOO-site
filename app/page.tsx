@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { PixelAvatar } from "@/components/PixelArt";
 import { AskZooPrototype } from "./_components/AskZooPrototype";
+import { FooterWordmark } from "./_components/FooterWordmark";
 import { HeroDecisionMap } from "./_components/HeroDecisionMap";
 import { ProofCursor } from "./_components/ProofCursor";
 import { experiences, projects, skillRows, type PortfolioProject } from "./portfolio-data";
@@ -181,12 +182,19 @@ export default function Home() {
       </section>
 
       <footer id="footer" className="home-footer">
-        <div className="home-footer-name"><span>AI PRODUCT MAKER</span><strong>WINSTON</strong></div>
-        <div className="home-footer-actions">
-          <a href="#home" data-cursor="TOP">BACK TO TOP ↑</a>
+        <div className="home-footer-ask">
           <AskZooPrototype />
         </div>
-        <p>© 2026 WINSTON · MADE BY DECIDING WHAT NOT TO BUILD.</p>
+        <div className="home-footer-name">
+          <span>AI PRODUCT MAKER</span>
+          <FooterWordmark />
+        </div>
+        <div className="home-footer-bottom">
+          <p className="home-footer-slogan">attention is all you need</p>
+          <a className="home-footer-top" href="#home" data-cursor="TOP" aria-label="回到顶部" title="回到顶部">
+            <span aria-hidden="true">↑</span>
+          </a>
+        </div>
       </footer>
     </main>
   );

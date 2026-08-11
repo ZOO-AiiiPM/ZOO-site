@@ -84,13 +84,21 @@ export function Nav() {
             <a
               key={id}
               href={`#${id}`}
-              className={activeSection === id ? "is-active" : ""}
+              className={`home-topnav-link${activeSection === id ? " is-active" : ""}`}
               data-cursor="GO"
               aria-current={activeSection === id ? "location" : undefined}
             >
               {label}
             </a>
           ))}
+          <button
+            type="button"
+            className="home-topnav-link home-topnav-ask"
+            data-cursor="ASK"
+            onClick={() => window.dispatchEvent(new Event("open-ask-zoo"))}
+          >
+            ASK ME MORE
+          </button>
           <span className="home-topnav-indicator" aria-hidden="true" />
         </div>
       </nav>
