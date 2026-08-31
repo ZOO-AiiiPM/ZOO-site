@@ -8,12 +8,11 @@ export interface Experience {
 }
 
 export interface PortfolioProject {
-  index: string;
-  eyebrow: string;
   title: string;
-  description: string;
-  work: string[];
-  meta: Array<{ label: string; value: string; href?: string }>;
+  tagline: string;
+  introduction: string;
+  role: string;
+  links: Array<{ label: string; value: string; href?: string }>;
   visual: "insight" | "persona";
 }
 
@@ -58,40 +57,26 @@ export const experiences: Experience[] = [
 
 export const projects: PortfolioProject[] = [
   {
-    index: "01",
-    eyebrow: "AI PRODUCT / INDEPENDENT",
-    title: "把杂乱信息，变成每天可行动的产品洞察。",
-    description:
-      "一个 AI 驱动的竞品与行业信息助手。它不追求抓得更多，而是把变化解释成产品经理真正需要判断的下一步。",
-    work: [
-      "定义信息筛选与优先级规则",
-      "设计 AI 摘要、证据回链与异常兜底",
-      "搭建从采集到日报的可运行原型",
-    ],
-    meta: [
-      { label: "ROLE", value: "Product / Prototype" },
-      { label: "YEAR", value: "2026" },
-      { label: "STATUS", value: "In progress" },
-      { label: "LINK", value: "GitHub ↗", href: "https://github.com" },
+    title: "mewmo",
+    tagline: "最懂你的个性化 AI 学习和创作助手",
+    introduction:
+      "一个围绕个人兴趣与长期知识积累设计的 AI 学习和创作助手，帮助用户把分散素材整理成可继续思考与创作的上下文。",
+    role: "Product / Prototype",
+    links: [
+      { label: "WEBSITE", value: "待补充" },
+      { label: "GITHUB", value: "待补充" },
     ],
     visual: "insight",
   },
   {
-    index: "02",
-    eyebrow: "AI PERSONA / THIS WEBSITE",
-    title: "让招聘方不只读简历，还能继续追问我。",
-    description:
+    title: "Ask Winston",
+    tagline: "让招聘方不只读简历，还能继续追问我",
+    introduction:
       "Ask Winston 是内置在个人网站中的 AI 分身。它把静态作品集变成一次可以继续探索的对话，并为每个回答保留个人事实边界。",
-    work: [
-      "定义 AI 分身的回答边界与语气",
-      "设计快捷问题、流式对话与错误状态",
-      "将聊天入口融入作品集的阅读路径",
-    ],
-    meta: [
-      { label: "ROLE", value: "Product / Design / Build" },
-      { label: "MODEL", value: "DeepSeek" },
-      { label: "YEAR", value: "2026" },
-      { label: "LINK", value: "Ask Winston ↗", href: "/ask-zoo" },
+    role: "Product / Design / Build",
+    links: [
+      { label: "WEBSITE", value: "体验产品 ↗", href: "/ask-zoo" },
+      { label: "GITHUB", value: "待补充" },
     ],
     visual: "persona",
   },

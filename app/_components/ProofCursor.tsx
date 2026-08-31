@@ -24,16 +24,18 @@ export function ProofCursor() {
     const onMove = (event: PointerEvent) => {
       positionRef.current = { x: event.clientX, y: event.clientY };
       if (frameRef.current === null) frameRef.current = requestAnimationFrame(render);
-      setVisible(true);
+      setVisible((current) => current || true);
 
       const target = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-cursor]") : null;
       const element = event.target instanceof Element ? event.target : null;
       const isFormText = element?.matches("input, textarea, [contenteditable='true']") ?? false;
-      const range = document.caretRangeFromPoint?.(event.clientX, event.clientY);
-      const isTextNode = range?.startContainer.nodeType === Node.TEXT_NODE;
-      const nextTextMode = !target && (isFormText || isTextNode);
-      setTextMode(nextTextMode);
-      setLabel(target?.dataset.cursor ?? "");
+      const isTextElement = element?.matches(
+        "p, h1, h2, h3, h4, h5, h6, li, dt, dd, blockquote, figcaption, em, strong, small, label, code",
+      ) ?? false;
+      const nextTextMode = !target && (isFormText || isTextElement);
+      const nextLabel = nextTextMode ? "" : target?.dataset.cursor ?? "";
+      setTextMode((current) => current === nextTextMode ? current : nextTextMode);
+      setLabel((current) => current === nextLabel ? current : nextLabel);
     };
 
     const onLeave = () => setVisible(false);

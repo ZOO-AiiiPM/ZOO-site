@@ -3,7 +3,6 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { PixelAvatar } from "@/components/PixelArt";
-import { ProofCursor } from "./ProofCursor";
 
 interface Message {
   role: "user" | "assistant";
@@ -17,13 +16,9 @@ const suggestions = [
 ];
 
 export function AskZooPrototype() {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const hostRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
-  const [docked, setDocked] = useState(false);
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -50,32 +45,6 @@ export function AskZooPrototype() {
     setIsHydrated(true);
   }, []);
 
-  const openDialog = useCallback((event?: Event) => {
-    const dialog = dialogRef.current;
-    if (!dialog || dialog.open) return;
-    const requestedQuestion = event instanceof CustomEvent && typeof event.detail === "string" ? event.detail : "";
-    if (requestedQuestion) setQuestion(requestedQuestion);
-    dialog.showModal();
-    window.requestAnimationFrame(() => {
-      inputRef.current?.focus();
-      syncCaret();
-    });
-  }, [syncCaret]);
-
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
-    const askSection = host.closest("#ask");
-    if (!askSection) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setDocked(entry.isIntersecting),
-      { threshold: 0.4 },
-    );
-    observer.observe(askSection);
-    return () => observer.disconnect();
-  }, []);
-
   // 新消息、首个 token 或流式 token 到达后，只滚动对话窗口内部。
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
@@ -85,19 +54,8 @@ export function AskZooPrototype() {
     return () => window.cancelAnimationFrame(frame);
   }, [messages, isThinking]);
 
-  useEffect(() => {
-    window.addEventListener("open-ask-zoo", openDialog);
-    return () => window.removeEventListener("open-ask-zoo", openDialog);
-  }, [openDialog]);
-
   const pauseStreaming = () => {
     abortControllerRef.current?.abort();
-  };
-
-  const closeDialog = () => {
-    pauseStreaming();
-    dialogRef.current?.close();
-    triggerRef.current?.focus();
   };
 
   const sendMessage = async (text: string) => {
@@ -212,45 +170,15 @@ export function AskZooPrototype() {
   };
 
   return (
-    <div ref={hostRef} className="home-ask-host">
-      <button
-        ref={triggerRef}
-        type="button"
-        className={`home-ask-trigger${docked ? " is-docked" : ""}`}
-        onClick={() => openDialog()}
-        data-cursor="ASK"
-        aria-haspopup="dialog"
-      >
-        <span className="home-ask-avatar"><PixelAvatar size={46} /></span>
-        <span className="home-ask-trigger-copy">
-          <strong>ASK ME MORE</strong>
-          <small>和我的 AI 分身聊聊 ↗</small>
-        </span>
-      </button>
-
-      <dialog
-        ref={dialogRef}
-        className="home-ask-dialog"
-        aria-labelledby="home-ask-title"
-        onCancel={(event) => {
-          event.preventDefault();
-          closeDialog();
-        }}
-        onClick={(event) => {
-          if (event.target === dialogRef.current) closeDialog();
-        }}
-      >
-        <div className="home-ask-panel">
-          <header className="home-ask-header">
-            <div className="home-ask-identity">
-              <PixelAvatar size={44} />
-              <div>
-                <span>AI PERSONA / ONLINE</span>
-                <h2 id="home-ask-title">Ask Me Anything</h2>
-              </div>
-            </div>
-            <button type="button" className="home-ask-close" onClick={closeDialog} data-cursor="CLOSE" aria-label="关闭">×</button>
-          </header>
+    <div className="home-ask-host">
+      <div className="home-ask-panel" aria-label="与 Winston 的 AI 分身对话">
+        <header className="home-ask-header">
+          <div className="home-ask-heading">
+            <span className="home-ask-header-avatar" aria-hidden="true"><PixelAvatar size={36} /></span>
+            <strong>ASK ME MORE</strong>
+          </div>
+          <span className="home-ask-status"><i aria-hidden="true" />ONLINE</span>
+        </header>
 
           <div
             ref={contentRef}
@@ -347,13 +275,7 @@ export function AskZooPrototype() {
               </div>
             </form>
           </div>
-        </div>
-
-        {/* 必须放在 <dialog> 内部：showModal() 会让对话框进入 top layer，
-            普通 fixed 光标层会被压在其下方。作为对话框子元素，光标随对话框
-            一同进入 top layer，因而显示在面板与遮罩之上。 */}
-        <ProofCursor />
-      </dialog>
+      </div>
     </div>
   );
 }

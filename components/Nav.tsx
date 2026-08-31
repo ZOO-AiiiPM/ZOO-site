@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import { PixelAvatar, PixelLogo } from "@/components/PixelArt";
+import { jumpToPageTop } from "@/app/_components/homeScroll";
 
 const homeLinks = [
   { id: "about", label: "ABOUT" },
@@ -31,16 +32,25 @@ export function Nav() {
     const sections = homeLinks
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
-    let observer: IntersectionObserver | null = null;
     let activeId = "";
+    let frame = 0;
+    let sectionTops: number[] = [];
+
+    const measureSections = () => {
+      sectionTops = sections.map((section) => section.getBoundingClientRect().top + window.scrollY);
+    };
 
     const updateActiveSection = () => {
-      const marker = 82 + Math.min(window.innerHeight * 0.22, 180);
+      frame = 0;
+      // Switch as soon as a section becomes the current reading area instead
+      // of waiting for its top edge to reach the sticky header.
+      const readingLine = Math.min(Math.max(window.innerHeight * 0.32, 150), 260);
+      const marker = window.scrollY + readingLine;
       let current = sections[0];
-      for (const section of sections) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= marker) current = section;
-        if (rect.top > marker) break;
+
+      for (let index = 0; index < sections.length; index += 1) {
+        if (sectionTops[index] <= marker) current = sections[index];
+        else break;
       }
 
       if (!current || current.id === activeId) return;
@@ -53,28 +63,47 @@ export function Nav() {
       window.history.replaceState(window.history.state, "", nextUrl);
     };
 
-    const observeSections = () => {
-      observer?.disconnect();
-      const marker = 82 + Math.min(window.innerHeight * 0.22, 180);
-      const bottomMargin = Math.max(window.innerHeight - marker - 1, 0);
-      observer = new IntersectionObserver(updateActiveSection, {
-        rootMargin: `-${marker}px 0px -${bottomMargin}px 0px`,
-      });
-      sections.forEach((section) => observer?.observe(section));
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection);
     };
 
-    observeSections();
-    window.addEventListener("resize", observeSections);
+    const handleResize = () => {
+      measureSections();
+      scheduleUpdate();
+    };
+
+    measureSections();
+    updateActiveSection();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener("resize", observeSections);
-      observer?.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", handleResize);
     };
   }, [pathname]);
+
+  const scrollToSection = (event: MouseEvent<HTMLAnchorElement>, id: string) => {
+    event.preventDefault();
+    // Prevent the browser from scrolling the focused anchor back into view
+    // after an explicit jump to the page origin.
+    event.currentTarget.blur();
+    const target = id === "about" ? 0 : document.getElementById(id);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    if (typeof target === "number") {
+      if (behavior === "auto") {
+        jumpToPageTop();
+      } else {
+        window.scrollTo({ top: target, left: 0, behavior });
+      }
+    }
+    else target?.scrollIntoView({ behavior, block: "start" });
+  };
 
   if (pathname === "/") {
     return (
       <nav className="home-topnav" aria-label="页面目录">
-        <a className="home-topnav-name" href="#about" data-cursor="TOP">
+        <a className="home-topnav-name" href="#about" data-cursor="TOP" onClick={(event) => scrollToSection(event, "about")}>
           <strong>WINSTON</strong>
         </a>
         <div
@@ -85,6 +114,7 @@ export function Nav() {
             <a
               key={id}
               href={`#${id}`}
+              onClick={(event) => scrollToSection(event, id)}
               className={`home-topnav-link${activeSection === id ? " is-active" : ""}`}
               data-cursor="GO"
               aria-current={activeSection === id ? "location" : undefined}

@@ -588,7 +588,10 @@ body:has(.ask-zoo-page) .site-footer { display: none; }
 
 /* ===== Single Page (Landing) Sections ===== */
 html {
-  scroll-behavior: smooth;
+  /* Scroll transitions are requested explicitly by the home navigation.
+     Keeping the document itself synchronous prevents queued smooth-scroll
+     animations from fighting native wheel input and top-of-page jumps. */
+  scroll-behavior: auto;
 }
 
 /* Hero title — responsive size (inline style can't be overridden by media query) */
