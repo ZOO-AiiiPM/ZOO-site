@@ -3,10 +3,19 @@ import { NextRequest } from "next/server";
 
 // ZEN_BASE_URL 可能是完整端点（含 /chat/completions），OpenAI SDK 会再补一次，
 // 这里统一规整为 base，避免路径翻倍导致 404。
-const client = new OpenAI({
-  apiKey: process.env.ZEN_API_KEY,
-  baseURL: (process.env.ZEN_BASE_URL || "").replace(/\/chat\/completions\/?$/, "") || undefined,
-});
+// 延迟到首次请求再构造：模块级 new OpenAI() 在缺少 key 时会让 `next build`
+// 直接失败（Vercel 构建环境不注入运行时 key），构建期不应依赖密钥存在。
+let client: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!client) {
+    client = new OpenAI({
+      apiKey: process.env.ZEN_API_KEY,
+      baseURL: (process.env.ZEN_BASE_URL || "").replace(/\/chat\/completions\/?$/, "") || undefined,
+    });
+  }
+  return client;
+}
 
 // 简易内存速率限制：每个 IP 每分钟最多 6 次，每天最多 50 次
 const rateLimitMap = new Map<string, { count: number; dailyCount: number; resetAt: number; dailyResetAt: number }>();
@@ -104,10 +113,18 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ error: "emmm 没看懂你发的什么，再试一次？" }), { status: 400 });
   }
 
+  // 密钥缺失时直接给出明确提示，避免构造 SDK 抛出未捕获异常
+  if (!process.env.ZEN_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "哎呀，AI 分身还没接上电源（缺少聊天服务配置）" }),
+      { status: 503, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
   // model id 由 Zen 网关提供；streaming 输出
   let stream;
   try {
-    stream = await client.chat.completions.create({
+    stream = await getClient().chat.completions.create({
       model: "deepseek-v4-flash-free",
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream: true,
