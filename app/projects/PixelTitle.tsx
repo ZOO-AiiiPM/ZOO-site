@@ -123,6 +123,7 @@ export function PixelTitle({ scale = 6, text = "PROJECTS", animated = false }: {
       height={totalPxH}
       aria-label={text}
       role="heading"
+      aria-level={1}
       style={{
         imageRendering: "pixelated",
         width: totalPxW * scale,

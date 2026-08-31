@@ -2,7 +2,7 @@
 
 import './projects.css';
 import { PixelTitle } from './PixelTitle';
-import { CliLine, Typewriter, StaggerReveal } from '../../components/CliAnimations';
+import { Typewriter, StaggerReveal } from '../../components/CliAnimations';
 
 interface Project {
   name: string;

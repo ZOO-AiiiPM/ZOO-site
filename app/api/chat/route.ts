@@ -121,14 +121,16 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // model id 由 Zen 网关提供；streaming 输出
+  // Ling 默认开启 thinking，且网关侧无法关闭（thinking / chat_template_kwargs
+  // 均无效）。推理内容走独立的 delta.reasoning 字段，下面只取 delta.content，
+  // 因此思考过程不会泄漏给用户。代价是每次请求会多消耗 reasoning token。
   let stream;
   try {
     stream = await getClient().chat.completions.create({
-      model: "deepseek-v4-flash-free",
+      model: "ling-3.0-flash-fin-free",
       messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
       stream: true,
-      max_tokens: 1024,
+      max_tokens: 2048,
     });
   } catch (err) {
     const apiErr = err as { status?: number; message?: string; error?: { message?: string } };
