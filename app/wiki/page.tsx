@@ -5,6 +5,7 @@ import { GitHubMark } from "@/components/GitHubMark";
 import { PixelAvatar } from "@/components/PixelArt";
 import { WIKI_META } from "./data";
 import { WikiSearch } from "./WikiSearch";
+import { startWikiLoading } from "./WikiLoading";
 import { CliLine, Typewriter, StaggerReveal } from "../../components/CliAnimations";
 import "./wiki.css";
 import "./wiki-search.css";
@@ -72,6 +73,7 @@ export default function WikiIndexPage() {
                 key={wiki.slug}
                 href={firstEntry ? `/wiki/${wiki.slug}/${firstEntry}` : `/wiki/${wiki.slug}`}
                 className={`wiki-index-card wiki-index-card-${wiki.accent} cli-stagger-item`}
+                onClick={startWikiLoading}
               >
               <div className="wiki-index-card-head">
                 <span className="wiki-index-card-icon" aria-hidden="true">

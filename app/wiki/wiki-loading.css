@@ -24,6 +24,13 @@
   z-index: 51; /* 略高于 nav(50) */
   height: 2px;
   pointer-events: none; /* 不挡点击 */
+  transition: opacity 0.22s ease;
+  opacity: 1;
+}
+
+/* 补满后淡出（时长与 WikiLoading.tsx 的 FADE_MS 保持一致） */
+.wiki-loading.is-fading {
+  opacity: 0;
 }
 
 /* 填充条：宽度由 JS 驱动，从左向右推进 */
@@ -32,11 +39,13 @@
   height: 100%;
   width: 0;
   background: linear-gradient(90deg, var(--green), var(--purple));
-  /* 宽度平滑过渡，让逐帧推进看起来连续而非跳动 */
-  transition: width 0.12s linear;
+  /* 宽度已经按时间逐帧算好，这里只补一点点平滑；
+     过渡过长会让「推进」变成「追不上」，反而失步。 */
+  transition: width 0.08s linear;
 }
 
 /* 尊重减少动效偏好：去掉宽度过渡，直接跟随进度 */
 @media (prefers-reduced-motion: reduce) {
   .wiki-loading-bar { transition: none; }
+  .wiki-loading { transition: none; }
 }

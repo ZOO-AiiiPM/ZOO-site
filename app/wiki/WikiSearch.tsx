@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MagnifyingGlass, X } from "@phosphor-icons/react";
 import { groupHits, searchWiki, type WikiSearchHit } from "./search";
+import { startWikiLoading } from "./WikiLoading";
 
 interface WikiSearchProps {
   /** 当前所在 wiki，用于结果分组置顶与「优先当前页」 */
@@ -72,6 +73,7 @@ export function WikiSearch({ currentSlug, currentEntryId }: WikiSearchProps) {
       setOpen(false);
       setQuery("");
       inputRef.current?.blur();
+      startWikiLoading();
       router.push(`/wiki/${hit.entry.wikiSlug}/${hit.entry.id}`);
     },
     [router],
@@ -160,6 +162,7 @@ export function WikiSearch({ currentSlug, currentEntryId }: WikiSearchProps) {
                       onClick={() => {
                         setOpen(false);
                         setQuery("");
+                        startWikiLoading();
                       }}
                     >
                       <span className="wiki-search-item-head">

@@ -109,7 +109,7 @@ function EntryNav({
 
       {/* 层级面包屑：知识库 › 章节 › 词条 */}
       <div className="wiki-detail-crumbs">
-        <Link href="/wiki" className="wiki-detail-crumb">
+        <Link href="/wiki" className="wiki-detail-crumb" onClick={startWikiLoading}>
           {wiki.name}
         </Link>
         <span className="wiki-detail-crumb-sep" aria-hidden="true">›</span>
@@ -142,7 +142,7 @@ function EntryNav({
       <div className="wiki-detail-nav-actions">
         <WikiSearch currentSlug={wiki.slug} currentEntryId={entry.id} />
         <ThemeToggle />
-        <Link href="/wiki" className="wiki-detail-nav-brand" aria-label="返回 Wiki 首页" title="返回 Wiki 首页">
+        <Link href="/wiki" className="wiki-detail-nav-brand" aria-label="返回 Wiki 首页" title="返回 Wiki 首页" onClick={startWikiLoading}>
           <PixelAvatar size={22} />
           <span className="wiki-detail-nav-brand-word">WINSTON WIKI</span>
         </Link>
