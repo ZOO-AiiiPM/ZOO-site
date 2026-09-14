@@ -35,6 +35,60 @@ function getModel(): string {
   return process.env.WIKI_AI_MODEL || DEFAULT_MODEL;
 }
 
+/** 重试次数（总尝试次数 = 1 + 此值） */
+const RETRY_COUNT = 3;
+/** 退避时长：第 n 次重试前等待 RETRY_DELAYS_MS[n-1]，对应 1s / 2s / 4s */
+const RETRY_DELAYS_MS = [1000, 2000, 4000];
+
+/** 只对「上游暂时不可用」类错误重试 */
+function isRetryable(err: unknown): boolean {
+  const e = err as { status?: number; code?: string; name?: string; message?: string };
+  // 429 配额/限流、503 过载、500/502/504 网关类，都是瞬时的
+  if (e?.status === 429 || e?.status === 500 || e?.status === 502 || e?.status === 503 || e?.status === 504) {
+    return true;
+  }
+  // 连接超时 / 网络中断：OpenAI SDK 会抛 APIConnectionError / APIConnectionTimeoutError
+  const name = e?.name ?? "";
+  if (name === "APIConnectionError" || name === "APIConnectionTimeoutError") return true;
+  const msg = (e?.message ?? "").toLowerCase();
+  if (msg.includes("timed out") || msg.includes("timeout") || msg.includes("econnreset")) return true;
+  // 400 / 401 / 404 这类属于配置错误，重试无意义
+  return false;
+}
+
+/**
+ * 带指数退避地建立流式连接。
+ *
+ * 只重试「建连阶段」的失败——`create()` 在返回 stream 之前只是发起请求并
+ * 读取响应头，此时重试是安全的。一旦开始消费 stream 就不能再重试，
+ * 否则会把已输出的内容重复一遍。
+ */
+async function createStreamWithRetry(params: {
+  model: string;
+  messages: OpenAI.Chat.ChatCompletionMessageParam[];
+  stream: true;
+  max_tokens: number;
+}): Promise<AsyncIterable<OpenAI.Chat.ChatCompletionChunk>> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= RETRY_COUNT; attempt++) {
+    try {
+      return await getClient().chat.completions.create(params);
+    } catch (err) {
+      lastErr = err;
+      const canRetry = attempt < RETRY_COUNT && isRetryable(err);
+      if (!canRetry) throw err;
+      const wait = RETRY_DELAYS_MS[attempt] ?? RETRY_DELAYS_MS[RETRY_DELAYS_MS.length - 1];
+      // 便于排查上游抖动
+      console.warn(
+        `[wiki-chat] 上游失败（第 ${attempt + 1} 次），${wait}ms 后重试：`,
+        (err as { message?: string })?.message?.slice(0, 120),
+      );
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+  throw lastErr;
+}
+
 // 简易内存速率限制：每个 IP 每分钟最多 8 次，每天最多 80 次
 const rateLimitMap = new Map<
   string,
@@ -334,7 +388,7 @@ export async function POST(req: NextRequest) {
 
   let stream;
   try {
-    stream = await getClient().chat.completions.create({
+    stream = await createStreamWithRetry({
       model: getModel(),
       messages: [{ role: "system", content: systemPrompt }, ...trimmed],
       stream: true,
