@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>妙记整理｜周文熙同学校招求职产品-简历课（2）</title>
+<style>
+:root{
+  --bg:#0f1115; --panel:#161a21; --panel2:#1c222b; --line:#2a3340;
+  --tx:#e6ebf2; --tx2:#9aa7b8; --accent:#7fd4ff; --accent2:#b98cff;
+  --p1:#3b82f6; --p2:#a855f7; --p3:#10b981;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.75;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:28px 18px 80px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:34px;align-items:start}
+.content{min-width:0}
+.aside{position:sticky;top:22px;align-self:start}
+header{padding:26px 0 20px;border-bottom:1px solid var(--line);margin-bottom:26px}
+h1{font-size:clamp(21px,4.6vw,30px);line-height:1.35;margin:0 0 14px;font-weight:700;letter-spacing:-.01em}
+.meta{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--tx2)}
+.meta b{color:var(--tx);font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+nav.toc h2{font-size:12px;color:var(--tx2);margin:0 0 10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+nav.toc ol{margin:0;padding-left:18px;font-size:13.5px;list-style:none}
+nav.toc li{margin:5px 0;position:relative}
+nav.toc li::before{content:"·";position:absolute;left:-12px;color:var(--tx2)}
+nav.toc a{display:block;color:var(--tx2);padding:3px 0;border-left:2px solid transparent;padding-left:10px;margin-left:-10px;transition:color .15s,border-color .15s}
+nav.toc a:hover{color:var(--tx)}
+nav.toc a.active{color:var(--accent);border-left-color:var(--accent)}
+nav.toc .gotop{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--tx2);text-align:center}
+nav.toc .gotop:hover{color:var(--accent)}
+h2{font-size:clamp(17px,3.4vw,21px);margin:44px 0 16px;padding-bottom:9px;border-bottom:2px solid var(--line);font-weight:700}
+h2:first-of-type{margin-top:0}
+h3{font-size:16px;margin:0 0 4px;font-weight:650}
+h4{font-size:15px;margin:22px 0 10px;color:var(--accent);font-weight:650}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0;display:block;overflow-x:auto;white-space:nowrap}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line)}
+th{color:var(--tx2);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;background:var(--panel2)}
+tr:last-child td{border-bottom:none}
+td.n{color:var(--tx2);width:34px}
+td.tc{font-variant-numeric:tabular-nums;color:var(--accent);font-size:13px}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;font-size:11.5px;font-weight:600;color:#fff}
+.p1{background:var(--p1)} .p2{background:var(--p2)} .p3{background:var(--p3)}
+.sm-p{margin:8px 0;font-size:14.5px}
+.sm-p b, li b{color:var(--accent)}
+#summary ul{padding-left:20px;margin:6px 0}
+#summary li{margin:5px 0;font-size:14.5px}
+.chap{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:16px 0}
+.ch-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.ch-num{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#0b0e13;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.ch-time{font-size:12.5px;color:var(--tx2);font-variant-numeric:tabular-nums;margin-top:3px}
+.ch-sum{font-size:14px;color:var(--tx2);margin:0 0 12px;padding-left:1px}
+.pts{margin:0;padding-left:20px}
+.pts li{margin:5px 0;font-size:14.5px}
+.todo-g{margin:18px 0}
+.todo-list{list-style:none;padding:0;margin:0}
+.todo-list li{margin:7px 0;font-size:14.5px}
+.todo-list label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.todo-list input{margin-top:6px;width:16px;height:16px;accent-color:var(--accent);flex:0 0 auto;cursor:pointer}
+.todo-list input:checked + span{opacity:.45;text-decoration:line-through}
+blockquote{margin:10px 0;padding:10px 16px;border-left:3px solid var(--accent2);
+  background:var(--panel);border-radius:0 8px 8px 0;font-size:14.5px;color:var(--tx)}
+.chat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px;
+  max-height:620px;overflow-y:auto}
+.msg{margin:12px 0;display:flex;flex-direction:column}
+.msg.me{align-items:flex-end}
+.who{font-size:12px;color:var(--tx2);margin-bottom:4px;font-weight:600}
+.who .ts{font-weight:400;font-variant-numeric:tabular-nums;margin-left:6px;opacity:.7}
+.txt{font-size:14.5px;padding:9px 13px;border-radius:12px;max-width:86%;word-break:break-word}
+.msg.me .txt{background:#1f3b52;border:1px solid #2c5878}
+.msg.te .txt{background:var(--panel2);border:1px solid var(--line)}
+.kw{font-size:13px;color:var(--tx2);margin-top:10px;line-height:1.9}
+.kw span{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+  border-radius:6px;padding:1px 8px;margin:2px 4px 2px 0;font-size:12.5px}
+footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--tx2);text-align:center}
+
+/* ---- 知识点 ---- */
+.kp-cat{margin:26px 0}
+.kp-h{display:flex;align-items:center;gap:10px;font-size:16px;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);color:var(--tx)}
+.kp-num{flex:0 0 auto;width:24px;height:24px;border-radius:7px;background:var(--accent2);color:#12071f;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.kp{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);border-radius:10px;padding:13px 15px;margin:10px 0}
+.kp-t{font-size:14.5px;font-weight:650;color:var(--tx);margin-bottom:6px}
+.kp-t b{color:var(--accent)}
+.kp-d{font-size:14px;color:var(--tx2);line-height:1.8}
+.kp-d b{color:var(--accent);font-weight:600}
+.kp-d code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:12.5px}
+
+@media(max-width:940px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .aside{position:static;order:-1;margin-bottom:26px}
+  nav.toc ol{columns:2;column-gap:22px}
+}
+@media(max-width:520px){
+  .wrap{padding:20px 14px 60px}
+  nav.toc ol{columns:1}
+  .txt{max-width:94%}
+  .chap,.card{padding:14px}
+}
+</style>
+</head>
+<body id="top">
+<div class="wrap">
+<header>
+  <h1>周文熙同学校招求职产品-简历课（2）</h1>
+  <div class="meta">
+    <div>🕐 <b>2026-09-05 09:59</b></div>
+    <div>⏱️ <b>1 小时 8 分 14 秒</b></div>
+    <div>👥 <b>周文熙 · 徐文亚</b></div>
+    <div>🎙️ <a href="https://ycr1lij2cm.feishu.cn/minutes/obcnua6yz44u1hwz6jp15n6l" target="_blank">飞书妙记原文 ↗</a></div>
+  </div>
+  <div class="kw">关键词：</div>
+</header>
+
+<div class="layout">
+<div class="content">
+
+<h2 id="summary">一、AI 智能摘要</h2>
+<div id="summary" class="card"><p class="sm-p">本次为徐文亚与周文熙开展的职业指导课程沟通，明确课程安排、项目梳理要求及简历相关规划，内容如下：</p>
+<ul>
+<li><b>本次课程核心内容安排</b></li>
+<ul>
+<li><b>高顿项目梳理规则</b></li>
+<ul>
+<li>PRD 质量评价：徐文亚表示周文熙此前提交的两份 PRD 质量较高，项目所需的关键信息均已在 PRD 内完整覆盖，仅周文熙本人未留意到相关内容。</li>
+<li>文档操作要求：徐文亚要求周文熙无需先打开自行撰写的材料，优先打开此前提交的第一篇 PRD 配合后续的比对梳理工作。</li>
+<li>投屏操作要求：徐文亚确认周文熙具备投屏条件后，要求其投屏展示相关文档，便于双方对照内容开展核对工作。</li>
+</ul>
+<li><b>简历指导环节设置</b>：本次课程第二环节将专门讲解简历修改的具体方法，为周文熙课后自主调整简历提供清晰可落地的操作指引。</li>
+</ul>
+<li><b>后续相关工作安排</b></li>
+<ul>
+<li><b>简历修改提交要求</b>：周文熙需在本次课程结束后，按照本次课程讲解的方法完成简历修改，修改完成后及时发送给徐文亚进行检查。</li>
+<li><b>第三节课约定规则</b>：待徐文亚完成简历检查且确认符合要求后，双方再约定第三节课的具体时间，最终完成简历的定稿工作。</li>
+</ul>
+</ul>
+<p class="sm-p">本次为AI产品求职专项辅导会议，围绕高顿Luca学习服务升级项目优化、AI产品能力建设、简历撰写方法展开系统指导，内容如下：</p>
+<ul>
+<li><b>高顿Luca学习服务升级项目优化</b></li>
+<ul>
+<li><b>项目论述核心规范</b></li>
+<ul>
+<li>需求支撑要求：所有价值主张、需求描述必须标注对应调研数据的用户占比，明确需求的真实来源，避免仅做无依据的零散内容整合。</li>
+<li>推导逻辑要求：产品能力的核心体现为需求的推导过程，相同结论下，有数据支撑的推导逻辑远优于无来源的主观臆断结论表述。</li>
+<li>现状论述要求：系统现状描述需明确现有硬编码约束求解方案的具体弊端，对应匹配当前方案无法覆盖的用户需求，再引出Agent 方案的核心优势。</li>
+<li>目标设定要求：需将模糊的定性目标拆解为可量化的可衡量指标，优先以用户留存作为核心验证指标，杜绝模糊的“顶尖服务”“覆盖所有人群”类表述。</li>
+<li>商业价值论述要求：商业价值需明确具体的落地方向，如用户活跃增长、营收规模提升等，避免仅模糊表述为探索商业化路径。</li>
+</ul>
+<li><b>项目阶段划分逻辑</b></li>
+<ul>
+<li>优先级排序原则：阶段划分需以用户需求优先级为核心前提，优先选择用户需求明确、可独立形成闭环、实现成本较低的功能作为MVP 最小验证版本。</li>
+<li>阶段目标要求：每个阶段需明确对应覆盖的用户需求、需达成的量化指标，不可仅以过往项目的通用做法作为划分的唯一依据。</li>
+<li>阶段周期要求：单个阶段的开发上线周期需控制在1-2个月以内，避免过长周期带来的高投入风险，保障每个阶段可快速完成效果验证。</li>
+<li>依赖关系梳理：阶段划分需考虑功能之间的前后依赖关系，将可独立闭环的前置功能优先安排在靠前的开发阶段。</li>
+</ul>
+<li><b>产品内容撰写规范</b></li>
+<ul>
+<li>用户画像撰写要求：若需补充用户画像，需明确各人群的占比、特征差异、需求区别，也可直接沿用现有小红书需求调研结果无需强行撰写。</li>
+<li>需求分层撰写要求：基础/进阶/高阶需求分层需明确各层级的划分标准、对应价值，以此体现体系化的需求梳理与思考能力。</li>
+<li>产品架构梳理要求：需按「用户功能层-Agent 引擎层-底层资源层」三层结构梳理，明确各层的核心建设内容与前后依赖关系。</li>
+<li>功能拆解要求：功能模块拆解需基于前期需求分析结论展开，各模块的设计逻辑需与前期的需求、目标设定形成明确对应关系。</li>
+</ul>
+</ul>
+<li><b>AI产品核心能力建设指导</b></li>
+<ul>
+<li><b>AI产品核心决策逻辑</b></li>
+<ul>
+<li>核心定位要求：AI 产品的核心并非常规功能链路设计，而是功能效果的评测标准制定，所有决策需围绕产品核心目标展开。</li>
+<li>评测维度设计：需根据产品目标选择评测维度，可从答案对错、解析详细度、个性化适配三个层级按需选择，避免不必要的过度设计。</li>
+<li>评测标准要求：评测标准需可量化、可统一标注，避免使用模糊的主观描述，确保不同标注人员的评价结果具备一致性。</li>
+<li>错误处理策略：需明确AI 输出错误的感知机制、兜底方案，结合业务风险等级确定功能上线所需的最低准确率阈值。</li>
+</ul>
+<li><b>AI产品落地流程要求</b></li>
+<ul>
+<li>实现路径选型：根据准确率要求匹配对应技术方案，高准确率要求需采用结构化题库检索工具，低要求可采用向量检索加提示词的轻量化方案。</li>
+<li>上线验证流程：需依次完成离线测评、灰度上线验证、全量上线后持续效果监控三个环节，确保线上效果符合预设预期标准。</li>
+<li>指标关联逻辑：准确率需与最终留存指标形成清晰逻辑关联，明确准确率阈值与用户留存的对应关系，作为上线决策的核心依据。</li>
+<li>冷启动数据准备：离线测评阶段需提前准备足够的测试用例，尽可能模拟真实用户的提问场景，保障测评结果的真实有效性。</li>
+</ul>
+</ul>
+<li><b>简历撰写标准化规范</b></li>
+<ul>
+<li><b>简历内容统一结构</b></li>
+<ul>
+<li>工作经历模块：每份工作经历开头先明确岗位核心职责、任内整体成果，整体内容控制在2-3行以内，避免冗余无效表述。</li>
+<li>项目内容模块：每个项目按「背景目标-实现方法-关键贡献-落地成果」四段式结构撰写，每部分内容控制在2-3行以内。</li>
+</ul>
+<li><b>简历内容突出要点</b></li>
+<ul>
+<li>核心能力突出要求：简历内容需优先突出AI 产品相关的核心能力，普通系统功能的设计内容无需过多展开，避免偏离AI 产品经理的求职定位。</li>
+<li>关键贡献模块：重点突出AI 产品核心决策内容，如准确率目标设定、实现路径选型、测评体系搭建等核心决策动作。</li>
+<li>成果展示模块：同时体现过程指标（如准确率达成值）与业务指标（如用户留存数据），形成完整的价值验证闭环。</li>
+</ul>
+</ul>
+<li><b>后续工作计划</b></li>
+<ul>
+<li><b>简历修改</b>：周文熙使用飞书完成简历内容修改，优先完善内容逻辑与结构，暂不调整格式，完成后发至群内由徐文亚远程评论批改。</li>
+<li><b>简历定稿</b>：待简历内容调整完成、逻辑验证无误后，另行约课完成简历的最终定稿。</li>
+</ul>
+</ul></div>
+
+<h2 id="overview">二、整体时间线总览</h2>
+<div class="card">
+<p class="sm-p">本次课程共 <b>11 个章节</b>，按内容可分为三段：</p>
+<ul>
+<li><b>① 项目复盘</b>（00:54 – 43:44，约 43 分钟）—— 逐页过「高顿 Luca 学习服务升级」材料，指出问题并给出 PRD 撰写规范</li>
+<li><b>② AI PM 能力指导</b>（43:44 – 63:31，约 20 分钟）—— 评测设计、错误处理、测评流程、结果指标，是本次课<b>最核心</b>的认知升级</li>
+<li><b>③ 简历实操</b>（63:31 – 68:14，约 5 分钟）—— 落地到简历怎么写、怎么提交</li>
+</ul>
+</div>
+<table>
+<thead><tr><th>#</th><th>时间</th><th>时长</th><th>阶段</th><th>主题</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td class="tc">00:54 – 17:43</td><td>16分49秒</td><td><span class="pill p1">复盘</span></td><td>高顿项目内容梳理及简历修改指导沟通</td></tr>
+<tr><td class="n">2</td><td class="tc">17:43 – 25:45</td><td>8分2秒</td><td><span class="pill p1">复盘</span></td><td>项目目标设定及简历项目撰写规范指导</td></tr>
+<tr><td class="n">3</td><td class="tc">25:45 – 29:36</td><td>3分51秒</td><td><span class="pill p1">复盘</span></td><td>产品分阶段落地实现路径讲解</td></tr>
+<tr><td class="n">4</td><td class="tc">29:36 – 33:51</td><td>4分15秒</td><td><span class="pill p1">复盘</span></td><td>目标用户画像分析及产品设计指导</td></tr>
+<tr><td class="n">5</td><td class="tc">33:51 – 35:59</td><td>2分8秒</td><td><span class="pill p1">复盘</span></td><td>讲解需求分层逻辑及体系化思考价值</td></tr>
+<tr><td class="n">6</td><td class="tc">35:59 – 43:44</td><td>7分45秒</td><td><span class="pill p1">复盘</span></td><td>学习类产品架构梳理及搭建思路交流</td></tr>
+<tr><td class="n">7</td><td class="tc">43:44 – 52:57</td><td>9分13秒</td><td><span class="pill p2">AI</span></td><td>AI产品经理核心能力之评测设计讲解</td></tr>
+<tr><td class="n">8</td><td class="tc">52:57 – 58:29</td><td>5分32秒</td><td><span class="pill p2">AI</span></td><td>AI Agent错误处理策略与实现方案探讨</td></tr>
+<tr><td class="n">9</td><td class="tc">58:29 – 60:59</td><td>2分30秒</td><td><span class="pill p2">AI</span></td><td>AI产品全流程测评相关要点说明</td></tr>
+<tr><td class="n">10</td><td class="tc">60:59 – 63:31</td><td>2分32秒</td><td><span class="pill p2">AI</span></td><td>项目结果梳理需关联过程指标与业务收益</td></tr>
+<tr><td class="n">11</td><td class="tc">63:31 – 68:14</td><td>4分43秒</td><td><span class="pill p3">简历</span></td><td>指导周文熙按规范梳理修改个人简历</td></tr>
+</tbody>
+</table>
+
+<h2 id="timeline">三、逐段时间线（含要点）</h2>
+<section class="chap" id="ch1">
+  <div class="ch-head"><span class="ch-num">1</span>
+    <div><h3>高顿项目内容梳理及简历修改指导沟通</h3><div class="ch-time">00:54 – 17:43 · 16分49秒</div></div></div>
+  <p class="ch-sum">本章节是产品指导课，先说明课程分高顿项目复盘、简历修改两部分，最终将完成简历定稿。随后徐文亚对照PRD指出周文熙的项目材料缺需求数据支撑、系统现状到引入Agent的推导缺失、阶段划分逻辑未以需求为核心、商业价值目标不明确等问题，强调推导过程是体现产品能力的关键。</p>
+  <ul class="pts"><li>课程安排：先复盘高顿项目，再讲简历修改，课后改完提交，通过后约第三节课定稿</li><li>PRD 质量肯定：两份 PRD 质量较高，关键信息其实都已覆盖，只是本人没注意到</li><li>指出 4 处缺失：① 缺需求数据支撑 ② 缺「系统现状→引入 Agent」的推导 ③ 阶段划分未以需求为核心 ④ 商业价值目标不明确</li><li>核心观点：<b>推导过程</b>才是体现产品能力的关键</li></ul>
+</section>
+<section class="chap" id="ch2">
+  <div class="ch-head"><span class="ch-num">2</span>
+    <div><h3>项目目标设定及简历项目撰写规范指导</h3><div class="ch-time">17:43 – 25:45 · 8分2秒</div></div></div>
+  <p class="ch-sum">本章节围绕项目文档及简历的项目撰写规范展开，指出当前项目原有目标不可衡量的问题，提出需将定性目标落地为可量化的核心指标，建议项目内容按背景、目标、方案、难点/个人贡献、成果五部分撰写，成果需对应目标完成情况，部分模块可按需合并。</p>
+  <ul class="pts"><li>问题：原有目标不可衡量（定性表述）</li><li>要求：定性目标 → 可量化的核心指标，优先以<b>用户留存</b>作为核心验证指标</li><li>简历项目撰写统一按五段式：<b>背景 / 目标 / 方案 / 难点与个人贡献 / 成果</b></li><li>成果必须对应目标的完成情况；部分模块可按需合并</li></ul>
+</section>
+<section class="chap" id="ch3">
+  <div class="ch-head"><span class="ch-num">3</span>
+    <div><h3>产品分阶段落地实现路径讲解</h3><div class="ch-time">25:45 – 29:36 · 3分51秒</div></div></div>
+  <p class="ch-sum">本章节徐文亚指出原文档里的“定位演变”并非定位相关内容，而是支撑产品大目标的落地实现路径，需纵向拆解为四个各有独立价值的阶段，各阶段要明确待闭环用户需求、达成指标，设计时需兼顾需求、技术依赖、阶段闭环性，且单阶段周期建议一两个月，应届生只需明确该思路方向正确即可。</p>
+  <ul class="pts"><li>纠正概念：原文档「定位演变」不是定位，而是<b>支撑大目标的落地实现路径</b></li><li>要求：纵向拆解为 <b>4 个各有独立价值</b>的阶段</li><li>每阶段需明确：待闭环用户需求 + 达成指标 + 技术依赖 + 阶段闭环性</li><li>单阶段周期建议 <b>1–2 个月</b>；应届生掌握思路方向正确即可</li></ul>
+</section>
+<section class="chap" id="ch4">
+  <div class="ch-head"><span class="ch-num">4</span>
+    <div><h3>目标用户画像分析及产品设计指导</h3><div class="ch-time">29:36 – 33:51 · 4分15秒</div></div></div>
+  <p class="ch-sum">本章节围绕用户画像部分的内容展开讨论，明确用户画像是拆解目标的分析手段，需量化不同用户群体的占比、特征、需求差异，分析结论要能支撑产品功能设计，也可选择不做分人群画像，直接基于小红书需求做全人群分析。</p>
+  <ul class="pts"><li>用户画像是<b>拆解目标的分析手段</b>，不是装饰</li><li>需量化各人群的：占比 / 特征 / 需求差异</li><li>分析结论要能<b>支撑产品功能设计</b></li><li>备选：也可不做分人群，直接基于<b>小红书需求做全人群分析</b></li></ul>
+</section>
+<section class="chap" id="ch5">
+  <div class="ch-head"><span class="ch-num">5</span>
+    <div><h3>讲解需求分层逻辑及体系化思考价值</h3><div class="ch-time">33:51 – 35:59 · 2分8秒</div></div></div>
+  <p class="ch-sum">本章节围绕需求分层问题展开沟通，指出当前文档中基础、进阶、高阶的需求分层缺乏明确定义，要求相关需求分层结论需从前期用户人群分析、市场调研结果中推导得出，明确三层需求各自的定位与作用，该分层是体系化拆解目标实现路径的思考方式，可作为个人求职亮点。</p>
+  <ul class="pts"><li>问题：基础 / 进阶 / 高阶三层需求<b>缺乏明确定义</b></li><li>要求：分层结论必须<b>从前期人群分析 + 市场调研结果推导出来</b></li><li>明确三层各自的定位与作用</li><li>价值：体系化拆解目标实现路径的思考方式，<b>可作为个人求职亮点</b></li></ul>
+</section>
+<section class="chap" id="ch6">
+  <div class="ch-head"><span class="ch-num">6</span>
+    <div><h3>学习类产品架构梳理及搭建思路交流</h3><div class="ch-time">35:59 – 43:44 · 7分45秒</div></div></div>
+  <p class="ch-sum">本章节梳理产品架构相关思路，指出原有产品架构相关内容更偏向产品逻辑或需求分析，无法直接指导产品构建，明确合理的产品架构应为用户可见功能层、中间Agent引擎层、底层学习资源层三层，核心是先搭建Agent引擎再用单功能验证后扩展，后续具体功能模块决策难度低差异小。</p>
+  <ul class="pts"><li>问题：原「产品架构」内容偏向产品逻辑/需求分析，<b>无法直接指导产品构建</b></li><li>正确定义为三层：<b>用户可见功能层 / 中间 Agent 引擎层 / 底层学习资源层</b></li><li>搭建思路：<b>先搭 Agent 引擎，再用单功能验证后扩展</b></li><li>后续具体功能模块决策难度低、差异小</li></ul>
+</section>
+<section class="chap" id="ch7">
+  <div class="ch-head"><span class="ch-num">7</span>
+    <div><h3>AI产品经理核心能力之评测设计讲解</h3><div class="ch-time">43:44 – 52:57 · 9分13秒</div></div></div>
+  <p class="ch-sum">本章节指出此前提交的PRD仅聚焦系统间交互、功能组合等系统层面内容，未触及AI产品核心，难以支撑AI产品经理应聘。明确AI产品核心首要工作是评测，以AI答疑功能为例，评测不能仅做对错判断，还需结合产品定位，按需细化好坏评价标准，个性化服务类产品的评测要求会更高。</p>
+  <ul class="pts"><li>关键批评：此前 PRD 只聚焦系统交互与功能组合，<b>未触及 AI 产品核心</b>，难以支撑 AI PM 应聘</li><li>明确：AI 产品核心首要工作是<b>评测（Evaluation）</b></li><li>以 AI 答疑为例：评测不能只判断对错，要结合产品定位细化<b>好坏评价标准</b></li><li>个性化服务类产品的评测要求更高</li></ul>
+</section>
+<section class="chap" id="ch8">
+  <div class="ch-head"><span class="ch-num">8</span>
+    <div><h3>AI Agent错误处理策略与实现方案探讨</h3><div class="ch-time">52:57 – 58:29 · 5分32秒</div></div></div>
+  <p class="ch-sum">本章节围绕AI agent出错的应对展开讨论，明确当前已有真人老师兜底的现有策略，指出需先明确错误感知能力、不同场景准确率要求，再对应选择实现方案：低准确率要求可用提示词加简单向量检索，高准确率要求则需用结构化题库工具直接搜题确保零错。</p>
+  <ul class="pts"><li>现状：已有<b>真人老师兜底</b>作为出错应对策略</li><li>前置澄清：先明确<b>错误感知能力</b>与<b>不同场景的准确率要求</b></li><li>方案选型：低准确率要求 → 提示词 + 简单向量检索；高准确率要求 → <b>结构化题库工具直接搜题（确保零错）</b></li></ul>
+</section>
+<section class="chap" id="ch9">
+  <div class="ch-head"><span class="ch-num">9</span>
+    <div><h3>AI产品全流程测评相关要点说明</h3><div class="ch-time">58:29 – 60:59 · 2分30秒</div></div></div>
+  <p class="ch-sum">本章节围绕AI产品测评全流程展开，明确定好测评标准后，需依次开展离线测评、灰度测评及上线后持续效果监控，重点提及冷启动阶段无充足数据时需人工构造贴近真实的测评数据，同时说明部分场景下离线与线上测评的指标标准可能存在差异。</p>
+  <ul class="pts"><li>测评全流程：<b>离线测评 → 灰度测评 → 上线后持续效果监控</b></li><li>冷启动阶段无充足数据时，需<b>人工构造贴近真实的测评数据</b></li><li>注意：部分场景下离线与线上测评的<b>指标标准可能存在差异</b></li></ul>
+</section>
+<section class="chap" id="ch10">
+  <div class="ch-head"><span class="ch-num">10</span>
+    <div><h3>项目结果梳理需关联过程指标与业务收益</h3><div class="ch-time">60:59 – 63:31 · 2分32秒</div></div></div>
+  <p class="ch-sum">本章节围绕工作结果汇报的指标呈现展开，明确结果需覆盖既定目标完成情况、准确率等过程指标的初始值、提升路径与最终值，以及留存这类最终业务收益的达成情况，同时说明若准确率到留存的链路难完全量化，可基于需求拆解逻辑做对应界定。</p>
+  <ul class="pts"><li>结果需覆盖：既定目标完成情况</li><li>过程指标：准确率等的<b>初始值 → 提升路径 → 最终值</b></li><li>业务收益：<b>留存</b>这类最终目标的达成情况</li><li>若「准确率→留存」链路难完全量化，可基于需求拆解逻辑做对应界定</li></ul>
+</section>
+<section class="chap" id="ch11">
+  <div class="ch-head"><span class="ch-num">11</span>
+    <div><h3>指导周文熙按规范梳理修改个人简历</h3><div class="ch-time">63:31 – 68:14 · 4分43秒</div></div></div>
+  <p class="ch-sum">本章节为徐文亚指导周文熙修改简历的沟通内容，徐文亚明确简历工作经历需先写岗位基本概述与任职成果，再按背景目标、目标拆解与实现方法、关键亮点贡献、成果的结构梳理项目，要求周文熙用飞书按该逻辑改完简历发群，徐文亚将远程线上评论调整，先搞定内容再调格式。</p>
+  <ul class="pts"><li>简历「工作经历」写法：先写<b>岗位基本概述 + 任职成果</b></li><li>单个项目统一按 4 段梳理：<b>背景目标 / 目标拆解与实现方法 / 关键亮点贡献 / 成果</b></li><li>执行方式：用飞书按该逻辑改完后<b>发到群里</b></li><li>徐文亚会<b>远程线上评论</b>逐条批注；策略是<b>先搞定内容，再调格式</b></li></ul>
+</section>
+
+<h2 id="todos">四、行动清单</h2>
+<p class="sm-p">妙记本身无内置 todo（<code>--todo</code> 返回空），以下根据课程内容整理，共 <b>13 项</b>。</p>
+<div class="todo-g"><h4>A. 要改 PRD / 项目材料（6 项）</h4><ul class="todo-list"><li><label><input type="checkbox"><span>补上<b>需求数据支撑</b> —— 标注调研数据中的用户占比，说明需求真实来源</span></label></li><li><label><input type="checkbox"><span>补齐<b>推导链条</b> —— 现有硬编码约束求解的弊端 → 匹配哪些未被覆盖的需求 → Agent 方案优势</span></label></li><li><label><input type="checkbox"><span>把「定位演变」改为<b>分阶段实现路径</b>，拆成 4 个各有独立价值的阶段，单阶段 1–2 个月</span></label></li><li><label><input type="checkbox"><span>目标改为<b>可量化指标</b>，以用户留存为核心验证指标</span></label></li><li><label><input type="checkbox"><span>明确<b>商业价值落地方向</b>（活跃增长 / 营收提升等），不要只写「探索商业化」</span></label></li><li><label><input type="checkbox"><span>产品架构改为三层：<b>用户功能层 / Agent 引擎层 / 底层资源层</b></span></label></li></ul></div><div class="todo-g"><h4>B. 要补 AI PM 核心内容（4 项）</h4><ul class="todo-list"><li><label><input type="checkbox"><span>增加<b>评测标准</b>章节：答案对错 / 解析详细度 / 个性化适配，标准要可量化、可统一标注</span></label></li><li><label><input type="checkbox"><span>明确<b>错误感知机制 + 兜底方案 + 最低准确率阈值</b></span></label></li><li><label><input type="checkbox"><span>补充<b>测评全流程</b>：离线 → 灰度 → 上线监控；冷启动需人工构造数据</span></label></li><li><label><input type="checkbox"><span>结果章节补<b>过程指标</b>（准确率初始值→最终值）与<b>业务收益</b>（留存）</span></label></li></ul></div><div class="todo-g"><h4>C. 要改简历（3 项）</h4><ul class="todo-list"><li><label><input type="checkbox"><span>工作经历开头先写<b>岗位基本概述 + 任职成果</b></span></label></li><li><label><input type="checkbox"><span>每个项目按 <b>背景目标 / 目标拆解与实现方法 / 关键亮点贡献 / 成果</b> 四段写</span></label></li><li><label><input type="checkbox"><span>用飞书改完<b>发到群里</b> → 徐文亚线上批注 → 通过后约第三节课定稿</span></label></li></ul></div>
+
+<h2 id="quotes">五、关键金句（原话摘录）</h2>
+<blockquote>推导过程是体现产品能力的关键。</blockquote><blockquote>AI 产品核心首要工作是<b>评测</b>。</blockquote><blockquote>先搭 Agent 引擎，再用单功能验证后扩展。</blockquote><blockquote>需求分层……可以作为个人求职亮点。</blockquote><blockquote>先搞定内容，再调格式。</blockquote>
+
+
+<h2 id="knowledge">六、课堂知识点</h2>
+<p class="sm-p">共 <b>52 个知识点</b>，按主题分为 <b>8 类</b>。均为徐文亚老师本节课的原始观点提炼。</p>
+<div class="kp-wrap">
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">1</span>产品方法论 · 需求与推导</h3><div class="kp"><div class="kp-t">结论不重要，推导过程才重要</div><div class="kp-d">「关键不是你的结论，关键是你的推导过程」「观念不是<b>是什么</b>，而是<b>为什么</b>」。同样的结论，5 分钟拍脑袋想出来和花两个月调研做出来，表述可能完全一样，但前者是空的。考的就是这个。</div></div><div class="kp"><div class="kp-t">需求必须落到数据支撑</div><div class="kp-d">价值主张、需求描述都要标注<b>调研数据里的用户占比</b>——「备考没人带，疑问没人解」要写成「调研发现 X% 备考没人带」。否则无法判断这是真需求还是你自己的臆想。</div></div><div class="kp"><div class="kp-t">真需求 vs 伪需求的判据</div><div class="kp-d">判断真伪需求<b>要有数据支撑</b>，这是产品方法论问题，面试和简历中都要体现这种能力。</div></div><div class="kp"><div class="kp-t">to C 项目的需求来源只有两条</div><div class="kp-d">有历史用户数据 → 从数据里分析；没有 → 靠<b>市场调研 / 竞品分析</b>。本案选了市场调研（分析小红书帖子得出各需求占比），思路合理且有依据。</div></div><div class="kp"><div class="kp-t">调研数据与结论必须对得上</div><div class="kp-d">小红书调研显示「<b>代练刷题</b>」排第一，但结论写成「短周期私教、精准提分、查漏补缺」，两者<b>不完整对应</b>。调研与结论不匹配 = 结论失去依据。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">2</span>产品方法论 · 背景与现状论述</h3><div class="kp"><div class="kp-t">「系统现状」要写成严谨的三段推导</div><div class="kp-d">只说「现状是硬编码约束求解」是客观描述，缺中间论述。完整逻辑应是：<b>现状这么做 → 有什么弊端 → 哪部分需求满足不了 → Agent 有什么优势 → 所以用 Agent</b>。</div></div><div class="kp"><div class="kp-t">现状描述要扣回前面分析的需求</div><div class="kp-d">背景第一部分分析了需求，第二部分讲现状，就要点出<b>哪些需求在现有方案下无法被支撑</b>，这才形成闭环。</div></div><div class="kp"><div class="kp-t">背景的层层递进结构</div><div class="kp-d">① 市场情况 → ② 系统 / 能力现状（含弊端）→ ③ 由前两点总结出目标。第三部分是归纳，思路没问题。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">3</span>产品方法论 · 目标设定</h3><div class="kp"><div class="kp-t">定性目标必须落地为可量化指标</div><div class="kp-d">「把学习服务做到顶尖」这类目标<b>不可衡量</b>——做没做到都说不清。要落地成一整套评价体系：哪些指标<b>必须达成</b>算目标达成，哪些指标<b>不能下降</b>需持续观测。</div></div><div class="kp"><div class="kp-t">警惕「所有人群 / 所有场景」</div><div class="kp-d">出现「所有人群」通常说明<b>没有目标人群</b>，产品定位模糊，且无法衡量。</div></div><div class="kp"><div class="kp-t">推荐以「留存」作为核心验证指标</div><div class="kp-d">留存比活跃更合理：活跃受功能频次约束（如期末考试辅导一学期才活跃一次）；留存反映「用户认可后会持续使用」。</div></div><div class="kp"><div class="kp-t">目标不清产品就会跑偏</div><div class="kp-d">产品不是一个人做——大产品下面有一堆小产品、还有研发，<b>每个人对「顶尖」「所有人群」的理解都不一样</b>，没有指标体系就无法衡量效果。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">4</span>产品方法论 · 实现路径与架构</h3><div class="kp"><div class="kp-t">「定位演变」其实是实现路径（路线图）</div><div class="kp-d">原文档的「定位演变」不是定位（定位是明确的），而是<b>支撑目标达成的落地实现路径</b>。目标是行业标杆/留存，不可能一步到位，所以要纵向拆阶段。</div></div><div class="kp"><div class="kp-t">拆阶段的真正依据是需求，不是技术</div><div class="kp-d">「产品第一位的考虑一定不是技术，一定是需求」「千万不要说是因为技术层面」。技术再成熟，需求不存在就没有意义。</div></div><div class="kp"><div class="kp-t">MVP 验证的是商业逻辑，不是技术</div><div class="kp-d">MVP = 最小成本验证<b>最核心的东西</b>。第一个功能必须是<b>用户需要、且能完整用起来</b>的闭环功能——技术成熟但用户不用，什么都验证不了。</div></div><div class="kp"><div class="kp-t">每阶段要有独立价值与量化目标</div><div class="kp-d">纵向拆解：每阶段明确<b>闭环掉哪类用户需求</b>（如答疑占比多少）+ <b>达成什么指标</b>（如用户活跃到多少）。</div></div><div class="kp"><div class="kp-t">阶段划分的约束条件</div><div class="kp-d">既要考虑<b>用户需求</b>，也要考虑<b>技术实现路径</b>，还要考虑每阶段能否<b>完整闭环、用户能直接用</b>；且单阶段周期建议 <b>1–2 个月</b>——搞半年投入巨大、风险太高。</div></div><div class="kp"><div class="kp-t">前后依赖要前置且能独立闭环</div><div class="kp-d">若 A 是 B 的前置依赖，且 A 本身能独立满足某需求，通常把 A 放在前面。</div></div><div class="kp"><div class="kp-t">阶段排序无标准答案，但论述逻辑必须科学</div><div class="kp-d">「1234 还是 1324 没有正确答案」，但<b>排布过程的论述逻辑要科学合理、能自圆其说</b>，且体现出你是依据需求做决策。</div></div><div class="kp"><div class="kp-t">用户画像是拆解目标的分析手段</div><div class="kp-d">它服务于「为什么这么设计实现路径和功能结构」。画像不能只罗列人群名，要写出<b>各人群占比、特征差异、需求差异</b>（在校 / 在职 / 二战各占多少，各自在乎什么）。</div></div><div class="kp"><div class="kp-t">画像结论必须能指导产品设计</div><div class="kp-d">分析最终要落到「所以先做答疑」这种可执行的结论上。若不做分人群，也可基于<b>小红书需求做全人群分析</b>——那也是一种分析方法。</div></div><div class="kp"><div class="kp-t">需求分层是「体系化思考」的体现</div><div class="kp-d">基础 / 进阶 / 高阶要有<b>明确定义与依据</b>（由前期人群分析或市场调研推导），说明各层定位与作用。价值在于——<b>不再把需求看成散点，而是成体系、有规划有方向的东西</b>，是面试和简历中的亮点。</div></div><div class="kp"><div class="kp-t">产品架构应是清晰的三层</div><div class="kp-d">① <b>用户可见功能层</b>（答疑、计划、练习、评估、传统资源）② <b>中间 Agent 引擎层</b>（连接用户与资源、组合拼装）③ <b>底层学习资源层</b>（题库、知识点）。</div></div><div class="kp"><div class="kp-t">先搭 Agent 引擎，再用单功能验证</div><div class="kp-d">高顿的学习资源本已现成、公共，你只需整合而非自建。核心是<b>先做 Agent 引擎</b>，用一个功能验证逻辑跑通，再在架构上扩展其他功能。</div></div><div class="kp"><div class="kp-t">「功能流程」不等于「产品架构」</div><div class="kp-d">学习计划 → 今日任务 → Unit → Graph 更像产品流程/逻辑，只能算一层，<b>不能指导产品构建</b>。</div></div><div class="kp"><div class="kp-t">目标拆解与角色无关，落到功能才是产品手段</div><div class="kp-d">从目标往前的部分<b>不区分产品/运营角色</b>（运营手段也能实现同一目标）；只有落到产品架构和功能，才叫产品手段。</div></div><div class="kp"><div class="kp-t">具体功能模块决策差异小</div><div class="kp-d">一旦确定做哪几个模块，后续「答疑模块怎么做」各家差别不大——<b>真正体现区别的是前面的分析</b>。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">5</span>AI 产品经理核心能力 · 评测</h3><div class="kp"><div class="kp-t">AI 产品的核心不是功能设计，而是<b>功能评价（评测）</b></div><div class="kp-d">系统级 PRD 只讲系统交互、功能组合，<b>没碰到 AI 产品的核心</b>，应聘 AI PM 有难度。「AI 产品的第一件事……是评测」。</div></div><div class="kp"><div class="kp-t">评测第一层：正确率（对错标注）</div><div class="kp-d">AI 不是 100% 正确，一定存在准确率。<b>怎么衡量准确率</b>是首先要考虑的：输入 query → 看答案对不对 → 直接标对错。</div></div><div class="kp"><div class="kp-t">评测第二层：好坏（解析质量）</div><div class="kp-d">只判对错不够。像买练习册会看<b>解析详不详细、看不看得懂</b>——解析可能才是关键。需把「好」标准化到可标注，例如追问「什么叫详细」：关键推理步骤不能跳步，哪些步可跳、哪些不可跳。</div></div><div class="kp"><div class="kp-t">评测第三层：个性化适配</div><div class="kp-d">好学生觉得解析太详细啰嗦，差学生嫌不够详细。<b>理想态是按学生历史学习情况区分模式</b>——但一旦引入个性化，评测会变得更复杂（不同模式要分别评标准）。</div></div><div class="kp"><div class="kp-t">评测方式的选择依据是产品目标</div><div class="kp-d">定位是「个性化答疑」→ 要做到第三层；第一期只做「给出正确答案、让用户快速找到答案」→ 第一层就够。<b>没有目标，就不知道做到哪一层</b>。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">6</span>AI 产品经理核心能力 · 错误处理</h3><div class="kp"><div class="kp-t">必须设计「错误感知机制」</div><div class="kp-d">前提是<b>你得能感知到它错了</b>：AI 答不出来用户能感知；或 RAG 检索时按<b>答案置信度</b>低于阈值就不输出、转人工介入。</div></div><div class="kp"><div class="kp-t">区分「未召回」与「召回但出错」两种情况</div><div class="kp-d">召回（recall）失败该怎么补救？召回成功但答案错了又该怎么感知和处理？<b>这是 AI 产品经理要设计的策略</b>。</div></div><div class="kp"><div class="kp-t">兜底方案决定准确率门槛</div><div class="kp-d">现有策略是<b>真人老师兜底</b>。若有感知能力 + 兜底方案，准确率门槛可低一些；若完全无法感知错误，则准确率必须做到 98–99% 才能上线。</div></div><div class="kp"><div class="kp-t">可按场景拆分准确率要求</div><div class="kp-d">要区分「什么样的问题允许准确率低一点」「什么问题是坚决不能错的」。</div></div><div class="kp"><div class="kp-t">准确率要求决定实现方案</div><div class="kp-d">要求 90–93% → 写个 skill / 用提示词 + 简单向量检索即可，成本最低；要求 99% → <b>不能让模型自己检索</b>（一定会出错），要用<b>结构化题库 + 工具直接查题</b>确保零错。</div></div><div class="kp"><div class="kp-t">AI 产品的技术选型清单</div><div class="kp-d">写 skill、做工具、RAG 检索、纯向量检索、query 改写（可做可不做）、总结（可做可不做）——<b>这些都要 AI 产品经理决策</b>，依据就是准确率要求。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">7</span>AI 产品经理核心能力 · 测评流程与结果</h3><div class="kp"><div class="kp-t">上线前的离线测评</div><div class="kp-d">冷启动没有足够数据时，要解决<b>「人怎么造数据、怎么让它尽可能接近真实」</b>。</div></div><div class="kp"><div class="kp-t">AI 产品必须灰度</div><div class="kp-d">灰度对 AI 产品尤其重要（普通功能产品还好）：<b>先积累数据，验证线上准确率</b>，再评价线上效果。</div></div><div class="kp"><div class="kp-t">线上持续监控</div><div class="kp-d">上线后还有<b>后续持续的效果监控</b>，评测标准沿用之前定的那套。</div></div><div class="kp"><div class="kp-t">离线与线上指标可能不同（进阶）</div><div class="kp-d">举例：质检项目离线测精准率+未召回的召 correctness，但线上数据量大、资源有限，<b>只检召回部分的准确率</b>，未召回的假定正确——两者标准就有差异。本场景一般用同一套即可。</div></div><div class="kp"><div class="kp-t">结果要覆盖三层</div><div class="kp-d">① 既定目标是否完成 ② <b>过程指标</b>：准确率的初始值 → 提升路径 → 最终值（这是关键贡献）③ <b>业务收益</b>：留存等最终目标达成多少。</div></div><div class="kp"><div class="kp-t">准确率 → 留存的链路如何论证</div><div class="kp-d">难完全量化时用<b>拆解逻辑</b>说清：用户要的是「100% 不出错」，出错就不会再用 → 所以准确率必须达标 → 准确率只有 60% 连上线都上不了。留存 = 功能找对了 + 满足了用户需要。</div></div></div>
+<div class="kp-cat"><h3 class="kp-h"><span class="kp-num">8</span>简历撰写规范</h3><div class="kp"><div class="kp-t">先写工作职责概述（与项目无关）</div><div class="kp-d">工作经历下面第一段写：<b>你承担的岗位是什么、职责是什么、OKR 是什么</b>。</div></div><div class="kp"><div class="kp-t">紧接着写任内成果（2–3 行）</div><div class="kp-d">只写概述还不够，要在第一段末尾说明<b>你任内达成了什么成果</b>，控制在两到三行以内。</div></div><div class="kp"><div class="kp-t">项目按五段式写</div><div class="kp-d">① <b>背景</b> ② <b>目标</b> ③ <b>方案/方法</b>（怎样达成目标的落地手段）④ <b>关键点/难点/个人贡献</b> ⑤ <b>成果</b>。</div></div><div class="kp"><div class="kp-t">段落可按需合并</div><div class="kp-d">背景和目标<b>可以合并</b>成一段；方法和关键点也可以合并，看篇幅多少。</div></div><div class="kp"><div class="kp-t">关键点是体现能力的地方</div><div class="kp-d">写实现目标最核心的几个要素，例如：<b>Agent 的 skill 设计</b>、「答疑正确率要求 100% 不能错」这个关键点、你分析了哪几条实现路径、最终为何选定这条。写 2–3 个点，没有写 1 个也 OK。</div></div><div class="kp"><div class="kp-t">成果要扣回目标达成情况</div><div class="kp-d">既有<b>关键过程指标</b>（对 AI 而言就是准确率达成多少），也有<b>最终业务效果</b>（上线后留存等）。</div></div><div class="kp"><div class="kp-t">项目论述必须与简历一致</div><div class="kp-d">简历写项目时<b>同样按这五部分</b>，不区分是面试讲还是写简历。</div></div><div class="kp"><div class="kp-t">先搞定内容，再调格式</div><div class="kp-d">改简历用飞书，改完<b>发到群里</b> → 徐文亚<b>远程评论批注</b>（不用约课）→ 内容 OK 后再调格式。</div></div></div>
+</div>
+
+<h2 id="chat">七、完整转文字稿</h2>
+<p class="sm-p">共 188 条发言 · 保留说话人与时间戳。可滚动查看。</p>
+<div class="chat">
+<div class="msg me"><div class="who">周文熙<span class="ts">00:00:54</span></div><div class="txt">喂，老师你好。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:00:55</span></div><div class="txt">诶，哈喽哈喽，文熙，早上好，诶，嗯，那个我们这节课这样哈，就是上分两部分，第一部分呢，我们就是把你的那个项目过一下。然后过完之后，第二部分我们就来讲一下简历怎么改，然后你课后去改，改完之后发给我，我帮你去这检查，然后检查差不多了。我们再约第三节课，然后就把简历定稿。行吧，大概怎么安排？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:01:19</span></div><div class="txt">好。好。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:01:20</span></div><div class="txt">嗯。OK，先说你那个项目吧，就是那个叫啥来着？就高顿，对，高顿的那个项目。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:01:28</span></div><div class="txt">高顿的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:01:31</span></div><div class="txt">高顿那个项目，昨天你写的材料我大概在群里面跟你说了，就是实际上我看了你那两个PRD，那俩 PRD 实际上质量挺高的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:01:42</span></div><div class="txt">嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:01:42</span></div><div class="txt">就是其实我问你的关键信息，那个 PRD 里面其实都有。只是你可能没注意到，所以我是这样想的，你先不着急打开你写的东西，你先打开你发给我的第一篇的那个PRD。不是一个PRD。一个是那个 Skill 的那个说明嘛，对吧？你先打开第一篇PRD，对。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:02:01</span></div><div class="txt">对对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:03</span></div><div class="txt">打开我先给你。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:02:04</span></div><div class="txt">打开了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:05</span></div><div class="txt">你投，你方便投吗？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:02:07</span></div><div class="txt">哦，好。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:08</span></div><div class="txt">啊，方便投你投一下。嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:21</span></div><div class="txt">你可以打开你 PRD 和你写的，我们可以对比着看，就是他到底他写的他是怎么说的这个问题，然后你是怎么理解这个问题的？嗯。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:02:31</span></div><div class="txt">老师，我这边分享的屏幕看得到吗？</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:34</span></div><div class="txt">没有，没看着。啊，现在看到了，OK，嗯。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:02:39</span></div><div class="txt">现在呢？</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:02:40</span></div><div class="txt">现在看到了，好，你看哈，你看这个里面，背景说明他写得很清楚，就是长期备考需求无法满足，就是精准，然后你看。它有一个非常重要的依据，是小红书这批客群反馈了大量非长期备考计划的需求。然后下面有非常详细的这个这个这个这个分析，对，具体怎么分析不讨论了，但是这是非常重要的依据，他为什么说？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:03:05</span></div><div class="txt">嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:03:14</span></div><div class="txt">就是首先你看他对用户需求的理解是什么？是短周期私教、精准提分、查漏补缺，这三个点。那为什么是这三个点？是通过小红书的这个就是分析得出的。对吧？但是他这个描述呢，有一点点不是特别的严谨的地方在哪呢？就是你看他小红书的调研是什么？代练刷题、讲题，什么这些东西，而且代练刷题是排在第一位的。但是他那个所谓的精准提分、查漏补缺、周期私教。短周期私教，这三个就是描述跟它下面不是完整对应。他其实有一层自己的理解，就是他所谓的周期私教是指什么？肯定是这底下某几个集合。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:04:09</span></div><div class="txt">嗯嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:04:10</span></div><div class="txt">或者精准提分，如果是这个的话，那就那是没问题的。如果不是这个的话，实际上他前面那三个是就空了，就没有依据了。对吧？就相当于好像你的调研数据跟你的这个描述，它就是他不一致，不匹配。你调研数据明明是，如果从这个调研数据来看，就是代练刷题是我应该做的。对吧？我应该去，带领着去练题，对吧？应该是干这个，我应该做的是这个需求。对吧？但是他整个的哈，就是整个的这个分析思路是非常合理、非常好的一个思路，就是你现在，你看，你现在要做的是一个， to C 的项目。对吧？ APP 的一个东西。那 to C 的项目，无非两个来源。如果你高顿之前有一些用户数据，你就来源于那些用户数据去做分析。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:05:09</span></div><div class="txt">如果没有，你就完全通过市场调研或者竞品分析去做，对吧？那他就选择市场调研，那这个市场调研的手段，他用小红书，对吧？相当于通过分析小红书上的这些帖子，然后得出大家对这个就是每一块需求的这个比例。对吧？这是一个非常非常好的一个分析思路，而且它是有依据的。是啊，所以就这个就就是，这个是他非常重要的。但对照你这边，你往下拉，你这个所谓的价值主张这个部分。对，价值主张。你这几个有依据吗？备考没人带，疑问没人解。有多少人备考没人带？有多少人觉得这个事痛？这是你的理解，还是真实的客户的想法？用户的想法？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:06:01</span></div><div class="txt">我这也就是基于 PRD 整合出来的，其实。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:06:04</span></div><div class="txt">对，就是你可以是基于 PRD 整合，但是你要有依据。明白，就是你如果是这么理解，就是呃就是这个备考没人带，疑问没人解，你起码在这写上，通过你的调研发现百分之多少备考没人带。百分之多少疑问没人解，百分之多少什么什么什么。东西。你懂这意思吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:06:27</span></div><div class="txt">就是要有支撑。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:06:28</span></div><div class="txt">哦，对啊，你没有任何的支撑，你，我怎么知道你这个东西是你自己想的吗？是真实的用户需求吗？就这就，就会被。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:06:39</span></div><div class="txt">老师，我因为我想的只是整合嘛，我只是做一个收集，所以就没有。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:06:40</span></div><div class="txt">嗯。就关键是什么？关键不是你的结论。关键是你的推导过程。知道吧？这就是我昨天昨天在群里面跟你说的，就是观念不是是什么，而是为什么？因为是为什么能体现你的产品能力。就是你把这个结论丢在这，这个结论可能是你做了很大量的工作，就是我实际这么说哈，你这个结论得出，有可以很快，我可以 5 分钟脑子转一下。想写出来一个东西。也可以花了两个月时间做调研，调研出来一个东西。这两个结果是不一样的，可能最终表述是一，完全一样的，就是最终的这个结论可能是完全一样的，但是第一个是非常空的。就是完全没有实际的臆想的。那种产品做好了也是蒙好的，蒙对的。能理解吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:07:41</span></div><div class="txt">哦，我知道了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:07:43</span></div><div class="txt">所以就是考察你产品能力一个非常重要的点，就是首先你不能去臆想需求，你的需求得是真需求，就这你肯定听过什么真需求、伪需求。对吧？那怎么判断是真需求还是伪需求？是要有数据支撑的。这个点很关键，这是一个产品方法论的问题，所以你面试的时候，包括你写简历的时候，要体现出你有这方面的能力。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:08:10</span></div><div class="txt">嗯，明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:08:11</span></div><div class="txt">所以要把它写出来，不是直接写这个结论。明白明白要表达的东西了，对吧？嗯。然后你再往左边，我们再往下看一下。嗯。我觉得这背景首先是这块，稍微稍微往上一点。第二个，就智能与程序的边界，现有系统的拓展，什么？我看看啊。及策略约束求解，开步啊，这是你看第一个是市场情况，第二个是第二个分析是它的这个就是你的系统现状。或者能力现状，对吧？现状是什么样？然后就是它有什么弊端？就是他这里面有一个点是什么呢？就是他写了一半。就是他写了系统现状，是根据什么智慧被硬编码。然后就是根据学习策略约束求解，排布具体学习任务。这部分是客观描述，但怎么得出的，应该由 agent 来决定。这步也是缺少一个中间论述。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:09:18</span></div><div class="txt">嗯，明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:09:18</span></div><div class="txt">就是，你看你前面那个东西，那个东西有什么不好吗？没说出来。 agent 有什么优势吗？也没说出来。理解吧？就是正常这个地方论述，他想到了去论述这个事，但是他没有论述到位。就是我应该说的是，我们现状是通过这个约束求解来做，那么这么。做有什么弊端？什么样的需求哪部分满足不了？这个要点出来。对吧？就是你背景的第二条就是现状，我们通过这些方法去做，导致了哪几个需，你前面第一部分不是分析了这些需求吗？什么需求在现有的这个起挂价是没有办法被支撑的。然后 Agent 在这方面是有优势的。所以我们要用 agent 来做这件事。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:10:13</span></div><div class="txt">嗯嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:10:14</span></div><div class="txt">这是一个严谨的一个论述，所以背景的第二点实际上要这么去讲它。理解啊，然后这个目标是满足什么？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:10:23</span></div><div class="txt">理解。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:10:26</span></div><div class="txt">然后再得出目标，这个好还好了，第三部分就相当于你自己，就是总结的一个点，就根据前面两个点总结的一个点，我觉得这个是没问题的。然后到你右边那部分，你右边你写那部分，OK，你写的这部分就接下来就我其实也问了你一个问题，就是你这里面一二三阶段怎么？一二三四阶段怎么得出的？为什么是这一二三四阶段？左边我好像没太看到它这个分阶段，是吧？我没太注意的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:10:53</span></div><div class="txt">这个阶段就是看一下这个卢卡的背景嘛。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:10:59</span></div><div class="txt">不，你的逻辑是什么呢？你是怎么推出要这个阶段？是因为现在是这么做的，所以是这样。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:11:05</span></div><div class="txt">这个阶段就是之前他们怎么做的？之前他们的公开信息收集。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:11:08</span></div><div class="txt">对，你肯定不能这么去聊啊。对吧？你去面试也好，你去写你的这个阶段划分也好，你得有一个依据，就你为什么先做这个，后做那个？不是说别人这么做的，对吧？别人这么做就不是你的。就不是你的了。这不是你体现的价值了，对不对？你现在想想他应该依据的是什么？就是为什么这么确定阶段？就或者说你之前，你的 mentor 他这么做的原因是什么？第一阶段先做答疑，为什么？而不是先做智学，为什么不能先做学习服务？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:11:58</span></div><div class="txt">我觉得应该是随着技术驱动会多一点。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:12:02</span></div><div class="txt">是技术驱动吗？是纯技术驱动吗？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:12:07</span></div><div class="txt">一个是技术到了成熟，那么该有的需求就可以做。最开始的需求是因为我们内部只有这些数据，然后这些数据和当下的 AI 技术只能支撑去做对应的这些功能，想要发展成能够自适应的。满足个性化的需求。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:12:28</span></div><div class="txt">第一位的考虑一定不是技术。产品第一位的考虑一定不是技术，一定是需求。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:12:35</span></div><div class="txt">对啊，但是整个阶段的发展不就是，就是目标肯定是先要想好了，但是每一个阶段该所能做到对应的功能，不就是从技术出发嘛。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:12:46</span></div><div class="txt">不是从技术出发。你这肯定不是从技术出发，我这么跟你讲哈，就是我们产品有个概念叫MVP，对不对？最小最小版本，最小版本你要实现你最核心的这个的验证。且是最小成本的。你最核心的验证，它核心验证的是什么？验证的是你这套商业逻辑是否跑得通，而不是验证技术。明白这个意思吧？就是换句话说，我做的第一个功能，用户得认可，得去用。如果我上了第一个功能，我技术是成熟，结果用户不用，我是什么都验证不了的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:13:27</span></div><div class="txt">嗯嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:13:28</span></div><div class="txt">所以你第一个功能一定是用户需要且能够，就是你上了之后用户能用起来的一个完整功能。这是前提，然后再看这个功能。就是你技术能不能实现？如果要实现，成本是多少？就是理论上来说，你现在做的这些功能，它不存在技术做不到的问题，只是你投入多少的问题。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:13:54</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:13:54</span></div><div class="txt">对吧？你需要投多大的资源把它做上去？然后你最核心要验证的点是什么？对吧？他其实是这么一个逻辑，就是答疑，首先，你要讲他，他第一件事是，答疑是需要的，是大部分人都需要的一个关键功能。对吧？而且他使用频率高。而它本身是可以闭环的。那实现，然后再说它实现相对简单，可以快速的把它做好。所以我们先做答疑。理解这个逻辑不？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:14:32</span></div><div class="txt">哦，理解了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:14:34</span></div><div class="txt">一定得是先从需求出发。然后去排这个优先级，然后去弄，就具体的其实说实话哈，就你具体的怎么排， 1234 还是1324。还是怎么样，这个东西没有正确答案。但是你排的这个过程的论述的逻辑。得是科学的、合理的，你自己能自圆其说的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:15:02</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:15:03</span></div><div class="txt">且能体现出你是依据于需求来做事情，而不是，就是千万不要说是因为技术这个层面。就是产品要考虑技术，但产品第一个考虑的肯定是需求。就是技术再成熟，他那个需求不存在，你没有意义，明白吧？就这是这个东西啊。但这个东西实际上因为你写在这，所以我们就讲一下这个东西哈。就是我们再回来哈，就是就就是到还是回到背景那部分，背景那部分因为还有一个那个就是价值主张的这个部分，还有一个商业价值的地方。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:15:42</span></div><div class="txt">商业价值你这个理解也是一个就首先你前半部分不是在论述商业价值，就是依托什么什么，这是手段。这是这是你的手段，就是你放大教研价值。这个放大教研价值，然后探索商业化路径。你后半部分看起来可能还是有一点点所谓商业价值的一个一点点影子。但是它不是体现，是，嗯。就是不是最终的商业价值。你是探索，就是但是你要探索的是什么？你要探索的是，就是是增加你的用户的对对，用户的增长呀？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:16:25</span></div><div class="txt">增长。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:16:28</span></div><div class="txt">还是你最终的收入的增长呀？还是怎样呀？这个东西才能最终转化成你的商业价值。对吧？你只是探索出，就是你只是探索探索，你也得有目标、有方向。理解这个意思吧？你往哪个方向去探索？就是你其实对于你们这个项目来说，你们本身确实是一个探索项目，你们是想验证用 agent 的能力满足用户需求之后。是否能够带来用户的活跃或者是增长。对吧？你最终的目的是，要么是你可能第一步是，对，最终是营收，你可以第一步，你可以不落到营收上，你落到活跃跟增长，就说明用户认可这个新的模式。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:17:10</span></div><div class="txt">营收。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:17:18</span></div><div class="txt">它得比旧的模式好。对吧？你才能认为你的探索是成功的，你才能认为你做的这件事是有商业价值的。不是说我定个，这个事反正是探索，那怎么叫探索成功？怎么叫探索失败？怎么叫它体现了价值？你得有这种论述，对吧？然后这个论完之后，实际上第二步不是讨论你的产品演变，是我记得你下边应该是写了目标，对吧？有目标吗？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:17:51</span></div><div class="txt">啊？目标。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:17:52</span></div><div class="txt">你有写目标吗？对对，目标。其实你应该把目标放在第二部分，然后再说这个演变。然后目标用，哦，你这目标用户不是目标，是吧？你没写目标，对吧？我我我有点纠结，好像好像没有写没有写目标。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:18:08</span></div><div class="txt">没有写。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:18:08</span></div><div class="txt">就是你你看哈，第一步是背景，背景分析，然后明确价值，明确价值之后，接下来是目标怎么确定？就你整个项目的目标是什么？你看哈，你左边的那个就是那个 PRD 里面其实是写目标了，它的第三是所有场景的需求，把真正学习服务做到顶尖。先不说这个目标合不合理或者好不好，但是他已经提出了一个明确的目标。明确的方向，但是这个目标不是一个好的目标，他的目标没有被具体化。就比如说怎么叫满足所有人群？首先所有人群通常我们就认为它不合理哈，就你如果说所有人群，那大概率你这个产品就没有目标人群，就很，就很模糊啊。就是它什么叫满足人群？满足人群怎么被体现？可能就体现在你推广的这部分人群，他的使用的活跃，对吧？或者是他的这个就是这个叫什么，使用户量，或者活跃量，或者增长速度，这些指标叫满足用户需求。然后这个所谓的所有人群，所有场景怎么理解？如果是所有人群，所有场景，那你就没法去衡量它，没法去看它了。所以这个所有人群，所有场景肯定是不合理的，就这个说法不合理。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:19:48</span></div><div class="txt">然后这个所谓学习服务做到顶尖，这个顶尖又怎么理解？怎么叫学习服务好，学习服务不好？你跟别人，为什么你说他顶尖就顶尖吗？得什么情况下你叫顶尖？这就是一个，就他现在这个目标是一个不可衡量的目标。不可衡量目标就你做到没做到你都说不清楚，你目标达成没达成你最后都说不清楚。你得把这个，就是你可以有这样一个目标，就是定性描述性的这个目标，这个这句话有没问题？但有完之后，接下来这句话你得把它落地。落地到一个一些非常具体的指标上，哪些指标是关键的，必须达成的，达成了就算目标就达成了。哪些指标是你观测的，它不能降的，或者怎么样的，得有这些的一整套的评价。体系，最终来确认你的目标达成。你有了这套东西之后，你最后你的产品，你就不会跑偏了。否则你就给，只给这一句话，因为你产品不是你一个人做。对吧？你首先一个大产品，下面可能还会一堆产品，一堆小产品去做各自的模块，然后还有研发去做，大家各自对你这句话的理解都不一样。对吧？每个人对顶尖的理解都不一样，每个人对什么，所有人群对需求被满足的理解都不一样。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:21:12</span></div><div class="txt">那你最后这个项目，你怎么去衡量它的效果？这是不行的，就他这个思路是对的，然后论述也没问题，但是他这个本身这个具体到这个目标怎么去定这件事上。就不够明确。不够确定。啊。所以对我们来说，我们应该做的是什么？就是你就，我觉得简单就说，就是验证你这个东西的活跃或者留存就行了。我觉得留存是更合理的，用留存来衡量你这个东西是不是用户认可的东西，是比较合理的。对吧？你看多久的是那个留存？以这个东西去看。因为活跃，它还受制于什么呢？就你这个功能本身，它是一个日活的功能，还是一个月活的功能？比如说你这个什么期末考试的辅导，它就是一个学期才活跃一次。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:22:05</span></div><div class="txt">你这个，你如果是一个日常答疑，每天日作业的，它就是一个追求日活的一个目标，对吧？但留存不一样，留存其实跟活跃也有相似的地方啊，但是你这个就是，比如说，你所做的这个功能，最终用户认可，这个功能他还会不停地使用。对吧？那这个就是你要追求的目标。是吧？所以你在论述的时候，论述完背景，然后说清楚背景之后，接着就把价值就说清楚了，说清楚价值之后，接着说你的目标，目标是这个。然后你后面的所有的你产品的定位、演进都是围绕着这个目标去做的，甚至你每个阶段还有阶段性的目标。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:22:54</span></div><div class="txt">这个是第一部分你要讲的。这个东西呢，也是要讲在你的简历里的，你的简历的构成呢，它每个项目论述的时候都是背景。对吧？背景、目标，然后方法，怎么样实现这个目标的方法？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:23:12</span></div><div class="txt">哦哦。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:23:14</span></div><div class="txt">实现的手段，然后再就是可能你可以有一趴，就是关键的要素或者难点。然后难点的贡献，然后最后的成果结论。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:23:26</span></div><div class="txt">难点和成果结论是都写在背景当中。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:23:30</span></div><div class="txt">不是，这是背景，是独立，这是一共五部分，背景是第一部分，第二部分是把背景讲完之后讲目标。你这个背景和目标可以放到一趴去写。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:23:38</span></div><div class="txt">就是这一段都包括这五部分。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:23:42</span></div><div class="txt">一个项目，就是讲每个项目的时候。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:23:47</span></div><div class="txt">就讲解项目，不是写要解那种。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:23:49</span></div><div class="txt">不是，你简历也要这么写，简历写项目的时候也是这么写的。简历写项目的时候，你应该分几个段落，每个项目都应该有背景，这是第一个段落，第二段落是目标，第三个段落是你的方案。或者方法，怎么实现目标的方案，这第三部分。第四部分是你的关键的，就是难点，或者是关键点，或者你的贡献点，第四部分。第五部分是你最终的成果。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:24:21</span></div><div class="txt">明白，这五部分首先都要有，然后呢通常背景和目标也可以合并成一个段落。背景和目标要可以合并成一个段落，然后方法和关键也可以合并。看你的多少。就整个的这个方法，但是你要知道你的方法是要以一个能够说清楚怎么样达成目标的一个落地的一套手段。要是这样的，然后关键点是什么？关键点是讲你亮点的地方。就正常我们讲项目可能也会这么讲哈，就是关键点，就是这个关键点是什么？就比如说你现在去讲你的这个agent，对吧？你这个 agent 的关键点是你的这个 skill 的设计。对吧？你这个 skill 的设计，诶，有什么难点？你克服了，你怎么样去解决了这个疑难的问题？这也是能体现你能力水平的地方，所以要在关键点里面写它。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:25:22</span></div><div class="txt">哦，明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:25:24</span></div><div class="txt">然后包括你后面怎么评价他成功失败，这个一会咱们再说那个哈。就类似这样的，这都是关键点。然后最终成果要扣回到你的目标达成的情况来看，就还是那些指标，那指标你做到了什么样？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:25:39</span></div><div class="txt">嗯嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:25:42</span></div><div class="txt">明白，OK。行，我们接着往下看哈，就是现在我们刚刚把目标这趴大概说完了，你再往下，再往下你这个产品定位的就是他左边的产品架构可以先不看。先看你这边，你右边的这部分，你右边的这个产品定位这块，你就是产品演变，定位演变，这个他其实不是定位演变，产品定位是明确的啊。就定位演变，他其实是要它其实是你论述支撑你目标的实现方法。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:26:12</span></div><div class="txt">你的目标比较大，对吧？什么行业标杆？你肯定不是一下子把行业标杆做到，做行业顶尖，对吧？那你这个，或者说你的最终的留存，或者你这个最终的效果，对吧？你肯定不是一下子做到的，那你怎么样去做到？围绕这个目标，我拆了四个阶段。这是你的实现路径。对吧？那拆这个四个阶段的依据是，你每个阶段都已经能够产生每个阶段自己的价值了。所以每个阶段实际上都有价值，就第一个阶段，比如说你的用户活跃要做到多少？对吧？你这是要有第一阶段的目标的。你的用户的哪类需求被你满足掉？被你闭环掉？就比如说你现在写的答疑，那就答疑这类需求，对吧？你前面背景论述的时候不是已经有答疑它占比是多少吗？对吧？然后答疑这类需求，哎，被你被你闭环掉。然后，诶，在后面就是它实现的指标是什么？第二阶段它的目标就是满足的是哪部分需求？实现指标是什么？这是这是叫纵向拆解。算是纵向拆解吧，就是首先这个其实是产品路线图，这个叫，对吧？然后就是你一步一步怎么样达成这个东西？然后通常这个确实里面会考虑什么呢？不是技术实现难度。是你可能后边要做的东西，就是前后有依赖。就可能这种情况下，哎，这是一种思路。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:27:43</span></div><div class="txt">就是你比如说你，我想想哈，举个例子，你要做比如说你设计的这个作业的功能吧。比如做作业的这个功能，做作业这个功能，它前面，它比如每个作业它有对应知识点。对吧？那你可能就前面你要先把知识点的功能做出来。对吧？你如果前面不做出来功能点的功能的情况下，你的作业可能做不了，有可能是这样啊，我只是举这个例子，但实际上可能不会这么设计。有可能没有知识点，我可以先上。对吧？我作业要考察的核心是他做不做，是他完成情况。那其实有没有知识点这件事是一个辅助的，它不是最关键的要素，所以可能不一定做。但是如果他有这种前后依赖，而且你第一个依赖又是独立完整的，可以满足用户某个需求的，那我们通常情况下就会把它放在第一个。就放在前面。他这些这个考虑呢，其实是相对复杂的，既要考虑用户的需求，又要考虑技术的实现路径，也要考虑你可能每一阶段他是不是能完整闭环。能让用户直接上来能够用等等这个。就是能够达成这样的目标，而且还不能太长，通常一个阶段一两个月的时间，就要能完成一个版本的上线，如果它太复杂。你搞一个半年，那这个投入太巨大。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:29:02</span></div><div class="txt">你的风险比较大，所以不会这么设计，所以这趴考虑的东西比较多，对于你应届生来说，实际上这趴不关键，不关键，你可能你只是讲一下也OK。就讲一下，但是要讲一下你的，就是你的理解方向得是对的。就是你们定了这么一个四步走，四步走你的理解是什么样的？或者你通过别人，就是这个东西你可以说不是你定的，但是你比如说你跟你的leader，你得有这个认知，是吧？有沟通之后，啊，你觉得你认同了。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:29:35</span></div><div class="txt">嗯嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:29:35</span></div><div class="txt">是吧？OK，这是第一个拆解的思路，再往下，你再往下，你现在写的这个用户画像的这部分，我不知道左边有没有，好像我在左边没太看见啊。用户目标用户画像。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:29:47</span></div><div class="txt">哦，没有。左边没有。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:29:49</span></div><div class="txt">这部分实际上哈，它是在目标跟实现方法，就实现路径的前面的。就是我为什么这么设计我的实现路径？为什么这么设计我的功能的结构？这些东西是依据我对实现目标的分析。分析的一个手段是用用户画像的方式去分析，还有别的手段。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:30:14</span></div><div class="txt">哦。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:30:15</span></div><div class="txt">它是分析怎么拆解目标的一个分析方法，是用户画像。理解这个意思，但是用户画像肯定，你如果要写这个东西，它就不是你这么写的。他一定，因为用户是复杂的。理解用户是复杂的，对吧？就是你的用户构成本身是复杂的，而某，就是你现在写的这些人群，你只写这个人群没有意义，你得写出你大学生，在校大学生占比是多少？备考人员占比是多，在职备考人员占比是多少？二战占比是多少？你的目标是打哪部分？他们有什么分别？有什么区别？有什么不同的特，有什么相同的，有什么不同的，这才是用户画像。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:31:01</span></div><div class="txt">甚至你要更细一点，在校大学生他有什么特征？在校大学生百分之多少的人在乎什么？百分之多少人在乎什么？这是画像，你能完全描述出一个用户大学生，就是在校大学生这类用户，他的特征是什么？在校大学生他也不一样，一定不一样。对吧？它一定有区别，但这个区别在统计学上，它是可以被量化的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:31:30</span></div><div class="txt">理解理解这个概念，对吧？就是他一定是，比如说百分之多少的人，在校大学生百分之多少人是在校备考的？有百分之多少人在外边租房子备考的？有百分之多少人是什么二战是你在另外一类的，对吧？就是他也是有这种也是有这种区别的，而这些人他们的在乎的点不一样。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:31:49</span></div><div class="txt">有多少人选择报班？对吧？有多少人收入是就是就是备考能够花多少钱？对吧？当然你分析的点，分析的这些要素，可以就是根据你的情况，根据你需要情况去做分析，但是你得分析这些东西才能指导你的产品建设。你只写这个东西没有任何的意义，你产品绝对不能用这个做依据。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:32:15</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:32:17</span></div><div class="txt">你没办法指导你后面我怎么去设计我的产品方案，我怎么先做什么，再做什么，对吧？其实你这个分析最终，如果你比如说像你写的，你第一阶段是答疑，对吧？或者你要做的功能是答疑，你这个东西你得，你最终的分析结论得落到它能支撑你答，做答疑这个功能上。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:32:42</span></div><div class="txt">假如说这个说哈，然后什么在职备考，连老师都没有，他根本不知道去问谁，只能问朋友，有些人还怎么样，还不跟，还是默默自己备考的。然后也找不到同时备考的人，所以他压根就不知道问谁，所以对他来说答疑是一个非常重要的点。所以我们先做答疑。而他们对于答疑有不同的诉求，对吧？比如在校大学生他问的问题可能是什么样类型的问题？然后或者他就是经常怎么样问问题？然后你的在职人群经常怎么样问问题？比如举个例子啊，比如他们，喜欢打字，或者更喜欢拍照，还是更喜欢怎么样问？是分析这些东西，他不同的人群，就是他的特征。你要是没有了，你也可以不写，就是如果要写，就得把这个东西写到足够细。为什么说可以不写呢？因为你前面有一种分析方法了，就是你用小红书的那个需求，对吧？你其实等于说你没有把它拆人群，但是你直接针对所有人群。对吧？这类，对这类问题的在乎比例，对，这是，那也是一种分析方法。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:33:48</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:33:51</span></div><div class="txt">OK，然后你下边的什么核心需求分层，你再往下一点哈，核心需求分层，你这个你写了基础、进阶、高阶，什么是基础？什么是进阶？什么是高阶？也不知道，完全是你自己的概念。你自己的定义，为什么它是基础的？我现在理解，你所谓的基础是这个功能必须得有的，可以是可以这么理解吧？OK，那就为什么他必须得有？他没有不行吗？这个结论肯定是由你上边的分析，别管是用户人群的分析也好，还是你市场调研得出的结论也好，他都要有，就是由这个分析。就是引导出来的这个点。但是你知道这个点你要写的话，你关键要写什么？或者你要关键要讲什么？说你通过调研之后，你认为我们可以把需求划分成基础层、进阶层和高阶层。那基础层说明了什么？进阶层说明什么？高阶层是干嘛的？这个东西是你的核心思考。然后再说归类就是另外一事，就是你这个东西，就是基础、高阶、进阶跟高阶，它能体现你一个体系化的思考方式。能明白吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:35:13</span></div><div class="txt">嗯，明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:35:13</span></div><div class="txt">你弄明白什么叫体系化的思考方式？他就是你不再把需求看成是散点了，你是把这个所有需求看成是一个。成体系的东西，有规划的，有方向的，这个很重要，这是一个很好的思考方式，是你在面试当中，包括你在简历当中都可以写的一个亮点。这也是你的实现手段，对吧？你实现手段就是你把需求分成这几类，然后这几类分别用什么手段去做，对吧？就是你在拆解你的目标。拆解实现这个目标的过程当中，对吧？你这个功能不做，它就不行，然后进阶怎么样？是吧？你可以这么去划分，这个是可以理解为你的，就是目标实现方式的一个拆解。然后再往下，包括你左边现在他写的什么产品架构和你后面的产品功能拆解，其实他是一个概念，他们也都是支撑目标的。你对需求分析到位之后，那你接下来就是产品的功能了。产品功能我们在拆的时候，它其实是分层的，你现在这个分层的思路是有的，但是那这么分。我想想怎么说呢？我看看啊。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:36:27</span></div><div class="txt">用户需求层，你这个其实，你现在写的这个所谓分层，不是实际上的产品架构的分层。不是功能的分层，它其实是一个逻辑关系。是写你要做的，他怎么去体现这个？就是写的是这个逻辑关系，但他不是，他不能指导你去构建你的产品。理解吧，你这么写是 OK 的哈，就是这没，还是那句话，它没有绝对的对错，就整个这个东西没有绝对对错，它只是体现了你一种理解。但是你这个东西就是写完之后你还是绕不过，还有一个东西，就是产品架构的那一部分。你看你左边的这个，他写产品架构，他确实是一种产品架构，但只是他是只是一层的产品架构。对吧？学习计划、今日任务、Unit、Graph，它是一个功能层面的东西。也不严格是功能上吧，就是你学习计划跟今日任务。它是俩功能。对吧？然后下面是这个最小闭环场景封装，然后学习小单元。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:37:36</span></div><div class="txt">它其实又像产品逻辑，所以它也不是特别清晰的一个产品架构。就是但是这么写是便于理解学习计划这个事，对，它是一个也可以理解为一个产品流程吧，就这个如果把它理解为产品流程。不是，而不是架构，可能会更合理一点。就是我先制定学习计划，是吧？然后制定完学习计划之后，然后按日产生任务，产生任务之后，然后最小学习单元，但它也不是一个就是怎么说呢，如果我来写这个东西。我可能会这么写的。就是我首先，就是从产品逻辑上，我首先要把学习拆成最小单元，对吧？然后我制定学习计划的时候，有一个学习计划的，一个用户学习计划的一个约束条件，或者边界要求。然后根据这个边界要求去找我的，就是把我的 unit 做封装，做组组组合。然后这个组合完之后，生成一份计划。然后在消费层上呢，就是根据这个我事先组合好的，产出每日的学习任务。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:38:33</span></div><div class="txt">是不是这么一个逻辑？对，我是觉得这样会更清晰一点，但我也可能是我没太理解他的这个东西哈。嗯。就是但是这个东西可以理解，它这个东西确实是一个怎么样实现产品的一个链路了。但你右边那个东西，它还落不到我怎么把产品做出来。它其实更多的，它更像是你写的这个东西，更像是你在前面分析完背景之后，怎么样对应到需求上。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:39:07</span></div><div class="txt">的一个分析。更像是这个，而不是产品结构。如果产品结构，我记你下边是不是还写过什么？往下往下稍微翻一下，对，那就不是，OK，好。嗯。就是你这个产品结结构呢，就是首先你可以有一个这样的东西，就是，你前面是，比如第一层是你的这个功能层，就是什么答疑呀、计划呀、练习呀、学习评估呀、传统资源呀。什么这些东西都属于功能层，是吧？这是第一层，然后你支撑这个功能本身是有一个 agent 引擎的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:39:43</span></div><div class="txt">对吧？然后 agent 引擎，然后你 agent 引擎下面是你的学习资源，比如题库啊，然后你的这个这个什么学习知识点呀。什么这些东西，对吧？这样才是三层。能理解这个逻辑吧？就是用户需要答疑，对吧？然后用户可能需要作业，这是用户表层看到的一些功能。但是要想支撑这些功能，你背后首先这些功能来源，比如作业，它肯定有一个作业题库，对吧？然后你去答疑的话，它也有一些问答的这个知识库，对吧？或者类似这样的东西，这是你有所谓的资源，那你怎么样把这些资源整合整理给到用户，或者找到这些学习资源？其实你是用的 agent 在中间去承担这么一个作用，连接用户的用户想要看的东西，以及你后台的这个学习资源的这个层面。是这样吧，我根据你之前聊的，我理解是这么一个结构哈。所以这样的话，你就是你这个三层就非常清晰了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:40:56</span></div><div class="txt">你第一层要建什么功能？然后你后面你要有哪些学习资源？这些资源是不是现成的？我理解对你们来说，高顿本身这些学习资源应该是公共的、现成的，对吧？你做这个东西，他不，你不需要自己再去建资源，你只要把这些资源整合过来。然后你关键是建功能，那前面那个功能怎么支撑？你的 agent 引擎怎么去找到这些资源？把这些资源组合拼装给到用户，这个是你最核心的东西。对吧？所以你这样也就明确了，你第一阶段，不管你做哪个功能，做答疑还做什么玩意，你都要先把 agent 搭出来。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:41:29</span></div><div class="txt">啊，对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:41:29</span></div><div class="txt">对吧？ agent 搭出来之后，然后就先用一个功能去验证这个逻辑是通的，然后在后面在这个架构上去做其他的功能。他应该是这么干这个事吧？行，然后再是那些产品细节上啊，你后面你往下翻你的这个，我再看一下。答疑模块，然后 3.2 答疑后面是啥？就是每个模块的学习计划模块，OK，好，然后再往下。学习单元模块，OK，智能练习模块，好，这些都还好了，都不是那么的重要。不是说这个不是那么重要，是说它其实里面需要决策的点就少了，而决策也简单了。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:42:16</span></div><div class="txt">嗯，对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:42:17</span></div><div class="txt">对吧？就是你只要确定了我是这几个模块了，我要做这几个功能了，那后面这些功能怎么做？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:42:24</span></div><div class="txt">这很简单。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:42:24</span></div><div class="txt">A 座跟 B 座不会有特别大的差别。对吧？你只要做答疑，大家基本上差别不会特别大，没有什么特别大的区别。能体现区别的，其实是前面的。OK。然后这个就是你目标拆解，拆解到最终，对于产品来说，实际上你会发现前面到目标的那一部分，它其实不区分产品还是运营还是什么角色。都不区分。大家都一样。就是你没有产品，我能不能实现目标呢？他有别的手段，比如运营手段也可以实现目标，目标也可以保，跟你保持一致。明白这个逻辑吧？产品只是产品去达成目标的手段，只有落到了产品的架构和产品的功能上，这个时候才是体现你产品能，就是不是说体现你产品能力啊。才是叫产品手段的这个最，怎么说呢？就反正就是从目标到产品手段的这个过程。就是OK，然后我觉得接下来说说这么一个事啊，就你那个具体功能我们就不聊了，接下来说这么一个事情，就是你的，我找。你找到了第二个PDF，你把它打开。那个不算是 PRD 了，对吧？就是那个一堆 skill 的相关设计。对。你那天发给我之后，我就跟你说了一件事，我说你给我发的第一个PRD，它不是一个 AI 产品的PRD，它是一个系统产品的PRD。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:44:07</span></div><div class="txt">就是刚刚那个PRD，是系统产品的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:44:11</span></div><div class="txt">那个 PRD 没有涉及到 AI 具体怎么样去决策，怎么样去思考，怎么去干，然后怎么去评价。没有体现，而他主要在写我系统跟系统之间是怎么交互的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:44:22</span></div><div class="txt">哦。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:44:27</span></div><div class="txt">对吧？我应该是哪个系统，怎，我有哪些功能？然后这个功能我这些功能之间怎么组合？系统跟系统之间怎么去交互？什么怎怎么去通信？讲这些东西的，那个都属于系统层面的东西。 AI 产品首先你也要懂，这个是毫无疑问你要懂的。但是如果你只讲到那个层面上，你去应聘 AI 产品经理是有难度的。因为你没有碰到 AI 产品的核心。我现在告诉你说 AI 产品的核心是什么？第一个重要的点，其实不是功能的设计。是功能的评价。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:45:04</span></div><div class="txt">评测。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:45:05</span></div><div class="txt">对，是评测。 AI 产品的第一件事就是，比如说你说要做一个，有 agent 做答疑这个功能，那好，这个答疑的功能怎么样做好？较好的，因为 AI 它不是100%。对吧？不是说你把这个功能链路聊完了，只要按照这功能链路做了，它就 100% 是对，它没有这个概念，它一定有一个准确率。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:45:35</span></div><div class="txt">你答疑有答疑的正确率，对吧？就是你如果用 AI 做，或者你用大模型做，它一定不是 100% 正确。那做到百分之多少正确可以上线？然后不正确的那部分怎么处理？要不要处理？怎么处理？这个是。 AI 产品你第一件要考虑的事。首先第一个事就是我怎么样去衡量准确率？答疑的准确率怎么去衡量？这个是相对简单的，你通过就是标注测评就能做。就是那你标注的方法是什么呢？就是我比如说用户输入一个用户的问题query，然后直接看他给出的答案，去标这个答案对还是不对。直接标对错。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:46:30</span></div><div class="txt">对吧？这是一种简单的评价方式，还有一种简单评价方式，除了对错之外，还有没有好坏之分？就是我给的答案对跟不对，这是一层，但是对用户的需求来说，用户只知道对错就可以了吗？就举个例子哈，就比如说一道题。选择题，你只告诉他A、 B 可以吗？A、B、C、 D 的，这哪选哪个可以吗？可能不行，对吧？你如果凭对错，可能就是我给的，正确答案是A，我告诉他的是不是A，这就是对错。只评对错，你的产品能是一个最好的产品，或者是一个用户期待的产品吗？他会好好用吗？你觉得会不会？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:47:21</span></div><div class="txt">不会。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:47:22</span></div><div class="txt">他不会，对不对？他不会，因为你，我这个大家都有经验，对吧？我们最后买那个什么，买一些练习题的时候，我们都会去看，哎，我买这套练习题最后的答案，他的解析给的详不详细？给的详不详细？看不看得懂？对吧？所以他的解析可能才是关键，所以在这种情况下，你的答疑的评价就不能只是对错。这种准确率层面的评价。你还要有好坏的评价，那涉及到好坏的评价就非常难了。就什么样的答疑算是一个好答疑？每个人都有每个人的理解，对吧？你要想办法把它能够描述出来、标准化出来，且能够被标注标出来。举个例子哈，比如说你这个答疑，它前后的就是就是我们刚才描述的，比如答疑解析够不够详细？是不是可以这么理解？详细，这是一个词，对吧？那详细怎么叫详细？你要再继续追问，什么叫详细？详细就是比如说这道题它的已知条件是什么？到这个这到最终的答案的结果中间有没有跳步？如果他跳步跳的，就是什么样的步允许他跳，什么样的步不允许他跳？是不是可以认为他详细？对吧？比如说一个数学推理，我们有因为什么所以什么，因为什么所以什么，因为什么所以什么，那这里面它一定有关键的推理过程不能缺。其他的推理过程可以缺，类似这样的逻辑，对吧？OK，你要定义的是这个。这只是第一层面，详细或者什么，对吧？类似这个层面，就你还有其他词，你可能要去想，对吧？然后除了这个详细之外，还要考虑一件事。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:49:18</span></div><div class="txt">你用 agent 是不是想提供一个个性化的服务？我还是举那个例子，比如一个好学生，你的答案写得太详细，解析写得太详细，他会不会觉得啰嗦？你这个差学生，如果你写的不够详细，他是不是看不懂？他俩的需求可能不一样。是不是这样？理想态的这种答疑，那我要不要去区分？肯定，这是最理想态，肯定是区分的。我能够通过你过去的学习的情况，然后我能够去分析你过去的，过往的学习，我根据你的这个情况来判断，诶，你就需要一个简版的答疑。另外的同学，我就发现他成绩比较差，对吧？或者这个知识点他掌握得不好，我就针对这个知识点给他详细的，给另外的知识点他掌握好了，我给他这个，不同版的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:50:19</span></div><div class="txt">对吧？是不是可以这么设计？如果你要这么设计，那你这个评价就又变得更复杂了。对吧？你可能要设计出答疑，我们有两种模式。可能三种模式，可能两种模式，可能怎么多种模式，比如两种模式，两种模式的评价标准是不一样的，你要分别评，同一个问题给过去。两种模式给答案，然后我评每一种的。优秀，优劣，好坏。对吧？就是如果要这么做的话，是这样。所以这个评价不是简单的对错。但是对你来说，你要选择哪种评价方式，这个是 AI 产品经理要去考虑的问题。那依据什么选择？其实刚刚我们聊的时候也发现这个问题了。就是我根据你到底追求的产品目标是什么？如果你的产品定位是一个能够提供个性化答疑服务的，那你就得把这个个性化明确出来，可能就是我刚刚说的第三种。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:51:35</span></div><div class="txt">如果你现在提供的就是一个先不考虑个性化，我第一期就是先做普通的答疑。能够正确回答问题，正给用户一个正确答案，能够让他快速找到答案，就只是这个目的去做答疑，那你第一层就够了。对吧？就能实现你的产品目标了。所以你看了吗？就是为什么我说产品要先定目标是什么？然后你才知道你怎么做。如果没有目标，你下边这个东西，你到底做到哪一层？这几种方法你都可以上线。对吧？然后再到你刚才，就是我们回到你刚才那个你的那个原始的那个 PRD 里写的那个所谓顶，叫什么顶尖的教育服务。这个顶尖怎么理解？如果你真的写的是顶尖，且是一步到位，我认为就是个性化的服务。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:52:34</span></div><div class="txt">哦。嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:52:40</span></div><div class="txt">但是这是我，除了个性的教育，还有没有别的？是吧？还有别的点，除了个性的，还有什么其他的吗？只是对错，他一定不是顶尖吧？所有做教育的，这是基础。他肯定做不到顶尖。好，这是说测评价，然后再来说第二个问题，就刚说的这个对错的问题，对吧？那如果他错了，你们现在是怎么办呢？有做这种处理吗？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:53:13</span></div><div class="txt">A，这个回答错了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:53:15</span></div><div class="txt">agent 回答错了会怎样？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:53:17</span></div><div class="txt">现在是有一个真人老师兜底，就是不会的还可以再问老师，或者是 agent 回答有问题还可以问老师。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:53:25</span></div><div class="txt">OK，这是一种策略，这种策略也是 AI 产品要定的。明白吧？不是现在有，现在有是你这个，你很明显就不是你做的，相当于，对吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:53:34</span></div><div class="txt">啊，对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:53:35</span></div><div class="txt">如果你来负责这个 agent 产品，你要去想，他如果错了，我现在要有真人兜底。这是你的策略，这是你 AI 产品要考虑的问题。但是这里边有一个前提是，你得能感知到它错了。你怎么样感知到它错的？对吧？你 AI 答不出来，用户能感知，我找真人兜底，对吧？或者你 AI 答不出来，他没有答案。或者他找到答案，你用的最终可能是一个 rag 检索，或者什么样的东西去检索他的答案。那检索完之后，他有一个答案置信度，当答案置信度小于多少时候，你不输出，然后这个时候要求人工介介入，这是一种策略。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:54:22</span></div><div class="txt">对吧？这是他没有召回，我们叫召回，你知道这个词的含义对不对？ AI 的召回，如果，答案未召回的情况下，我应该用什么方案去做？如果答案召回了，但是他出错了。我应该怎么感知，怎么去做？这个要去想，但是我感觉你们现在应该是在这个场景下，应该是感知不到答案错。除非用户给你反馈。那这有没有风险？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:54:53</span></div><div class="txt">有。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:54:53</span></div><div class="txt">如果有风险，你的准确率要求达到多少才能上线？你就有了准确率的依据。如果你具备这个感知错误的能力，且有后面的兜底的方案，我觉得那没问题，你可能准确率低一点没关系。但如果你没，完全没有办法去做这个事。那你的准确率要做到多少，它才能上线？是不得98、 99 的准确率？甚至说你要不要去拆分定义，什么样的问题允许他准确率低一点，什么样的问题是坚决不能错的？有没有这种？那如果你要求坚决不能错，那这个的实现方法。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:55:36</span></div><div class="txt">OK，那到测评到目标这个定完之后，你发现实验方法会不一样，你知道吧？如果你允许他一定的错误概率，你用 promote 是完全 OK 的。你用提示词，用Skill，用 Promote 去做，完全OK。有知识库自己去检索。如果你要求它的准确率到99，那你这个东西它可能就不是提示词的问题了，你要做工具去干这个事情。你这个你这个答案的检索这一步，压根就不能让模型自己去做，因为做它就有，一定会出错。你应该做的是什么？你该做的是直接跑数据库搜这道题的答案。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:56:14</span></div><div class="txt">现在的确是这样的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:56:14</span></div><div class="txt">不会出错的，对吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:56:16</span></div><div class="txt">嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:56:17</span></div><div class="txt">你这就有依据了。这样你才能，再往下你才能设计你的这个 AI 的实现链路。你的 agent 有很多手段，你可以写skill，可以做工具，然后你去检索知识库也有很多检索方法，你可以用 rag 去检索。你也可以去用这个这个什么只用向量检索，对吧？你可以做 query 改写，也可以不做 query 改写，你可以做总结，也可以不做总结，这些东西都是 AI 产品经理要做的决策跟设计。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:56:49</span></div><div class="txt">那这些设计的依据就是，首先你的准确率要做到多少？如果你准确率是90、93，那我成本最低的方法，我就写个 skill 放上去就完了。然后我的检索也可以很简单的，就直接基于现有的知识库，就人读的知识库直接做切片，直接做向量检索，就能实现。假如说你的要求是非常精准的，那我做这个数据处理的时候，我就要求检索的是一个结构化的题库。那如果有，你就有现成的，如果没有，你就只能是把这些文本化的题目先抽成这种结构化的题库，然后再用题结构化题库提供一个工具。然后把这个工具给过给到前面去。然后去做这个事情。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:57:38</span></div><div class="txt">现在其实确实是题库搜索的工具。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:57:40</span></div><div class="txt">后面的这种。可以做数据。因为你看，刚刚分析完这个场景，你会发现，它准确率要求极高。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:57:47</span></div><div class="txt">对啊，对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:57:48</span></div><div class="txt">你坚，你这个东西是坚决不能错的，所以你就必须得用这种方法去做这件事，所以你就理解这个事，就是产，诶，产品经理要干的是什么？就是根据这个分析完之后决定我要用这个功能。用这个方法。你要用这个方法之后怎么实现？这是现成的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:58:05</span></div><div class="txt">对对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:58:06</span></div><div class="txt">对吧？就是大家都这么，你要用这个就就这个方法，它就这个技术，对吧？那个就没有，不涉及到产品决策，那就成技术要求了。这只是举例子跟你讲清楚，就是 AI 产品经理做什么，这现在你能理解这个事了，对吧？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">00:58:23</span></div><div class="txt">对对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:58:23</span></div><div class="txt">然后你要分析的东西就是这个东西，然后具体的我也先不给你细讲了。然后往下之后，测评其实你刚才测评标准定了，后面的测评其实就简单了。就是人去标嘛，标完之后是是用双盲标啊，还是怎么标啊？怎么抽样啊？怎么去弄啊？测评唯一你需要考虑的是什么？就是你在上线前要有离线测评，对吧？离线测评数据怎么来？冷启动的话，你有没有足够的问题给他？就像测答疑的话。这是你要考虑的点。是人，如果没有数据，你人怎么去造这个数据？怎么去验证它尽可能接近真实？这是离线测评。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">00:59:03</span></div><div class="txt">然后离线测评完之后，上线，上线之后灰度，对吧？灰度对于 AI 产品来说，一定要灰度。就是你普通功能产品可能灰度可能还好一点，你 AI 产品一定要积累一些数据，你得先验证你线上的准确率是多少，就你线上上去之后。你还得再测。你还得再去评价，再去看他的这个线上的效果。然后再再到上线，上线之后可能还有后续持续的效果监控等等这些东西。对吧？这个就相对简单了，就不多说了。然后他的测评标准都是你原来那标准。有一个稍微注意的哈，就离线测评的标准可能跟线上的测评标准或测评方法可能会不一样。可能会不一样，你想想你的场景是不是一样？你场景应该大部分都一样，不存在不一样，所以你也不用管这个事了。我跟你稍微扩展一点啊，就什么情况下会不一样？我举个例子啊，你比如说我之前做一个项目是质检的项目，质检的项目我们离线测评的时候，我是测的是它的精准率。就是召回的准确率，以及未召，是不是正确召回，这些都看。但是到了线上之后发现一个问题，因为线上数据量足够，特别大，我没办法用那么多的资源去把线上去做检查。那我可能我就只检了他召回的那部分的准确率，没召回的我假定他准确，但是我知道他不准确，我就在线上不管了，因为可能对于用户来。对于我实际场景来说，那个也不那么重要，所以我只看召回的那部分，也就 AI 检出有问题的，然后我让人工复核，然后再看那波的准确率。所以它俩的指标就会有差异，这两个标准可能不一样。就是类似这样的哈，就是这种，就是你知道就行，对你的这个应该不太需要，一般都是用一样的做就可以了。好，然后测评完了，然后上线什么，这都 OK 了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:00:59</span></div><div class="txt">然后最终的结果回收，你在讲结果的时候，一个是你刚才定的那些目标。最终是不是完成了？再就是你过程的指标，就比如说你过程，刚刚我们分析 AI 的时候，过程要定准确率，对吧？准确率是过程指标。你准确率能做到多少？一开始做到多少？怎么提升到多少？对，这就是你的关键贡献。然后这些都，准确率这些东西弄完之后，最终能达成的业务收益目标是不是达成了？比如说你的留存，你有没有做到？做到了多少？对吧？那个结果要体现，这都是在你的结果里面去讲的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:01:35</span></div><div class="txt">老师这有个问题啊，就是准确率怎么反映留存呢？它不是只是其中一个点嘛，就留存它不是和其他。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:01:44</span></div><div class="txt">对，是的，就是准确率到留存这一步，你如果没法量化，你就只能是我，就是我们刚才分析那个逻辑嘛。对吧？比如用户要的是你的准确率，你准确率不够，用户肯定不用你，对不对？得准确率达到一定的标准，得做到99%，用户不能出错，我们假定用户只要出错了，他下次就不会再用你了。对吧？他就不是留存了嘛。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:02:14</span></div><div class="txt">哦哦，就是也是要界定一个量化的指标。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:02:14</span></div><div class="txt">明白吧？对，就是你刚才定准确率目标的时候，是围绕着你的，刚才我们不是聊了，对用户，对你理解的这个需求来的嘛？然后这个东西它就是最终会在流程上有体现，只不过这个体现的链路可能比较复杂，你不好把它量，完全量化，或者用数学逻辑把它描述得很清晰。对吧？但是你是拆解逻辑是清楚的，你要留存我就不能有，就我答案不能有错，有错了肯定不，肯定就不留存了。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:02:47</span></div><div class="txt">嗯，对。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:02:47</span></div><div class="txt">所以我的正确率要做到多少？这就有了准确率嘛，对吧？换句话说，准确率只有60%，你说这个功能能不能上线？连上线都上不了，对不对？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:03:01</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:03:02</span></div><div class="txt">就是你上线的，就是留存是由于你这个功能，首先你这个功能找对了，是用户需要的功能，这是第一个最关键的要素。第二是做，是用户需要这个功能，且你满足了用户的这个需要，准确率就是说满足了用户的需要，用户需要是 100% 不出错。所以留存你也要讲，留存是你最终的这个业务效果、业务收益的衡量。行吧，然后我们，你再把简历打开，我们快速地把简历过一下，然后我跟你说一下，你下去去改。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:03:37</span></div><div class="txt">好，等一下。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:04:07</span></div><div class="txt">你是不是要切一下投屏啊？你现在投，可能还是刚才的。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:04:10</span></div><div class="txt">啊，对对对，我等一下直接投到谷歌的。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:04:13</span></div><div class="txt">嗯，好。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:04:14</span></div><div class="txt">我说等一下。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:04:39</span></div><div class="txt">嗯，好了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:04:42</span></div><div class="txt">你看你，我们就你，就以第一个为例哈，后边的你就按照这个结构去去说，对吧？第一个你看你业务背景这部分就是你要写的，对不对？是这样的哈，你首先你在高顿的这个东西，你要有一个，有一个工作职责的概述，跟项目无关。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:05:02</span></div><div class="txt">我做什么东西，是吧？</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:05:03</span></div><div class="txt">对你在这你承担的，你的岗位是什么？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:05:04</span></div><div class="txt">你。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:05:07</span></div><div class="txt">这个岗位的职责是什么？或者你的 OKR 是什么？</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:05:10</span></div><div class="txt">哦，明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:05:11</span></div><div class="txt">对吧？把这个说清楚，然后说完之后，紧接着只说概述还不行哈，你稍微说一下，在你任内，你达成了什么效果？达成了什么成果，要在第一句话，这个不要超过两到三行。就在你这个工作经历下面，先写这个，写完这个之后，就接着就紧跟着你在这份工作里面的项目。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:05:40</span></div><div class="txt">考公，什么 agent 助手，是吧？这是项目。然后写项目的时候，先写背景和目标，这个大概两到三行。是吧？然后背景目标写完了之后，然后就是就是目标拆解和实现方法，就是把你那个逻辑写清楚，也大概两到三行。然后再往下是你的这个你的亮点，或者是你的这个关键贡献的地方，就关键点，实现这个目标最核心的几个要素，对于你来说。你就直接写那个就是怎么写那个 agent 的。就是准确率怎么样？就是你的 agent 要求 100% 准确，对吧？答疑这正确率不能错，这是一个关键点。如果你这个关键点做不到，它就肯定不行，对吧？然后那这个关键点你怎么实现的事？根据这个你分析了几种实现路径。然后最终选定这种时间路径才能满足这个事情，所以你们在设计的时候，你的 skill 承担了什么功能？然后你的哪部分功能在在这个什么里？再用工具去做。然后最终通过测评达到了多少，这是一个点。第二个有没有第二个点？你可以类比着这个去想想，可以写两到三个点，如果没有写一个点也OK。这个东西会是你，那就是比较重点的一趴。然后写成果。成果也知道怎么写了，就是成果就是既有过程指标达成了效果，就关键过程指标，就对 AI 来说关键过程指标跟准确率达成了多少。是吧？然后那个什么你最终的业务效果。上线之后，他的就是这个留存或者什么达到什么效果，这写成果的部分。然后后面的东西也都按照这个逻辑去做。去整理。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:07:31</span></div><div class="txt">明白。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:07:32</span></div><div class="txt">行。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:07:32</span></div><div class="txt">嗯。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:07:35</span></div><div class="txt">嗯，行，你看看还有啥问题吗？然后没有问题的话，你就就反正作业就是你先照按照这个去把你的简历，就是直接去改简历，改完简历你就发群里面，我先远程。不用约课，先远程，你先用那个什么，用飞书写。完我好在上面不是可以评论嘛，我就直接给你评论。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:07:51</span></div><div class="txt">嗯，好。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:07:51</span></div><div class="txt">然后我们先把内容给搞好，然后你再回来调格式。你看还有问题吗？嗯。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:07:57</span></div><div class="txt">没有问题了。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:07:59</span></div><div class="txt">行，没有问题的话，我们今天就到这，然后有什么事你直接在群里随时找我。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:08:04</span></div><div class="txt">嗯，好，谢谢老师。</div></div>
+<div class="msg te"><div class="who">徐文亚<span class="ts">01:08:06</span></div><div class="txt">行，好嘞，拜拜。嗯。</div></div>
+<div class="msg me"><div class="who">周文熙<span class="ts">01:08:07</span></div><div class="txt">拜拜。</div></div>
+</div>
+</div>
+
+<aside class="aside">
+<nav class="toc">
+  <h2>目录</h2>
+  <ol>
+    <li><a href="#summary">一、AI 智能摘要</a></li>
+    <li><a href="#overview">二、整体时间线总览</a></li>
+    <li><a href="#timeline">三、逐段时间线（含要点）</a></li>
+    <li><a href="#todos">四、行动清单</a></li>
+    <li><a href="#quotes">五、关键金句</a></li>
+    <li><a href="#knowledge">六、课堂知识点</a></li>
+    <li><a href="#chat">七、完整转文字稿</a></li>
+  </ol>
+  <a class="gotop" href="#top">↑ 回到顶部</a>
+</nav>
+</aside>
+</div>
+
+<footer>
+  由飞书妙记自动转写与 AI 摘要整理 · 说话人分离 188 段<br>
+  生成于本机 · 单文件自包含
+</footer>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.toc a[href^="#"]'));
+  var ids=links.map(function(a){return a.getAttribute('href').slice(1);});
+  var secs=ids.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  function onScroll(){
+    var y=window.scrollY+120, cur=secs[0];
+    secs.forEach(function(s){ if(s.offsetTop<=y) cur=s; });
+    links.forEach(function(a){
+      a.classList.toggle('active', cur && a.getAttribute('href')==='#'+cur.id);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>

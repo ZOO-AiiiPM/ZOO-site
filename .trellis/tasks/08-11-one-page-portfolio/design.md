@@ -1,145 +1,88 @@
-# Design: 一页式求职网站改造
+# Design: Winston 连续画布
 
-## Design Thesis
+## 当前动效切片
 
-这是 Zoo 面向 AI 产品经理校招 / 实习的互动作品年鉴。页面先用清晰的内容层级证明判断力，再在 Hero、项目换页、编辑校对笔光标和 Ask Zoo 四处释放趣味。
+### 背景增强反馈
 
-单一工作：让招聘方在一次连续浏览中相信 Zoo 能把模糊问题变成可交付产品，并愿意继续联系或向 AI 分身追问。
+用户要求增加图形花样，且向下滚动时背景大幅加速。本轮仅修改背景组件：增加花瓣、棋盘、像素阶梯、同心环等组合几何；下滚速度重点驱动向上穿行位移而不只是旋转，停下后平滑回落，屏幕外循环回收。保持主题色、正文与页尾不变。
+
+首页专属 Motion 组件持有 Lenis 与单一 RAF，背景用有限数量的几何 DOM 元素与 transform 移动，速度由 Lenis.velocity 平滑驱动，不逐帧更新 React state。低对比度固定背景不拦截指针，正文位于其上。隐藏页暂停 RAF，恢复时重置时间基准；卸载销毁 Lenis/监听/RAF。系统减少动态效果时使用静态版本。新页尾的三行 WINSTON 使用连续循环位移，角色+名言和 Blog/Wiki 占一行，图标联系方式占下一行。保留导航/页尾结构线和聊天控件边框，去除章节分割线。
+
+## 当前试版方向 · 2026-09-05
+
+### 首屏反馈修正
+
+用户实屏反馈上一版「太乱」。本次仅收敛首屏与导航：姓名、中文介绍和头像分区，不互相遮挡；移除临时身体、轨道、菱形与棋盘装饰、四角标签。沿用现有像素头像，降低其尺度；单行紧凑导航，清楚的文字层级。以清晰的主次关系替代上一版中央巨型角色与多层文字覆盖，其他章节暂不改动。
+
+参考 KUMALEON About 实屏：外缘框架、紧凑结构导航、中央大型角色、图形与标题重叠、圆形/菱形等几何段落。迁移为黑底与现有绿紫色，Winston 是首屏主角，正文区域不保留遮挡内容的 fixed 角色。首页允许重构整体布局，保留锚点与聊天接口。中文按自然语义断行，经历文字恢复中等可读字号，项目占位缩减。当前用户允许其他样式变化，覆盖下文旧版悬浮角色与导航限制。
+
+## Thesis
+
+页面是一张从 Hero 向下延伸的纯黑结构化画布。像素 Winston 是唯一持续存在的视觉主角，随滚动在 7 个主节点之间换位、拆解和重组，引导招聘方完成一条连续求职叙事，最终进入真实 Ask Winston 对话。
+
+设计参数：`DESIGN_VARIANCE: 7`，`MOTION_INTENSITY: 6`，`VISUAL_DENSITY: 3`。
 
 ## Visual System
 
-### Color Tokens
+- Canvas：沿用纯黑背景，不做 Scene 级换色。
+- Action/Focus：现有 `--green: #6EE7B7`。
+- Thought/Transition：现有 `--purple: #A78BFA`。
+- Text/Grid：沿用全局白色、次级文字和边框 token，通过透明度派生。
+- 形状：画布节点和产品容器以直角细边框为主，避免混杂圆角体系。
+- 背景语言：局部细网格、坐标线、轨迹、扫描边界、少量绿色/紫色像素模块；网格部分区域退隐。
 
-- `Night Paper #090A0C`：主背景，接近印刷黑而非纯黑。
-- `Raised Paper #13161A`：项目跨页和弹窗层。
-- `Milk Ink #F2EEE6`：主文字与粗线，带纸张温度。
-- `Ice Blue #A9D8FF`：圈选、active 状态、路径和主要动作。
-- `Signal Blue #4F8DFF`：少量高对比状态，不做大面积渐变。
-- `Pencil Gray #8C929B`：次级文字、日期与辅助线。
-
-禁止把现有绿色 / 紫色霓虹渐变、终端提示符、代码标签和像素画继续作为主视觉语言。
-
-### Typography
-
-- Display：极粗 / 可压缩的 grotesk（无衬线）负责英文封面字、章节标题与姓名。
-- Chinese display：高字重现代中文黑体，保证中文大标题与英文重量匹配。
-- Body：人文无衬线负责中文叙事，字面开放、长段耐读。
-- Utility：等宽字体仅用于时间、URL、章节编号和状态。
-- 字体文件随构建自托管；不使用外部 CDN。
-
-### Structural Language
-
-- 2px 米白粗线定义页边、章节与卡片，不使用泛滥的圆角卡片。
-- 章节标题像年鉴索引：英文大字 + 中文短句 + 当前页码。
-- 编号只用于真实序列：经历时间、Project 01 / 02、能力矩阵坐标。
-- 图片优先保持项目真实截图，不套通用浏览器 mockup；需要设备框时只保留最少边界。
-
-### Signature Interaction
-
-“编辑校对笔”是全站唯一持续存在的视觉签名：默认保留系统指针语义，视觉层跟随但不截获事件；进入链接、按钮、项目图时显示圈选、下划线或 `VIEW / OPEN / ASK / SEND` 动作词。文本、表单、触屏与 reduced-motion 环境关闭增强层。
-
-## Page Rhythm
+## Spatial Model
 
 ```text
-┌─────────────────────────────────────────────────────────────┐
-│ ZOO                         HOME WORK PROJECTS SKILLS CONTACT │
-├─────────────────────────────────────────────────────────────┤
-│ HERO: 求职信息 / 教育       SVG: 模糊 → 判断 → 可交付         │
-├─────────────────────────────────────────────────────────────┤
-│ WORK                         中轴时间线 + 可锁定详情          │
-├─────────────────────────────────────────────────────────────┤
-│ PROJECT 01                   左叙事 / 右截图                   │
-│ PROJECT 02 从底部覆上        左叙事 / 右截图                   │
-├─────────────────────────────────────────────────────────────┤
-│ SKILLS                       能力 × 工具 × 项目证据           │
-├─────────────────────────────────────────────────────────────┤
-│ CONTACT                      头像与渠道 / 站内邮件表单        │
-├─────────────────────────────────────────────────────────────┤
-│ ASK ME ANYTHING              AI PERSONA / PROMPTS            │
-├─────────────────────────────────────────────────────────────┤
-│ ZOO                          BACK TO TOP                     │
-└─────────────────────────────────────────────────────────────┘
-                                            ● AI 分身浮动入口
+Hero → Work Hub (3 micro nodes) → mewmo → Ask Winston Project
+     → Skills Cluster (5 capabilities) → Contact → Ask Winston Chat → Footer
 ```
 
-## Section Contracts
+画布约 10-12 个 900px 高视口。节点自由错落但共享隐形网格、安全边距和向下阅读方向。普通文字直接落在画布上，真实截图和聊天窗口才使用容器。
 
-### Navigation
+## Runtime Architecture
 
-- sticky 顶栏左侧姓名、右侧目录。
-- 点击使用原生锚点与平滑滚动；滚动状态由章节可见性驱动，不依赖 hash 事件。
-- active 以冰蓝圈选 / 下划线表达，并同步更新 hash，支持复制深链。
-- 移动端使用紧凑横向目录或可展开目录，不隐藏任何章节入口。
+```tsx
+<PortfolioPage>
+  <CanvasBackground /> <CanvasNavigation /> <WinstonStage />
+  <PortfolioCanvas>
+    <HeroNode /> <WorkNode /> <ProjectNode /> <AskProjectNode />
+    <SkillsNode /> <ContactNode /> <AskWinstonNode />
+  </PortfolioCanvas>
+  <MinimalFooter />
+</PortfolioPage>
+```
 
-### Hero
+- 页面组合与静态内容尽量保留 Server Component；滚动运行时、背景、Winston、导航为独立 Client islands。
+- Node contract 提供稳定 id、observer target、桌面位置、Winston 姿态、背景状态和 reduced-motion 姿态。
+- IntersectionObserver 负责 active node；Motion `useScroll`/`useTransform` 负责连续 transform/opacity，不用 React state 追踪每帧滚动，不引入 GSAP/Lenis。
+- Ask Winston chat state 与 scroll state 隔离，保持 `/api/chat` 和 `/ask-zoo` 兼容。
 
-- 左侧固定信息顺序：姓名 → AI 产品经理校招 / 实习 → 一句价值主张 → 学校 / 专业 / 学历。
-- 右侧 SVG 由散落的 brief fragments 进入决策路径，最终收束为清晰产品框。
-- 校对笔移动到路径节点时，只揭示一句决策说明；不制作自由拖拽画布。
+## Winston Model
 
-### Work
+将现有头像拆成有限数量的稳定像素块。每个块为 Hero、Work、Projects、Skills、Contact、Chat 定义目标 transform/opacity；只制作少量观察、思考、确认、在线状态。到 Chat 时脸部落入头像位，其余模块只做短过渡，不强行把所有边框解释为角色。
 
-- 时间由近及远，桌面使用中轴线；节点是真实时间序列。
-- heading 始终展示公司、岗位、时间；details 展示任务、行动、结果与使用能力。
-- hover/focus 只预览；click/Enter 锁定；同一时刻仅一个条目锁定。
-- 移动端改为左侧时间线 + tap accordion，默认展开最近一条。
+## Node Composition
 
-### Projects
+- Hero：WINSTON 与完整像素角色共同为一级视觉；首次滚动拆分并移动到 Work。
+- Work：一条轨迹经过 3 个经历停靠点，当前点完整可读，前后点低权重预示路径。
+- mewmo：一张真实截图为一级视觉；无素材时明确占位，禁止虚构 Signal Desk。
+- Ask Winston Project：只讲产品动机和判断，不重复最终聊天。
+- Skills：5 个大型能力词组成一个组合构图，Tools/Methods 为次级文字，不做表格或关系图工具。
+- Contact：只保留直接联系方式，收束到 Winston。
+- Ask Winston：窗口从 Winston 周围展开至约 70% 视口，可短暂 sticky 但不劫持滚动。
 
-- 两个项目各为一张完整年鉴页，内容字段一致：标题、产品一句话、问题、本人工作、结果、官网、GitHub、时间、截图。
-- 桌面使用 CSS sticky：Project 02 从底部覆盖 Project 01，边缘保留编号让用户知道上一页仍在下方。
-- 不做真实 3D 折页；移动端和 reduced-motion 直接纵向排列。
-- 页面内使用 `01 / 02` 进度标识，不另建项目索引 route。
+## Navigation and Cursor
 
-### Skills
-
-- 横轴为能力场景，纵轴为工具 / 方法；每个主要交叉点链接到 Work 或 Project 证据。
-- 第一层候选能力：研究与定义、数据与验证、原型与交付、AI 产品化、协作与推进。
-- 不显示自评星级、百分比或无法验证的“精通”。
-
-### Contact
-
-- 左侧头像与 GitHub、邮箱、电话、微信；敏感联系方式是否完整公开由最终真实内容决定。
-- 右侧字段为回复邮箱、主题、正文；提供提交中、成功、校验失败、服务失败状态。
-- 邮件从服务端发送；客户端不暴露密钥。增加 honeypot、长度限制和速率限制。
-- 发送服务选用 Resend：服务端固定 `from`，访客地址只进入 `replyTo`；成功文案表达“已提交发送”，不声称已送达。
-- 首版不使用 Turnstile：其前端脚本无法本地化，与国内访问不依赖外部 CDN 的约束冲突。若实际出现垃圾提交，再单独评估不阻断表单的反滥用升级。
-
-### Ask Zoo
-
-- 右下浮动头像按钮，hover/focus 出现 `Ask me more`。
-- 点击用原生 `<dialog>.showModal()` 打开居中大窗口和背景遮罩；窗口保留头像、快捷提示词、消息流、输入与关闭。
-- AI 是 Zoo 的开放式分身，但个人事实只允许来自已提供材料；快捷问题优先服务招聘浏览。
-- 到 Ask 章节时，浮动按钮平滑归位到 AI persona 舞台；离开章节后恢复右下浮动，DOM 中保持同一个触发器，避免焦点丢失。
-- 旧 `/ask-zoo` 首版保留为独立 fallback，与首页 dialog 复用 `ChatPanel`；不使用 Parallel / Intercepting Routes。
-- SSE 消费器必须缓冲跨网络 chunk 的残片，并在窗口关闭时 abort 当前请求。
-
-## Component and Data Boundaries
-
-- `app/page.tsx` 只负责章节组合与页面级数据注入。
-- 页面专属组件放入根页面的 private component 目录，拆分 Nav observer、Hero visual、Work timeline、Project stack、Skills matrix、Contact form、Ask Zoo dialog、proofing cursor。
-- 经历、项目、技能、联系方式和快捷提示词收敛为一份 typed data module，mock 与真实内容只替换数据，不改布局。
-- 现有 `/api/chat` SSE 契约保持；聊天状态与渲染从独立页面抽成可复用 hook / component。
-- 邮件新增独立服务端 route；与聊天限流逻辑分开。
-
-## Motion and Accessibility
-
-- Motion 负责 Hero SVG、Project scroll-linked 状态和 Ask Zoo `layoutId` shared transition；原生 CSS sticky 承担章节固定，IntersectionObserver 承担目录 active 与基础 reveal。
-- 不引入 GSAP ScrollTrigger 或 Lenis：当前只有两个项目，完整 timeline / smooth-scroll 引擎的收益不足以覆盖复杂度与无障碍风险。
-- 所有动画仅使用 transform / opacity，避免滚动中改变大块布局。
-- `prefers-reduced-motion` 关闭平滑滚动、跟随光标、覆盖式转场和 morph，内容仍完整可读。
-- 原生 `<dialog>` 必须验证 Escape 关闭、恢复触发器焦点、背景不可交互和移动端全屏状态。
-- 自定义交互全部提供 keyboard / touch 等价行为；颜色不是唯一状态线索。
+Hero 内显示完整顶栏；离开 Hero 后收起为左侧节点轨迹，只显示当前名称，其余为点；返回 Hero 恢复。两态共享 anchor 数据。自定义光标改为 pointer-events-none 的像素准星/圈选工具，文本选择、输入、键盘和 reduced-motion 时安全降级。
 
 ## Compatibility and Rollback
 
-- 实施前创建 `feature/one-page-portfolio`，不在 main 上做 WIP。
-- 保留现有聊天 API；先完成静态章节与数据结构，再接邮件和聊天弹窗。
-- 每个切片保持可运行；用户测试前不 merge / push。
-- 旧页面文件和耗时资产不删除；确认新页面稳定且用户明确要求清理后再处理遗留文件。
+保留公开 URL、现有首页 anchor、`/api/chat` 和旧 `/ask-zoo`。旧组件先保留，按切片替换。Winston motion、背景 motion、导航 motion 可分别关闭，静态画布始终可作为回退。
 
-## Deferred Content
+## Verification Gates
 
-- 真实实习文案、项目截图、学校 / 专业、电话、微信和头像资产。
-- 精确字体文件与许可核验。
-- Resend 发件域名验证、收件地址与环境变量配置。
+1. Hero → Work 短原型通过视觉、滚动、遮挡和性能检查。
+2. 静态 7 节点画布可读，导航与锚点正确。
+3. 加入 Winston/背景 motion 后验证 1440×900、1280px 和 reduced-motion。
+4. 回归聊天、键盘、构建、lint、控制台错误与滚动性能。

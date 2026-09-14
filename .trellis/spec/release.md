@@ -49,10 +49,26 @@ DNS 生效后 HTTPS 证书自动签发，实测约 100 秒。
 |------|------|
 | `DEEPSEEK_API_KEY` | DeepSeek API key |
 | `DEEPSEEK_BASE_URL` | `https://api.deepseek.com` |
+| `WIKI_AI_API_KEY` | Wiki AI 助手（`/api/wiki-chat`）API key（Google Gemini） |
+| `WIKI_AI_BASE_URL` | Gemini OpenAI 兼容端点：`https://generativelanguage.googleapis.com/v1beta/openai/` |
+| `WIKI_AI_MODEL` | Wiki AI 助手模型，默认 `gemini-flash-latest` |
 
 本地在 `.env.local`（不入库），生产在 Vercel 项目环境变量。**两边都要改**，只改一边会导致本地正常线上挂（或反之）。
 
 模型：`deepseek-v4-flash`，必须带 `thinking: { type: "disabled" }`（见 gotchas 第 7 条）。
+
+### Wiki AI 助手（`/api/wiki-chat`）
+
+基于 `app/wiki/data.ts` 的词条内容做知识库问答，与 `/api/chat`（赛博分身角色扮演）分开：
+
+- **上下文**：system prompt 注入当前词条正文，并按问题关键词**跨两套 wiki** 检索最多 6 条相关词条（总预算 12k 字符）
+- **`entryId` 可选**：常驻面板的对话历史跨页面共享，切页后提问可能已无对应词条；缺省/无效时退化为全局知识库问答（不报 400）
+- **模型后端**：Google Gemini，走官方 **OpenAI 兼容端点** `/v1beta/openai/`，因此仍用 OpenAI SDK，流式解析无需改动
+- **模型名**：`gemini-flash-latest`（官方别名，指向当前最新 flash）。换具体版本时只改 `WIKI_AI_MODEL`，不必动代码
+- **与 hy3 的差异**：Gemini 不返回 `reasoning_content`，`reasoning=true` 的 keep-alive 事件不会再出现，前端进入“正在生成…”分支（逻辑已兼容两者）
+- **错误兜底**：模型返回前出错 → 502 + 原始 detail（如 `API key not valid`）；流中途断开 → SSE 内 `{error}` 事件 + `[DONE]`
+- **本地验证技巧**：本机访问不了 Google 时，可把 `WIKI_AI_BASE_URL` 指到一个本地 stub（模拟 `/v1beta/openai/chat/completions` 的 SSE 响应），能验证整条链路（模型名/鉴权/流式解析/错误处理），只是拿不到真实答案
+- **验证**：`curl -sN -X POST -H 'Content-Type: application/json' -d '{"entryId":"jtbd","messages":[{"role":"user","content":"什么是 JTBD"}]}' http://localhost:3456/api/wiki-chat`
 
 ## CLI 版本差异
 

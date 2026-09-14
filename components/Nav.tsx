@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { CSSProperties, MouseEvent } from "react";
 import { useEffect, useState } from "react";
-import { PixelAvatar, PixelLogo } from "@/components/PixelArt";
+import { PixelAvatar } from "@/components/PixelArt";
 import { jumpToPageTop } from "@/app/_components/homeScroll";
 
 const homeLinks = [
@@ -19,6 +19,7 @@ const homeLinks = [
 const legacyLinks = [
   { href: "/#work", label: "Work" },
   { href: "/#projects", label: "Projects" },
+  { href: "/wiki", label: "Wiki" },
   { href: "/#contact", label: "Contact" },
   { href: "/ask-zoo", label: "Ask Winston" },
 ];
@@ -29,6 +30,9 @@ export function Nav() {
 
   useEffect(() => {
     if (pathname !== "/") return;
+    // The portfolio owns its anchors and active state; the hidden legacy
+    // navigation must not rewrite the hash using its former section order.
+    if (document.querySelector(".home-portfolio")) return;
     const sections = homeLinks
       .map(({ id }) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
@@ -131,9 +135,9 @@ export function Nav() {
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <Link href="/" className="nav-logo">
+        <Link href="/" className="nav-logo" aria-label="Winston，回到首页">
           <PixelAvatar size={28} />
-          <PixelLogo />
+          <span className="nav-wordmark">WINSTON</span>
         </Link>
         <div className="nav-links">
           {legacyLinks.map(({ href, label }) => (

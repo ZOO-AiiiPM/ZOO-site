@@ -171,7 +171,7 @@ export function AskZooPrototype() {
 
   return (
     <div className="home-ask-host">
-      <div className="home-ask-panel" aria-label="与 Winston 的 AI 分身对话">
+      <div className="home-ask-panel" role="region" aria-label="与 Winston 的 AI 分身对话">
         <header className="home-ask-header">
           <div className="home-ask-heading">
             <span className="home-ask-header-avatar" aria-hidden="true"><PixelAvatar size={36} /></span>
@@ -183,6 +183,8 @@ export function AskZooPrototype() {
           <div
             ref={contentRef}
             className={`home-ask-content${messages.length === 0 ? " is-empty" : ""}`}
+            tabIndex={0}
+            aria-label="对话内容"
           >
             {messages.length === 0 ? (
               <>
@@ -238,6 +240,7 @@ export function AskZooPrototype() {
                   <input
                     ref={inputRef}
                     id="home-ask-input"
+                    aria-label="输入想了解的问题"
                     value={question}
                     onChange={(event) => {
                       setQuestion(event.target.value);

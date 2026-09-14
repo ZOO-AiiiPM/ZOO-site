@@ -43,7 +43,7 @@ const BELIEFS = [
 const CONTACTS = [
   { flag: "--twitter", value: "@zoo", link: "→ twitter.com", href: "https://twitter.com" },
   { flag: "--jike", value: "Winston", link: "→ okjike.com", href: "https://okjike.com" },
-  { flag: "--github", value: "zoo", link: "→ github.com", href: "https://github.com" },
+  { flag: "--github", value: "ZOO-AiiiPM", link: "→ github.com", href: "https://github.com/ZOO-AiiiPM" },
   { flag: "--email", value: "zoo@example.com", link: "→ mailto:", href: "mailto:zoo@example.com" },
 ];
 

@@ -54,6 +54,10 @@
 
 ## Nav 交互
 
+首页独立画布使用 `app/page.tsx` 内的 `.home-nav`。共享 `Nav` 在首页可能输出 `.home-topnav`，因此首页 CSS 必须用 `body:has(.home-portfolio) > .home-topnav` 隐藏旧导航，不能只隐藏 `.nav`；否则会多出 48px 导航，导致首屏越过视口。其他路由继续使用共享导航。
+
+隐藏样式不会停止旧导航 effect。`components/Nav.tsx` 在检测到 `.home-portfolio` 时跳过旧首页滚动 effect，避免旧章节顺序重写 URL hash（如新页尾 Contact 被改成 `#ask`）。
+
 active tab = 绿色文字 + 紫色 `>` 前缀 + 紫色下划线。下划线是绝对定位 div，JS 算位置 + CSS transition 滑动。用 `usePathname()` 判断当前路由。导航文案首字母大写英文 monospace（Home/Blog/Projects/About/Ask Zoo）。
 
 首页会通过 JS 修改 nav 的样式（scroll morph），改 Nav 组件时留意与 `app/page.tsx` 的耦合。

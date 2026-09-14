@@ -1,0 +1,171 @@
+.home-motion-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.home-motion-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.17;
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 25vw 360px;
+  background-position: 12.5vw 0;
+  transform: translate3d(calc(var(--home-pointer-x, 0) * -4px), calc(var(--home-pointer-y, 0) * -4px), 0);
+  transition: transform 500ms ease-out;
+}
+
+.home-motion-shape {
+  position: absolute;
+  display: block;
+  width: var(--home-shape-size);
+  height: var(--home-shape-size);
+  color: var(--green);
+  opacity: 0.35;
+  will-change: transform;
+}
+
+.home-motion-purple { color: var(--purple); }
+
+.home-motion-ring,
+.home-motion-orbit {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.home-motion-ring::before,
+.home-motion-ring::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.home-motion-ring::before { width: 1px; height: 100%; left: 50%; }
+.home-motion-ring::after { height: 1px; width: 100%; top: 50%; }
+
+.home-motion-orbit { opacity: 0.24; }
+.home-motion-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 24% -12%;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transform: rotate(-32deg);
+}
+
+.home-motion-tiles {
+  background: conic-gradient(currentColor 25%, transparent 0 50%, currentColor 0 75%, transparent 0);
+  border: 1px solid currentColor;
+}
+
+.home-motion-diamond {
+  border: 5px solid currentColor;
+  rotate: 45deg;
+}
+
+.home-motion-cross {
+  background: currentColor;
+  clip-path: polygon(38% 0, 62% 0, 62% 38%, 100% 38%, 100% 62%, 62% 62%, 62% 100%, 38% 100%, 38% 62%, 0 62%, 0 38%, 38% 38%);
+}
+
+.home-motion-grid.home-motion-shape {
+  inset: auto;
+  border: 1px solid currentColor;
+  opacity: 0.32;
+  background-image:
+    linear-gradient(to right, currentColor 1px, transparent 1px),
+    linear-gradient(to bottom, currentColor 1px, transparent 1px);
+  background-size: 33.333% 33.333%;
+  background-position: 0 0;
+}
+
+.home-motion-triangle {
+  background: currentColor;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.home-motion-bars {
+  background: repeating-linear-gradient(to right, currentColor 0 4px, transparent 4px 13px);
+}
+
+.home-motion-checker {
+  background: conic-gradient(var(--green) 25%, var(--purple) 0 50%, var(--green) 0 75%, var(--purple) 0);
+  background-size: 50% 50%;
+}
+
+.home-motion-pinwheel {
+  border-radius: 50%;
+  background: conic-gradient(var(--purple) 0 25%, transparent 0 50%, var(--green) 0 75%, transparent 0);
+}
+
+.home-motion-pinwheel::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  border: 1px solid var(--green);
+}
+
+.home-motion-target {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.home-motion-target::before,
+.home-motion-target::after {
+  content: "";
+  position: absolute;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.home-motion-target::before { inset: 17%; }
+.home-motion-target::after { inset: 36%; background: var(--purple); }
+
+.home-motion-stairs {
+  background: currentColor;
+  clip-path: polygon(0 75%, 25% 75%, 25% 50%, 50% 50%, 50% 25%, 75% 25%, 75% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.home-motion-dots {
+  background-image: radial-gradient(circle, currentColor 2px, transparent 3px);
+  background-size: 25% 25%;
+}
+
+.home-motion-split-disc {
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: linear-gradient(to right, var(--green) 50%, var(--purple) 50%);
+}
+
+.home-motion-hourglass {
+  background: linear-gradient(to bottom, var(--purple) 50%, var(--green) 50%);
+  clip-path: polygon(0 0, 100% 0, 60% 50%, 100% 100%, 0 100%, 40% 50%);
+}
+
+.home-motion-nested {
+  border: 2px solid currentColor;
+  rotate: 45deg;
+}
+
+.home-motion-nested::after {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border: 2px solid var(--green);
+}
+
+.home-motion-petal {
+  border-radius: 0 100% 0 100%;
+  background: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-motion-shape { will-change: auto; }
+  .home-motion-grid { transform: none; transition: none; }
+}

@@ -282,6 +282,17 @@ a:hover {
   align-items: center;
   gap: 8px;
 }
+.nav-wordmark {
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  transition: color 0.15s;
+}
+.nav-logo:hover .nav-wordmark {
+  color: var(--green);
+}
 .home-hero-avatar {
   transform-origin: top left;
   will-change: transform;

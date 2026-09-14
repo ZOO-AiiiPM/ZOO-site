@@ -28,6 +28,18 @@ useEffect(() => {
 
 ## cleanup 是硬要求
 
+### 首页阻尼和背景（HomeMotion）
+
+`app/_components/HomeMotion.tsx` 独占一个 Lenis 实例和一个 RAF；在同一循环调用 `lenis.raf(time)` 并直接更新 `.home-motion-shape` 的 transform，不通过 React state 保存每帧位移。18 个几何元素分层向上穿行并在视口外循环：下滚最高 20 倍、上滚最高 5 倍，快速响应后平滑回落；旋转独立保持克制。
+
+- `prevent` 必须保留 `.home-ask-content`，聊天历史内部使用原生滚动。
+- 首页锚点（含页尾 Top）使用 `href="#about"` 等，由 `anchors: true` 处理，不同时叠加原生 smoothScroll。
+- reduced-motion 动态变更时销毁/重建 Lenis，静态状态无后台 RAF；`visibilitychange` 隐藏时取消 RAF，恢复时重置帧时间。
+- 卸载取消 RAF、destroy Lenis、移除媒体查询和 visibility 监听，避免影响其他页面。
+- 背景固定 z-index 0 且 pointer-events:none；首页 nav/canvas-content 为 z-index 1，正文区保持透明背景。
+
+验证时分别检查空闲位移、滚动加速和衰减、聊天内滚动、切换 reduced-motion、离开首页后 Lenis class 移除。
+
 全站动画都直接摸 DOM 和全局对象，**每个 effect 必须写 cleanup**。尤其注意：
 
 - 首页 effect 修改了 **nav 的全局样式**（`overflow`、`transform` 等），cleanup 要完整恢复，否则切页后 nav 残留错误样式

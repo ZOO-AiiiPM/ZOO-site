@@ -23,7 +23,7 @@ app/about/about.css
 components/cli-animations.css   ← 由 CliAnimations.tsx 自己 import
 ```
 
-首页样式在 `globals.css` 里（用 `.home-*` 前缀），没有单独的 `home.css`。`ask-zoo` 同理。
+首页样式现在位于 `app/home.css`，由 `app/page.tsx` 导入，仍使用 `.home-*` 前缀。`globals.css` 保留全站 token 和旧页面样式。首页专用组件位于 `app/_components/`，其中 `AskZooPrototype.tsx` 保留首页对话逻辑；首页经历与能力数据在 `app/portfolio-data.ts`。
 
 **CSS 无作用域隔离**（不是 CSS Modules），靠命名前缀防冲突：`.home-*` / `.blog-*` / `.projects-*` / `.about-*` / `.cli-*`。新增类名必须带前缀。
 
