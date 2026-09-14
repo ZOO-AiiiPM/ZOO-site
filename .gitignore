@@ -54,3 +54,6 @@ screenshots/
 .qoder/
 .trae/
 .workbuddy/
+
+# 本地中间产物（wiki 抓取/拆分稿/备份，不入库）
+tmp/

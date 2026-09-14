@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Albert_Sans, JetBrains_Mono, Noto_Sans_SC } from "next/font/google";
+import { Albert_Sans, JetBrains_Mono, Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
 import "./globals.css";
 import { Spotlight } from "@/components/Spotlight";
 import { Nav } from "@/components/Nav";
@@ -14,6 +14,16 @@ const albertSans = Albert_Sans({
 
 const notoSansSC = Noto_Sans_SC({
   variable: "--font-noto-sans-sc",
+  weight: "variable",
+  display: "swap",
+  preload: false,
+});
+
+// 长文正文用衬线体：中文宋体类，长段落阅读更像看纸质书，
+// 比无衬线体（Noto Sans SC）更适合成篇的技术/方法论文本。
+// 只用于 wiki 正文，不污染站内其他 UI。
+const notoSerifSC = Noto_Serif_SC({
+  variable: "--font-noto-serif-sc",
   weight: "variable",
   display: "swap",
   preload: false,
@@ -37,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
-      className={`${albertSans.variable} ${notoSansSC.variable} ${jetbrainsMono.variable}`}
+      className={`${albertSans.variable} ${notoSansSC.variable} ${jetbrainsMono.variable} ${notoSerifSC.variable}`}
       /* 主题由下面的内联脚本在首帧前注入 data-theme / color-scheme，
          服务端无法预知（依赖 localStorage 与系统偏好），
          因此允许 html 上的这两个属性存在差异。

@@ -25,6 +25,13 @@
   background: var(--surface2);
 }
 
+/* ===== 长文正文颜色（wiki 正文专用，不影响全站 UI）=====
+   暗色下正文若直接用 --text（#dadadd）在黑底上对比约 13:1，长文“发涩、太亮”。
+   注意：必须用 html:not([data-theme="light"]) 限定，否则会给亮色也带上暗色值。 */
+html:not([data-theme="light"]) .wiki-detail {
+  --wiki-body-text: #b9b9c0;
+}
+
 html[data-theme="light"] {
   /* 背景层：从纯白到浅灰分层，保证卡片/输入框与底色可区分 */
   --bg: #ffffff;
@@ -36,6 +43,9 @@ html[data-theme="light"] {
   --text: #1a1a1f;
   --text2: #55555f;
   --text3: #82828e;
+  /* 长文正文：不用纯黑（#1a1a1f 对白底约 16:1 过刺眼），
+     降到 #3a3a44（对白底约 9.7:1，仍过 AAA 7:1），看长文明显更柔。 */
+  --wiki-body-text: #3a3a44;
   /* 品牌色：亮底上原色偏浅，压暗以保证可读性
      （绿取 #0b7a56：在 --surface2 上 4.6:1、白底 5.3:1，均过 AA）*/
   --green: #0b7a56;

@@ -9,7 +9,7 @@ import { startWikiLoading } from "./WikiLoading";
 
 interface WikiSearchProps {
   /** 当前所在 wiki，用于结果分组置顶与「优先当前页」 */
-  currentSlug?: "pm" | "ai";
+  currentSlug?: string;
   /** 当前词条 id，用于在结果里标注「当前」 */
   currentEntryId?: string;
 }

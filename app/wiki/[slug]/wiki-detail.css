@@ -180,8 +180,8 @@ body:has(.wiki-detail-layout) {
 .wiki-detail-entry-body p {
   margin: 0 0 14px;
   font-size: 15px;
-  line-height: 1.85;
-  color: var(--text);
+  line-height: 1.9;
+  color: var(--wiki-body-text, var(--text));
 }
 .wiki-detail-entry-body p:last-child { margin-bottom: 0; }
 .wiki-detail-entry-points {
@@ -223,25 +223,51 @@ body:has(.wiki-detail-layout) {
 
 /* ----- Right TOC ----- */
 .wiki-detail-toc {
-  /* 在滚动容器内垂直粘住：目录固定在右侧不动，只有正文在它左边滚 */
+  /* 目录列：独立滚动。
+     关键：不能用 height:100% —— 它是滚动容器 .wiki-detail-body 的 grid 子项，
+     而 grid 行高会被正文（3.8 万 px）撑开，100% 就跟着变成 3.8 万 px，
+     于是“目录本身可滚”永远不触发。改用 sticky + 视口高度限制。 */
   position: sticky;
   top: 0;
   align-self: start;
-  max-height: 100%;
+  /* 限高到视口高度（减去 nav 与上下留白），内部再滚动。
+     nav 约 60px，上下各留 24px。 */
+  height: calc(100vh - 108px);
+  max-height: calc(100vh - 108px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0 0 24px;
+}
+/* 真正滚动的内层（标题固定，列表滚动） */
+.wiki-detail-toc > nav {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
-  padding: 32px 0 32px 24px;
+  overscroll-behavior: contain;
+  /* 底部留白，滚到底不贴边 */
+  padding-bottom: 40px;
+  /* 细滚动条，与左侧边栏一致 */
+  scrollbar-width: thin;
+}
+.wiki-detail-toc > nav::-webkit-scrollbar { width: 6px; }
+.wiki-detail-toc > nav::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
 }
 .wiki-detail-toc-title {
-  font-size: 14px;
+  flex: 0 0 auto;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text);
+  letter-spacing: -0.01em;
   margin-bottom: 16px;
 }
 .wiki-detail-toc-group {
   margin-bottom: 14px;
 }
 .wiki-detail-toc-chapter {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text2);
   padding-left: 10px;
@@ -256,7 +282,9 @@ body:has(.wiki-detail-layout) {
 .wiki-detail-toc a {
   display: block;
   padding: 5px 10px;
+  /* 字号对齐左侧边栏词条（13px），保证两侧视觉语言一致 */
   font-size: 13px;
+  line-height: 1.5;
   color: var(--text2);
   margin-left: -1px;
   border-left: 1px solid transparent;
@@ -937,10 +965,18 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 /* ====================================================================== */
 /* Markdown 正文渲染                                                      */
 /* ====================================================================== */
+/* 正文用衬线体：长文（本期约 3.4 万字）用无衬线体会显得“平”，
+   衬线体的字干/字尾差异能引导横向扫读，接近纸质书的阅读感。
+   注意：只作用于正文区，标题/表格/代码仍用原来的无衬线 + 等宽字体。 */
+.wiki-markdown {
+  font-family: var(--font-noto-serif-sc), var(--font-albert-sans), serif;
+}
 .wiki-markdown > *:first-child { margin-top: 0; }
 .wiki-markdown > *:last-child { margin-bottom: 0; }
 
 .wiki-markdown h2 {
+  /* 标题回到无衬线体，与正文形成对比，层级更清楚 */
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
   margin: 40px 0 14px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
@@ -953,18 +989,46 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 .wiki-markdown h2:first-child { margin-top: 0; }
 
 .wiki-markdown h3 {
-  margin: 28px 0 10px;
-  font-size: 17px;
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  margin: 34px 0 12px;
+  font-size: 19px;
   font-weight: 700;
   color: var(--text);
+  scroll-margin-top: 90px;
+}
+
+.wiki-markdown h4 {
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  margin: 26px 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  scroll-margin-top: 90px;
+}
+
+.wiki-markdown h5 {
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  margin: 20px 0 8px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text2, var(--text));
+  scroll-margin-top: 90px;
+}
+
+.wiki-markdown h6 {
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  margin: 18px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text3, var(--text));
   scroll-margin-top: 90px;
 }
 
 .wiki-markdown p {
   margin: 0 0 14px;
   font-size: 15px;
-  line-height: 1.85;
-  color: var(--text);
+  line-height: 1.9;
+  color: var(--wiki-body-text, var(--text));
 }
 
 .wiki-markdown ul,
@@ -1058,7 +1122,13 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 /* TOC 三级标题缩进 */
 .wiki-detail-toc li.is-sub { padding-left: 12px; }
-.wiki-detail-toc li.is-sub a { font-size: 12px; color: var(--text3); }
+.wiki-detail-toc li.is-sub a { font-size: 12.5px; color: var(--text2); }
+.wiki-detail-toc li.is-sub2 { padding-left: 22px; }
+.wiki-detail-toc li.is-sub2 a { font-size: 12px; color: var(--text2); }
+.wiki-detail-toc li.is-sub3 { padding-left: 31px; }
+.wiki-detail-toc li.is-sub3 a { font-size: 12px; color: var(--text3); }
+.wiki-detail-toc li.is-sub4 { padding-left: 40px; }
+.wiki-detail-toc li.is-sub4 a { font-size: 11.5px; color: var(--text3); opacity: 0.85; }
 
 /* ====================================================================== */
 /* AI 助手：思考过程（reasoning）折叠区                                   */

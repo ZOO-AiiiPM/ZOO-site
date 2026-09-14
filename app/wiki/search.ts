@@ -1,4 +1,4 @@
-// Wiki 搜索：跨两套知识库检索词条。
+// Wiki 搜索：跨知识库检索词条。
 //
 // 设计取向与 AI 助手的 relatedTerms 一致：纯前端、零依赖、字面匹配。
 // 但这里是「人主动搜」，要求不同：
@@ -6,7 +6,7 @@
 // - 必须有稳定排序（标题命中 > 正文命中，同分按词条原顺序）
 // - 需要给出命中片段，让用户知道为什么这条被搜出来
 
-import { WIKI_ENTRIES, type WikiEntry } from "@/app/wiki/data";
+import { WIKI_ENTRIES, WIKI_META, type WikiEntry } from "@/app/wiki/data";
 
 export interface WikiSearchHit {
   entry: WikiEntry;
@@ -93,7 +93,7 @@ function makeSnippet(text: string, token: string, radius = 46): string {
  */
 export function searchWiki(
   query: string,
-  currentSlug?: "pm" | "ai",
+  currentSlug?: string,
   limit = 12,
 ): WikiSearchHit[] {
   const tokens = tokenize(query);
@@ -231,18 +231,29 @@ export function searchWiki(
   return hits.filter((h) => h.score >= MIN_SCORE).slice(0, limit);
 }
 
-/** 按 wiki 分组，当前 wiki 在前 */
+/** 按 wiki 分组，当前 wiki 在前（分组顺序取 WIKI_META 的声明顺序，与 slug 解耦） */
 export function groupHits(
   hits: WikiSearchHit[],
-): { slug: "pm" | "ai"; label: string; hits: WikiSearchHit[] }[] {
-  const groups: { slug: "pm" | "ai"; label: string; hits: WikiSearchHit[] }[] = [];
-  for (const slug of ["pm", "ai"] as const) {
-    const group = hits.filter((h) => h.entry.wikiSlug === slug);
+): { slug: string; label: string; hits: WikiSearchHit[] }[] {
+  const groups: { slug: string; label: string; hits: WikiSearchHit[] }[] = [];
+  for (const wiki of WIKI_META) {
+    const group = hits.filter((h) => h.entry.wikiSlug === wiki.slug);
     if (group.length === 0) continue;
     groups.push({
-      slug,
-      label: slug === "pm" ? "产品方法论" : "AI 技术",
+      slug: wiki.slug,
+      label: wiki.name,
       hits: group,
+    });
+  }
+  // 兜底：命中条目所属 wiki 未在 WIKI_META 中声明时，也要能展示出来
+  const known = new Set(groups.map((g) => g.slug));
+  for (const h of hits) {
+    if (known.has(h.entry.wikiSlug)) continue;
+    known.add(h.entry.wikiSlug);
+    groups.push({
+      slug: h.entry.wikiSlug,
+      label: h.entry.wikiSlug,
+      hits: hits.filter((x) => x.entry.wikiSlug === h.entry.wikiSlug),
     });
   }
   // 当前 wiki 所在分组置顶

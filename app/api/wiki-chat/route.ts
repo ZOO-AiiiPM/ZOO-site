@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import { NextRequest } from "next/server";
-import { getEntry, getWikiMeta, WIKI_ENTRIES } from "@/app/wiki/data";
+import { getEntry, getWikiMeta, WIKI_ENTRIES, WIKI_META } from "@/app/wiki/data";
 
 // Wiki AI 助手：基于当前词条 + 相关词条上下文回答。
 // 与 /api/chat（赛博分身）分开：这里是知识库问答，不是角色扮演。
@@ -15,8 +15,9 @@ let client: OpenAI | null = null;
 
 const DEFAULT_BASE_URL =
   "https://gemini-relay-smoky.vercel.app/816e4039e815a00694f5f9ea42c91ae6b86262d1ce78d109/v1beta/openai";
-// relay 会校验模型名：gemini-2.5-flash 已对新用户下架，需用 3.6+ 系列
-const DEFAULT_MODEL = "gemini-3.6-flash";
+// 首选模型。relay 侧开了 RELAY_MODELS 多模型轮换，因此这里指定的模型
+// 若配额耗尽或过载，请求会自动落到列表中的其他模型（见 relay 的 README）。
+const DEFAULT_MODEL = "gemini-3.5-flash";
 
 function getClient(): OpenAI {
   if (!client) {
@@ -266,12 +267,13 @@ function buildSystemPrompt(entryId: string, question: string): string {
   const contextBlocks: string[] = [];
   if (entry) contextBlocks.push(renderEntry(entry));
 
-  // 常驻面板历史跨词条共享，提问可能已切到别的主题：
-  // 不锁定当前词条的 wiki，而是同时搜两套词库，由关键词决定相关词条。
+  // 常驻面板历史跳词条共享，提问可能已切到别的主题：
+  // 不锁定当前词条的 wiki，而是同时搜所有词库，由关键词决定相关词条。
   let budget = MAX_CONTEXT_CHARS - contextBlocks.join("\n\n").length;
-  const candidateSlugs: ("pm" | "ai")[] = entry
-    ? [entry.wikiSlug, entry.wikiSlug === "pm" ? "ai" : "pm"]
-    : ["pm", "ai"];
+  const allSlugs = WIKI_META.map((w) => w.slug);
+  const candidateSlugs: string[] = entry
+    ? [entry.wikiSlug, ...allSlugs.filter((s) => s !== entry.wikiSlug)]
+    : allSlugs;
   const seen = new Set<string>(entry ? [entry.id] : []);
   const related: typeof WIKI_ENTRIES = [];
   for (const slug of candidateSlugs) {

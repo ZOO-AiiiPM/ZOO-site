@@ -43,14 +43,14 @@ function slugify(text: string): string {
   );
 }
 
-/** 从 markdown 中提取 ## / ### 标题（跳过代码块内的） */
+/** 从 markdown 中提取 ## ~ ##### 标题（跳过代码块内的） */
 function extractHeadings(md: string): { id: string; label: string; level: number }[] {
   const out: { id: string; label: string; level: number }[] = [];
   let inFence = false;
   for (const line of md.split("\n")) {
     if (line.trim().startsWith("```")) inFence = !inFence;
     if (inFence) continue;
-    const m = /^(#{2,3})\s+(.+)$/.exec(line);
+    const m = /^(#{2,6})\s+(.+)$/.exec(line);
     if (m) {
       const label = m[2].trim();
       out.push({ id: slugify(label), label, level: m[1].length });
@@ -286,7 +286,15 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
         <div className="wiki-detail-toc-group">
           <ul>
             {items.map((it) => (
-              <li key={it.id} className={it.level >= 3 ? "is-sub" : ""}>
+              <li
+                key={it.id}
+                className={
+                  // 层级：##=0（分组）、###=1、####=2、#####=3、######=4
+                  ["", "is-sub", "is-sub2", "is-sub3", "is-sub4"][
+                    Math.min(it.level - 2, 4)
+                  ]
+                }
+              >
                 <a
                   href={`#${it.id}`}
                   className={active === it.id ? "is-active" : ""}
@@ -444,7 +452,7 @@ export default function WikiEntryPage({ params }: Props) {
               {entry.oneLiner}
             </section>
 
-            {/* 正文：按 markdown 渲染，## / ### 自动带锚点 id 供右侧目录跳转 */}
+            {/* 正文：按 markdown 渲染，## ~ ##### 自动带锚点 id 供右侧目录跳转 */}
             <section id="body" className="wiki-detail-entry-body wiki-markdown">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
@@ -456,6 +464,18 @@ export default function WikiEntryPage({ params }: Props) {
                   h3: ({ children }) => {
                     const text = String(children);
                     return <h3 id={slugify(text)}>{children}</h3>;
+                  },
+                  h4: ({ children }) => {
+                    const text = String(children);
+                    return <h4 id={slugify(text)}>{children}</h4>;
+                  },
+                  h5: ({ children }) => {
+                    const text = String(children);
+                    return <h5 id={slugify(text)}>{children}</h5>;
+                  },
+                  h6: ({ children }) => {
+                    const text = String(children);
+                    return <h6 id={slugify(text)}>{children}</h6>;
                   },
                 }}
               >

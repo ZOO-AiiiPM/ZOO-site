@@ -54,7 +54,7 @@ export default function WikiIndexPage() {
         </CliLine>
         <CliLine delay={160}>
           <p className="wiki-index-tagline">
-            <Typewriter text="AI 产品经理工作需要的两套方法论" />
+            <Typewriter text="产品经理的工具箱，一期一篇文章" />
           </p>
         </CliLine>
       </header>
@@ -63,11 +63,13 @@ export default function WikiIndexPage() {
       <StaggerReveal selector=".wiki-index-card" interval={120}>
         <div className="wiki-index-grid">
           {WIKI_META.map((wiki) => {
-            // 直接链到首个词条，绕过 /wiki/[slug] 这个纯重定向路由。
+            // 直接链到首篇文章，绕过 /wiki/[slug] 这个纯重定向路由。
             // 否则客户端导航时会先停在中间态：那一帧既没有 .wiki-index
             // 也没有 .wiki-detail-layout，全局 <Nav /> 会露出来，
             // 表现为“闪过一页别的页面”。
             const firstEntry = wiki.chapters[0]?.entries[0]?.id;
+            // 卡片计数文案：一套 wiki 下就是「N 期 · M 个分类」
+            const entryCount = wiki.chapters.reduce((s, c) => s + c.entries.length, 0);
             return (
               <Link
                 key={wiki.slug}
@@ -77,11 +79,10 @@ export default function WikiIndexPage() {
               >
               <div className="wiki-index-card-head">
                 <span className="wiki-index-card-icon" aria-hidden="true">
-                  {wiki.slug === "pm" ? "📐" : "🤖"}
+                  {wiki.slug === "arsenal" ? "🗡️" : "📐"}
                 </span>
                 <span className="wiki-index-card-count">
-                  {wiki.chapters.reduce((sum, c) => sum + c.entries.length, 0)} terms ·{" "}
-                  {wiki.chapters.length} chapters
+                  {entryCount} 期 · {wiki.chapters.length} 个分类
                 </span>
               </div>
               <h2 className="wiki-index-card-name">{wiki.name}</h2>
