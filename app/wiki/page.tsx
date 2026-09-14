@@ -61,12 +61,18 @@ export default function WikiIndexPage() {
       {/* Wiki 卡片网格 */}
       <StaggerReveal selector=".wiki-index-card" interval={120}>
         <div className="wiki-index-grid">
-          {WIKI_META.map((wiki) => (
-            <Link
-              key={wiki.slug}
-              href={`/wiki/${wiki.slug}`}
-              className={`wiki-index-card wiki-index-card-${wiki.accent} cli-stagger-item`}
-            >
+          {WIKI_META.map((wiki) => {
+            // 直接链到首个词条，绕过 /wiki/[slug] 这个纯重定向路由。
+            // 否则客户端导航时会先停在中间态：那一帧既没有 .wiki-index
+            // 也没有 .wiki-detail-layout，全局 <Nav /> 会露出来，
+            // 表现为“闪过一页别的页面”。
+            const firstEntry = wiki.chapters[0]?.entries[0]?.id;
+            return (
+              <Link
+                key={wiki.slug}
+                href={firstEntry ? `/wiki/${wiki.slug}/${firstEntry}` : `/wiki/${wiki.slug}`}
+                className={`wiki-index-card wiki-index-card-${wiki.accent} cli-stagger-item`}
+              >
               <div className="wiki-index-card-head">
                 <span className="wiki-index-card-icon" aria-hidden="true">
                   {wiki.slug === "pm" ? "📐" : "🤖"}
@@ -90,8 +96,9 @@ export default function WikiIndexPage() {
               <span className="wiki-index-card-cta">
                 进入阅读 <span aria-hidden="true">→</span>
               </span>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </StaggerReveal>
 

@@ -109,7 +109,7 @@ function EntryNav({
 
       {/* 层级面包屑：知识库 › 章节 › 词条 */}
       <div className="wiki-detail-crumbs">
-        <Link href={`/wiki/${wiki.slug}`} className="wiki-detail-crumb">
+        <Link href="/wiki" className="wiki-detail-crumb">
           {wiki.name}
         </Link>
         <span className="wiki-detail-crumb-sep" aria-hidden="true">›</span>
@@ -406,7 +406,7 @@ export default function WikiEntryPage({ params }: Props) {
       <div className="wiki-detail-empty">
         <h1>404 · entry not found</h1>
         <p>
-          返回 <Link href={`/wiki/${slug}`}>{wiki?.name ?? "Wiki"}</Link>
+          返回 <Link href="/wiki">Wiki 首页</Link>
         </p>
       </div>
     );
