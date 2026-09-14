@@ -64,3 +64,79 @@ html[data-theme="light"] .wiki-detail-ai-panel:not(.is-expanded) {
 
 /* 顶部 nav 的底色是 color-mix(--bg)，也会自动跟随主题，无需覆盖。
    loading 进度条同理（渐变用 --green/--purple 两个变量）。 */
+
+/* ====================================================================== */
+/* 主题切换过渡                                                           */
+/*                                                                        */
+/* 场景：从首页（恒深色）客户端导航进 wiki 时，若用户存的是浅色主题，     */
+/* 页面底色会从深变浅。不加过渡就是一次硬跳变，观感很突兀。               */
+/*                                                                        */
+/* 做法：给「承载主题 token 的元素」加 background/color 过渡。             */
+/* 只在 *切换到* wiki 主题时才有意义，所以作用域收在 wiki 布局内，        */
+/* 不污染首页的其它动效。                                                 */
+/* ====================================================================== */
+
+/* 底色与文字：wiki 详情页的整体换肤 */
+.wiki-detail,
+.wiki-detail-nav,
+.wiki-detail-sidebar,
+.wiki-detail-main,
+.wiki-detail-toc {
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
+}
+
+/* AI 面板同样跟随，避免它比页面晚一步变色。
+   注意：.wiki-detail-ai-fab 在 wiki-assistant.css 里已有 transition: opacity 0.15s，
+   本文件在其后加载，必须把 opacity 一并列出，否则会覆盖掉它的淡入淡出。 */
+.wiki-detail-ai-panel {
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+/* fab 是 position:fixed 且挂在 <body> 下（不在 .wiki-detail 内），
+   所以用 html[data-theme] 前缀提权 —— 它同时命中深/浅两种主题。
+   wiki-detail.css 在 page 里引入、wiki-theme.css 在 layout 里引入，
+   前者反而后加载，同优先级时会覆盖本文件。 */
+html[data-theme] .wiki-detail-ai-fab {
+  transition:
+    opacity 0.15s,
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+/* 用户主动切换主题时同理，给弹窗/抽屉类元素也带上 */
+.wiki-detail-ai-thinking,
+.wiki-detail-ai-msg.is-user,
+.wiki-search-box,
+.wiki-search-panel {
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
+}
+
+/* 尊重「减少动态效果」偏好 */
+@media (prefers-reduced-motion: reduce) {
+  /* 本文件在 wiki-detail.css 之后加载，且选择器优先级相当，
+     但目标是有无障碍诉求的用户，这里用 !important 确保压过其它 transition。 */
+  .wiki-detail,
+  .wiki-detail-nav,
+  .wiki-detail-sidebar,
+  .wiki-detail-main,
+  .wiki-detail-toc,
+  .wiki-detail-ai-panel,
+  .wiki-detail-ai-fab,
+  .wiki-detail-ai-thinking,
+  .wiki-detail-ai-msg.is-user,
+  .wiki-search-box,
+  .wiki-search-panel {
+    transition: none !important;
+  }
+}

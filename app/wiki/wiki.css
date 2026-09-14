@@ -58,74 +58,6 @@ body:has(.wiki-index) > .site-footer { display: none; }
 .wiki-stat-think { color: var(--gold); }
 .wiki-sep { color: var(--border); margin: 0 2px; }
 
-/* ---------- Search (terminal grep) ---------- */
-.wiki-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  margin-bottom: 18px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface);
-  font-family: var(--font-jetbrains-mono), monospace;
-  transition: border-color 0.15s;
-}
-.wiki-search:focus-within {
-  border-color: var(--purple);
-}
-.wiki-search-prompt {
-  color: var(--purple);
-  font-size: 14px;
-  font-weight: 700;
-}
-.wiki-search-cmd {
-  color: var(--green);
-  font-size: 13px;
-  font-weight: 700;
-}
-.wiki-search-flag {
-  color: var(--text2);
-  font-size: 12px;
-}
-.wiki-search-quote {
-  color: var(--text3);
-  font-size: 13px;
-}
-.wiki-search-input {
-  flex: 1;
-  min-width: 0;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text);
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 13px;
-  caret-color: var(--green);
-  padding: 0;
-}
-.wiki-search-input::placeholder {
-  color: var(--text3);
-}
-.wiki-search-clear {
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  width: 22px;
-  height: 22px;
-  color: var(--text3);
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-  transition: border-color 0.15s, color 0.15s;
-}
-.wiki-search-clear:hover {
-  border-color: var(--green);
-  color: var(--green);
-}
-
 /* ---------- Filters ---------- */
 .wiki-filters {
   display: flex;
@@ -380,7 +312,6 @@ body:has(.wiki-index) > .site-footer { display: none; }
 @media (max-width: 640px) {
   .wiki-page-container { padding: 36px 16px 64px; }
   .wiki-arrow-lg { font-size: 28px; }
-  .wiki-search { padding: 9px 12px; }
   .wiki-grid { grid-template-columns: 1fr; gap: 12px; }
   .wiki-card { padding: 16px 14px; }
   .wiki-card-term { font-size: 16px; }
