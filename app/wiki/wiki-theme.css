@@ -1,0 +1,66 @@
+/* ====================================================================== */
+/* Wiki 主题：深色（默认）/ 亮色                                           */
+/*                                                                        */
+/* 约定：不改 globals.css 的「只读契约」token 区块，                     */
+/* 而是在 <html data-theme="light"> 下重新声明同名变量来覆盖。           */
+/* 所有 wiki 样式都走 var(--x)，所以只需这一处即可整体换肤。             */
+/* ====================================================================== */
+
+/* ----- 主题切换按钮（nav 内）----- */
+.wiki-theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.wiki-theme-toggle:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+html[data-theme="light"] {
+  /* 背景层：从纯白到浅灰分层，保证卡片/输入框与底色可区分 */
+  --bg: #ffffff;
+  --surface: #f7f7f8;
+  --surface2: #eeeef1;
+  /* 边框：浅底上需要更深一点才看得见 */
+  --border: #d4d4da;
+  /* 文字层：反相，保证对比度 */
+  --text: #1a1a1f;
+  --text2: #55555f;
+  --text3: #82828e;
+  /* 品牌色：亮底上原色偏浅，压暗以保证可读性
+     （绿取 #0b7a56：在 --surface2 上 4.6:1、白底 5.3:1，均过 AA）*/
+  --green: #0b7a56;
+  --purple: #6d3ff0;
+  --gold: #b45309;
+  --pink: #db2777;
+  --blue: #2563eb;
+  /* 拖动中的边线：亮色主题下白线会隐没，改用黑 */
+  --resize-active: #000;
+}
+
+/* code 块的底色本来就用 var(--surface2)，会随主题自动变化，无需覆盖 */
+
+/* 阴影：亮底上要更淡，否则像脏污。
+   注意排除放大态（is-expanded）——它是贴边的平整侧栏，不应有阴影。
+   这里用 :not() 是因为本文件在 wiki-assistant.css 之后引入，
+   选择器优先级又更高，否则会盖掉那里的 box-shadow: none。 */
+html[data-theme="light"] .wiki-detail-ai-fab {
+  box-shadow: 0 8px 24px color-mix(in srgb, #000 12%, transparent);
+}
+html[data-theme="light"] .wiki-detail-ai-panel:not(.is-expanded) {
+  box-shadow: 0 12px 40px color-mix(in srgb, #000 16%, transparent);
+}
+
+/* 正文链接 hover 已改用 var(--text)，会自动跟随主题，无需单独覆盖 */
+
+/* 顶部 nav 的底色是 color-mix(--bg)，也会自动跟随主题，无需覆盖。
+   loading 进度条同理（渐变用 --green/--purple 两个变量）。 */

@@ -1,0 +1,42 @@
+/* ====================================================================== */
+/* Wiki 词条切换加载进度条                                                */
+/*                                                                        */
+/* nav 已合并为横跨全宽的一条（含左侧品牌区），所以进度条也只有一条，      */
+/* 贴着 nav 底边从左端推进到右端。                                        */
+/* ====================================================================== */
+
+/* wiki 布局尺寸变量：本文件由 wiki layout 引用，两页（首页与词条页）都加载，
+   因此作为单一数据源放在这里。 */
+:root {
+  --wiki-nav-h: 48px;
+  --wiki-foot-h: 52px;
+}
+
+/* 进度条的定位紧跟 nav 高度变量 --wiki-nav-h（定义在 wiki-detail.css 的 :root）。
+   回退值 48px 与当前 nav 高度保持一致：万一变量还未加载，位置也不会错。
+   若将来调整 nav 高度，只需改 wiki-detail.css 的 --wiki-nav-h。 */
+.wiki-loading {
+  position: fixed;
+  /* 贴住 nav 底边（用变量，nav 高度变化时自动跟随） */
+  top: calc(var(--wiki-nav-h, 48px) - 1px);
+  left: 0;
+  right: 0;
+  z-index: 51; /* 略高于 nav(50) */
+  height: 2px;
+  pointer-events: none; /* 不挡点击 */
+}
+
+/* 填充条：宽度由 JS 驱动，从左向右推进 */
+.wiki-loading-bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--green), var(--purple));
+  /* 宽度平滑过渡，让逐帧推进看起来连续而非跳动 */
+  transition: width 0.12s linear;
+}
+
+/* 尊重减少动效偏好：去掉宽度过渡，直接跟随进度 */
+@media (prefers-reduced-motion: reduce) {
+  .wiki-loading-bar { transition: none; }
+}

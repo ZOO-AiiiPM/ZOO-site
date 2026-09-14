@@ -1,0 +1,221 @@
+/* ====================================================================== */
+/* 顶部 Nav 搜索（WikiSearch）— 共用样式                                  */
+/*                                                                        */
+/* 放在独立文件里，因为词条页（wiki-detail.css）和索引页（wiki.css）      */
+/* 各加载各自的样式表，而搜索组件两边都用。放在任一侧都会漏样式。         */
+/* ====================================================================== */
+/* ====================================================================== */
+/* 顶部 Nav 搜索（WikiSearch）                                            */
+/* 位置：nav 右侧 actions 区内，WINSTON WIKI 品牌标识左侧                 */
+/* ====================================================================== */
+
+.wiki-search {
+  position: relative;
+  /* 让下拉面板以搜索框为锚点定位 */
+  display: flex;
+  align-items: center;
+}
+
+.wiki-search-box {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 8px 0 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.wiki-search-box:hover {
+  border-color: color-mix(in srgb, var(--text3) 70%, var(--border));
+}
+
+/* 聚焦展开时与面板连成一体：去掉下边框圆角 */
+.wiki-search-box.is-open {
+  border-color: color-mix(in srgb, var(--green) 45%, var(--border));
+  background: var(--surface);
+}
+
+.wiki-search-icon {
+  flex: 0 0 auto;
+  color: var(--text3);
+  transition: color 0.15s;
+}
+
+.wiki-search-box.is-open .wiki-search-icon,
+.wiki-search-box:focus-within .wiki-search-icon {
+  color: var(--green);
+}
+
+.wiki-search-input {
+  width: 132px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.wiki-search-input::placeholder {
+  color: var(--text3);
+}
+
+/* 去掉 type=search 的浏览器原生清除按钮 */
+.wiki-search-input::-webkit-search-cancel-button { display: none; }
+
+.wiki-search-clear {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--text3) 35%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.wiki-search-clear:hover { background: color-mix(in srgb, var(--text3) 60%, transparent); }
+
+/* ----- 下拉结果面板 ----- */
+.wiki-search-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  /* 居中于搜索框下方（而不是右对齐）*/
+  left: 50%;
+  transform: translateX(-50%);
+  /* 视口宽度不足时靠右对齐，避免向左溢出屏幕 */
+  right: auto;
+  z-index: 60;
+  width: 380px;
+  max-width: calc(100vw - 24px);
+  max-height: min(70vh, 460px);
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 40px color-mix(in srgb, #000 50%, transparent);
+}
+
+.wiki-search-empty {
+  padding: 16px 12px;
+  color: var(--text3);
+  font-size: 13px;
+  text-align: center;
+}
+
+.wiki-search-group + .wiki-search-group { margin-top: 4px; }
+
+.wiki-search-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px 4px;
+  color: var(--text3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.wiki-search-group-badge {
+  padding: 0 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--green) 18%, transparent);
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.wiki-search-item {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 5px;
+  transition: background 0.12s;
+}
+
+.wiki-search-item.is-active,
+.wiki-search-item:hover {
+  background: var(--surface2);
+}
+
+.wiki-search-item-head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 3px;
+}
+
+.wiki-search-item-term {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.wiki-search-item-abbr {
+  color: var(--text3);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+}
+
+.wiki-search-item-current {
+  margin-left: auto;
+  color: var(--green);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.wiki-search-item-snippet {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: var(--text2);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.wiki-search-item-snippet mark {
+  background: transparent;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* 词条名/简写里的高亮（标题命中时） */
+.wiki-search-item-term mark,
+.wiki-search-item-abbr mark {
+  background: transparent;
+  color: var(--green);
+}
+
+/* ----- 响应式 ----- */
+@media (max-width: 1100px) {
+  .wiki-search-input { width: 96px; }
+  .wiki-search-panel { width: 320px; }
+}
+
+@media (max-width: 760px) {
+  /* 移动端 nav 空间紧张：输入框收窄 */
+  .wiki-search-input { width: 84px; }
+  .wiki-search-panel {
+    /* 搜索框在窄屏不靠右，绝对定位会向左溢出。
+       改为相对视口固定定位，贴左右边距，保证不出界。 */
+    position: fixed;
+    top: 44px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+    /* 重置掉桌面端的居中偏移，否则会整体左移半个视口宽 */
+    transform: none;
+    max-height: 60vh;
+  }
+}

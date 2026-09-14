@@ -42,3 +42,15 @@ yarn-error.log*
 next-env.d.ts
 .playwright-mcp/
 screenshots/
+
+# 本地工具产物 / 缓存（不入库）
+.pnpm-store/
+.playwright-cli/
+
+# 各类 agent 工具的本地目录
+.agents/
+.claude/
+.codebuddy/
+.qoder/
+.trae/
+.workbuddy/

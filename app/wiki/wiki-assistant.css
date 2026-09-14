@@ -1,0 +1,320 @@
+/* ====================================================================== */
+/* Wiki AI 助手 —— 常驻面板（悬浮态 / 放大侧栏态）                         */
+/*                                                                        */
+/* 基础样式（气泡、输入框、FAB 等）仍在 wiki-detail.css 里，               */
+/* 这里只放「放大为侧栏」这一形态独有的规则，以及面板头部的操作区。        */
+/* ====================================================================== */
+
+/* ----- 放大后：右侧「本页目录(TOC)」列变成对话区 -----
+   实现要点：面板不再是 position:fixed，而是变成 body 网格的第三列。
+   页面通过 .wiki-detail.is-ai-expanded 预留出 --wiki-ai-w 宽度，
+   滚动仍发生在 .wiki-detail-layout 上，因此面板随页面一起滚动到顶就停住。 */
+:root {
+  --wiki-ai-w: 340px;
+}
+
+.wiki-detail-ai-panel.is-expanded {
+  position: fixed;
+  /* 从 nav 下沿一直到底部（不再为底栏预留空间） */
+  top: var(--wiki-nav-h);
+  right: 0;
+  bottom: 0;
+  width: var(--wiki-ai-w);
+  height: auto;
+  max-height: none;
+  border: 0;
+  /* 左边线由 .wiki-detail-ai-resize-expanded 提供（它要随 hover/拖动变粗），
+     这里不再画，否则会叠成双线 */
+  border-radius: 0;
+  box-shadow: none;
+  z-index: 45;
+}
+
+/* 放大态：TOC 让位给对话区 */
+.wiki-detail.is-ai-expanded .wiki-detail-toc {
+  display: none;
+}
+
+/* 放大态：正文列右侧留出面板宽度，避免内容被盖住 */
+.wiki-detail.is-ai-expanded .wiki-detail-body {
+  grid-template-columns: minmax(0, 1fr) var(--wiki-ai-w);
+}
+
+/* 正文在中间列，右侧留白由 grid 承担；
+   面板用 fixed 覆盖在该列上，两者宽度一致，看起来就是一列。 */
+.wiki-detail.is-ai-expanded .wiki-detail-main {
+  padding-right: 32px;
+}
+
+/* 底栏不做任何让位：它横跨全宽，面板只占据 nav 与底栏之间的区域。 */
+
+/* ----- 面板头部操作区 ----- */
+.wiki-detail-ai-panel-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 头部图标按钮：无边框无圆角，白色、居中对齐、点击区域放大 */
+.wiki-detail-ai-panel-icon-btn {
+  display: grid;
+  place-items: center;
+  /* 26px：与小窗口头部的固定行高配合（17 + 26 + 5 = 48）*/
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: var(--text);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.wiki-detail-ai-panel-icon-btn:hover { opacity: 0.65; }
+
+/* ----- 头部头像（取代原来的绿点）----- */
+.wiki-detail-ai-panel-avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+.wiki-detail-ai-panel-avatar canvas { display: block; }
+
+/* 头部标题：不换行、不被压缩（右侧操作区需要空间时优先让位）*/
+/* 头部标题：不换行、超长省略。
+   限制在“面板中心 - 手柄半宽”以内，避免标题变长时与居中的拖拽手柄重叠。
+   手柄含 padding 总宽 56px（36 胶囊 + 2×10），居中占据 50% ± 28px。 */
+.wiki-detail-ai-panel-title {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  /* 16(内边距) + 18(头像) + 8(gap) = 42px 前缀，再从半宽里扣掉手柄 28px */
+  max-width: calc(50% - 28px - 42px);
+}
+/* 放大态没有拖拽手柄，标题可以正常占据剩余空间 */
+.wiki-detail-ai-panel.is-expanded .wiki-detail-ai-panel-title {
+  max-width: none;
+}
+
+/* ----- 拖拽手柄：胶囊状粗横条，紧贴顶部居中 -----
+   手柄是绝对定位，不占文档流，所以头部无需为它预留 padding。 */
+.wiki-detail-ai-drag {
+  position: absolute;
+  /* 紧贴顶部 + 水平居中 */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  place-items: center;
+  /* 胶囊本体很细，靠 padding 撑出可拖范围 */
+  padding: 4px 10px 6px;
+  cursor: grab;
+  touch-action: none;
+  /* 下边两角圆角，贴合面板观感 */
+  border-radius: 0 0 6px 6px;
+  transition: background 0.15s;
+}
+.wiki-detail-ai-drag:active { cursor: grabbing; }
+.wiki-detail-ai-drag:hover { background: color-mix(in srgb, var(--text) 8%, transparent); }
+/* 胶囊本体：宽 36、高 4、全圆角 */
+.wiki-detail-ai-drag > span {
+  display: block;
+  width: 36px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--text3);
+  transition: background 0.15s;
+}
+.wiki-detail-ai-drag:hover > span { background: var(--text); }
+
+/* 拖拽后由行内 left/top 接管定位（仅悬浮态生效，故用 :not(.is-expanded) 限定） */
+.wiki-detail-ai-panel.is-dragged:not(.is-expanded) { right: auto; bottom: auto; }
+
+/* ----- 缩放把手（8 方向：四边 + 四角）-----
+   把手贴在面板边缘内侧，用 ::after 做一条短亮线作为可视提示（hover 时出现），
+   本身透明不遮挡内容。 */
+/* ----- 缩放把手（8 方向：四边 + 四角）-----
+   说明：
+   - 面板 overflow:hidden 且圆角，所以把手贴在内侧，不用负偏移（否则被裁）。
+   - 不做可视装饰线，靠 cursor 变化提示可拖：这样不干扰面板观感。
+   - 角比边大一点，方便命中斜向缩放。 */
+.wiki-detail-ai-resize {
+  position: absolute;
+  z-index: 3;
+  background: transparent;
+  /* 手机上避免被浏览器手势抢走 */
+  touch-action: none;
+}
+
+/* 四边（细长命中带，贴内缘）*/
+.wiki-detail-ai-resize.is-n,
+.wiki-detail-ai-resize.is-s {
+  left: 14px;
+  right: 14px;
+  height: 7px;
+  cursor: ns-resize;
+}
+.wiki-detail-ai-resize.is-n { top: 0; }
+.wiki-detail-ai-resize.is-s { bottom: 0; }
+
+.wiki-detail-ai-resize.is-e,
+.wiki-detail-ai-resize.is-w {
+  top: 14px;
+  bottom: 14px;
+  width: 7px;
+  cursor: ew-resize;
+}
+.wiki-detail-ai-resize.is-e { right: 0; }
+.wiki-detail-ai-resize.is-w { left: 0; }
+
+/* 四角（比边优先，命中区更大 → 斜向缩放好抓好用）*/
+.wiki-detail-ai-resize.is-ne,
+.wiki-detail-ai-resize.is-nw,
+.wiki-detail-ai-resize.is-se,
+.wiki-detail-ai-resize.is-sw {
+  width: 16px;
+  height: 16px;
+  z-index: 4;
+}
+.wiki-detail-ai-resize.is-nw { top: 0; left: 0; cursor: nwse-resize; }
+.wiki-detail-ai-resize.is-ne { top: 0; right: 0; cursor: nesw-resize; }
+.wiki-detail-ai-resize.is-sw { bottom: 0; left: 0; cursor: nesw-resize; }
+.wiki-detail-ai-resize.is-se { bottom: 0; right: 0; cursor: nwse-resize; }
+
+/* ----- 放大态的左边缘拉伸把手 -----
+   面板贴右侧，所以只能拖左边缘改宽度（宽度写回 :root 的 --wiki-ai-w，
+   正文的让位列宽也读它，两者同步）。
+   视觉：整条左边缘线本身就是把手——hover 时变亮，拖动时加粗。 */
+.wiki-detail-ai-resize-expanded {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 9px;
+  z-index: 5;
+  cursor: ew-resize;
+  /* 手机上避免被浏览器手势抢走 */
+  touch-action: none;
+}
+/* 整条边线：
+   - 常驻：--border，与其他分隔线同色（不抢眼）
+   - hover：--text，变亮/变深提示可拖
+   - 拖动中：最强对比色（深色主题下为白、亮色主题下为黑），
+     宽度始终 1px，不再加粗。 */
+.wiki-detail-ai-resize-expanded::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+  transition: background 0.12s ease;
+}
+.wiki-detail-ai-resize-expanded:hover::after {
+  background: var(--text);
+}
+/* 拖动中：用 --resize-active 变量，默认白（深色主题），
+   亮色主题下由 wiki-theme.css 覆盖成黑，避免白底上看不见 */
+.wiki-detail-ai-resize-expanded.is-resizing::after {
+  background: var(--resize-active, #fff);
+}
+
+/* ----- 上下文卡片：位于输入框上方 -----
+   外框是一个圆角矩形，宽度贴合文字（不固定满宽），
+   字号比输入框小一号。 */
+.wiki-detail-ai-context {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  /* 宽度随文字变化；左对齐，右侧留出面板内缩。
+     元素在 flex 列中会默认拉伸，因此：
+     - fit-content 让宽度贴合内容
+     - max-width 自限，保证长词条不溢出
+     - margin-right: auto 把剩余空间推给右侧，保持左对齐 */
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  /* 左外边距 = 输入行的水平 padding - 2px 修正：
+     笔记按钮 36px 宽、图标居中 → 图标左缘 = 按钮框左 + 9
+     卡片图标左缘 = 卡片框左 + 1(border) + 10(padding) = +11
+     两者差 2px，因此卡片框需比输入行 padding 左移 2px。
+     悬浮态输入行 padding 12px → 卡片 10px；
+     放大态 18px → 卡片 16px（见下方 is-expanded 覆盖）。 */
+  margin: 10px auto 0 10px;
+  align-self: flex-start;
+  padding: 6px 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text2);
+  font-size: 12px;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+.wiki-detail-ai-context > svg {
+  flex: 0 0 auto;
+  color: var(--purple);
+}
+.wiki-detail-ai-context-value {
+  color: var(--text);
+  font-weight: 500;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ----- 放大态：对话区更宽，字号与留白相应放大 ----- */
+/* 放大态：没有拖拽手柄，头部与页面 nav 对齐（同高 48px、同水平内边距 18px） */
+.wiki-detail-ai-panel.is-expanded .wiki-detail-ai-panel-head {
+  height: var(--wiki-nav-h);
+  /* 固定高度 + 垂直 padding 归零，内容靠 align-items 居中 */
+  padding: 0 18px;
+}
+.wiki-detail-ai-panel.is-expanded .wiki-detail-ai-panel-body {
+  padding: 18px;
+}
+.wiki-detail-ai-panel.is-expanded .wiki-detail-ai-panel-input {
+  padding: 14px 18px;
+}
+/* 放大态下输入行水平 padding 是 18px，卡片需相应跟到 16px，
+   否则上下文与「新增笔记」图标会差 8px */
+.wiki-detail-ai-panel.is-expanded .wiki-detail-ai-context {
+  margin-left: 16px;
+  max-width: calc(100% - 32px);
+}
+
+/* ----- 响应式 ----- */
+@media (max-width: 1100px) {
+  :root {
+    --wiki-ai-w: 300px;
+  }
+}
+
+@media (max-width: 760px) {
+  /* 移动端放不下侧栏：放大态退化为全屏覆盖 */
+  .wiki-detail-ai-panel.is-expanded {
+    top: var(--wiki-nav-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    border-left: 0;
+  }
+  .wiki-detail.is-ai-expanded .wiki-detail-body,
+  .wiki-detail.is-ai-expanded .wiki-detail-toc {
+    grid-template-columns: minmax(0, 1fr);
+    display: none;
+  }
+  .wiki-detail.is-ai-expanded .wiki-detail-main {
+    padding-right: 0;
+  }
+  /* 移动端放大态是全屏覆盖，没有左右拉伸的概念，隐藏把手 */
+  .wiki-detail-ai-resize-expanded {
+    display: none;
+  }
+}
