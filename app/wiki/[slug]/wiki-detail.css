@@ -260,6 +260,8 @@ body:has(.wiki-detail-layout) {
 }
 .wiki-detail-toc-title {
   flex: 0 0 auto;
+  /* 与列表文字起点对齐（容器 24px + a 的 18px 内边距） */
+  padding-left: 18px;
   font-size: 15px;
   font-weight: 700;
   color: var(--text);
@@ -284,15 +286,18 @@ body:has(.wiki-detail-layout) {
 }
 .wiki-detail-toc a {
   display: block;
-  /* 左侧内边距 = 层级缩进量（由 li.is-subN 通过 --toc-indent 提供）。
-     缩进放在 a 上而不是 li 上：这样 a 的左边框（选中绿线）
-     始终贴在 ul 的竖向分隔线处，不会随缩进被推走。 */
-  padding: 5px 10px 5px calc(10px + var(--toc-indent, 0px));
+  /* 左侧内边距 = 基础缩进 + 层级缩进（由 li.is-subN 提供 --toc-indent）。
+     放在 a 上而不是 li 上：这样 a 的左边框（选中绿线）
+     始终贴在 ul 的竖向分隔线处，不会随缩进被推走。
+     基础 18px 是文字与分隔线之间的呼吸感。 */
+  padding: 5px 10px 5px calc(18px + var(--toc-indent, 0px));
   /* 目录字号比正文（15px）小一号，体现层次又不抢正文 */
   font-size: 13px;
   line-height: 1.6;
   color: var(--text2);
-  /* 抵消 ul 的 1px 边框，使边框与分隔线重叠成一条 */
+  /* 让选中绿线与 ul 灰色分隔线「中心重合」。
+     两者同宽（都是 1px）并把 a 左移 1px，则完全重叠为同一条线，
+     避免 1px 与 2px 线宽不同导致的 0.5px 视觉偏移。 */
   margin-left: -1px;
   border-left: 1px solid transparent;
   transition: color 0.15s, border-color 0.15s;
@@ -309,7 +314,8 @@ body:has(.wiki-detail-layout) {
      必须逐级写出选择器：下方的 li.is-subN a 特异度更高，
      只用 a.is-active 会被它们盖掉颜色。 */
   color: var(--green);
-  border-left: 2px solid var(--green);
+  /* 宽度与基础态一致（1px），否则选中的瞬间线会变粗、中心漂移 */
+  border-left: 1px solid var(--green);
   font-weight: 600;
   /* L4 默认带 opacity .85，选中时要抹平，否则绿字偏淡 */
   opacity: 1;
@@ -986,6 +992,9 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
    注意：只作用于正文区，标题/表格/代码仍用原来的无衬线 + 等宽字体。 */
 .wiki-markdown {
   font-family: var(--font-noto-serif-sc), var(--font-albert-sans), serif;
+  /* 块级元素统一垂直间距：段落/列表/引用/表格/代码块都用同一档，
+     避免之前 14/16/18px 混用导致的“忽宽忽窄”。 */
+  --md-gap: 14px;
 }
 .wiki-markdown > *:first-child { margin-top: 0; }
 .wiki-markdown > *:last-child { margin-bottom: 0; }
@@ -993,7 +1002,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 .wiki-markdown h2 {
   /* 标题回到无衬线体，与正文形成对比，层级更清楚 */
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 40px 0 14px;
+  margin: 40px 0 var(--md-gap);
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
   font-size: 22px;
@@ -1006,7 +1015,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h3 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 34px 0 12px;
+  margin: 34px 0 var(--md-gap);
   font-size: 19px;
   font-weight: 700;
   color: var(--text);
@@ -1015,7 +1024,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h4 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 26px 0 10px;
+  margin: 26px 0 var(--md-gap);
   font-size: 16px;
   font-weight: 700;
   color: var(--text);
@@ -1024,7 +1033,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h5 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 20px 0 8px;
+  margin: 20px 0 var(--md-gap);
   font-size: 14.5px;
   font-weight: 700;
   color: var(--text2, var(--text));
@@ -1033,7 +1042,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h6 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 18px 0 8px;
+  margin: 18px 0 var(--md-gap);
   font-size: 14px;
   font-weight: 600;
   color: var(--text3, var(--text));
@@ -1041,7 +1050,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 }
 
 .wiki-markdown p {
-  margin: 0 0 14px;
+  margin: 0 0 var(--md-gap);
   font-size: 15px;
   line-height: 1.9;
   color: var(--wiki-body-text, var(--text));
@@ -1049,7 +1058,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown ul,
 .wiki-markdown ol {
-  margin: 0 0 16px;
+  margin: 0 0 var(--md-gap);
   padding-left: 22px;
   color: var(--text);
   font-size: 15px;
@@ -1080,7 +1089,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 }
 
 .wiki-markdown pre {
-  margin: 0 0 18px;
+  margin: 0 0 var(--md-gap);
   padding: 16px 18px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1097,7 +1106,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 }
 
 .wiki-markdown blockquote {
-  margin: 0 0 18px;
+  margin: 0 0 var(--md-gap);
   padding: 12px 18px;
   border-left: 2px solid var(--purple);
   background: color-mix(in srgb, var(--purple) 5%, transparent);
@@ -1109,7 +1118,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown table {
   width: 100%;
-  margin: 0 0 18px;
+  margin: 0 0 var(--md-gap);
   border-collapse: collapse;
   font-size: 14px;
 }
