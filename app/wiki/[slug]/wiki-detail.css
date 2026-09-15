@@ -94,7 +94,9 @@ body:has(.wiki-detail-layout) {
    滚动放在这一层上 → 滚动条出现在屏幕最右侧（而不是正文与 TOC 交界处）。 */
 .wiki-detail-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
+  /* 右侧目录列宽与 Ask AI 放大态默认宽度（--wiki-ai-w: 340px）一致，
+     两栏切换时不跳宽。 */
+  grid-template-columns: minmax(0, 1fr) var(--wiki-ai-w, 340px);
   gap: 0;
   /* 填满右侧区高度，自身滚动 */
   height: 100%;
@@ -226,14 +228,15 @@ body:has(.wiki-detail-layout) {
   /* 目录列：独立滚动。
      关键：不能用 height:100% —— 它是滚动容器 .wiki-detail-body 的 grid 子项，
      而 grid 行高会被正文（3.8 万 px）撑开，100% 就跟着变成 3.8 万 px，
-     于是“目录本身可滚”永远不触发。改用 sticky + 视口高度限制。 */
+     于是“目录本身可滚”永远不触发。改用 sticky + 视口高度限制。
+
+     底部要留出「问问 AI」悬浮按钮（FAB）的占位，否则目录尾部会被它盖住：
+       FAB 尺寸 44px + 底距 24px = 68px，再留 16px 安全间距 = 84px。 */
   position: sticky;
   top: 0;
   align-self: start;
-  /* 限高到视口高度（减去 nav 与上下留白），内部再滚动。
-     nav 约 60px，上下各留 24px。 */
-  height: calc(100vh - 108px);
-  max-height: calc(100vh - 108px);
+  height: calc(100vh - var(--wiki-nav-h, 48px) - 84px);
+  max-height: calc(100vh - var(--wiki-nav-h, 48px) - 84px);
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -281,11 +284,15 @@ body:has(.wiki-detail-layout) {
 }
 .wiki-detail-toc a {
   display: block;
-  padding: 5px 10px;
-  /* 字号对齐左侧边栏词条（13px），保证两侧视觉语言一致 */
+  /* 左侧内边距 = 层级缩进量（由 li.is-subN 通过 --toc-indent 提供）。
+     缩进放在 a 上而不是 li 上：这样 a 的左边框（选中绿线）
+     始终贴在 ul 的竖向分隔线处，不会随缩进被推走。 */
+  padding: 5px 10px 5px calc(10px + var(--toc-indent, 0px));
+  /* 目录字号比正文（15px）小一号，体现层次又不抢正文 */
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text2);
+  /* 抵消 ul 的 1px 边框，使边框与分隔线重叠成一条 */
   margin-left: -1px;
   border-left: 1px solid transparent;
   transition: color 0.15s, border-color 0.15s;
@@ -293,10 +300,19 @@ body:has(.wiki-detail-layout) {
 .wiki-detail-toc a:hover {
   color: var(--text);
 }
-.wiki-detail-toc a.is-active {
+.wiki-detail-toc li a.is-active,
+.wiki-detail-toc li.is-sub a.is-active,
+.wiki-detail-toc li.is-sub2 a.is-active,
+.wiki-detail-toc li.is-sub3 a.is-active,
+.wiki-detail-toc li.is-sub4 a.is-active {
+  /* 所有层级的选中效果与一级完全一致：绿色 + 左侧竖线 + 加粗。
+     必须逐级写出选择器：下方的 li.is-subN a 特异度更高，
+     只用 a.is-active 会被它们盖掉颜色。 */
   color: var(--green);
   border-left: 2px solid var(--green);
   font-weight: 600;
+  /* L4 默认带 opacity .85，选中时要抹平，否则绿字偏淡 */
+  opacity: 1;
 }
 
 /* ----- AI FAB ----- */
@@ -740,7 +756,7 @@ body:has(.wiki-detail-layout) {
   }
   .wiki-detail-body {
     /* 窄屏保留 TOC，只把它弹性收窄 */
-    grid-template-columns: minmax(0, 1fr) clamp(150px, 14vw, 200px);
+    grid-template-columns: minmax(0, 1fr) clamp(180px, 20vw, 260px);
   }
   .wiki-detail-toc {
     padding: 92px 0 32px 16px;
@@ -1120,15 +1136,18 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
   border: 1px solid var(--border);
 }
 
-/* TOC 三级标题缩进 */
-.wiki-detail-toc li.is-sub { padding-left: 12px; }
-.wiki-detail-toc li.is-sub a { font-size: 12.5px; color: var(--text2); }
-.wiki-detail-toc li.is-sub2 { padding-left: 22px; }
-.wiki-detail-toc li.is-sub2 a { font-size: 12px; color: var(--text2); }
-.wiki-detail-toc li.is-sub3 { padding-left: 31px; }
-.wiki-detail-toc li.is-sub3 a { font-size: 12px; color: var(--text3); }
-.wiki-detail-toc li.is-sub4 { padding-left: 40px; }
-.wiki-detail-toc li.is-sub4 a { font-size: 11.5px; color: var(--text3); opacity: 0.85; }
+/* TOC 层级缩进
+   层级靠缩进 + 颜色区分，字号统一 13px（比正文小一号）。
+   缩进步长固定 12px —— 之前是 12/10/9/9 步长不一致，
+   不同期次层级深度不同时，缩进会看起来“跳”。 */
+.wiki-detail-toc li.is-sub { --toc-indent: 12px; }
+.wiki-detail-toc li.is-sub a { color: var(--text2); }
+.wiki-detail-toc li.is-sub2 { --toc-indent: 24px; }
+.wiki-detail-toc li.is-sub2 a { color: var(--text2); }
+.wiki-detail-toc li.is-sub3 { --toc-indent: 36px; }
+.wiki-detail-toc li.is-sub3 a { color: var(--text3); }
+.wiki-detail-toc li.is-sub4 { --toc-indent: 48px; }
+.wiki-detail-toc li.is-sub4 a { color: var(--text3); opacity: 0.85; }
 
 /* ====================================================================== */
 /* AI 助手：思考过程（reasoning）折叠区                                   */

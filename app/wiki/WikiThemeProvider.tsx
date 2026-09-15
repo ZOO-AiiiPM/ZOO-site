@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useLayoutEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 
 export type Theme = "light" | "dark";
 /** "system" 表示跟随系统（初始态）；一旦手动切换就固定为 light/dark */
@@ -69,65 +69,69 @@ function applyTheme(theme: Theme) {
   document.documentElement.style.colorScheme = theme;
 }
 
-/**
- * 读取当前应生效的主题（localStorage → 系统偏好）。
- *
- * 必须在首次渲染时就得到正确值，否则会先渲染默认主题再切换，造成闪烁。
- * 客户端导航（从首页点进 wiki）时，<head> 里的引导脚本不会重新执行，
- * 所以不能依赖它——这里自己算。
- */
-function resolveInitialTheme(): { theme: Theme; mode: ThemeMode } {
-  if (typeof window === "undefined") return { theme: "dark", mode: "system" };
-  const stored = readStored();
-  return {
-    theme: stored === "system" ? systemTheme() : stored,
-    mode: stored,
-  };
-}
-
 export function WikiThemeProvider({ children }: { children: ReactNode }) {
-  // 用初始化函数直接把真实主题算出来（而非写死 "dark"）。
-  // React 会在首次渲染前调用它，因此首帧颜色就是对的，不会闪。
-  const [initial] = useState(resolveInitialTheme);
-  const [mode, setMode] = useState<ThemeMode>(initial.mode);
-  const [theme, setTheme] = useState<Theme>(initial.theme);
-
-  // 把算出来的主题写回 DOM。
-  // 用 useLayoutEffect 保证在本次渲染的 paint 前执行。
-  useLayoutEffect(() => {
-    applyTheme(theme);
-  }, [theme]);
-
-  // 跟随系统：仅在未手动设置时生效
-  useEffect(() => {
-    if (mode !== "system") return;
+  // ===== 主题状态 =====
+  //
+  // 用 useSyncExternalStore 读 localStorage：
+  // React 会在 hydration 时先用 getServerSnapshot 渲染（与服务端一致），
+  // 水合完成后自动切到 getSnapshot 重渲染，因此：
+  //   - 不会有 hydration mismatch
+  //   - 不需要手写 mounted 标记，也就不需要 effect 里 setState
+  // 防闪烁由模块顶部的引导脚本负责（已在 paint 前写好 data-theme）。
+  const subscribeTheme = useCallback((onChange: () => void) => {
     const mq = window.matchMedia("(prefers-color-scheme: light)");
-    const onChange = () => {
-      const resolved = systemTheme();
-      setTheme(resolved);
-      applyTheme(resolved);
-    };
     mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, [mode]);
-
-  const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === "dark" ? "light" : "dark";
-      setMode(next); // 进入手动模式，不再跟系统
-      applyTheme(next);
-      try {
-        window.localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        /* 忽略 */
-      }
-      return next;
-    });
+    window.addEventListener("storage", onChange);
+    return () => {
+      mq.removeEventListener("change", onChange);
+      window.removeEventListener("storage", onChange);
+    };
   }, []);
 
+  const getThemeSnapshot = useCallback((): ThemeMode => readStored(), []);
+  const getServerSnapshot = useCallback((): ThemeMode => "system", []);
+
+  const storedMode = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerSnapshot,
+  );
+
+  // 系统偏好：同一套订阅（matchMedia change）
+  const getSystemSnapshot = useCallback((): Theme => systemTheme(), []);
+  const getSystemServerSnapshot = useCallback((): Theme => "dark", []);
+  const systemPref = useSyncExternalStore(
+    subscribeTheme,
+    getSystemSnapshot,
+    getSystemServerSnapshot,
+  );
+
+  // localStorage 未设时回退到系统偏好。
+  // 注意：hydration 阶段 storedMode 为 "system"、systemPref 为 "dark"，
+  // 与服务端的首帧输出一致；水合后自动修正为真实值。
+  const resolvedTheme: Theme =
+    storedMode === "system" ? systemPref : storedMode;
+
+  // 写到 <html data-theme>（paint 前）
+  useLayoutEffect(() => {
+    applyTheme(resolvedTheme);
+  }, [resolvedTheme]);
+
+  // 手动切换：写入 localStorage 并触发重渲染
+  const [, forceRerender] = useState(0);
+  const toggle = useCallback(() => {
+    const next: Theme = resolvedTheme === "dark" ? "light" : "dark";
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* 隐私模式等场景忽略 */
+    }
+    forceRerender((n) => n + 1);
+  }, [resolvedTheme]);
+
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, isManual: mode !== "system", toggle }),
-    [theme, mode, toggle],
+    () => ({ theme: resolvedTheme, isManual: storedMode !== "system", toggle }),
+    [resolvedTheme, storedMode, toggle],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

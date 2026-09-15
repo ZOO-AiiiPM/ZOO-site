@@ -240,9 +240,13 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
 
   const items = headings.length > 0 ? headings : fallback;
 
-  // scroll-spy：以「正文滚动容器」为 root，取最靠近顶部的那一节为当前项。
-  // 旧实现用默认 root（视口）+ 固定 rootMargin，与现在的布局不符，
-  // 且点击平滑滚动期间会反复改 active，造成高亮乱跳。
+  // 滚动完成后重新校准高亮。
+  // 旧实现有个 bug：点击 TOC 跳转后，高亮总是落在目标的**下一个**兄弟章节上。
+  // 原因：判定线在容器顶部 20% 处（850px 高即 170px），而目标跳转后停在距顶
+  // 24px（即顶部留白），远在判定线之上（top 24 <= line 170 成立），
+  // 于是继续往下找，命中目标的下一个标题。
+  // 改法：判定线大幅上提，只留很窄的顶部区域（24px 留白 + 余量），
+  // 这样“刚刚滚到的那一个”就是当前项。
   useEffect(() => {
     const scroller = document.querySelector<HTMLElement>(".wiki-detail-body");
     if (!scroller) return;
@@ -251,13 +255,14 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
     const pick = () => {
       if (performance.now() < lockUntil.current) return; // 点击锁定期间不抢高亮
       const scrollTop = scroller.scrollTop;
-      // 判定线：容器顶部下方 20% 处（留出章节标题的呼吸区）
-      const line = scrollTop + scroller.clientHeight * 0.2;
+      // 判定线：只取容器顶部很小一段（点击跳转的留白是 24px）。
+      // 用 min 兼顾极矮容器，避免判定线被压到 0 以下。
+      const line = Math.min(scrollTop + 48, scrollTop + scroller.clientHeight * 0.2);
       let current = items[0]?.id ?? "";
       for (const it of items) {
         const el = document.getElementById(it.id);
         if (!el) continue;
-        // offsetTop 相对 offsetParent；用相对滚动内容的位置比较
+        // 用相对滚动内容的位置比较（offsetTop 相对 offsetParent，不可靠）
         const top = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scrollTop;
         if (top <= line) current = it.id;
       }
@@ -301,8 +306,6 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
                   onClick={(e) => {
                     e.preventDefault();
                     setActive(it.id);
-                    // 锁定 600ms：平滑滚动期间不让 observer 抢高亮（否则高亮会一路乱跳）
-                    lockUntil.current = performance.now() + 600;
                     const el = document.getElementById(it.id);
                     const scroller = document.querySelector<HTMLElement>(".wiki-detail-body");
                     if (!el || !scroller) return;
@@ -312,6 +315,37 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
                       scroller.getBoundingClientRect().top +
                       scroller.scrollTop -
                       24; // 顶部留白
+                    // 锁定到“滚动真正停下”为止，而不是固定 600ms。
+                    // 本文正文 3.7 万 px，跨章节跳转的平滑滚动远超 600ms；
+                    // 锁一过 scroll-spy 就会把高亮抢给途中经过的章节。
+                    // 做法：锁定 → 监听 scroll，静止 120ms 后解锁并校准一次。
+                    lockUntil.current = Infinity;
+                    let settle = 0;
+                    const finish = () => {
+                      scroller.removeEventListener("scroll", onSettle);
+                      lockUntil.current = 0;
+                      // 滚停后按最终位置重新判一次当前章节
+                      const st = scroller.scrollTop;
+                      const line = st + 48;
+                      let cur = items[0]?.id ?? "";
+                      for (const t of items) {
+                        const te = document.getElementById(t.id);
+                        if (!te) continue;
+                        const tt =
+                          te.getBoundingClientRect().top -
+                          scroller.getBoundingClientRect().top +
+                          st;
+                        if (tt <= line) cur = t.id;
+                      }
+                      setActive(cur);
+                    };
+                    const onSettle = () => {
+                      window.clearTimeout(settle);
+                      settle = window.setTimeout(finish, 120);
+                    };
+                    scroller.addEventListener("scroll", onSettle, { passive: true });
+                    // 兜底：即使一次 scroll 事件都没触发（已在该位置），也要解锁
+                    settle = window.setTimeout(finish, 1200);
                     scroller.scrollTo({ top, behavior: "smooth" });
                   }}
                 >
