@@ -992,9 +992,14 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
    注意：只作用于正文区，标题/表格/代码仍用原来的无衬线 + 等宽字体。 */
 .wiki-markdown {
   font-family: var(--font-noto-serif-sc), var(--font-albert-sans), serif;
-  /* 块级元素统一垂直间距：段落/列表/引用/表格/代码块都用同一档，
-     避免之前 14/16/18px 混用导致的“忽宽忽窄”。 */
-  --md-gap: 14px;
+  /* 正文字号 / 行高 */
+  --md-font-size: 15px;
+  --md-line-height: 1.9;
+  /* 段落间距为 0：段与段紧贴，不空行。
+     段落靠「首行缩进 2em」区分（中文传统排版做法）。
+     其余块级元素（标题/列表/表格等）仍用 --md-block-gap 与正文拉开。 */
+  --md-gap: 0px;
+  --md-block-gap: calc(var(--md-font-size) * var(--md-line-height) - var(--md-font-size));
 }
 .wiki-markdown > *:first-child { margin-top: 0; }
 .wiki-markdown > *:last-child { margin-bottom: 0; }
@@ -1002,7 +1007,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 .wiki-markdown h2 {
   /* 标题回到无衬线体，与正文形成对比，层级更清楚 */
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 40px 0 var(--md-gap);
+  margin: 40px 0 var(--md-block-gap);
   padding-bottom: 8px;
   border-bottom: 1px solid var(--border);
   font-size: 22px;
@@ -1015,7 +1020,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h3 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 34px 0 var(--md-gap);
+  margin: 34px 0 var(--md-block-gap);
   font-size: 19px;
   font-weight: 700;
   color: var(--text);
@@ -1024,7 +1029,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h4 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 26px 0 var(--md-gap);
+  margin: 26px 0 var(--md-block-gap);
   font-size: 16px;
   font-weight: 700;
   color: var(--text);
@@ -1033,7 +1038,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h5 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 20px 0 var(--md-gap);
+  margin: 20px 0 var(--md-block-gap);
   font-size: 14.5px;
   font-weight: 700;
   color: var(--text2, var(--text));
@@ -1042,7 +1047,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown h6 {
   font-family: var(--font-albert-sans), var(--font-noto-sans-sc), sans-serif;
-  margin: 18px 0 var(--md-gap);
+  margin: 18px 0 var(--md-block-gap);
   font-size: 14px;
   font-weight: 600;
   color: var(--text3, var(--text));
@@ -1051,20 +1056,42 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 
 .wiki-markdown p {
   margin: 0 0 var(--md-gap);
-  font-size: 15px;
-  line-height: 1.9;
+  font-size: var(--md-font-size);
+  line-height: var(--md-line-height);
   color: var(--wiki-body-text, var(--text));
+  /* 中文排版首行缩进：2em = 2 个汉字宽度。
+     仅作用于顶层正文段落；列表/引用/表格内的段落不缩进（见下方重置）。 */
+  text-indent: 2em;
+}
+/* 以下场景取消首行缩进：列表项、引用块、表格单元格、图片说明 */
+.wiki-markdown li p,
+.wiki-markdown blockquote p,
+.wiki-markdown td p,
+.wiki-markdown th p {
+  text-indent: 0;
 }
 
 .wiki-markdown ul,
 .wiki-markdown ol {
-  margin: 0 0 var(--md-gap);
-  padding-left: 22px;
+  margin: var(--md-block-gap) 0 var(--md-block-gap);
+  padding-left: 26px;
   color: var(--text);
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: var(--md-font-size);
+  /* 行高与正文一致，保证列表内/列表与段落之间的视觉节奏相同 */
+  line-height: var(--md-line-height);
 }
-.wiki-markdown li { margin-bottom: 6px; }
+/* 显式恢复列表标记。
+   Tailwind 的 preflight 会把所有 ul/ol 的 list-style 重置为 none，
+   不写这两条会变成「无项目符号/无序号」的纯文本缩进。 */
+.wiki-markdown ul { list-style: disc outside; }
+.wiki-markdown ol { list-style: decimal outside; }
+.wiki-markdown ul ul { list-style: circle outside; }
+.wiki-markdown ul ul ul { list-style: square outside; }
+.wiki-markdown ol ol { list-style: lower-alpha outside; }
+/* 列表项之间不额外加间距：与段落一样紧凑（靠行高区分）。
+   之前用 --md-block-gap（13.5px），会让列表看起来“散了”。 */
+.wiki-markdown li { margin-bottom: 0; }
+.wiki-markdown li + li { margin-top: 0; }
 .wiki-markdown li::marker { color: var(--purple); }
 
 .wiki-markdown strong { color: var(--text); font-weight: 700; }
@@ -1089,7 +1116,7 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 }
 
 .wiki-markdown pre {
-  margin: 0 0 var(--md-gap);
+  margin: var(--md-block-gap) 0 var(--md-block-gap);
   padding: 16px 18px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1102,25 +1129,26 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
   border: 0;
   color: var(--text2);
   font-size: 13px;
-  line-height: 1.7;
+  /* 代码块内部行高也统一，与其他块级元素节奏一致 */
+  line-height: var(--md-line-height);
 }
 
 .wiki-markdown blockquote {
-  margin: 0 0 var(--md-gap);
+  margin: var(--md-block-gap) 0 var(--md-block-gap);
   padding: 12px 18px;
   border-left: 2px solid var(--purple);
   background: color-mix(in srgb, var(--purple) 5%, transparent);
   color: var(--text2);
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: var(--md-font-size);
+  line-height: var(--md-line-height);
 }
 .wiki-markdown blockquote p:last-child { margin-bottom: 0; }
 
 .wiki-markdown table {
   width: 100%;
-  margin: 0 0 var(--md-gap);
+  margin: var(--md-block-gap) 0 var(--md-block-gap);
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: var(--md-font-size);
 }
 .wiki-markdown th,
 .wiki-markdown td {
@@ -1132,7 +1160,8 @@ body:has(.wiki-detail-layout) > .site-footer { display: none; }
 .wiki-markdown th { background: var(--surface); color: var(--text); font-weight: 600; }
 
 .wiki-markdown hr {
-  margin: 28px 0;
+  /* 分隔线上下间距也统一（原来 28px 比其他元素大） */
+  margin: var(--md-block-gap) 0;
   border: 0;
   border-top: 1px solid var(--border);
 }
