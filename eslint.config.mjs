@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // vercel build 产物（本地跑 `vercel build` 时生成）
+    ".vercel/**",
+    // 本地中间产物
+    "tmp/**",
   ]),
 ]);
 
