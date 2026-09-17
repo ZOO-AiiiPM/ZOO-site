@@ -55,5 +55,11 @@ screenshots/
 .trae/
 .workbuddy/
 
+# skills/ 下只有本项目自用的技能入库（如 wiki-content-writing）；
+# 其余是指向个人 skill hub（~/.skillshub/）的符号链接 ——
+# 入库后对别人是断链，且内容不属于本项目。
+skills/*
+!skills/wiki-content-writing/
+
 # 本地中间产物（wiki 抓取/拆分稿/备份，不入库）
 tmp/
