@@ -526,6 +526,25 @@ body:has(.wiki-index) > .site-footer { display: none; }
 .wiki-index-card-gold .wiki-index-card-cta span { color: var(--gold); }
 .wiki-index-card:hover .wiki-index-card-cta { color: var(--text); }
 
+/* 空目录卡片（内容未就绪）：
+   保留底色与边框（仍是一个正式条目），但取消悬停位移与高亮，
+   并用虚线边框暗示「尚未开放」，避免被误认为可点入口。 */
+.wiki-index-card.is-empty {
+  border-style: dashed;
+  cursor: default;
+}
+.wiki-index-card.is-empty:hover {
+  border-color: var(--border);
+  transform: none;
+}
+/* 悬停时 CTA 不变色（父级 hover 规则在上面，需同特异性覆盖） */
+.wiki-index-card.is-empty:hover .wiki-index-card-cta { color: var(--text2); }
+.wiki-index-card.is-empty .wiki-index-card-name { color: var(--text2); }
+.wiki-index-card-chapter.is-placeholder {
+  border-style: dashed;
+  color: var(--text3);
+}
+
 /* Index footer */
 /* 底部信息条：与正文页同款（左版权、右链接的横条竖向居中） */
 .wiki-index-foot {

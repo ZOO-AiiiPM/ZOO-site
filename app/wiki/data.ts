@@ -1,5 +1,6 @@
 // Wiki 元数据 + 索引
 // 「产品兵器库」：一套 wiki，chapter 为主题分类，entry 为一期一篇文章。
+// 「一对一课程」：同上结构，目录待陆续补充（toc 为空时首页卡片走「敬请期待」态）。
 
 export interface WikiMeta {
   slug: string;
@@ -8,6 +9,8 @@ export interface WikiMeta {
   description: string;
   chapters: WikiChapter[];
   accent: "green" | "purple" | "pink" | "gold";
+  /** 首页卡片图标。不配则回退到默认图纸 emoji（📐） */
+  icon?: string;
 }
 
 export interface WikiChapter {
@@ -43,6 +46,7 @@ export const WIKI_META: WikiMeta[] = [
     description:
       "「产品兵器库」系列手册的整理与归档。按主题分类，一期一篇文章；每期保留内部完整目录，可独立读完。",
     accent: "purple",
+    icon: "🗡️",
     chapters: [
       {
         id: "product-method",
@@ -66,6 +70,17 @@ export const WIKI_META: WikiMeta[] = [
         ],
       },
     ],
+  },
+  {
+    slug: "one-on-one",
+    name: "一对一课程",
+    tagline: "一对一授课记录 · 讲义 / 复盘 / 答疑",
+    description:
+      "「一对一课程」的教学与复盘归档。按主题分类，一节一篇；内容陆续整理中。",
+    accent: "purple",
+    icon: "🎓",
+    // 目录留空：内容就绪后往这里补 chapter / entry
+    chapters: [],
   },
 ];
 

@@ -68,37 +68,57 @@ export default function WikiIndexPage() {
             // 也没有 .wiki-detail-layout，全局 <Nav /> 会露出来，
             // 表现为“闪过一页别的页面”。
             const firstEntry = wiki.chapters[0]?.entries[0]?.id;
+            // 空目录（内容未就绪）：卡片改为不可点的「敬请期待」态。
+            // 否则点了会先跳 /wiki/[slug] 再重定向回首页，观感像「点了没用」。
+            const isEmpty = !firstEntry;
             // 卡片计数文案：一套 wiki 下就是「N 期 · M 个分类」
             const entryCount = wiki.chapters.reduce((s, c) => s + c.entries.length, 0);
-            return (
-              <Link
-                key={wiki.slug}
-                href={firstEntry ? `/wiki/${wiki.slug}/${firstEntry}` : `/wiki/${wiki.slug}`}
-                className={`wiki-index-card wiki-index-card-${wiki.accent} cli-stagger-item`}
-                onClick={startWikiLoading}
-              >
+            const className = `wiki-index-card wiki-index-card-${wiki.accent} cli-stagger-item${isEmpty ? " is-empty" : ""}`;
+            const inner = (
+              <>
               <div className="wiki-index-card-head">
                 <span className="wiki-index-card-icon" aria-hidden="true">
-                  {wiki.slug === "arsenal" ? "🗡️" : "📐"}
+                  {wiki.icon ?? "📐"}
                 </span>
                 <span className="wiki-index-card-count">
-                  {entryCount} 期 · {wiki.chapters.length} 个分类
+                  {isEmpty
+                    ? "内容整理中"
+                    : `${entryCount} 期 · ${wiki.chapters.length} 个分类`}
                 </span>
               </div>
               <h2 className="wiki-index-card-name">{wiki.name}</h2>
               <p className="wiki-index-card-tagline">{wiki.tagline}</p>
               <p className="wiki-index-card-desc">{wiki.description}</p>
               <div className="wiki-index-card-chapters">
-                {wiki.chapters.map((c) => (
-                  <span key={c.id} className="wiki-index-card-chapter">
-                    {c.title}
-                    <small>{c.entries.length}</small>
-                  </span>
-                ))}
+                {isEmpty ? (
+                  <span className="wiki-index-card-chapter is-placeholder">敬请期待</span>
+                ) : (
+                  wiki.chapters.map((c) => (
+                    <span key={c.id} className="wiki-index-card-chapter">
+                      {c.title}
+                      <small>{c.entries.length}</small>
+                    </span>
+                  ))
+                )}
               </div>
               <span className="wiki-index-card-cta">
-                进入阅读 <span aria-hidden="true">→</span>
+                {isEmpty ? "敬请期待" : "进入阅读"}{" "}
+                <span aria-hidden="true">{isEmpty ? "·" : "→"}</span>
               </span>
+              </>
+            );
+            return isEmpty ? (
+              <div key={wiki.slug} className={className} aria-disabled="true">
+                {inner}
+              </div>
+            ) : (
+              <Link
+                key={wiki.slug}
+                href={`/wiki/${wiki.slug}/${firstEntry}`}
+                className={className}
+                onClick={startWikiLoading}
+              >
+                {inner}
               </Link>
             );
           })}
