@@ -2,6 +2,7 @@
 
 import {
   use,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -228,6 +229,12 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
   const [active, setActive] = useState<string>("");
   // 点击后的短暂锁定：防止平滑滚动过程中 observer 把高亮刷到别处（表现为「乱飘」）
   const lockUntil = useRef(0);
+  // 目录列表滚动容器（标题「目录」不参与滚动）
+  const listRef = useRef<HTMLElement>(null);
+  // 用户手动滚动目录的时刻：之后的一小段时间内不自动跟随，避免和用户抢滚动条
+  const manualUntil = useRef(0);
+  // 自动跟随自己触发的滚动：这段时间内的 scroll 事件不算「用户手动」
+  const programmaticUntil = useRef(0);
 
   // 无 ## 标题时回退到固定锚点目录
   const fallback = useMemo(() => {
@@ -239,6 +246,47 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
   }, [entry]);
 
   const items = headings.length > 0 ? headings : fallback;
+
+  /**
+   * 让当前章节在目录里保持可见（长目录自动跟随正文翻页）。
+   * 只在必要的时候动：目标已经完整可见就不滚，尽量少打扰阅读。
+   * 采用「贴近下沿就先滚一点」的策略 —— 不等它真滚出可视区才追，
+   * 这样正文下翻时目录的翻动是连续的，而不是一跳一跳。
+   */
+  const keepActiveVisible = useCallback((id: string, smooth = true) => {
+    const list = listRef.current;
+    if (!list || !id) return;
+    const link = list.querySelector<HTMLElement>(`a[href="#${CSS.escape(id)}"]`);
+    if (!link) return;
+    // 用户刚手动滚过目录，这段时间不抢滚动条
+    if (performance.now() < manualUntil.current) return;
+
+    const listRect = list.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    // 上下各留一段余量：接近边缘时就提前滚动，观感像「目录跟着翻页」
+    const marginTop = 8;
+    const marginBottom = 64;
+
+    const visibleTop = listRect.top + marginTop;
+    const visibleBottom = listRect.bottom - marginBottom;
+
+    let delta = 0;
+    if (linkRect.top < visibleTop) {
+      // 在可视区上方：把它拉到顶部余量处
+      delta = linkRect.top - visibleTop;
+    } else if (linkRect.bottom > visibleBottom) {
+      // 在可视区下方：把它推到「下方余量」之上（而不是贴到底边）
+      delta = linkRect.bottom - visibleBottom;
+    } else {
+      return; // 已完整可见，不动
+    }
+
+    programmaticUntil.current = performance.now() + (smooth ? 700 : 80);
+    list.scrollTo({
+      top: list.scrollTop + delta,
+      behavior: smooth ? "smooth" : "auto",
+    });
+  }, []);
 
   // 滚动完成后重新校准高亮。
   // 旧实现有个 bug：点击 TOC 跳转后，高亮总是落在目标的**下一个**兄弟章节上。
@@ -274,20 +322,44 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
       raf = requestAnimationFrame(pick);
     };
 
+    // 目录自身被用户拖动时，暂时让出自动跟随（1.2s 内不追）。
+    // 需要排除两种「非手动」的 scroll：
+    //   1. 自动跟随自己触发的平滑滚动（programmaticUntil 窗口内）；
+    //   2. 点击目录跳转时的锁定期（lockUntil 窗口内）。
+    let manualTimer = 0;
+    const onListScroll = () => {
+      const now = performance.now();
+      if (now < lockUntil.current || now < programmaticUntil.current) return;
+      manualUntil.current = now + 1200;
+      window.clearTimeout(manualTimer);
+      manualTimer = window.setTimeout(() => {
+        manualUntil.current = 0;
+      }, 1200);
+    };
+    const list = listRef.current;
+    list?.addEventListener("scroll", onListScroll, { passive: true });
+
     pick();
     scroller.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(manualTimer);
       scroller.removeEventListener("scroll", onScroll);
+      list?.removeEventListener("scroll", onListScroll);
       window.removeEventListener("resize", onScroll);
     };
   }, [items]);
 
+  // 高亮章节变化 → 让目录跟着翻（长目录时保证当前项始终在可视区内）
+  useEffect(() => {
+    keepActiveVisible(active);
+  }, [active, keepActiveVisible]);
+
   return (
     <aside className="wiki-detail-toc" aria-label="目录">
       <div className="wiki-detail-toc-title">目录</div>
-      <nav>
+      <nav ref={listRef}>
         <div className="wiki-detail-toc-group">
           <ul>
             {items.map((it) => (
@@ -306,6 +378,8 @@ function EntryToc({ entry }: { entry: WikiEntry }) {
                   onClick={(e) => {
                     e.preventDefault();
                     setActive(it.id);
+                    // 点击后立刻让目录翻到该项（长目录里被点的项常在可视区外）
+                    keepActiveVisible(it.id);
                     const el = document.getElementById(it.id);
                     const scroller = document.querySelector<HTMLElement>(".wiki-detail-body");
                     if (!el || !scroller) return;

@@ -250,13 +250,16 @@ body:has(.wiki-detail-layout) {
   overscroll-behavior: contain;
   /* 底部留白，滚到底不贴边 */
   padding-bottom: 40px;
-  /* 细滚动条，与左侧边栏一致 */
-  scrollbar-width: thin;
+  /* 隐藏目录自身的滚动条：滚动能力保留（鼠标/触控板/跟随正文翻页都照常），
+     只是不再画出那条细竖线 —— 目录作为一条干净的文字列表更贴正文观感。 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* 旧版 Edge/IE */
 }
-.wiki-detail-toc > nav::-webkit-scrollbar { width: 6px; }
-.wiki-detail-toc > nav::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
+.wiki-detail-toc > nav::-webkit-scrollbar {
+  /* Chrome / Safari / 新版 Edge：完全不占位，也不显示轨道 */
+  width: 0;
+  height: 0;
+  display: none;
 }
 .wiki-detail-toc-title {
   flex: 0 0 auto;
