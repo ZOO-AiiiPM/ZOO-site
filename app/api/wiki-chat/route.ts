@@ -5,28 +5,41 @@ import { getEntry, getWikiMeta, WIKI_ENTRIES, WIKI_META } from "@/app/wiki/data"
 // Wiki AI 助手：基于当前词条 + 相关词条上下文回答。
 // 与 /api/chat（赛博分身）分开：这里是知识库问答，不是角色扮演。
 //
-// 默认后端：自建 Gemini relay（对外暴露 OpenAI 兼容端点 /v1beta/openai）。
-// relay 内部持有多个上游 key，单个失效时自动轮转到下一个，所以这里只配一个
-// 任意非空的占位 key 即可。
+// 后端：直连 OpenRouter 的 OpenAI 兼容端点。
+// 历史沿革：早期直连 Google 会撞上地区封锁（"User location is not supported"），
+// 因此中间挂了一个自建 relay 绕行。relay 自带的两个坑（建连超时误杀流式响应、
+// 函数 60s 硬上限）后来成为回答被截断的主因。迁到 OpenRouter 后，上游本身就在
+// 海外，无地区问题，也不再需要 key/模型轮换，于是去掉 relay 这一跳。
 //
 // 延迟构造 client：模块级 new OpenAI() 在缺少 key 时会让 `next build` 直接失败，
 // 构建期不应依赖密钥存在。
 let client: OpenAI | null = null;
 
-const DEFAULT_BASE_URL =
-  "https://gemini-relay-smoky.vercel.app/816e4039e815a00694f5f9ea42c91ae6b86262d1ce78d109/v1beta/openai";
-// 首选模型。relay 侧开了 RELAY_MODELS 多模型轮换，因此这里指定的模型
-// 若配额耗尽或过载，请求会自动落到列表中的其他模型（见 relay 的 README）。
-const DEFAULT_MODEL = "gemini-3.5-flash";
+const DEFAULT_BASE_URL = "https://openrouter.ai/api/v1";
+
+// DeepSeek V4 Flash（免费档）。1M 上下文，输出上限 393k，中文表现好。
+// 默认开启 high effort 推理，思考内容通过 delta.reasoning 单独下发。
+const DEFAULT_MODEL = "deepseek/deepseek-v4-flash-0731:free";
+
+/**
+ * OpenRouter 建议带上站点标识，用于在后台区分流量来源；缺失也能请求。
+ * 参考：https://openrouter.ai/docs/app-attribution
+ */
+const SITE_URL = process.env.WIKI_AI_SITE_URL || "https://zooooo.site";
+const SITE_NAME = process.env.WIKI_AI_SITE_NAME || "Winston AI PM Wiki";
 
 function getClient(): OpenAI {
   if (!client) {
     client = new OpenAI({
-      apiKey: process.env.WIKI_AI_API_KEY || process.env.GEMINI_API_KEY,
+      apiKey: process.env.WIKI_AI_API_KEY || process.env.OPENROUTER_API_KEY,
       baseURL: (
         process.env.WIKI_AI_BASE_URL ||
         DEFAULT_BASE_URL
       ).replace(/\/chat\/completions\/?$/, ""),
+      defaultHeaders: {
+        "HTTP-Referer": SITE_URL,
+        "X-Title": SITE_NAME,
+      },
     });
   }
   return client;
@@ -138,14 +151,22 @@ const MAX_CONTEXT_ENTRIES = 6;
 const MAX_CONTEXT_CHARS = 12000;
 
 /**
- * 最大上下文窗口：128k token（自设预算，非模型硬限）。
- * gemini-flash-latest（Gemini 2.5 Flash）实际输入上下文为 1M token，
- * 这里主动收窄到 128k，避免单次请求成本失控。
+ * 最大上下文窗口（自设预算，非模型硬限）。
+ * DeepSeek V4 Flash 官方输入上下文是 1M token，这里主动收窄到 128k，
+ * 避免单次请求成本失控。
  */
 const MAX_CONTEXT_TOKENS = 128_000;
 
-/** 最大输出 token */
-const MAX_OUTPUT_TOKENS = 12_800;
+/**
+ * 最大输出 token。
+ *
+ * 取 6k 是「长度」和「能来得及说完」的平衡点：
+ * - 实测该模型在 wiki 语境下 6k token 能写出 4000+ 字中文，对问答绰绰有余；
+ * - 模型默认开 high effort 推理，思考本身要吃掉几百到上千 token，
+ *   上限给太小（如 200）会全部耗在思考上、正文一个字都出不来；
+ * - 上限给太大（如 20k）会让长回答拖到 90s+，容易撞上平台函数超时。
+ */
+const MAX_OUTPUT_TOKENS = 6_000;
 
 /** 滑动窗口：最多保留最近 12 轮（user+assistant 共 24 条） */
 const MAX_HISTORY_MESSAGES = 24;
@@ -314,6 +335,16 @@ ${contextBlocks.join("\n\n---\n\n")}
 7. 如果读者问的是完全无关的话题（比如天气），一句话说明你只负责这个知识库，再引导回词条。`;
 }
 
+/**
+ * 函数最长执行时间（秒）。
+ *
+ * 这个路由要做的事是「转发 SSE」——首字节可能要等上游思考完（实测 6~30s），
+ * 整条流才结束。默认上限（平台默认值）对长回答不够用，放宽到 60s。
+ * 注意这是平台硬约束：若计划上限低于此值，构建/部署时会被拒，
+ * 需相应下调（Hobby 通常 60s，Pro 可到 300s）。
+ */
+export const maxDuration = 60;
+
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
   const { allowed, retryAfter } = checkRateLimit(ip);
@@ -411,13 +442,20 @@ export async function POST(req: NextRequest) {
       try {
         for await (const chunk of stream) {
           const delta = chunk.choices[0]?.delta as
-            | { content?: string | null; reasoning_content?: string | null }
+            | {
+                content?: string | null;
+                // 不同上游对「思考内容」的字段名不一致：
+                //   Gemini  → reasoning_content
+                //   DeepSeek/OpenRouter → reasoning
+                // 两个都读，避免换模型时思考内容静默丢失。
+                reasoning?: string | null;
+                reasoning_content?: string | null;
+              }
             | undefined;
-          // 推理模型（如 gemini-3.x）把思考过程放在 reasoning_content。
-          // 这里把它作为独立的 thinking 事件传给前端，在回答气泡上方实时展示，
+          // 把思考过程作为独立的 thinking 事件传给前端，在回答气泡上方实时展示，
           // 让用户在等待期间看到「模型在想什么」而不是干等。
           // 注意：思考与正文是两条独立通道，不能混进 text（否则会污染回答）。
-          const reasoning = delta?.reasoning_content;
+          const reasoning = delta?.reasoning || delta?.reasoning_content;
           if (reasoning) {
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({ thinking: reasoning })}\n\n`),

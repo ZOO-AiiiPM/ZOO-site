@@ -1,6 +1,14 @@
 // Wiki 元数据 + 索引
 // 「产品兵器库」：一套 wiki，chapter 为主题分类，entry 为一期一篇文章。
 // 「一对一课程」：同上结构，目录待陆续补充（toc 为空时首页卡片走「敬请期待」态）。
+//
+// ⚠️ WIKI_META / WIKI_ENTRIES 的末尾会自动合并 agent-session.generated.ts
+//    （由 进行中/llm wiki/scripts/publish.py 从 wiki/**/*.md 生成，勿手改）。
+
+import {
+  AGENT_SESSION_ENTRIES,
+  AGENT_SESSION_META,
+} from "./agent-session.generated";
 
 export interface WikiMeta {
   slug: string;
@@ -89,6 +97,8 @@ export const WIKI_META: WikiMeta[] = [
       },
     ],
   },
+  // ── 自动生成：agent-session wiki（来源 进行中/llm wiki/wiki/**/*.md）──
+  AGENT_SESSION_META,
 ];
 
 // ===== 词条（一期一篇）=====
@@ -272,6 +282,9 @@ export const WIKI_ENTRIES: WikiEntry[] = [
     ],
   },
 ];
+
+// ── 自动生成：agent-session 词条（来源 进行中/llm wiki/wiki/**/*.md）──
+WIKI_ENTRIES.push(...AGENT_SESSION_ENTRIES);
 
 export function getWikiMeta(slug: string): WikiMeta | undefined {
   return WIKI_META.find((w) => w.slug === slug);
