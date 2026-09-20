@@ -481,10 +481,28 @@ function EntryPager({ wiki, currentId }: { wiki: WikiMeta; currentId: string }) 
 }
 
 
+/**
+ * 安全解码 URL 段。
+ *
+ * 为什么需要：Next.js 的 useParams() 对中文动态段可能返回 URL-encoded 形式
+ * （`口径先于数值` → `%E5%8F%A3%E5%BE%84…`），而 data.ts / generated.ts 里的
+ * id 是原始字符串。不解码 → getEntry() 匹配失败 → 词条页 404。
+ * 已经解码过的字符串再 decode 会抛错，所以 try/catch 兜底。
+ */
+function safeDecode(s: string): string {
+  try {
+    return decodeURIComponent(s);
+  } catch {
+    return s;
+  }
+}
+
 export default function WikiEntryPage({ params }: Props) {
   const { slug, entry: entryId } = use(params);
   const wiki = getWikiMeta(slug);
-  const entry = getEntry(entryId);
+  // Next.js 把动态段交回来时可能是 URL-encoded（中文 id 会变成 %E5%8F%A3…），
+  // 而 data 里的 id 是原始字符串。先解码再查，否则中文 id 的词条一律 404。
+  const entry = getEntry(safeDecode(entryId));
 
   // AI 助手是否处于放大侧栏态：决定右侧是否为对话区让位
   const { mode: aiMode } = useWikiAssistant();
