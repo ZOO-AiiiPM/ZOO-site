@@ -11,10 +11,10 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "oneLiner": "总览",
   "body": [
     "## # 总览",
-    "## 一、跨源综述（Synthesis）\n\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) — 单点不产生信息，先造一个 A/B；「说不清」多半是缺参照系\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) — 数字不可信几乎总是归属问题：先问分子是谁、分母是谁、时间窗是什么\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) — 症状看起来在哪一层 ≠ 问题在哪一层；先划边界再改代码",
-    "## 二、主题聚合（Topics）\n\n- [执行力的复盘](/wiki/agent-session/as-%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E5%A4%8D%E7%9B%98) — 野心是水不是火；结果锚点 vs 产出锚点；拖延是环境问题\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB) — 整体 vs 净成、ROI 成对看、必须补自然流量/内容/画像\n- [用户访谈与需求挖掘](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98) — 邀约措辞 + 第一句「先给料再提问」",
-    "## 三、可复用的判断（Concepts）\n\n### AI 基础概念（ai-basics）\n\n- [scaling-law](/wiki/agent-session/as-scaling-law) — 能力随参数/数据/算力可预测提升；Chinchilla 打脸「只堆模型」\n- [长尾查询](/wiki/agent-session/as-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2) — 冷门具体查询决定搜索源的选择\n- [实时与异步](/wiki/agent-session/as-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) — 选型不看技术难度，看内容变化速度\n- [技术性通缩与经济学通缩](/wiki/agent-session/as-%E6%8A%80%E6%9C%AF%E6%80%A7%E9%80%9A%E7%BC%A9%E4%B8%8E%E7%BB%8F%E6%B5%8E%E5%AD%A6%E9%80%9A%E7%BC%A9) — 生产率降价是好事，货币通缩是病\n- [缓存命中率](/wiki/agent-session/as-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) — 先怀疑「每次都是首请求」，再怀疑实现\n- [dogfooding](/wiki/agent-session/as-dogfooding) — 用真实使用验证价值；是必要条件，不是充分条件\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) — 有 ≥2 种解释时先确认；反复追问 = 知识体系有洞\n\n### LLM 工程（llm-engineering）\n\n- [计数闸门不等于上下文管理](/wiki/agent-session/as-%E8%AE%A1%E6%95%B0%E9%97%B8%E9%97%A8%E4%B8%8D%E7%AD%89%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86) — 条数护栏既不全塞也不滑窗，最坏输入没有 token 兜底\n- [关键词检索的三个打分缺陷](/wiki/agent-session/as-%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E7%B4%A2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%89%93%E5%88%86%E7%BC%BA%E9%99%B7) — 只匹配标题、按 token 长度打分、中文整句切\n- [检索要按难度迭代](/wiki/agent-session/as-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3) — 先判难度定预算，读不通就换查询；停止看覆盖度\n- [多账号模型路由机制](/wiki/agent-session/as-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6) — model-aware 路由：按目录筛账号、请求内锁区、额度互补\n- 模型可见性按入口分批 — 灰度按入口/账号放量，排查第一步是分入口\n- [轮换要带健康状态记忆](/wiki/agent-session/as-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86) — 记坏过的组合、按错误性质设冷却、给每次尝试设超时\n\n### Agent 与 Skills 生态（agent-ecosystem）\n\n- skill跨agent加载差异 — frontmatter 不兼容会导致整个 skill 被静默跳过\n- [一次性凭证拿到就落盘](/wiki/agent-session/as-%E4%B8%80%E6%AC%A1%E6%80%A7%E5%87%AD%E8%AF%81%E6%8B%BF%E5%88%B0%E5%B0%B1%E8%90%BD%E7%9B%98) — 一次性授权码必须在第一次执行时就写入文件\n\n### 产品方法论（product）\n\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) — 价值只有变成用户能感知的对照才存在\n- [北极星指标要量价值闭环](/wiki/agent-session/as-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF) — 不量调用勤不勤，量产出有没有被采纳沉淀\n- 一次循环只做一个可体验的v1能力 — 一个 loop = 一个连贯的 v1 能力，不是补丁也不是路线图\n- 评审设计可行性先问方案再定难度 — 先问「你打算怎么做」，再谈难度\n\n### 前端工程（frontend）\n\n- [流式更新要合并字段而非替换对象](/wiki/agent-session/as-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1) — 整体替换会丢掉后加的字段，要用展开合并\n- [跨源取数据要靠自建代理](/wiki/agent-session/as-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) — 不同端口即不同源；「UI 做不出来」其实是数据拿不到\n- [进度条要由真实进度驱动](/wiki/agent-session/as-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8) — 不能用无限循环动画假装加载\n\n### 知识库架构（knowledge-base）\n\n- [知识入库的筛选标准](/wiki/agent-session/as-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) — 对未来有帮助 / 是知识非动作 / 有反复疑问（权重最大）\n- [入库前先分层清洗](/wiki/agent-session/as-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) — 过滤层与判断层分开，噪声不留到提炼时处理\n- [清洗合并会破坏源格式语义](/wiki/agent-session/as-%E6%B8%85%E6%B4%97%E5%90%88%E5%B9%B6%E4%BC%9A%E7%A0%B4%E5%9D%8F%E6%BA%90%E6%A0%BC%E5%BC%8F%E8%AF%AD%E4%B9%89) — 验收标准是渲染出来的样子，不是文本一字不差\n\n### 本机排障（diagnosis）\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) — 有无响应体决定是平台层还是应用层\n- 讲bug先讲现象再讲根因 — 先说会看到什么坏现象，再说根因和改法\n- 样式丢失先核对类名再怀疑缓存与权限 — 先比对组件类名与 CSS 里的类名\n- GitHub打不开先分清主站与静态资源域名 — 按域名分层测，别直接归因「被墙」\n- 面板多出的固定区块先查数据源再改前端 — 先看接口实际返回什么，再改渲染\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5) — `lsof -ti` 会连客户端进程一起杀\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6) — 无风扇机型持续功耗直接变体感温度",
-    "## 四、待探索（有问题没答案 —— 最有价值的钩子）\n\n- 遇到**具体难题**想逃避，怎么破（已有环境/具体动作框架，缺难题切入法）\n- 各渠道免费额度的**刷新机制**横向对比\n- 数据缺**趋势视角**：环比/同周期对比怎么建\n- 「RAG vs 微调」补成正式概念页（clean 里只有 agent 提及，缺提问作为依据）\n\n---\n\n*共 45 页 · 更新于 2026-09-21*"
+    "## 一、跨源综述（Synthesis · 11）\n\n> 综合 ≥2 个不同来源才成立、可脱离项目带走的判断。\n\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) — 症状看起来在哪一层 ≠ 问题在哪一层；先用最便宜的观测划边界\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) — 数字不可信几乎总是归属问题：先问分子是谁、分母是谁、时间窗是什么\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) — 单点不产生信息，先造一个 A/B；「说不清」多半是缺参照系\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) — 用「事件序号/固定像素/循环动画/会话缓存」代替真实状态，必然静默出错\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) — 按「寿命」分层：会过期的和不会过期的不能放同一层\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) — 分对层只完成一半；契约/适配器没人读，约束就等于不存在\n- [契约只承载结构，个性留给扩展层](/wiki/agent-session/as-synthesis-%E5%A5%91%E7%BA%A6%E5%8F%AA%E6%89%BF%E8%BD%BD%E7%BB%93%E6%9E%84%EF%BC%8C%E4%B8%AA%E6%80%A7%E7%95%99%E7%BB%99%E6%89%A9%E5%B1%95%E5%B1%82) — 共享层只描述「有哪些位置/步骤」，视觉、格式、业务规则一律外推\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) — 「谁最新」要靠显式版本记录，不能靠「谁最后返回」\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) — 改对代码 ≠ 修好现状；存量数据、旧路径、未同步的层要单独带过来\n- [真源要按维度显式指定](/wiki/agent-session/as-synthesis-%E7%9C%9F%E6%BA%90%E8%A6%81%E6%8C%89%E7%BB%B4%E5%BA%A6%E6%98%BE%E5%BC%8F%E6%8C%87%E5%AE%9A) — 「谁新/谁全/谁像」都不是判据；先按维度把真源写死，再谈同步\n- [定义要由使用者确认](/wiki/agent-session/as-synthesis-%E5%AE%9A%E4%B9%89%E8%A6%81%E7%94%B1%E4%BD%BF%E7%94%A8%E8%80%85%E7%A1%AE%E8%AE%A4) — 分类法/术语/协议由单方给出必然错位；定义权要显式交给使用者并确认一次",
+    "## 二、主题聚合（Topics · 10）\n\n> 标题即主题，页内是该主题下的多条判断。\n\n- [执行力的复盘](/wiki/agent-session/as-topic-%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E5%A4%8D%E7%9B%98) — 野心是水不是火；结果锚点 vs 产出锚点；拖延是环境问题；难题逃避待解\n- [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB) — 整体 vs 净成、ROI 成对看、LTV 链路、必须补自然流量/内容/画像\n- [用户访谈与需求挖掘](/wiki/agent-session/as-topic-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98) — 邀约措辞 + 第一句「先给料再提问」\n- [多Agent协作控制面](/wiki/agent-session/as-topic-%E5%A4%9AAgent%E5%8D%8F%E4%BD%9C%E6%8E%A7%E5%88%B6%E9%9D%A2) — 协作控制面分裂；四层职责（入口/当前/隔离/知识）各配一种文件\n- [本地优先知识产品的架构演进](/wiki/agent-session/as-topic-%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88%E7%9F%A5%E8%AF%86%E4%BA%A7%E5%93%81%E7%9A%84%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B) — 云端加工厂 + 本地主仓库；Agent 先做可执行入口；AI 执行层可替换\n- [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) — data/layout/render 分层、section 只分 block|list、逐字段 slot 契约\n- 几何题3D化的题库定位 — 产品形态是「题库播放器」；模型与切法由题目决定，用户不选\n- [UI原型保真](/wiki/agent-session/as-topic-UI%E5%8E%9F%E5%9E%8B%E4%BF%9D%E7%9C%9F) — 原型是唯一真源；逐片对照、共享 primitive、不用替代物、判断机制而非抄常量",
+    "## 三、可复用的判断（Concepts · 97）\n\n### AI 基础概念（ai-basics · 7）\n\n- [scaling-law](/wiki/agent-session/as-concept-scaling-law) — 能力随参数/数据/算力可预测提升；Chinchilla 打脸「只堆模型」\n- [长尾查询](/wiki/agent-session/as-concept-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2) — 冷门具体查询决定搜索源的选择\n- [实时与异步](/wiki/agent-session/as-concept-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) — 选型不看技术难度，看内容变化速度\n- [技术性通缩与经济学通缩](/wiki/agent-session/as-concept-%E6%8A%80%E6%9C%AF%E6%80%A7%E9%80%9A%E7%BC%A9%E4%B8%8E%E7%BB%8F%E6%B5%8E%E5%AD%A6%E9%80%9A%E7%BC%A9) — 生产率降价是好事，货币通缩是病\n- [缓存命中率](/wiki/agent-session/as-concept-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) — 先怀疑「每次都是首请求」，再怀疑实现；测量动作本身可能绕过被测对象\n- [dogfooding](/wiki/agent-session/as-concept-dogfooding) — 用真实使用验证价值；是必要条件，不是充分条件\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) — 有 ≥2 种解释时先确认；反复追问 = 知识体系有洞\n\n### LLM 工程（llm-engineering · 11）\n\n- [上下文成本由基础上下文和会话数决定](/wiki/agent-session/as-concept-%E4%B8%8A%E4%B8%8B%E6%96%87%E6%88%90%E6%9C%AC%E7%94%B1%E5%9F%BA%E7%A1%80%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8C%E4%BC%9A%E8%AF%9D%E6%95%B0%E5%86%B3%E5%AE%9A) — 压缩只压历史；系统指令/工具 schema/最近原文是省不掉的固定包袱\n- [计数闸门不等于上下文管理](/wiki/agent-session/as-concept-%E8%AE%A1%E6%95%B0%E9%97%B8%E9%97%A8%E4%B8%8D%E7%AD%89%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86) — 条数护栏既不全塞也不滑窗，最坏输入没有 token 兜底\n- [关键词检索的三个打分缺陷](/wiki/agent-session/as-concept-%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E7%B4%A2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%89%93%E5%88%86%E7%BC%BA%E9%99%B7) — 只匹配标题、按 token 长度打分、中文整句切\n- [检索要按难度迭代](/wiki/agent-session/as-concept-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3) — 先判难度定预算，读不通就换查询；停止看覆盖度\n- [多账号模型路由机制](/wiki/agent-session/as-concept-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6) — model-aware 路由：按目录筛账号、请求内锁区、额度互补\n- 模型可见性按入口分批 — 灰度按入口/账号放量，排查第一步是分入口\n- [轮换要带健康状态记忆](/wiki/agent-session/as-concept-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86) — 记坏过的组合、按错误性质设冷却、给每次尝试设超时\n- 评测平台是平台层项目规则是适配层 — 平台管版本/数据集/trace/评分，项目只写 fixtures/cases/runners/evaluators\n\n### Agent 与 Skills 生态（agent-ecosystem · 12）\n\n- skill跨agent加载差异 — frontmatter 不兼容会导致整个 skill 被静默跳过\n- [一次性凭证拿到就落盘](/wiki/agent-session/as-concept-%E4%B8%80%E6%AC%A1%E6%80%A7%E5%87%AD%E8%AF%81%E6%8B%BF%E5%88%B0%E5%B0%B1%E8%90%BD%E7%9B%98) — 一次性授权码必须在第一次执行时就写入文件\n- [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) — 跨 agent 的通用脚本要经各端薄适配器才被调用\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) — 作者是 AI 时，友好 = 低歧义、唯一写法、可自动校验\n- [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) — skill 正文取上游、协议字段取本地；按维度定真源，不整体选「更新的那个」\n- Agent harness 要隔离复现可收尾 — harness 三问（隔离谁/怎么复现/怎么收尾）；配置隔离同理\n- Agent编排层薄自建优先于重型框架 — 能力边界明确时，权限边界比「框架功能丰富」更重要\n- [项目里的技能可能有多份副本](/wiki/agent-session/as-concept-%E9%A1%B9%E7%9B%AE%E9%87%8C%E7%9A%84%E6%8A%80%E8%83%BD%E5%8F%AF%E8%83%BD%E6%9C%89%E5%A4%9A%E4%BB%BD%E5%89%AF%E6%9C%AC) — 多目录并存且内容不全；按单一目录名找就断言「没有」是错的\n- 远程控制本机Agent要让bridge跑在本机 — Agent 只能操作所在机器；bridge 必须跑在被控端\n- 远程Agent控制要定义执行协议与状态模型 — 只画 App 页面不够；先定执行控制协议 + 状态模型\n- [改协议要同时改两端](/wiki/agent-session/as-concept-%E6%94%B9%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%90%8C%E6%97%B6%E6%94%B9%E4%B8%A4%E7%AB%AF) — 服务端、客户端类型/连接逻辑、设置页说明三处要一起改\n\n### 产品方法论（product · 8）\n\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) — 价值只有变成用户能感知的对照才存在\n- [北极星指标要量价值闭环](/wiki/agent-session/as-concept-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF) — 不量调用勤不勤，量产出有没有被采纳沉淀\n- 一次循环只做一个可体验的v1能力 — 一个 loop = 一个连贯的 v1 能力，不是补丁也不是路线图\n- 评审设计可行性先问方案再定难度 — 先问「你打算怎么做」，再谈难度；无歧义时不要问\n- 修复范围分保守彻底与最小闭环 — 修复分保守/彻底/最小闭环三档；判据是「能否落在源头」+ 改动面最小\n- [容器要有超出文件夹的意义才值得独立入口](/wiki/agent-session/as-concept-%E5%AE%B9%E5%99%A8%E8%A6%81%E6%9C%89%E8%B6%85%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%84%8F%E4%B9%89%E6%89%8D%E5%80%BC%E5%BE%97%E7%8B%AC%E7%AB%8B%E5%85%A5%E5%8F%A3) — 只做到文件夹形态就该降级；判据是「去掉入口用户损失什么能力」\n- [完整蓝图不等于同阶段交付](/wiki/agent-session/as-concept-%E5%AE%8C%E6%95%B4%E8%93%9D%E5%9B%BE%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%90%8C%E9%98%B6%E6%AE%B5%E4%BA%A4%E4%BB%98) — 全量架构 + 分阶段落地，把「做什么」和「何时做」拆成两维\n- [地基阶段先跑通基础件再谈抽象](/wiki/agent-session/as-concept-%E5%9C%B0%E5%9F%BA%E9%98%B6%E6%AE%B5%E5%85%88%E8%B7%91%E9%80%9A%E5%9F%BA%E7%A1%80%E4%BB%B6%E5%86%8D%E8%B0%88%E6%8A%BD%E8%B1%A1) — 地基期先跑通基础件与全路由骨架，过早抽象会拖慢且更难用\n\n### 前端工程（frontend · 29）\n\n- [流式更新要合并字段而非替换对象](/wiki/agent-session/as-concept-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1) — 整体替换会丢掉后加的字段，要用展开合并\n- [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93) — debounce 回调读「当前活跃对象」会把 A 写到 B\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) — 旧请求晚回来会用过期正文盖掉正在编辑的正文\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB) — 内存立即更新 + 落盘 debounce，边界处 flush\n- [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81) — live preview 由本地光标位置决定，不由远端返回决定\n- [跨源取数据要靠自建代理](/wiki/agent-session/as-concept-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) — 不同端口即不同源；「UI 做不出来」其实是数据拿不到\n- [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8) — 不能用无限循环动画假装加载；按经过时间推进\n- 高频手势缩放不要走React状态 — 高频手势直接写 DOM，框架状态只留最终值\n- flex子项的百分比max-height不可靠 — 父级高度隐含时百分比会退化成不可预期值\n- 引擎不做建模器 — 复杂模型交给 Blender→GLB，引擎只负责切与渲染\n- 兼容fallback会让内容重复渲染 — 新旧两条渲染路径同时命中同一份数据\n- [可调与固定的边界按语义划分](/wiki/agent-session/as-concept-%E5%8F%AF%E8%B0%83%E4%B8%8E%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%BE%B9%E7%95%8C%E6%8C%89%E8%AF%AD%E4%B9%89%E5%88%92%E5%88%86) — 可调/固定是语义属性不是 CSS 属性；固定区要连行距一起锁\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) — 值传到了但消费方没写，就表现为「调了没反应」且不报错\n- [折叠动画要有收起态过渡](/wiki/agent-session/as-concept-%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%E8%A6%81%E6%9C%89%E6%94%B6%E8%B5%B7%E6%80%81%E8%BF%87%E6%B8%A1) — 条件渲染只有进入动画；收起要过渡就得保持挂载\n- [焦点环画在圆角外会露出四角](/wiki/agent-session/as-concept-%E7%84%A6%E7%82%B9%E7%8E%AF%E7%94%BB%E5%9C%A8%E5%9C%86%E8%A7%92%E5%A4%96%E4%BC%9A%E9%9C%B2%E5%87%BA%E5%9B%9B%E8%A7%92) — 四角蓝影是通用 ring 画在圆角外；改这一处，不动通用组件\n- 图片加载失败要可重试并升级到HTTPS — 失败状态不能整场会话永久化；http 图源优先升 https + favicon 兜底\n- 条件return前必须调用所有hooks — 子层白屏第一嫌疑是条件 return 之后的 hooks\n- 滚动层会裁剪溢出内容要与显示层拆开 — 滚动容器天然裁剪；滚动与显示要拆成两层 DOM\n- [滚动条顶到固定栏要调视口而非隐藏滚动条](/wiki/agent-session/as-concept-%E6%BB%9A%E5%8A%A8%E6%9D%A1%E9%A1%B6%E5%88%B0%E5%9B%BA%E5%AE%9A%E6%A0%8F%E8%A6%81%E8%B0%83%E8%A7%86%E5%8F%A3%E8%80%8C%E9%9D%9E%E9%9A%90%E8%97%8F%E6%BB%9A%E5%8A%A8%E6%9D%A1) — 让滚动视口从 toolbar 下方开始；隐藏滚动条只是治标\n- [依赖版本要锁主版本而非一律取最新](/wiki/agent-session/as-concept-%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E8%A6%81%E9%94%81%E4%B8%BB%E7%89%88%E6%9C%AC%E8%80%8C%E9%9D%9E%E4%B8%80%E5%BE%8B%E5%8F%96%E6%9C%80%E6%96%B0) — 脚手架可最新，运行依赖按任务书 pin 主版本\n- [手搓编辑器核心逻辑到深处要评估换社区方案](/wiki/agent-session/as-concept-%E6%89%8B%E6%90%93%E7%BC%96%E8%BE%91%E5%99%A8%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%88%B0%E6%B7%B1%E5%A4%84%E8%A6%81%E8%AF%84%E4%BC%B0%E6%8D%A2%E7%A4%BE%E5%8C%BA%E6%96%B9%E6%A1%88) — 判据是「已在重写成熟内核的职责」；换方案 ≠ 照单收默认规则\n- 浮层要收敛到一个共享primitive — 菜单/弹窗/下拉共用一处公共行为，否则逐页漂移\n- [环境变量校验要按模块懒加载](/wiki/agent-session/as-concept-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%A0%A1%E9%AA%8C%E8%A6%81%E6%8C%89%E6%A8%A1%E5%9D%97%E6%87%92%E5%8A%A0%E8%BD%BD) — 未开发模块不该阻塞已可用功能；用到哪个模块才校验\n- [隐藏态按钮要保留命中区](/wiki/agent-session/as-concept-%E9%9A%90%E8%97%8F%E6%80%81%E6%8C%89%E9%92%AE%E8%A6%81%E4%BF%9D%E7%95%99%E5%91%BD%E4%B8%AD%E5%8C%BA) — `pointer-events: none` 会让按钮出现后也点不到\n- [首次内容事件不能无条件跳过](/wiki/agent-session/as-concept-%E9%A6%96%E6%AC%A1%E5%86%85%E5%AE%B9%E4%BA%8B%E4%BB%B6%E4%B8%8D%E8%83%BD%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BF%87) — 判据应是「内容是否变化」，不是「事件序号」\n- [显示阈值应按元素可见性而非固定像素](/wiki/agent-session/as-concept-%E6%98%BE%E7%A4%BA%E9%98%88%E5%80%BC%E5%BA%94%E6%8C%89%E5%85%83%E7%B4%A0%E5%8F%AF%E8%A7%81%E6%80%A7%E8%80%8C%E9%9D%9E%E5%9B%BA%E5%AE%9A%E5%83%8F%E7%B4%A0) — 判据是元素实际位置，不是固定滚动距离\n- [改版后旧路由仍指向旧实现](/wiki/agent-session/as-concept-%E6%94%B9%E7%89%88%E5%90%8E%E6%97%A7%E8%B7%AF%E7%94%B1%E4%BB%8D%E6%8C%87%E5%90%91%E6%97%A7%E5%AE%9E%E7%8E%B0) — 入口 route 仍 import 旧组件，就会绕开新布局\n- [保存失败要落本地草稿并自动重试](/wiki/agent-session/as-concept-%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E8%A6%81%E8%90%BD%E6%9C%AC%E5%9C%B0%E8%8D%89%E7%A8%BF%E5%B9%B6%E8%87%AA%E5%8A%A8%E9%87%8D%E8%AF%95) — 失败路径用本地草稿兜底，不能只活在内存里\n- [图片粘贴要上传对象存储换永久URL](/wiki/agent-session/as-concept-%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4%E8%A6%81%E4%B8%8A%E4%BC%A0%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%8D%A2%E6%B0%B8%E4%B9%85URL) — `blob:` 会话级、`data:` 撑爆库；正文只存永久 URL\n\n### 知识库架构（knowledge-base · 8）\n\n- [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) — 对未来有帮助 / 是知识非动作 / 有反复疑问（权重最大）\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) — 过滤层与判断层分开，噪声不留到提炼时处理\n- [清洗合并会破坏源格式语义](/wiki/agent-session/as-concept-%E6%B8%85%E6%B4%97%E5%90%88%E5%B9%B6%E4%BC%9A%E7%A0%B4%E5%9D%8F%E6%BA%90%E6%A0%BC%E5%BC%8F%E8%AF%AD%E4%B9%89) — 验收标准是渲染出来的样子，不是文本一字不差\n- [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE) — 落库要留 `kind`；多入口先归一化再入库\n- [放宽过滤会连噪声一起放进来](/wiki/agent-session/as-concept-%E6%94%BE%E5%AE%BD%E8%BF%87%E6%BB%A4%E4%BC%9A%E8%BF%9E%E5%99%AA%E5%A3%B0%E4%B8%80%E8%B5%B7%E6%94%BE%E8%BF%9B%E6%9D%A5) — 修漏和修假是两件事；改闸门要换判据，不是拆闸门\n- Agent读语义文件App读结构化存储 — Markdown 是唯一真源，SQLite 是可重建的派生层\n- [数据权威模型要先于同步与迁移确定](/wiki/agent-session/as-concept-%E6%95%B0%E6%8D%AE%E6%9D%83%E5%A8%81%E6%A8%A1%E5%9E%8B%E8%A6%81%E5%85%88%E4%BA%8E%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%BF%81%E7%A7%BB%E7%A1%AE%E5%AE%9A) — 先定 source of truth，再写同步/迁移/冲突/离线\n- [文章元信息用发布日期而非创建日期](/wiki/agent-session/as-concept-%E6%96%87%E7%AB%A0%E5%85%83%E4%BF%A1%E6%81%AF%E7%94%A8%E5%8F%91%E5%B8%83%E6%97%A5%E6%9C%9F%E8%80%8C%E9%9D%9E%E5%88%9B%E5%BB%BA%E6%97%A5%E6%9C%9F) — 详情页用发布日期，创建日期只属列表；两类字段要分开存\n\n### 本机排障（diagnosis · 22）\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) — 有无响应体决定是平台层还是应用层\n- 以前能用最近坏了先查自己改了什么 — 默认假设是自己这边的回归，先看最近提交\n- 讲bug先讲现象再讲根因 — 先说会看到什么坏现象，再说根因和改法\n- 样式丢失先核对类名再怀疑缓存与权限 — 先比对组件类名与 CSS 里的类名；截图 ≠ 代码\n- GitHub打不开先分清主站与静态资源域名 — 按域名分层测，别直接归因「被墙」\n- 面板多出的固定区块先查数据源再改前端 — 先看接口实际返回什么，再改渲染\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-concept-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5) — `lsof -ti` 会连客户端进程一起杀\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-concept-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6) — 无风扇机型持续功耗直接变体感温度\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) — 「代码里有什么」≠「运行时用什么」\n- [同一应用开出两个窗口先查单实例限制](/wiki/agent-session/as-concept-%E5%90%8C%E4%B8%80%E5%BA%94%E7%94%A8%E5%BC%80%E5%87%BA%E4%B8%A4%E4%B8%AA%E7%AA%97%E5%8F%A3%E5%85%88%E6%9F%A5%E5%8D%95%E5%AE%9E%E4%BE%8B%E9%99%90%E5%88%B6) — 两个窗口 = 两个进程，先查重复启动与旧实例\n- [文件被回退先分清是工具还是并发会话](/wiki/agent-session/as-concept-%E6%96%87%E4%BB%B6%E8%A2%AB%E5%9B%9E%E9%80%80%E5%85%88%E5%88%86%E6%B8%85%E6%98%AF%E5%B7%A5%E5%85%B7%E8%BF%98%E6%98%AF%E5%B9%B6%E5%8F%91%E4%BC%9A%E8%AF%9D) — 先确认工具是否有写能力，再查并发写者\n- INSERT OR IGNORE会让旧行不更新 — 新行字段对、界面仍旧值，先查插入语句；升级要配回填\n- [功能缺失先确认运行的是哪份产物](/wiki/agent-session/as-concept-%E5%8A%9F%E8%83%BD%E7%BC%BA%E5%A4%B1%E5%85%88%E7%A1%AE%E8%AE%A4%E8%BF%90%E8%A1%8C%E7%9A%84%E6%98%AF%E5%93%AA%E4%BB%BD%E4%BA%A7%E7%89%A9) — 构建完成 ≠ 安装完成；先读产物版本号\n- 中转源不更新先分清是哪一层 — 直连 RSS 两段 vs 中转源三段；用同类源差异切分故障层\n- [对照两端要用同一条标识](/wiki/agent-session/as-concept-%E5%AF%B9%E7%85%A7%E4%B8%A4%E7%AB%AF%E8%A6%81%E7%94%A8%E5%90%8C%E4%B8%80%E6%9D%A1%E6%A0%87%E8%AF%86) — 用中转页 URL 去查聚合端必然「查不到」；先排除标识不匹配\n- [合盖仍会睡眠后台任务会被中断](/wiki/agent-session/as-concept-%E5%90%88%E7%9B%96%E4%BB%8D%E4%BC%9A%E7%9D%A1%E7%9C%A0%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E4%BC%9A%E8%A2%AB%E4%B8%AD%E6%96%AD) — 后台任务能否跑完由 macOS 电源管理决定，不由 agent 决定\n- [需要认证的命令不要并行执行](/wiki/agent-session/as-concept-%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%A6%81%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C) — 并行会各自发起授权，弹出两个授权页；先确认登录态\n- [远端主线可能与本地主线无共同祖先](/wiki/agent-session/as-concept-%E8%BF%9C%E7%AB%AF%E4%B8%BB%E7%BA%BF%E5%8F%AF%E8%83%BD%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%B8%BB%E7%BA%BF%E6%97%A0%E5%85%B1%E5%90%8C%E7%A5%96%E5%85%88) — 先 `merge-base`；无共同祖先不能普通 merge\n- 真机白屏先分清Debug包与证书 — 两个最平凡原因：证书未信任、装的是 Debug 包\n- [本机卡顿先清残留开发进程](/wiki/agent-session/as-concept-%E6%9C%AC%E6%9C%BA%E5%8D%A1%E9%A1%BF%E5%85%88%E6%B8%85%E6%AE%8B%E7%95%99%E5%BC%80%E5%8F%91%E8%BF%9B%E7%A8%8B) — 「越来越卡」常是残留 dev server / build / 缓存目录\n- 备用构建目录不要嵌在next目录里 — 嵌进 `.next` 会触发 manifest 竞态；改用同级目录",
+    "## 四、待探索（有问题没答案 —— 最有价值的钩子）\n\n- 遇到**具体难题**想逃避，怎么破（已有环境/具体动作框架，缺难题切入法）\n- 各渠道免费额度的**刷新机制**横向对比\n- 数据缺**趋势视角**：环比/同周期对比怎么建\n- 「RAG vs 微调」补成正式概念页（clean 里只有 agent 提及，缺提问作为依据）\n\n---\n\n*共 118 页 · 更新于 2026-09-21*"
   ]
 },
 {
@@ -27,7 +27,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 词源\n\n\"Eating your own dog food\"。1980 年代美国一个狗粮广告：公司高管**亲自吃自家狗粮**来证明品质。后来被软件行业借用成行业黑话。",
     "## 为什么重要（也是它最容易被误解的地方）\n\n| | 状态 |\n|---|---|\n| **是 dogfooding** | 自己就是第一个用户，每天用、每天踩坑 |\n| **不是 dogfooding** | 闭门造车，凭「我觉得值得做」就动手 |\n\n它比「多调研几个 app」更进一步：\n\n- **调研**看别人怎么做\n- **dogfood**验证**你自己会不会天天用它**\n\n> **判据**：如果开发者自己都不想用，用户大概率也不会。",
     "## ⚠️ 最大的坑：幸存者偏差\n\n你是作者，**太懂产品了**——知道它该怎么用、哪里有坑、为什么要这样设计。普通用户没有这份心智模型。\n\n所以：\n\n```\ndogfooding  = 必要条件（连自己都不想用，肯定有问题）\n            ≠ 充分条件（自己用得爽，不代表别人用得爽）\n```\n\n**必须配合真实用户反馈**（user research / 用户访谈）来补「自己 ≠ 用户」的盲区。",
-    "## 相关\n\n- [实时与异步](/wiki/agent-session/as-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) —— 同类「看似显然、实则有坑」的产品判断\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 都是「先定义清楚再下结论」"
+    "## 相关\n\n- [实时与异步](/wiki/agent-session/as-concept-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) —— 同类「看似显然、实则有坑」的产品判断\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 都是「先定义清楚再下结论」"
   ]
 },
 {
@@ -41,7 +41,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 两篇奠基之作（这里有个「打脸」故事）\n\n| 工作 | 核心结论 |\n|---|---|\n| **Kaplan et al. 2020**（OpenAI） | 首次系统给出幂律公式：loss 与 N、D、C 各自呈平滑幂律关系。主张**优先堆大模型** → 直接催生 GPT-3 路线 |\n| **Chinchilla 2022**（DeepMind） | **打脸修正**：同样算力下应**等比放大模型与数据**（约每参数配 20 token）。「中等模型 + 海量数据」比「巨大模型 + 数据不足」更划算 —— 70B 的 Chinchilla 打赢了 280B 的 GPT-3 |\n\n> **可复用的判断**：当一个领域出现「只要加 X 就能变强」的经验规律时，先问「比例关系对不对」。\n> Chinchilla 的价值不在于推翻 scaling，而在于指出**两个变量必须配比**，单堆一个会浪费算力。",
     "## 后续演化\n\n- **推理时扩展（test-time compute）**：o1/o3 路线发现「让模型多想一会儿」（生成更多思考 token）也服从类似规律 —— scaling 从训练阶段延伸到推理阶段\n- **涌现能力（emergent abilities）争议**：小模型完全不会、大模型突然会的能力（如多步推理）是否真实，还是评测指标造成的假象，学界至今有争论\n- **数据墙（data wall）**：互联网高质量文本接近用尽，纯堆 D 遇到物理上限，合成数据成为新战场",
     "## 为什么产品人要懂\n\n它把「做更强的模型」从玄学变成**可预算的工程问题** —— 花多少钱、买多少卡、换多少能力提升，可以提前估算。\n\n这也解释了行业叙事的转向：预训练 scaling 边际收益递减后，大家去找**新的 scaling 维度**（推理时算力、Agent 工作流、工具调用），而不是继续堆参数。",
-    "## 相关\n\n- [多账号模型路由机制](/wiki/agent-session/as-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6) — 模型能力之外的工程约束\n- [技术性通缩与经济学通缩](/wiki/agent-session/as-%E6%8A%80%E6%9C%AF%E6%80%A7%E9%80%9A%E7%BC%A9%E4%B8%8E%E7%BB%8F%E6%B5%8E%E5%AD%A6%E9%80%9A%E7%BC%A9) —— 技术规律的边界与代价"
+    "## 相关\n\n- [多账号模型路由机制](/wiki/agent-session/as-concept-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6) — 模型能力之外的工程约束\n- [技术性通缩与经济学通缩](/wiki/agent-session/as-concept-%E6%8A%80%E6%9C%AF%E6%80%A7%E9%80%9A%E7%BC%A9%E4%B8%8E%E7%BB%8F%E6%B5%8E%E5%AD%A6%E9%80%9A%E7%BC%A9) —— 技术规律的边界与代价"
   ]
 },
 {
@@ -54,7 +54,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 为什么这是真问题\n\n「回归」在 AI PM 语境下至少有四种完全不同的含义：\n\n| 用法 | 含义 | 场景 |\n|---|---|---|\n| **回归测试** | 改了代码后重跑已有用例，确认没搞坏老功能 | 软件/QA，**面试高频** |\n| **回归 / 逻辑回归** | ML 任务类型：输出连续值叫回归，输出类别叫分类 | 算法 |\n| 回归本质 | 偏思维方法的用法（回到第一性原理） | 口头表达 |\n| 自回归 | 模型结构（autoregressive） | LLM 原理 |\n\n⚠️ 特别注意：**「逻辑回归」名字带回归，但干的是分类的活**（输出概率）—— 这是最经典的命名陷阱。",
     "## 处理动作（可复用）\n\n```\n1. 察觉歧义：这个词我能给出几种合理解释？\n2. 若 ≥2 种 → 不要猜，直接问：「你问的是 A 还是 B？」\n3. 给出候选时带上各自的一句话定义（让对方能选）\n4. 确认后再展开完整回答\n```\n\n**关键**：第 3 步很值 —— 只说「你指的是哪个？」对方还得自己想；**给出两个候选+各一句话定义**，对方一句「第一个」就能继续。",
     "## 更深的信号\n\n同一句话**被反复追问**（如「回归」跨 4 个 agent 问过），说明：\n\n- 它不是「不懂」，而是**知识体系里有洞** —— 每次用到就临时查\n- 这类词**值得单独成页**，而不是留在对话里重复消耗\n\n> **反复追问 = 需求强度的天然标注。** 不用额外打分，行为本身已经把权重标好了。",
-    "## 相关\n\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先定义清楚（口径/所指），再下结论**\n- [知识入库的筛选标准](/wiki/agent-session/as-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) —— 「反复提问权重更大」这条标准的来源"
+    "## 相关\n\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先定义清楚（口径/所指），再下结论**\n- [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) —— 「反复提问权重更大」这条标准的来源\n- [定义要由使用者确认](/wiki/agent-session/as-synthesis-%E5%AE%9A%E4%B9%89%E8%A6%81%E7%94%B1%E4%BD%BF%E7%94%A8%E8%80%85%E7%A1%AE%E8%AE%A4) —— 同源：定义的权威要显式交接，模糊只会静默错位"
   ]
 },
 {
@@ -68,7 +68,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 反面案例：ONE 的卡片为什么翻车\n\n钉钉 ONE 把 AI 工作卡片放在**服务端异步生产**（隔一段时间生成一批），结果出现一串致命问题：\n\n| 问题 | 本质 |\n|---|---|\n| 卡片重复 | 生产时刻与消费时刻错位，同一内容生成了两版 |\n| 显示未读但实际已读 / 红点不消 | 状态没有实时同步回原场域 |\n| **读到已被撤回的敏感消息、编辑前的旧版本** | 最危险 —— 过期快照还在给用户看 |\n\n原作者的判断很犀利：用户在卡片里消费的对象 **80% 以上是 IM 消息本身**，而 IM 消息频次高、变化快 —— **「不实时就意味着对用户的欺诈」**。\n\n> ⚠️ **关键区分**：错的不在「用了异步」，而在「把高频易变的内容塞进了异步管线」。",
     "## 异步的正确适用场景\n\n异步不是次优选择，它在合适的场景里是三赢：\n\n| 受益方 | 收益 |\n|---|---|\n| **生产侧** | 低频批量处理，AI 成本大幅降低 |\n| **用户侧** | 一次读到高信息量，不被打扰 |\n| **产品侧** | 培养周期性打开的习惯 |\n\n典型成功案例：**ChatGPT Pulse** —— 夜里异步生成，早上给你读日报。用户预期本来就是「一天看一次」，异步完全够用。",
     "## 可复用的选型判据\n\n```\n内容变化越快、时效越敏感（IM、协作文档、状态流）\n    → 必须实时\n\n内容相对稳定、按天/按次消费（日报、摘要、研究简报）\n    → 异步更优（且成本低一个量级）\n```\n\n**追问自己**：如果我这里延迟 10 分钟，用户会不会看到「已经不存在的东西」？\n会 → 实时；不会 → 异步。",
-    "## 相关\n\n- [长尾查询](/wiki/agent-session/as-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2) —— 另一个「按场景选型」的例子\n- [dogfooding](/wiki/agent-session/as-dogfooding) —— 同属「看似显然、实则有坑的产品判断」"
+    "## 相关\n\n- [长尾查询](/wiki/agent-session/as-concept-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2) —— 另一个「按场景选型」的例子\n- [dogfooding](/wiki/agent-session/as-concept-dogfooding) —— 同属「看似显然、实则有坑的产品判断」"
   ]
 },
 {
@@ -82,7 +82,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 通缩为什么是「病」（反直觉）\n\n东西变便宜听起来是好事，但它会触发**通缩螺旋**：\n\n```\n今天买比明天贵 → 大家持币观望\n    → 需求萎缩\n    → 企业降价裁员\n    → 收入下降\n    → 需求更萎缩……\n```\n\n同时**实际债务变重**：欠的钱名义不变，但钱更值钱了。\n\n典型案例：1929 大萧条、日本「失去的三十年」。",
     "## 关键区分（这才是价值所在）\n\n问「电子产品越来越便宜，算通缩吗？」——**不算**。\n\n```\n技术性降价：生产率提升 → 同价买到更多 → 良性、普惠\n经济学通缩：货币购买力上升 + 需求萎缩 → 恶性、衰退\n```\n\n所以 AI 圈说「AI 让算力和智能的成本按摩尔定律式下降」，指的是**前者**。",
     "## 摩尔定律的现状\n\n物理极限逼近（制程进入纳米级，漏电和散热问题凸显），纯摩尔定律**明显放缓**。业界靠 **Chiplet（芯粒，把多颗小芯片封装协作）**、先进封装等路线续命。黄仁勋还造了个梗：「黄氏定律」—— GPU 的 AI 性能增长远超摩尔定律。",
-    "## 相关\n\n- [scaling-law](/wiki/agent-session/as-scaling-law) —— 同属「技术规律的边界在哪」\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先分清是哪个口径/哪个概念，再下结论**\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [scaling-law](/wiki/agent-session/as-concept-scaling-law) —— 同属「技术规律的边界在哪」\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先分清是哪个口径/哪个概念，再下结论**\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
   ]
 },
 {
@@ -96,7 +96,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 命中率为 0 的三种原因\n\n| 原因 | 说明 |\n|---|---|\n| **页面刚刷新 / 进程重启** | 内存缓存清空，**第一次必然现拉** |\n| **传了 force=true / 点了重试** | 主动绕过缓存 |\n| **上次 fetch 失败** | 没写进缓存就抛错，下次仍要走网络 |",
     "## 诊断时的关键区分\n\n⚠️ **测量动作本身可能绕过被测对象。**\n\n实测踩过：在 bash 里直接 `curl` 拉接口，**绕过了应用自己的缓存层** —— 于是「cache hit = 0」是必然的，因为根本没经过缓存。这是**测错了对象**，不是系统有问题。\n\n```\n正确顺序：\n1. 先确认「你在哪看到的这个指标」（GUI 面板？还是自己 curl 的统计？）\n2. 若是自己 curl → 那是绕过缓存的结果，不说明问题\n3. 若是应用面板 → 再查上面三种原因\n```",
     "## 可复用的判断\n\n> **看到一个「指标异常」时，先问：这个指标是从哪来的、经过了我以为的那条路径吗？**",
-    "## 相关\n\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先确认数值的来路，再解释它**"
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：拿「命中率数字」当实现是否有 bug 的判据\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源判断：**先确认数值的来路，再解释它**"
   ]
 },
 {
@@ -109,7 +109,20 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 定义\n\n- **头部 query**：高频大词 —— 「天气」「股票」「ChatGPT」，每天几百万次，所有引擎都覆盖得好\n- **长尾 query**：低频具体词 —— 「2024 年青海玉树某寺庙壁画修复资金来源」「某小众 npm 包 v0.3 的 breaking change 列表」，单个词**月搜索量可能只有几次**\n\n名字来自长尾分布：头部少数词占大部分流量，但**海量低频词加起来的总量反而更大**，像一条长长的尾巴。",
     "## 为什么它跟搜索质量直接相关\n\n搜索引擎靠**爬虫**建索引：\n\n| | 头部词 | 长尾词 |\n|---|---|---|\n| 指向的页面 | 大站、热门页 | 小论坛帖、个人博客、GitHub issue、冷门文档 |\n| 爬取情况 | 所有引擎都爬到 | **只有爬得最广最深的引擎有** |\n\n所以：**Google 源（Serper/SerpApi）的长尾覆盖最好；独立索引（如 Brave）越冷门越容易搜不到。**",
     "## 可复用的判断\n\n选搜索源时，不要用「搜 ChatGPT 试试」来判断 —— 那测不出差异。**要用你自己领域里的冷门具体问题去测**：\n\n```\n如果你搜的常常是「新、偏、小众」的东西\n    → 优先选索引广度最大的源（Google 系）\n\n如果只搜常见技术话题\n    → 轻量源也够用，且更快更便宜\n```",
-    "## 相关\n\n- [实时与异步](/wiki/agent-session/as-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) —— 同类「按场景选型」的判断"
+    "## 相关\n\n- [实时与异步](/wiki/agent-session/as-concept-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) —— 同类「按场景选型」的判断"
+  ]
+},
+{
+  "id": "as-concept-上下文成本由基础上下文和会话数决定",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "上下文成本由基础上下文和会话数决定",
+  "oneLiner": "**「为什么上下文这么多，不是每轮都压缩吗」——压缩不是每轮发生，且只压历史。每次请求仍要带：系统/开发者指令、项目 AGENTS/rules/skills 列表、工具 schema、压缩后的历史摘要、最近几轮原文。如果这堆基础包袱本身就很大，压缩历史也只能从 180k 降到 130k，不会降到 10k。**",
+  "body": [
+    "## 成本公式\n\n每小时消耗 ≈ 请求次数 × 每次上下文大小。三个乘数都可优化：\n\n1. **会话数**：多个 session 并发/交替跑，每个都自带一份系统上下文、项目上下文、摘要和最近历史。\n2. **请求次数**：同一功能多线程反复跑。\n3. **单次上下文**：重规则 + 多工具 + 长历史 + 长工具输出。",
+    "## 优化手段\n\n- 一个功能只留一个主 session，做完归档\n- 新任务开新线程只带 10–20 行 handoff，不继承整段历史\n- 命令输出限量（精确文件 + 行号 + `max_output_tokens`），避免全量 diff / 全仓 rg / 长日志\n- 长规则迁到按需 reference，`AGENTS.md` 只放每次都要看的短规则\n- 简单 UI 小改用轻量模型/低推理，别每个按钮都上高推理\n- 少开并行 subagent",
+    "## 看账要区分 cached\n\n日志里的 total 大头常是 cached input（重复前缀）。真实新增 = 非缓存输入 + 输出。判断「贵不贵」要看非缓存部分，但缓存仍占窗口、仍计入 total。",
+    "## 相关\n\n- 上下文按信任等级分层\n- [计数闸门不等于上下文管理](/wiki/agent-session/as-concept-%E8%AE%A1%E6%95%B0%E9%97%B8%E9%97%A8%E4%B8%8D%E7%AD%89%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86)\n- [缓存命中率](/wiki/agent-session/as-concept-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87)"
   ]
 },
 {
@@ -121,8 +134,8 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## 一、现状的检索长什么样\n\n1. **分词**：取最后一条用户消息，按标点切，token 长度 ≥ 2。纯中文长句基本是**整句一刀**。\n2. **打分**：`hay = term + abbr + fullName + oneLiner`，命中 token 就 `score += token.length`。**正文完全不参与**。\n3. **选取**：按分降序取前 N，再按顺序塞进字符预算。",
     "## 二、因此会哑火的场景\n\n- 答案在正文里但标题没有 → 命中 0 条（例如问\"怎么找到用户真正想要的东西\"，正文有 job story，标题没有）。\n- 中文近义改述（\"目标用户画像\" vs \"典型用户长什么样\"）匹配不上。\n- 长 token 天然占优（按长度加权），且**同一 token 重复命中不重复加分** —— `\"JTBD JTBD JTBD\"` 和 `\"JTBD\"` 同分。\n- 完全没有 IDF：到处出现的\"用户\"和稀有的\"job story\"权重一样。",
-    "## 三、分级改进\n\n**L1（纯代码，零新依赖，收益最大）**\n\n- 索引字段扩到 `+ body + points`；**标题命中 ×3、正文命中 ×1**，并给单文档贡献设上限，防长词条通吃。\n- 引入 IDF：`tf * log(N/df)`，让高频词降权、稀有词升权。\n- 中文改用 **bigram**（`用户研究` → `用户/户研/研究`），英文小写化 + 简单词干。\n- 命中位置和次数都计入，而不是只算一次 substring。\n\n**L2（结构化，适合个人知识库体量）**\n\n- 每条词条手写 `related: id[]`，或从正文用约定标记自动抽取。\n- 当前词条的相关词条**永远优先进 context**，关键词检索只补剩余槽位。质量上限由结构决定，而不是靠运气匹配。\n\n**仍未解决的**：L1/L2 都是词面匹配，同义改述依旧召回不到 —— 那需要 embedding 语义召回（见 [检索要按难度迭代](/wiki/agent-session/as-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3)）。",
-    "## 相关\n\n- [检索要按难度迭代](/wiki/agent-session/as-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3)（检索的三层：引擎 / 协议 / Agent loop）\n- [长尾查询](/wiki/agent-session/as-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2)（搜索源的选择）\n- 上下文按信任等级分层（哪些内容该优先进 context）"
+    "## 三、分级改进\n\n**L1（纯代码，零新依赖，收益最大）**\n\n- 索引字段扩到 `+ body + points`；**标题命中 ×3、正文命中 ×1**，并给单文档贡献设上限，防长词条通吃。\n- 引入 IDF：`tf * log(N/df)`，让高频词降权、稀有词升权。\n- 中文改用 **bigram**（`用户研究` → `用户/户研/研究`），英文小写化 + 简单词干。\n- 命中位置和次数都计入，而不是只算一次 substring。\n\n**L2（结构化，适合个人知识库体量）**\n\n- 每条词条手写 `related: id[]`，或从正文用约定标记自动抽取。\n- 当前词条的相关词条**永远优先进 context**，关键词检索只补剩余槽位。质量上限由结构决定，而不是靠运气匹配。\n\n**仍未解决的**：L1/L2 都是词面匹配，同义改述依旧召回不到 —— 那需要 embedding 语义召回（见 [检索要按难度迭代](/wiki/agent-session/as-concept-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3)）。",
+    "## 相关\n\n- [检索要按难度迭代](/wiki/agent-session/as-concept-%E6%A3%80%E7%B4%A2%E8%A6%81%E6%8C%89%E9%9A%BE%E5%BA%A6%E8%BF%AD%E4%BB%A3)（检索的三层：引擎 / 协议 / Agent loop）\n- [长尾查询](/wiki/agent-session/as-concept-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2)（搜索源的选择）\n- 上下文按信任等级分层（哪些内容该优先进 context）"
   ]
 },
 {
@@ -148,7 +161,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 二、读取不应永远从开头\n\n现在只读「正文第 0 → 12,000 字符」，这在检索场景里是错的：搜索已经定位到 `chunk-18`，就该读它**前后几段**，确认相关后再扩大范围。\n\n```text\n搜索命中片段 → 读命中片段上下文 → 相关则扩大 / 不相关则换查询\n```\n\n「查一个事实」和「总结整篇笔记」不该走同一条昂贵路径。",
     "## 三、难度怎么判（你的假设 + 修正）\n\n你的假设（22:45）：提问**越精简越简单**，越模糊越困难；很难的还要 `ask_user_question`。\n\n修正：**问题长度不代表难度**，它最多是很弱的信号。「我该怎么办？」很短，但目标、背景、评价标准全不清楚。\n\n真正要判三个维度：\n\n1. **意图清晰度** —— 目标、范围、对象、期望结果是否明确\n2. **证据与推理范围** —— 定位一个事实，还是要多来源比较归纳\n3. **行动风险** —— 错了是否有明显影响\n\n所以至少分三档，**「复杂」和「模糊」不是一回事**：\n\n```text\n简单：清晰、范围窄、低风险\n复杂：问题清晰，但需要多来源或多步推理\n模糊：缺少目标、范围或关键条件\n```\n\n`ask_user_question` 也不是因为问题难，而是因为**缺少只有用户才能决定的信息**。存在阻断性歧义才打断；能作低风险合理假设就说明假设后继续。",
     "## 四、证据充分的停止条件\n\n数量是搜索预算，**覆盖度才是完成标准**：\n\n- 所有关键子问题都有直接证据\n- 关键结论不是仅由重复材料支撑\n- 没有尚未处理的重要冲突\n- 继续搜索已经很少产生新信息\n\n> 「直到返回所有相关内容」是理想但不可证明的目标 —— 无法可靠判断「已经找全」。所以分工是：普通检索 loop 打底，`deep-research` 扩大证据覆盖，`deep-insight` 找联系、矛盾与盲点。",
-    "## 相关\n\n- [长尾查询](/wiki/agent-session/as-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2)（搜索源的选择）\n- 上下文按信任等级分层（同一次讨论的另一半）\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)（歧义要先确认）\n- [关键词检索的三个打分缺陷](/wiki/agent-session/as-%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E7%B4%A2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%89%93%E5%88%86%E7%BC%BA%E9%99%B7) —— 引擎层为什么找不准"
+    "## 相关\n\n- [长尾查询](/wiki/agent-session/as-concept-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2)（搜索源的选择）\n- 上下文按信任等级分层（同一次讨论的另一半）\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)（歧义要先确认）\n- [关键词检索的三个打分缺陷](/wiki/agent-session/as-concept-%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E7%B4%A2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%89%93%E5%88%86%E7%BC%BA%E9%99%B7) —— 引擎层为什么找不准"
   ]
 },
 {
@@ -160,8 +173,8 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## 一、灰度（staged rollout）的放量顺序\n\n新模型的开放是**分批**的，不是全量同时上线：\n\n- 先向部分企业访问计划开放，再逐步覆盖 API → Plus / Pro / Business / Enterprise\n- **付费 ≠ 立刻可见**：还要过账号、地区、工作区、具体产品入口这几道\n\n推论：`我看不到` 与 `我没有权限` 是两件事。前者可能只是**批次还没轮到**。",
     "## 二、入口之间不共享可见性\n\n关键机制：**CLI 的模型可用性与 ChatGPT 网页端、API 不一定同步。**\n在 CLI 里看不到，不代表网页端/API 也没有；反过来同理。\n\n所以「某个模型消失了/没出现」的排查顺序是：\n\n1. 更新客户端到最新版本\n2. 退出后重新登录账号\n3. 确认当前用的是正确的**组织 / 工作区**\n4. 若是 API，确认账号已拿到该模型的**权限**\n\n只有这四步都过了，才值得怀疑是权限本身的问题。",
-    "## 三、别把「会话自报的模型标识」当成你的账号权限\n\n会话里 agent 自报的模型名（例如它说自己是某个具体版本），是**当前会话暴露给它的标识**，\n只说明「这次对话跑在哪个模型上」，**不代表你的账号拥有该模型**。\n\n把这两者混起来，就会得出「我明明有 X 却调不到」这种自相矛盾的结论 —— 参见 [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)（同一个词在说不同的东西）。",
-    "## 相关\n\n- Agent模型接入与额度机制（同一条主线：能力与额度都**按账号/入口的实际口径**算，不按你脑中的口径算）\n- [多账号模型路由机制](/wiki/agent-session/as-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（落点由账号目录决定，可观测才能判断「谁接得到」）\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 三、别把「会话自报的模型标识」当成你的账号权限\n\n会话里 agent 自报的模型名（例如它说自己是某个具体版本），是**当前会话暴露给它的标识**，\n只说明「这次对话跑在哪个模型上」，**不代表你的账号拥有该模型**。\n\n把这两者混起来，就会得出「我明明有 X 却调不到」这种自相矛盾的结论 —— 参见 [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)（同一个词在说不同的东西）。",
+    "## 相关\n\n- Agent模型接入与额度机制（同一条主线：能力与额度都**按账号/入口的实际口径**算，不按你脑中的口径算）\n- [多账号模型路由机制](/wiki/agent-session/as-concept-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（落点由账号目录决定，可观测才能判断「谁接得到」）\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
   ]
 },
 {
@@ -175,7 +188,20 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 二、每轮实际上下文上限（无护栏）\n\n服务端只是把 `system + messages` 全量转发：\n\n| 组成 | 量级 |\n|---|---|\n| system prompt（含词条正文 context 预算） | 12000 字符 |\n| 历史消息 20 × 2000 字 | 40000 字符 |\n| 合计 | ≈ 52000 字符 ≈ 5~9 万 token |\n\n两个限制（条数、单条字数）**独立校验、乘起来没人管**。真要触发，要么模型报 context 超限，要么被网关静默截断 —— 表现为\"AI 忘了前面说过的话\"。实际因为 prompt 强制简短很少打满，但这是一个**没有护栏的边界**。",
     "## 三、输出侧\n\n`max_tokens: 2048`（约 1300~2000 中文字）。对\"2-5 句\"的 prompt 约束绰绰有余，几乎不会打满 —— 除非模型失控或 reasoning 挤占预算（见 Agent模型接入与额度机制）。",
     "## 四、推论\n\n- **计数闸门 ≠ 上下文管理**：前者是硬拒绝，后者应是滑动窗口 / 按 token 截断 / 摘要压缩。\n- 会话状态的生命周期要一起看：前端 state 只在组件存活期，刷新即失；只有落 sessionStorage 的场景才跨刷新保留。",
-    "## 相关\n\n- 上下文按信任等级分层\n- Agent模型接入与额度机制\n- [实时与异步](/wiki/agent-session/as-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5)\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [上下文成本由基础上下文和会话数决定](/wiki/agent-session/as-concept-%E4%B8%8A%E4%B8%8B%E6%96%87%E6%88%90%E6%9C%AC%E7%94%B1%E5%9F%BA%E7%A1%80%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8C%E4%BC%9A%E8%AF%9D%E6%95%B0%E5%86%B3%E5%AE%9A) —— 为什么压了历史也不小\n- 上下文按信任等级分层\n- Agent模型接入与额度机制\n- [实时与异步](/wiki/agent-session/as-concept-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5)\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-评测平台是平台层，项目规则是适配层",
+  "updatedAt": "2026-06-12",
+  "wikiSlug": "agent-session",
+  "term": "评测平台是平台层，项目规则是适配层",
+  "oneLiner": "**Langfuse 这类观测/实验平台能承担 prompt 评测，但永远不知道你的业务规则；业务规则必须由项目自己以适配层的形式喂进去。** 因此结论是：不要自己造 Prompt Lab / Skill Lab / Tool Lab，改为「平台承担 Lab 功能，项目只写适配代码」。",
+  "body": [
+    "## 分工\n\n```text\nLangfuse  = 平台层：prompt 版本、数据集、实验、trace、评分、历史对比\n项目适配层 = fixtures（假数据/输入/上下文）\n           + cases（项目用例定义）\n           + runners（调用本项目 prompt/skill/tool）\n           + evaluators（项目自定义 scorer）\n```\n\n平台能回答「用了哪个 prompt 版本、哪个 case 失败、原始输出是什么、分数比上次差没有、trace 断在哪」。平台**不能**回答「哪些 fieldPath 合法、结构化 JSON 怎样才算保留列表、这个 skill 应返回哪些风险项、能不能编造指标、确认卡需要哪些字段」——这些项目知识必须由项目提供。",
+    "## Langfuse 与 Promptfoo 的区别\n\n两者默认重心不同，Langfuse 确实能在一部分场景替代 Promptfoo：\n\n```text\nLangfuse  = 团队级调试/观测/实验平台（有 hosted state）\nPromptfoo = 本地优先的 prompt/agent 测试运行器（配置 + assertions，不依赖平台账号）\n```\n\nPromptfoo 的优势是本地启动快、配置简单、assertions 直接（JSON 校验、包含/不包含、自定义 JS/Python）、适合在 CI 当测试跑。",
+    "## 常见误判：上传固定输出 ≠ 链路回归\n\n把固定的 `modelOutput` case 上传到平台跑 experiment，只验证了**解析与契约**（输出是否合法 JSON、tool call 契约、字段路径、禁用 token）。它不覆盖：不同版本 prompt 对比、真实模型输出、单个业务 skill、工具安全测试、端到端链路回归。评估覆盖面要按「测的是解析还是链路」区分，别把前者当成后者。",
+    "## 相关\n\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：适配层写了，还要真的跑真链路才算落地\n- Agent harness 要隔离复现可收尾 —— 项目侧的调试房间与平台侧评测的分工\n- [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— 同为「平台层 vs 项目层」的真源划分"
   ]
 },
 {
@@ -188,11 +214,38 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、盲目串行的算术\n\n`4 key × 3 模型 = 12` 组，上游单次约 **8 秒** → 全试一遍 **96 秒**，直接撞上 Vercel `maxDuration: 60`。表现是：\n\n```\n连续 3 次：60.003s 超时 → 429\n```\n\n比不轮换更糟 —— 用户等 60 秒然后失败。",
     "## 二、健康状态记忆\n\n进程级内存表：`health: Map<\"key::model\", {until, status}>`。\n\n**冷却时长按错误性质区分**（这是关键，不能一律 30 秒）：\n\n| 错误 | 冷却 | 理由 |\n|---|---|---|\n| 429 配额耗尽 | **10 分钟** | 额度按天重置，几秒内不可能恢复 |\n| 503 模型过载 | 60 秒 | 通常几十秒恢复 |\n| 403 / 404 | 5 分钟 | 凭据或模型名问题，短期不自愈 |\n| 500 / 502 / 504、网络抛错 | 30 秒 | 网关抖动 |\n\n**排序：健康组合优先，冷却组合排后而不是删除** —— 健康表是临时的，全部冷却时仍要有兜底可试。\n\n```js\nconst ordered = [...combos.filter(c => !c.cooling), ...combos.filter(c => c.cooling)];\n```\n\n**单次尝试超时 8 秒**，防止一个慢组合拖死整轮；**最后一组不加超时**（反正没有下一组，不如多等一会）。成功即 `markSuccess` 清除冷却，稳定态下第一组就命中，只需一次上游往返。",
     "## 三、边界：无状态部署让健康表打折\n\nVercel 是无状态的，每次请求可能落在**不同实例**，健康表不共享。所以冷却只是「本实例的经验」，效果是概率性的 —— 实测同样逻辑耗时在 **1.7s ~ 31s** 之间波动。\n\n结论：健康记忆能显著降低最坏耗时，但不能替代**跨实例的共享状态**（真要稳定就得放 Redis / KV 之类）。",
-    "## 相关\n\n- 账号冷却不要按错误码一刀切（把网络级抖动误当账号级故障的反例）\n- Agent模型接入与额度机制（额度池、轮换为何\"一下子满了\"）\n- [多账号模型路由机制](/wiki/agent-session/as-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（上游自带账号冷却的做法）\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)（429 与 503 不能混为一类）"
+    "## 相关\n\n- 账号冷却不要按错误码一刀切（把网络级抖动误当账号级故障的反例）\n- Agent模型接入与额度机制（额度池、轮换为何\"一下子满了\"）\n- [多账号模型路由机制](/wiki/agent-session/as-concept-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（上游自带账号冷却的做法）\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)（429 与 503 不能混为一类）"
   ]
 },
 {
-  "id": "as-concept-Skill 跨 agent 会静默失效",
+  "id": "as-concept-Agent-harness-要隔离、可复现、可收尾",
+  "updatedAt": "2026-06-12",
+  "wikiSlug": "agent-session",
+  "term": "Agent harness 要隔离、可复现、可收尾",
+  "oneLiner": "**Agent harness 是给 Agent 搭的「调试房间」，本质回答三件事：隔离谁、怎么复现、怎么收尾。**",
+  "body": [
+    "## 在真实产品链路里调 Agent，每次试错都可能污染数据、改坏真实内容、占用共享缓存、和别人的调试互相干扰。所以 harness 不是替代真实产品，而是让你能反复问：收到的上下文对不对、工具调用格式对不对、流式有没有卡住、失败信息是否清楚、会不会误写真实数据。",
+    "## 三问\n\n| 问题 | 内容 |\n|---|---|\n| 隔离谁 | 数据（假 fixture）、缓存（独立 Redis / key 前缀）、端口（独立服务）、模型调用（假模型或录播响应）、日志 |\n| 怎么复现 | 固定测试数据 + 固定输入 + 固定模型响应，让失败可重跑 |\n| 怎么收尾 | 每次生成 run id 便于看日志，调试结束清掉测试数据与缓存 |\n\n默认不写真实数据，是 harness 的第一原则。",
+    "## 隔离也适用于配置\n\n多项目共用同一个 CLI 时，**不要改全局配置来满足单个项目**。全局 provider/base_url 一改，所有项目、所有新开线程都会跟着变。更保守的做法是给该项目单独的 profile 配置文件 + 项目专用 env + 一个启动脚本，全局命令仍走默认。\n\n前提认知：这类 CLI 通常**没有「按项目自动切 provider」的稳定字段**（只有项目 trust 之类的配置），provider 是全局或 profile 层的。所以「进入目录就自动用这套 key」要么靠改全局（风险最大），要么靠 direnv / alias / wrapper 注入。",
+    "## 成熟路径：先工程接口，后薄包装\n\n第一版 harness 用起来「麻烦」通常不是方向错，而是停在底层工程接口：\n\n- 本地离线回归和外部平台协作被有意分开（一个不需要 key，一个需要 key 和 label）\n- 默认保护隐私与稳定性，不上传 prompt / 原文 / provider 输出\n- 暴露的是一串细碎命令，对日常使用太碎\n\n缺的是面向日常的**薄包装**（2–3 个入口命令 + 一页「改 prompt → 跑 → 可选上传 → 再推 label」的文档），而不是把底层设计推倒。",
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 同源：harness 要能观察到真实输入输出，而不是靠代理指标\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：harness 只有真的被日常跑起来才算落地\n- 评测平台是平台层项目规则是适配层 —— 平台侧评测与项目侧 harness 的分工\n- [多Agent协作控制面](/wiki/agent-session/as-topic-%E5%A4%9AAgent%E5%8D%8F%E4%BD%9C%E6%8E%A7%E5%88%B6%E9%9D%A2) —— 隔离与配置分层是控制面里「独立协作」那一层"
+  ]
+},
+{
+  "id": "as-concept-Agent-编排层薄自建优先于重型框架",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "Agent 编排层薄自建优先于重型框架",
+  "oneLiner": "**给本地优先的桌面 App 接 Agent，先自建一层很薄的编排层，不要直接引入 LangChain / LangGraph / AutoGen 这类重型框架 —— 当能力边界很明确（读笔记、读文件、写笔记）时，权限边界比「框架功能丰富」更重要。** 这里的「自建」不是自己训练模型，也不是从零写 LLM，而是自己定义工具、权限、上下文与错误处理。",
+  "body": [
+    "## 薄自建层要自己定义什么\n\n- Agent 能调用哪些工具：`list_notes`、`read_note`、`read_file`、`write_note`\n- 工具怎么接 Tauri / vault / 文件系统\n- 写入前要不要用户确认\n- 上下文怎么塞：当前笔记、选中文件、搜索结果\n- 错误怎么显示：没权限、文件太大、笔记冲突、写入失败\n\n优点是贴合「本地优先、文件是真相源、写笔记走现有 vault 契约、API key 运行时配置」，代码量可控，第一版不被框架抽象绑住。代价是高级能力要自己补：多步计划、任务队列、长程记忆、工具重试。",
+    "## 开源框架的适用面与代价\n\n框架的价值在**复杂任务流**：例如「扫描整个知识库 → 找主题 → 生成报告 → 拆成多篇笔记 → 反复修订」，这时 agent graph、memory、workflow、multi-agent、观测调试确实省事。\n\n代价是：多数框架默认服务端 / 云端思路，和 Tauri 桌面、本地文件权限、vault 原子写入、前端状态机不完全贴合；还会引入依赖、抽象层与调试成本。**最危险的是写文件 / 写笔记这类能力被框架包装得太深后，权限边界会变模糊。**",
+    "## 推荐路线：混合\n\n- 不接完整开源 Agent App，也不引入重型 agent framework\n- 复用现有 AI SDK / 模型的 tool calling 能力\n- 自己定义工具层、权限层、笔记读写层、UI 状态\n- 将来真要复杂工作流，再单独评估是否引入「流程图式编排」（如 LangGraph）\n\n这样第一版能快，架构也不会死。",
+    "## 相关\n\n- [本地优先知识产品的架构演进](/wiki/agent-session/as-topic-%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88%E7%9F%A5%E8%AF%86%E4%BA%A7%E5%93%81%E7%9A%84%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B) —— 本文是该 topic 里「AI 执行层」判断的展开\n- 阻塞式工具与提案确认 —— 写入类工具如何暂停等确认\n- [容器要有超出文件夹的意义才值得独立入口](/wiki/agent-session/as-concept-%E5%AE%B9%E5%99%A8%E8%A6%81%E6%9C%89%E8%B6%85%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%84%8F%E4%B9%89%E6%89%8D%E5%80%BC%E5%BE%97%E7%8B%AC%E7%AB%8B%E5%85%A5%E5%8F%A3) —— 同族判据：新增入口/依赖前先问去掉它会损失什么"
+  ]
+},
+{
+  "id": "as-concept-Skill-跨-agent-会静默失效",
   "updatedAt": "2026-08-27",
   "wikiSlug": "agent-session",
   "term": "Skill 跨 agent 会静默失效",
@@ -201,7 +254,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、静默失效的根因：frontmatter 不兼容\n\n同一个 `SKILL.md` 在不同 agent 里的解析规则不同。写入了某家专属字段（如 `tools` / `argument-hint` / `user-invocable`），别的 agent 解析 frontmatter 失败，处理方式是**整个跳过该 skill**，而不是忽略未知字段、降级加载。\n\n排查顺序（先证伪再改）：\n\n1. 确认文件/软链确实在目标 agent 的 skills 目录下；\n2. 对比**同目录下能正常加载**的 skill（如 `grill-me`）的 frontmatter —— 差异字段就是嫌疑；\n3. 删掉非通用字段，重启 agent 再看 `available_skills`。",
     "## 二、第二个坑：skill 内部路径写死到某个 agent 的目录\n\n`SKILL.md` 里 `SCRIPT=~/.claude/skills/<x>/scripts/...` 这种绝对路径，一旦 skill 被分发到别的 agent 目录，路径就断了 —— **即使加载成功也跑不起来**。\n\n规则：skill 要共享，内部引用就必须相对自身目录（或由运行时注入），不能硬编码到某一个 agent 的配置目录。",
     "## 三、为什么会同时踩两个坑：集中分发放大了兼容性\n\n技能由 skillhub 集中管理（`~/.skillshub/` 是仓库，各 agent 的 skills 目录里放**软链**指向它），一份技能同时挂在多个 agent 下。\n\n好处是改一处全体生效；代价是**任何一处兼容性问题会被复制到所有 agent**，而且第一个暴露它的往往是「平时不用的那个 agent」。所以新增/迁移 skill 时，要在**每个**接入的 agent 里各验证一次加载，而不是只测写它的那家。",
-    "## 相关\n\n- [多账号模型路由机制](/wiki/agent-session/as-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（同为「配置层错位导致静默失效」）\n- 上下文按信任等级分层（skill 的定位：教为什么，不规定每一步）"
+    "## 相关\n\n- [多账号模型路由机制](/wiki/agent-session/as-concept-%E5%A4%9A%E8%B4%A6%E5%8F%B7%E6%A8%A1%E5%9E%8B%E8%B7%AF%E7%94%B1%E6%9C%BA%E5%88%B6)（同为「配置层错位导致静默失效」）\n- 上下文按信任等级分层（skill 的定位：教为什么，不规定每一步）"
   ]
 },
 {
@@ -214,7 +267,287 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 踩坑形态\n\n```\n生成授权链接 → 用户登录 → 拿 token → 存成账号文件 → 重启服务\n```\n\n- 前三步都成功了（能确认 uid、区域、有效期），**证明账号本身没问题**；\n- 第四步翻车：agent 想「先试试再保存」，而那个取 token 的命令是**单次有效**的，\n  重跑即失效，刚拿到的凭证就此丢失；\n- 结果：账号信息「看过一眼」但没落盘，服务里账号数不变，**用户必须重新点一次链接**。",
     "## 规则\n\n1. **拿到即写盘**，验证时从盘上读，而不是重新取一次。\n2. 执行前先判断命令是否幂等 —— **授权码、一次性 token、非幂等创建接口都属于「只有一次机会」**。\n3. 失败重试前先确认：这次重试会不会把已到手的凭证作废。",
     "## 代价不对称\n\n表面上只多花用户一次点击（约 30 秒），但真正的代价是**信任**：\n用户看到的是「登录成功了却什么都没发生」，需要 agent 再解释一遍才敢重试。\n**能一次到位的流程，不要为了「先确认一下」而分两次做。**",
-    "## 相关\n\n- CLI登录会在平台侧注册一个Agent联系人\n- 阻塞式工具与提案确认\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [需要认证的命令不要并行执行](/wiki/agent-session/as-concept-%E9%9C%80%E8%A6%81%E8%AE%A4%E8%AF%81%E7%9A%84%E5%91%BD%E4%BB%A4%E4%B8%8D%E8%A6%81%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C) —— 同类：一次性授权流程不能重复触发\n- CLI登录会在平台侧注册一个Agent联系人\n- 阻塞式工具与提案确认\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-作者是AI时协议要唯一规范答案",
+  "updatedAt": "2026-06-11",
+  "wikiSlug": "agent-session",
+  "term": "作者是AI时协议要唯一规范答案",
+  "oneLiner": "**产物的作者是谁，决定协议该怎么设计。** 作者是人 → 友好 = 好记、可推断；作者是 AI skill → 友好 = **低歧义、唯一规范写法、可自动校验**。同一份协议里并存多套等价写法（别名），对人只是麻烦，对 AI 是**随机性**：它会随机挑一套，而且漏字段没人拦。",
+  "body": [
+    "## 一、前提：模板作者不是人\n\n本项目的模板 HTML/CSS 不由人编写，而是由 AI 通过 skill 生成后直接写入数据库。所以不能按人类直觉评估「协议好不好用」（「`item.*` 挺通用啊」），要按 AI 的失败模式评估：\n\n- AI 不怕字段名抽象，怕**同一语义有多种写法**（`basics.name` 与 `profile.name` 都能用）。\n- AI 不怕规则多，怕**规则隐含**（哪些字段必须预留，文档里没写）。\n- AI 不会因为漏一个字段而察觉 —— **漏了不报错**，页面只是空白。",
+    "## 二、唯一规范答案：内部兼容，对外只暴露一套\n\n做法是分层，不是删代码：\n\n```text\nrender / 数据层：继续兼容多套别名（旧模板已在用，不能破坏）\nskill 层：只告诉 AI 一套推荐写法\n```\n\n即「兼容 ≠ 推荐」：老写法继续能渲染，但不再出现在 skill 的规范里。这个状态要显式命名成 **deprecated**，而不是含糊的「也可以这样写」——`deprecated = 还能用 + 不要再生成 + 未来可迁移`。",
+    "## 三、`required` 有两种含义\n\n「必含字段」不能笼统地叫 required，要拆开：\n\n| 名称 | 约束谁 | 含义 |\n|---|---|---|\n| `content_required` | 用户表单 | 简历内容必填 —— 实际基本没有强必填，简历可以是空的 |\n| `template_coverage_required` | AI 生成的模板 | 模板结构里**必须预留这些 slot** |\n\n关键区别：用户没填 `item.link`，渲染为空没问题；但模板 HTML 里**根本没有** `item.link` 的 slot，用户以后填了也永远显示不出来。所以「必含」约束的是**模板能力覆盖**，不是**用户内容填充**。",
+    "## 四、闸门放在校验器，不放在 prompt 记忆\n\n靠 skill prompt 记住「必须覆盖哪些字段」不可靠；可靠的是入库前跑 **coverage validator**，漏字段直接报错。协议文档（机器可读 JSON）应被 validator 与 skill 共同消费 —— **契约被消费才不是摆设**。\n\n**06-11 实证：校验器只查了一半。** `insert-template` 当时只校验 required slot bindings（如 `item.title / item.meta / item.link`），不拦截三件事：HTML 里用了旧私有语义 class（`.pro-item-title`）、CSS 里继续写私有语义 selector、CSS 里把 renderer-owned 的底座规则（空值隐藏、contact spacing、正文行高）又塞回来。**只要校验器不管这些，未来导入模板仍会重新污染数据库** —— 说明「把闸门放进 validator」不能只做字段覆盖，还要做命名与职责边界的校验。",
+    "## 五、三类文件：真源 / 契约 / 说明\n\n给 AI 消费的协议，文件分三层，并明确谁是真源：\n\n```text\n运行代码      → 系统真正执行；与文档冲突时以代码为准（真源）\n机器可读契约  → JSON：字段清单 + canonical / required / deprecated；给 skill、validator、测试消费\n人类说明文档  → MD：写法规范、示例、禁止项\n```\n\n判据：**「真实使用」= 运行时会 import/执行，或被 validator 读取**；否则只是说明。",
+    "## 六、落地顺序\n\n先补 AI 的**输入**与**校验**（协议文档 → skill → coverage 校验 → 批量修存量模板），render 层的命名重构延后。理由：漏渲染的根因是「skill 不知道有哪些字段、也没有校验」，不是 render 机制本身。",
+    "## 相关\n\n- [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) —— 本条服务的协议与逐字段契约\n- [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) —— 同为「中立源 + 薄适配」：格式差异不写进通用件\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：契约要被 validator 读才算落地"
+  ]
+},
+{
+  "id": "as-concept-多源更新按维度取真源",
+  "updatedAt": "2026-06-10",
+  "wikiSlug": "agent-session",
+  "term": "多源更新按维度取真源",
+  "oneLiner": "**同一份产物有两个来源时，不要整体选「更新的那个源」，要按维度分别取权威版本。** 更新模板 skill 的实例：skill 文档本身以上游仓库（`Rory-X/intro-builder` 的 `upstream/main`）更新一点，而 schema 协议以本地改造为最新 —— 正确做法是**拉取上游 skill，再在它之上叠加本地的协议改造**。",
+  "body": [
+    "## 为什么不能整体选一边\n\n- 只取本地 → 丢掉上游新增的 skill 内容。\n- 只取上游 → 丢掉本地已定稿的新 schema。\n- **上游新 ≠ 全对，本地新 ≠ 全对**：新旧是按维度判定的，不是按来源判定的。",
+    "## 落地动作\n\n1. 先明确每个维度的真源：skill 正文 → 上游；协议 / 字段 → 本地。\n2. 以**上游为基线**拉下来，再把本地改造应用上去（而不是反向合并）。\n3. 改完跑校验（JSON parse、`tsc --noEmit`），并明确列出「还没同步的层」，避免文档与运行时各说各话。",
+    "## 相关\n\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) —— 真源 / 契约 / 说明三层的划分\n- skill跨agent加载差异 —— 技能分发同属「多端消费同一份产物」\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：「还没同步的层」要能被校验发现\n- [真源要按维度显式指定](/wiki/agent-session/as-synthesis-%E7%9C%9F%E6%BA%90%E8%A6%81%E6%8C%89%E7%BB%B4%E5%BA%A6%E6%98%BE%E5%BC%8F%E6%8C%87%E5%AE%9A) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-改协议要同时改两端",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "改协议要同时改两端",
+  "oneLiner": "**项目里有两条链路（如 Claude Code 一套、Codex 一套）时，改 WebSocket 协议或连接逻辑不能只改一边。要同时检查：服务端（bridge）、客户端的类型与连接逻辑、以及设置页里展示给用户的协议说明。最容易出的问题是「设置页显示连上了，但聊天页监听的是另一套连接」。**",
+  "body": [
+    "## 做法\n\n把这条约束写进给 agent 看的项目说明书（如 `AGENTS.md`），让每次改协议时自动带上「两端 + 说明页」的检查清单。",
+    "## 相关\n\n- [对照两端要用同一条标识](/wiki/agent-session/as-concept-%E5%AF%B9%E7%85%A7%E4%B8%A4%E7%AB%AF%E8%A6%81%E7%94%A8%E5%90%8C%E4%B8%80%E6%9D%A1%E6%A0%87%E8%AF%86)\n- 远程Agent控制要定义执行协议与状态模型\n- [契约只承载结构，个性留给扩展层](/wiki/agent-session/as-synthesis-%E5%A5%91%E7%BA%A6%E5%8F%AA%E6%89%BF%E8%BD%BD%E7%BB%93%E6%9E%84%EF%BC%8C%E4%B8%AA%E6%80%A7%E7%95%99%E7%BB%99%E6%89%A9%E5%B1%95%E5%B1%82)"
+  ]
+},
+{
+  "id": "as-concept-远程-Agent-控制要定义执行协议与状态模型",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "远程 Agent 控制要定义执行协议与状态模型",
+  "oneLiner": "**做「手机/网页远程指挥服务器里的 Claude Code/Codex」这类产品，只画 App 页面是不够的。必须在 PRD 里定清两块：App 与服务器之间的「执行控制协议」，以及服务器要保存的「状态模型」。否则两端各写各的，后面接不起来。**",
+  "body": [
+    "## 一、执行控制协议\n\n规定 App 发什么、服务器回什么，而不是只说「发送消息」。要有明确的**消息类型 + 字段 + 流程**：\n\n- 怎么创建会话、怎么发送消息\n- 怎么表示运行开始、怎么流式返回内容（`assistant_delta` / `tool_output`）\n- 怎么表示完成/失败、怎么取消任务\n- 怎么请求文件树、出错时返回什么",
+    "## 二、服务器状态模型\n\n规定服务器保存哪些实体及关系：\n\n```\nSession 会话\n  └── Message 消息\n  └── Run 执行任务\n        └── Event 流式事件\n```\n\n一个 Session 有 workspace、`activeRunId` 等；一个 Run 是一次 Claude Code/Codex 执行，带 status、tool。",
+    "## 相关\n\n- 远程控制本机Agent要让bridge跑在本机\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88)\n- Agent编排层薄自建优先于重型框架"
+  ]
+},
+{
+  "id": "as-concept-远程控制本机-Agent-要让-bridge-跑在本机",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "远程控制本机 Agent 要让 bridge 跑在本机",
+  "oneLiner": "**手机 App 不能直连命令行 Agent（Claude Code/Codex 不是 WebSocket 服务），中间要有一个 bridge 把 CLI 包成 WebSocket。关键约束：Agent 只能操作它所在机器的文件，所以想操作 Mac 上的项目，bridge 就必须跑在 Mac 上。**",
+  "body": [
+    "## 链路\n\n```\n手机 App → WebSocket → bridge（本机） → 调用本机 claude 命令 → 把输出转成 stream 回传\n```",
+    "## 部署位置决定能操作谁的文件\n\n| bridge 位置 | 能操作 |\n|---|---|\n| Mac 本机 | Mac 项目 ✓ |\n| 云服务器 | 只能操作服务器文件，看不到 Mac 的 `/Users/...` |",
+    "## 想「服务器入口 + 操作 Mac 项目」\n\n把公网流量转发回 Mac（Tailscale / Cloudflare Tunnel / ngrok / 蒲公英组网），Claude 仍在 Mac 上跑。给别人用公网 `wss` 时必须加 token 鉴权，否则拿到地址就能操作你的 Mac。",
+    "## 相关\n\n- [改协议要同时改两端](/wiki/agent-session/as-concept-%E6%94%B9%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%90%8C%E6%97%B6%E6%94%B9%E4%B8%A4%E7%AB%AF) —— bridge 侧改了，客户端与设置页也要一起改\n- 远程Agent控制要定义执行协议与状态模型\n- Agent编排层薄自建优先于重型框架\n- CLI登录会在平台侧注册一个Agent联系人"
+  ]
+},
+{
+  "id": "as-concept-通用脚本要靠工具适配器接入",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "通用脚本要靠工具适配器接入",
+  "oneLiner": "**跨 agent 的通用脚本不会被某个工具自动执行。** 要让 Claude 启用它，必须有**工具专属 hook 适配层**：在 `settings` 里注册的是适配器，不是通用脚本本身。",
+  "body": [
+    "## 调用链\n\n```\nClaude SessionStart\n  -> .claude/settings.local.json          # 注册点\n    -> .claude/hooks/session-brief.js     # Claude 适配器\n      -> .agent/scripts/agent-brief.js    # 跨 agent 通用脚本\n```\n\n适配器用环境变量（`AGENT_BRIEF_JSON=1`）让通用脚本切换输出格式——产出 Claude hook 需要的 JSON（`hookSpecificOutput.hookEventName` + `additionalContext`）。**通用脚本保持中立，格式差异由适配器决定。**",
+    "## 为什么保留 wrapper，而不是直接注册通用脚本\n\n不要在 `settings` 里直接写：\n\n```json\n\"command\": \"node \\\"$CLAUDE_PROJECT_DIR/.agent/scripts/agent-brief.js\\\"\"\n```\n\n因为 Claude 可能从 `.claude/worktrees/*` 里启动，此时 `$CLAUDE_PROJECT_DIR/.agent/...` **可能不存在**。wrapper 会向上查找项目根，更稳。",
+    "## 可迁移的判断\n\n「一套内容，多端消费」时，分层是：**中立数据源 → 每端一个薄适配器 → 各端注册点**。把某一端的格式要求写进通用脚本，等于把通用件绑死在单个工具上。",
+    "## 相关\n\n- [多Agent协作控制面](/wiki/agent-session/as-topic-%E5%A4%9AAgent%E5%8D%8F%E4%BD%9C%E6%8E%A7%E5%88%B6%E9%9D%A2) —— 入口统一之后，还得有工具适配层才能跑通\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) —— 同为「中立源 + 薄适配，格式差异不进通用件」\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：适配器不写，通用件就不会被调用"
+  ]
+},
+{
+  "id": "as-concept-项目里的技能可能有多份副本",
+  "updatedAt": "2026-06-24",
+  "wikiSlug": "agent-session",
+  "term": "项目里的技能可能有多份副本",
+  "oneLiner": "**「项目本地有一套 skills」这句话不足以定位到具体目录 —— 同一个项目里可能同时存在 `.agents/skills`、`.claude/skills`、`.codex/skills` 多份副本，内容还不一样（有的只有一部分）。按一个目录名去找就断言「没有这套 skills」，结论会是错的。**",
+  "body": [
+    "## 实测形态：某项目 `.agents/skills` 里只有 `speckit-*`，`.claude/skills` 里却有大部分目标技能，而完整的那套在**另一个项目**的 `.agents/skills` 里。",
+    "## 根因\n\n「skills 放在哪」没有唯一约定，各 agent 工具各用各的目录名，于是同一批技能会在一个项目里散成多份。",
+    "## 可复用动作\n\n1. 听到「项目里有 X」时，**先枚举所有候选目录**（`.agents/skills`、`.claude/skills`、`.codex/skills`），而不是只查被点名的那一个。\n2. 多个候选都命中时，**比对内容完整度**，取全集所在的位置作为来源。\n3. 复制目标也要覆盖各 agent 的目录，而不是只补一处。",
+    "## 相关\n\n- skill跨agent加载差异 —— 目录/字段不兼容导致静默失效，同属「配置层错位」\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) —— 同为「看到的不是全貌就下结论」\n- [功能缺失先确认运行的是哪份产物](/wiki/agent-session/as-concept-%E5%8A%9F%E8%83%BD%E7%BC%BA%E5%A4%B1%E5%85%88%E7%A1%AE%E8%AE%A4%E8%BF%90%E8%A1%8C%E7%9A%84%E6%98%AF%E5%93%AA%E4%BB%BD%E4%BA%A7%E7%89%A9) —— 同源判断：先确认是哪一份，再谈有没有\n- [依赖版本要锁主版本而非一律取最新](/wiki/agent-session/as-concept-%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E8%A6%81%E9%94%81%E4%B8%BB%E7%89%88%E6%9C%AC%E8%80%8C%E9%9D%9E%E4%B8%80%E5%BE%8B%E5%8F%96%E6%9C%80%E6%96%B0) —— 同属「环境不一致导致的漂移」"
+  ]
+},
+{
+  "id": "as-concept-flex-子项的百分比-max-height-不可靠",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "flex 子项的百分比 max-height 不可靠",
+  "oneLiner": "**想给 flex 子项加 `max-h-full` + `overflow-hidden` 来截断超长内容，会因为父 flex 容器没有显式高度而表现不一致。** 要么用**固定 px 的 max-height**，要么用 **JS 算容器高度后动态裁条数**。",
+  "body": [
+    "## 症状\n\n给 bars 子容器加 `max-h-full overflow-hidden` 后，条数多的文件 bars **完全消失**；加 `min-h-0` 也不行；不加 overflow 限制则正常，但超长时溢出底部（不截断）；外层加 `overflow-hidden` 又会把 hover 面板裁掉。",
+    "## 根因\n\nbars 容器是 flex 子项，`max-h-full` 相对的是 flex 容器的高度，**而 flex 容器没有显式高度**（由 `top/bottom` 定位隐含）。百分比 max-height 在 flex 子项上表现不一致：条数少时不触发；条数多时触发了，但 computed height 变成 0，于是把所有 bars 都隐藏了。",
+    "## 两个可行方向\n\n- **JS 计算容器高度**，动态 slice bars 数量（最稳）；\n- **CSS 用固定 px 值**（如 `max-h-[400px]`）而不是百分比。",
+    "## 可迁移的判断\n\n「百分比高度」在 CSS 里永远依赖父级有确定高度。父级是 `absolute + top/bottom`、`flex`、`grid` 这类**高度隐含**的容器时，百分比会退化成不可预期值。遇到「有时生效有时不生效」的尺寸问题，先问：**这个百分比相对谁算，那个「谁」有确定高度吗？**",
+    "## 相关\n\n- 滚动层会裁剪溢出内容要与显示层拆开 —— 同源：先问「约束施加在谁身上」，再问尺寸为什么不对\n- 样式丢失先核对类名再怀疑缓存与权限 —— 另一类「样式不生效」的先分诊顺序"
+  ]
+},
+{
+  "id": "as-concept-依赖版本要锁主版本而非一律取最新",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "依赖版本要锁主版本而非一律取最新",
+  "oneLiner": "**装依赖时不要无脑选「更新到最新版本」：脚手架工具可以用最新版，项目运行依赖要按既定主版本锁住。** 否则会出现「安装器悄悄把架构升级了」——例如任务书写的是 Next.js 15，而 `next@latest` 已经跨到 16，无脑 latest 就等于偷换了大版本。",
+  "body": [
+    "## 分档策略\n\n| 依赖 | 策略 |\n|---|---|\n| 脚手架 / 工具链（turbo、typescript 等） | 可用当前稳定最新版或同大版本最新版 |\n| 框架本体（next） | **pin 主版本**（`next@15`），不要用 `latest` |\n| 有状态服务（postgres:15、redis:7） | 按任务书固定，不升大版本 |\n| 其他库 | 能 pin 主版本就 pin，避免后续 agent 环境不一致 |\n\n一句话：**脚手架可以最新，运行依赖按任务书主版本锁住。**",
+    "## 相关\n\n- [环境变量校验要按模块懒加载](/wiki/agent-session/as-concept-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%A0%A1%E9%AA%8C%E8%A6%81%E6%8C%89%E6%A8%A1%E5%9D%97%E6%87%92%E5%8A%A0%E8%BD%BD) —— 环境不一致导致的漂移：一处“按模块校验”的做法\n- 评测平台是平台层项目规则是适配层\n- [项目里的技能可能有多份副本](/wiki/agent-session/as-concept-%E9%A1%B9%E7%9B%AE%E9%87%8C%E7%9A%84%E6%8A%80%E8%83%BD%E5%8F%AF%E8%83%BD%E6%9C%89%E5%A4%9A%E4%BB%BD%E5%89%AF%E6%9C%AC) —— 同属「环境不一致导致的漂移」"
+  ]
+},
+{
+  "id": "as-concept-保存失败要落本地草稿并自动重试",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "保存失败要落本地草稿并自动重试",
+  "oneLiner": "**云端保存失败时，正文不应只活在编辑器内存里。做法：内容一变就写本地草稿（localStorage），后台 debounce 上传；上传成功清草稿，失败保留并自动退避重试。切换卡片再切回来时优先显示本地草稿，于是「刚粘贴的图片还没传上云」也不会消失。**",
+  "body": [
+    "## 为什么\n\n用户明确要求：保存失败时本地要有、切换回来仍显示，**只做自动重试**（不引入复杂的冲突合并）。",
+    "## 与延迟落盘的分工\n\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB)：正常路径——内存即时、落盘 debounce。\n- 本文：失败路径——落盘失败时用本地草稿兜底 + 重试。\n- 二者都不等于「每字符落盘」。",
+    "## 边界\n\n这层只保证「编辑器里产生的正文/markdown 不丢」。图片文件真正上传对象存储换永久 URL 是另一件事，见 [图片粘贴要上传对象存储换永久URL](/wiki/agent-session/as-concept-%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4%E8%A6%81%E4%B8%8A%E4%BC%A0%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%8D%A2%E6%B0%B8%E4%B9%85URL)。",
+    "## 相关\n\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB) —— 正常路径；本条是它的失败路径分支\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) —— 同属「保存链路不可靠」这一类\n- [首次内容事件不能无条件跳过](/wiki/agent-session/as-concept-%E9%A6%96%E6%AC%A1%E5%86%85%E5%AE%B9%E4%BA%8B%E4%BB%B6%E4%B8%8D%E8%83%BD%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BF%87) —— 同属编辑器「变更/保存判定」的边界条件\n- [图片粘贴要上传对象存储换永久URL](/wiki/agent-session/as-concept-%E5%9B%BE%E7%89%87%E7%B2%98%E8%B4%B4%E8%A6%81%E4%B8%8A%E4%BC%A0%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E6%8D%A2%E6%B0%B8%E4%B9%85URL)"
+  ]
+},
+{
+  "id": "as-concept-兼容-fallback-会让内容重复渲染",
+  "updatedAt": "2026-06-11",
+  "wikiSlug": "agent-session",
+  "term": "兼容 fallback 会让内容重复渲染",
+  "oneLiner": "**为旧模板保留的 fallback 路径，会让同一份内容在新模板里被渲染两次。** 症状是技能 / 总结 / 荣誉 / 作品集 / 自定义模块**重复显示**，而列表模块（工作 / 教育 / 项目 / 科研）正常 —— 差异不在数据，在模板有没有新槽。",
+  "body": [
+    "## 机制\n\n- **新路径**：`section.body` 直接取块状富文本（`skills` → `content.skills`，`summary/awards/portfolio` → 对应顶层字段）。\n- **旧路径**：旧模板只有 `section.items`，为了让块状模块也能显示，`deriveItems` 把**同一份富文本**包成一个「假 item」塞进 `item.bullets`。\n\n新模板同时写了 `<slot data-bind=\"section.body\">` 和 `<slot data-bind=\"section.items\" data-template=\"item\">`，两条路径各渲染一次 → 重复。",
+    "## 解法：在渲染器里记「本 section 是否已有新槽」\n\n渲染时记录当前 section 模板是否含 `section.body`；若该 section 是 `kind === \"block\"` 且模板已有 `section.body`，就**跳过 fallback 的假 item**。",
+    "## 第二种来源：迁移脚本把「一行」替换成「一组」\n\n模板批量迁移时，占位符被替换成「渲染全部 X」的循环，也会造成重复：旧模板本来有多行联系方式（电话 / 邮箱 / 地点 / 网站各一行），迁移时**每一行都被换成 `profile.contacts` 循环**，于是 4–5 行变成 4–5 组重复联系方式。\n\n同一批迁移还会顺带造成另一种坏结果：把模板专属类换成通用类（`.modern-contact-item` → `.contact-item`），原 CSS 选择器不再命中，图标变大、挤成奇怪的两行 —— **「重复」和「样式丢失」可能出自同一次迁移，但根因不同，要分开定位**。\n\n判据：迁移脚本里凡是「把一个占位符替换成对集合的循环」，都要先确认原位置的语义是**一行**还是**一组**；是「一行」就不能换成循环。",
+    "## 可迁移的判断\n\n- 加兼容层时，要问「新路径和旧路径会不会同时命中同一份数据」，并给新路径一个**已消费标记**。\n- 列表模块不出问题不代表机制对 —— 只是因为它的 `section.body` 为空，两条路径天然互斥。**只在块状数据上暴露的 bug，最容易被判成「个别模板的问题」。**\n- 反过来也说明 `section.body` 不能随便往存量模板上加：曾经加它导致过块状模块双渲染。",
+    "## 相关\n\n- [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) —— block / list 两种形态与本条同源\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) —— 兼容层是「旧的东西还在运行时活着」\n- [可调与固定的边界按语义划分](/wiki/agent-session/as-concept-%E5%8F%AF%E8%B0%83%E4%B8%8E%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%BE%B9%E7%95%8C%E6%8C%89%E8%AF%AD%E4%B9%89%E5%88%92%E5%88%86) —— 同一天同一项目的另一处修改"
+  ]
+},
+{
+  "id": "as-concept-可调与固定的边界按语义划分",
+  "updatedAt": "2026-06-10",
+  "wikiSlug": "agent-session",
+  "term": "可调与固定的边界按语义划分",
+  "oneLiner": "**「哪些样式允许用户调节」不该全局一刀切，边界由语义角色决定。** 同一份模板里，顶部身份区（姓名 / 求职方向 / 联系方式）应当**固定**字号与行距、不受智能排版影响；正文（公司 / 职位 / 时间 / 技术栈 / bullet）必须全部走 CSS 变量，才可调。",
+  "body": [
+    "## 一次实例（红调封面）\n\n- 现象：正文里的 公司 / 学校 / 项目名、时间、职位 / 角色、技术栈 / 链接行 都写死 `px` 字号 → 智能排版对它们无效。\n- 修正：正文改为 `calc(var(--font-size) * 1.08)` / `var(--font-size)` / `var(--line-height)`；只有 `.crimson-banner` 保留固定值。\n- 判定原话：**只有「顶部 banner 个人信息」可以写死，因为这是不能动的**。",
+    "## 两个容易漏的点\n\n1. **固定不能只固定 `font-size`。** banner 还会继承页面 `line-height`，所以行距同样会被排版设置带跑。固定区必须同时锁 `font-family` / `font-size` / `line-height` —— 是**做隔离**，不是只改一个属性。\n2. **检查要区分两类固定值。** 全库扫描出「存在非 `var()` 字号」不等于都错：必须拆成「允许固定的标题 / 装饰区」与「正文错误固定」，不能用全局规则一刀切判定，否则规则不是误报就是漏报。",
+    "## 可迁移的判断\n\n- 可调 / 固定是**语义属性**，不是 CSS 属性：同一个 `font-size`，在身份区该固定，在正文该走变量。\n- 防回归检查必须能表达这种区分（红调检查：banner 必须固定 + 正文必须走变量），否则只能靠人肉判断。",
+    "## 相关\n\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) —— 「能调但不生效」的另一半：值到了，还得有消费方\n- [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) —— 本条服务的模板层"
+  ]
+},
+{
+  "id": "as-concept-图片加载失败要可重试并升级到-HTTPS",
+  "updatedAt": "2026-06-12",
+  "wikiSlug": "agent-session",
+  "term": "图片加载失败要可重试并升级到 HTTPS",
+  "oneLiner": "**头像/图片「全变成文字」通常是加载失败触发了 fallback，而不是设计改了文案。** 两个隐蔽原因：源本来没有图片地址（`favicon_url` 为空）；以及**失败的 URL 被当前会话永久记住，不再重试**。",
+  "body": [
+    "## 要点\n\n- **失败状态不能永久化。** 一次失败就整场会话不再重试，会把偶发的网络抖动放大成「全都坏了」。要有重试与失效机制。\n- **明文 HTTP 图片在桌面 WebView 里比命令行更容易被拦。** 命令行 `curl` 能取到图，不代表 WebView 能加载；`http://` 的图源要优先升级为 `https://`。\n- **兜底要有第二来源。** 可升级的转 HTTPS，不可升级的退回域名 favicon，而不是直接显示文字。\n- 判定「是网络问题还是数据问题」时，先分清「这个源本来就没有图」和「有图但这次没加载出来」。",
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：拿「会话级失败缓存」当本次加载结果\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同类：先分清「本来就没有」与「这次没生效」\n- 兼容fallback会让内容重复渲染 —— 同为 fallback 路径带来的意外结果\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) —— 先判断失败归属：数据源缺失还是加载环节被拦"
+  ]
+},
+{
+  "id": "as-concept-图片粘贴要上传对象存储换永久URL",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "图片粘贴要上传对象存储换永久URL",
+  "oneLiner": "**笔记正文只能存「图片地址」。粘贴图片若不真正上传到云端，markdown 里留下的会是 `blob:` 或超长 `data:`，都不适合长期保存：`blob:` 只在当前浏览器会话有效，刷新/换设备即失效；`data:` 把整张图塞进正文，数据库膨胀、列表/同步/编辑器变慢。正解是上传对象存储（如 Cloudflare R2，类 S3），正文只存永久 URL。**",
+  "body": [
+    "## 相关\n\n- [保存失败要落本地草稿并自动重试](/wiki/agent-session/as-concept-%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E8%A6%81%E8%90%BD%E6%9C%AC%E5%9C%B0%E8%8D%89%E7%A8%BF%E5%B9%B6%E8%87%AA%E5%8A%A8%E9%87%8D%E8%AF%95) —— 图片还没传上云时，正文靠本地草稿兜底\n- 图片加载失败要可重试并升级到HTTPS —— 上传之后的下半段：加载失败与降级\n- Agent读语义文件App读结构化存储 —— 同为「正文只存引用，资源另存」的分工",
+    "## 标准流程\n\n1. 用户粘贴图片\n2. 编辑器拦截剪贴板里的图片文件\n3. 前端上传到后端接口（如 `/api/uploads`）\n4. 后端存到对象存储\n5. 后端返回公开 URL\n6. 编辑器把图片节点替换为 `![image](https://.../xxx.png)`\n7. 正文保存这个永久 URL",
+    "## 难点\n\n- 接 Milkdown/Crepe 的图片上传插件或 paste handler\n- 后端上传接口接对象存储\n- 上传失败要保留本地预览并能重试（见 [保存失败要落本地草稿并自动重试](/wiki/agent-session/as-concept-%E4%BF%9D%E5%AD%98%E5%A4%B1%E8%B4%A5%E8%A6%81%E8%90%BD%E6%9C%AC%E5%9C%B0%E8%8D%89%E7%A8%BF%E5%B9%B6%E8%87%AA%E5%8A%A8%E9%87%8D%E8%AF%95)）"
+  ]
+},
+{
+  "id": "as-concept-延迟保存要捕获创建时的实体",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "延迟保存要捕获创建时的实体",
+  "oneLiner": "**延迟任务（debounce / setTimeout）在触发时才去读「当前活跃对象」，会在切换期间把 A 的数据写到 B 上。** 修法两条：创建任务时就捕获当时的实体 id 并显式传下去；实体短暂变为 `null` 时也要先 flush 待保存内容。",
+  "body": [
+    "## 症状\n\n「笔记无法编辑，始终显示同一份笔记」——切来切去内容互相覆盖，看起来像编辑器坏了。",
+    "## 根因链\n\n1. 正文编辑不是每敲一字就保存，而是 1 秒 debounce。\n2. 用户编辑 A 后 1 秒内切到 B。\n3. B 的完整正文还没加载完，父层传给编辑器的 `note` 短暂变成 `null`。\n4. 旧逻辑在 `note === null` 时直接 `return`，**没有把 A 的待保存内容 flush 掉**。\n5. 计时器随后触发，保存逻辑默认取「当前 active tab id」。\n6. 此时 active tab 已是 B → **A 的正文被写进 B**。",
+    "## 两层防护\n\n- `note === null` 时，也用 `lastNoteIdRef` 把上一条的 pending title/content 保存到**旧 id**；\n- debounce 创建时就捕获当前 `note.id`，触发时显式传这个 id，**不再临时读当前 active tab**。",
+    "## 可迁移的判断\n\n「延迟执行 + 读取全局当前值」是一类通用 bug 形状，和业务无关：\n\n- 定时器 / debounce / 动画帧 / 请求重试，只要回调里读的是**共享的可变当前指针**，切换对象就会写错目标；\n- 修法统一是**闭包捕获 + 显式传参**，不要依赖回调执行时的环境状态；\n- 加载态（`null` / loading）不是「什么都不用做」，而是**最需要 flush 的时刻**。",
+    "## 相关\n\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB) —— 同一保存链路的另一半：延迟多久、延迟什么\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) —— 同一条保存链路的第三种乱序：过期响应回写正文"
+  ]
+},
+{
+  "id": "as-concept-引擎不做建模器，复杂模型交给外部工具",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "引擎不做建模器，复杂模型交给外部工具",
+  "oneLiner": "**当渲染引擎需要在代码里手写顶点和面来造模型时，说明分工错了：引擎应该只负责「切模型 / 渲染模型」，建模交给外部工具，产物用标准格式（Blender → GLB）导入。**",
+  "body": [
+    "## 一、判断信号\n\n代码里出现这种「建模」写法，就是分不清职责：\n\n```js\n// 手写顶点与面：引擎在充当建模器\nconst geometry = {\n  vertices: [[0,0,0],[2,0,0],[2,1,0]],\n  faces: [[0,1,2]]\n}\n```\n\n手写顶点、面、法线很容易错，而且**肉眼调比例极其痛苦** —— 复杂模型效果差，本质原因就在这里，不在渲染算法。",
+    "## 二、正确分工\n\n| 环节 | 工具 |\n|---|---|\n| 建模 | Blender（导出 glTF/GLB）或网页建模工具 |\n| 加载 | Three.js `GLTFLoader` 读 `.glb` / `.gltf` |\n| 计算 | 现有引擎对每个 mesh 应用切割 plane，再算截面 |\n\nGLB 适合 Web/H5：一个文件包含 mesh、材质、层级，移动端加载也方便。\n\n题目数据里只需声明引用：\n\n```js\n{ id: \"q80\", model: { type: \"glb\", url: \"/models/q80.glb\" }, cutMode: \"free\" }\n```\n\n引擎侧补的是「加载 → 遍历 mesh → 应用 plane → 算截面」，而不是新增建模能力。",
+    "## 三、边界\n\n- **简单图形不值得建模** —— 参数化就能生成，交给人工建模是无意义的开销。\n- 这条只对**复杂模型**成立：难点在复杂模型怎么变成一个可信的 3D 数据。\n- 反过来，用外部工具也不等于还原正确：类型（参数体 / 方块体 / 自定义多面体）选错，模型再精细也是错的。",
+    "## 相关\n\n- 几何题3D化的题库定位 —— 本条服务的场景：模型由题目决定\n- 一次循环只做一个可体验的v1能力 —— 先跑通「外部建模 → 前端加载 → 切割」的最小闭环\n- [手搓编辑器核心逻辑到深处要评估换社区方案](/wiki/agent-session/as-concept-%E6%89%8B%E6%90%93%E7%BC%96%E8%BE%91%E5%99%A8%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%88%B0%E6%B7%B1%E5%A4%84%E8%A6%81%E8%AF%84%E4%BC%B0%E6%8D%A2%E7%A4%BE%E5%8C%BA%E6%96%B9%E6%A1%88) —— 同源：核心职责该不该自己写，判据是「是否在重写成熟能力」"
+  ]
+},
+{
+  "id": "as-concept-手搓编辑器核心逻辑到深处要评估换社区方案",
+  "updatedAt": "2026-06-28",
+  "wikiSlug": "agent-session",
+  "term": "手搓编辑器核心逻辑到深处要评估换社区方案",
+  "oneLiner": "**Markdown 实时渲染编辑器一旦核心逻辑是自己手搓、且越补越多，长期维护成本会失控；到某个深度应优先评估社区方案，而不是继续手搓。** 判据是「你已经在重写一个成熟编辑器内核的职责」。",
+  "body": [
+    "## **补充（2026-06-28 修正）：换社区方案不等于直接用它的默认规则。** 编辑器要拆成两层看：**底层内核**（光标/选区/撤销/快捷键/markdown 语法识别）和**live preview 规则层**（隐藏 `**`、把 `- ` 换成圆点这类显示规则）。前者几乎都该复用成熟内核，后者才是手感差异所在。Atomic Editor 本身也是基于 CodeMirror 6 做的——问题不是 CodeMirror 不行，而是 Atomic 在 CodeMirror 之上加了它自己的一套 live preview 规则，和想要的 Obsidian 手感不一致。所以正确做法是：**直接用 CodeMirror 6 自己搭 live preview 规则层，而不是放弃 CodeMirror、也不是照单全收 Atomic 的默认规则。**",
+    "## 手搓范围越深，边界 bug 越多\n\n不只是把 `**粗体**` 渲染成粗体，还包括：表格直接可编辑、checkbox 可点击、图片直接显示、链接点击、当前行显示原始 Markdown 而其他行渲染、中文粗体/斜体兼容补丁、表格光标移动与增删行列、DOM 内容回写 Markdown。**这些都很容易出边界 bug，尤其表格。**",
+    "## 评估优先级\n\n| 方案 | 特点 |\n|---|---|\n| `@atomic-editor/editor` | 最贴合：CodeMirror + Obsidian 风格实时渲染，支持表格/图片/任务列表，Markdown 原文是唯一数据源 |\n| `codemirror-live-markdown` | 更像 CodeMirror 插件，可细粒度替换 `livePreview.ts`，但版本偏 alpha，稳定性待验 |\n| `codemirror-markdown-hybrid` | 功能全但社区信号弱，核心编辑器不建议押上 |\n| MDXEditor / Milkdown | 更成熟，但迁移成本大，体验会更像富文本而非 CodeMirror Markdown |\n\n结论：**手搓方向能跑，但长期难维护；先用 Atomic Editor 做小实验，看能否覆盖当前最难的场景（表格）。**",
+    "## 选型是「内核 + 规则层」的组合，不是二选一\n\n把上面这张表按两层重读，判断会清楚很多：\n\n| 层 | 判断 |\n|---|---|\n| 底层编辑内核 | 不要手搓，用成熟的（CodeMirror 6 等） |\n| live preview 规则层 | 这才是决定「像不像 Obsidian」的地方，值得自己搭 |\n\n因此「评估社区方案」的结论要加一句限定：**先评估它能否替换内核，再评估它的规则层要不要留。** 一个方案内核很好但规则层不合手，正解是保留内核、替换规则层，而不是整个换掉或整个照抄。\n\n> 认知演化：2026-06-25 把 Atomic Editor 列为「最贴合」，隐含假设是「整体采用」；2026-06-28 拆出两层后发现真正的冲突只在规则层，结论从「选哪个现成方案」变成「复用内核、自建规则层」。",
+    "## 相关\n\n- [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81)\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB)\n- 引擎不做建模器"
+  ]
+},
+{
+  "id": "as-concept-折叠动画要有收起态过渡",
+  "updatedAt": "2026-06-09",
+  "wikiSlug": "agent-session",
+  "term": "折叠动画要有收起态过渡",
+  "oneLiner": "**`isOpen && <内容>` 的条件渲染只有「进入动画」——展开时能靠 `animate-in` 播一次，收起时元素直接从 DOM 卸载，没有可过渡的中间态，所以看起来「无动画」。要做双向折叠动画，必须让内容保持挂载，改用高度过渡。**",
+  "body": [
+    "## 现象与根因\n\n- 症状：基础信息折叠后**收起时无动画**；自定义模块**完全无动画**（连展开也没有）。\n- 根因：这些区块用的是 `isOpen && <内容>`。展开 = 元素插入 + 进入动画；收起 = 元素移除，没有\"从 1 到 0\"的过程可播。\n- 自定义模块更彻底：它连展开动画都没有，等于整块没有折叠过渡。",
+    "## 做法\n\n和其它 section 对齐，改成**保持挂载 + 网格行高过渡**：\n\n```text\ngrid-rows-[1fr]  →  grid-rows-[0fr]   +  opacity 过渡\n```\n\n这样收起时内容仍在 DOM 里，只是被行高与透明度渐变掉，进出都有动画。改完要补对应单测（`basics-editor.test.tsx`、`custom-section-editor.test.tsx`）并跑 `tsc --noEmit`。",
+    "## 判据\n\n问一句就够了：**「这个动画是在元素被插入/移除时播的，还是在一个持续存在的元素上过渡的？」** 前者只能单向。",
+    "## 相关\n\n- [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8) —— 同源：动画必须由真实状态驱动，不能靠\"看起来像\"\n- 高频手势缩放不要走React状态 —— 同源：动画类效果要挑对承载方式\n- [焦点环画在圆角外会露出四角](/wiki/agent-session/as-concept-%E7%84%A6%E7%82%B9%E7%8E%AF%E7%94%BB%E5%9C%A8%E5%9C%86%E8%A7%92%E5%A4%96%E4%BC%9A%E9%9C%B2%E5%87%BA%E5%9B%9B%E8%A7%92) —— 同一天同一编辑器的另一处「通用样式没被单独覆盖」"
+  ]
+},
+{
+  "id": "as-concept-控件参数要在下游被消费",
+  "updatedAt": "2026-06-09",
+  "wikiSlug": "agent-session",
+  "term": "控件参数要在下游被消费",
+  "oneLiner": "**控件能调、值也确实传下去了，不代表会生效 —— 参数必须在消费方被真正消费，否则表现为「调整了没反应」，而且不报错。排查动作是逐条对照「上游传了什么」与「下游消费了什么」，再决定改哪一层。**",
+  "body": [
+    "## 一次实例\n\n- 现象：调「标题间距」控件没有反应，怀疑是表单/HTML 的问题。\n- 根因：渲染器确实收到了 `--heading-gap`，但**当前模板（红调封面）的 CSS 里完全没有这个变量** —— 参数传进去了，没人消费。所以这不是表单问题，是**当前模板 CSS/HTML** 的问题，只需更新这一个模板。",
+    "## 为什么容易查错方向\n\n「没反应」天然像是交互层的问题（控件没绑定、状态没更新）。但只要值已经到达渲染器，问题就已经转移到下游。判断依据是**值有没有到**，不是**界面像不像坏了**。\n\n同一类静默失效还有：表单字段有、模板没写对应 slot → 用户填了也永远不显示（见 [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) 的逐字段清单）。",
+    "## 相关\n\n- [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) —— 消费方就是模板 HTML/CSS 的 slot 与变量\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 先判断问题归表单层还是模板层，再动手\n- 面板多出的固定区块先查数据源再改前端 —— 同源：先看数据链路是否到达，再改渲染"
+  ]
+},
+{
+  "id": "as-concept-改版后旧路由仍指向旧实现",
+  "updatedAt": "2026-07-03",
+  "wikiSlug": "agent-session",
+  "term": "改版后旧路由仍指向旧实现",
+  "oneLiner": "**改版后用户点进某个入口却看到旧界面，第一嫌疑不是「新组件写错了」，而是「那条 route 还 import 着旧组件」。** 新版布局只在列表页生效、入口路由没一起切过去，旧 route 就会绕开新布局，直接渲染旧页面。",
+  "body": [
+    "## 一、典型症状\n\n- 新版列表/面板已经做好了，但点标题、点列表项、或直接开某个 URL 后，看到的还是老式编辑页。\n- 新布局组件（如 `ListColumn + ReaderSurface`）明明存在，却只在部分路径出现。\n- 表现像「功能缺失 / 没生效」，实际是**两条渲染路径并存**，用户走的是旧那条。",
+    "## 二、根因与排查\n\n根因示例：`notes/[slug]/page.tsx` 仍引用旧的 `NoteEditorPage`，该页面完全绕过了原型的新布局，于是点击标题/列表后进入了旧编辑页。\n\n排查顺序：\n\n1. 找到用户实际进入的那条 route 文件；\n2. 看它 `import` / 渲染的是**哪个组件**（而不是看新组件写没写）；\n3. 对比新布局是否被该 route 引用——没被引用，就是没接上。",
+    "## 三、可迁移的判断\n\n- **改版要按「入口清单」收口，不是按「新组件写完」收口。** 同一个功能往往有多个入口（点标题、点列表项、直接访问 URL、旧书签），要逐个确认都指向新实现。\n- **「新组件存在」≠「用户会用到它」。** 判断界面行为要看入口路由指向谁，而不是仓库里有没有新代码。\n- 旧 route 保留 = 一条隐形的旧路径，会让新版看起来「时好时坏」。",
+    "## 相关\n\n- [功能缺失先确认运行的是哪份产物](/wiki/agent-session/as-concept-%E5%8A%9F%E8%83%BD%E7%BC%BA%E5%A4%B1%E5%85%88%E7%A1%AE%E8%AE%A4%E8%BF%90%E8%A1%8C%E7%9A%84%E6%98%AF%E5%93%AA%E4%BB%BD%E4%BA%A7%E7%89%A9) —— 同一取向：先确认「用户实际碰到的是哪一份」，再查实现\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) —— 「代码里有什么」不等于「运行时用什么」\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) —— 改对代码 ≠ 修好现状；旧路径要单独带过来\n- [改协议要同时改两端](/wiki/agent-session/as-concept-%E6%94%B9%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%90%8C%E6%97%B6%E6%94%B9%E4%B8%A4%E7%AB%AF) —— 同一取向：入口/协议改了，所有指向它的地方都要一起改"
+  ]
+},
+{
+  "id": "as-concept-显示阈值应按元素可见性而非固定像素",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "显示阈值应按元素可见性而非固定像素",
+  "oneLiner": "**「下滑到一定距离后顶栏才显示标题」若用固定像素阈值（如 `scrollTop > 18`），会因为字号/行高/布局不同而提前或延后出现。用户要的是「原 title 完全离开顶栏覆盖区后才显示」——判据应是标题元素的实际位置（是否已滚出覆盖区），不是固定距离。**",
+  "body": [
+    "## 做法\n\n- 读正文标题元素的位置判断是否离开 toolbar 覆盖区，而不是读固定 scrollTop。\n- 显示后的 toolbar title 应可点击，点击平滑回到阅读区顶部。",
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：拿「固定滚动距离」当元素是否可见的判据\n- [UI原型保真](/wiki/agent-session/as-topic-UI%E5%8E%9F%E5%9E%8B%E4%BF%9D%E7%9C%9F) —— 本条是「判断机制而非抄常量」的具体实例\n- [滚动条顶到固定栏要调视口而非隐藏滚动条](/wiki/agent-session/as-concept-%E6%BB%9A%E5%8A%A8%E6%9D%A1%E9%A1%B6%E5%88%B0%E5%9B%BA%E5%AE%9A%E6%A0%8F%E8%A6%81%E8%B0%83%E8%A7%86%E5%8F%A3%E8%80%8C%E9%9D%9E%E9%9A%90%E8%97%8F%E6%BB%9A%E5%8A%A8%E6%9D%A1)\n- [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8)"
+  ]
+},
+{
+  "id": "as-concept-条件-return-前必须调用所有-hooks",
+  "updatedAt": "2026-06-16",
+  "wikiSlug": "agent-session",
+  "term": "条件 return 前必须调用所有 hooks",
+  "oneLiner": "**进入子层白屏、content area 全空、React 渲染 crash，若组件里有「提前 return」，第一嫌疑是 hooks 调用顺序被破坏，而不是后端数据格式。** 修法是把子层用到的 `useState / useRef / useEffect / useCallback` 全部移到任何条件 `return` 之前。",
+  "body": [
+    "## 症状与机制\n\n- 初始在总览层：`navStack.length === 0` → 执行到 `if (isAtRoot) return (...)`\n- 子层用到的 hooks 写在条件 return **之后**，这一轮根本没被调用\n- 点击进入下一层：不再提前 return，React 发现「这个组件比上次多调用了一批 hooks」\n- React 判定 hook 顺序损坏 → 渲染崩溃 → 白屏\n\n关键点：**hooks 必须在每次 render 时以相同顺序、相同数量调用**，不能放在条件 return 后面。这是组件结构问题，不是状态数据问题。",
+    "## 排查顺序（避免查错方向）\n\n1. 先看组件有没有「条件 return + 后面还有 hooks」的结构 —— 这是最低成本的一刀\n2. 再排除后端：command 返回格式不符、参数反序列化 panic\n3. 环境噪音要认出来：非 Tauri 环境（普通浏览器开 `localhost`）报 `Cannot read properties of undefined (reading 'invoke')` 是**预期行为**（没有 `__TAURI__`），不是 root cause",
+    "## 相关\n\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) —— 同源：前端状态生命周期问题，症状都在界面上、根因不在数据\n- 讲bug先讲现象再讲根因"
   ]
 },
 {
@@ -227,7 +560,95 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、Bug 形态\n\n```js\n// 新增字段\ninterface ChatMessage { role; content; thinking?: string }\n\n// 出错的地方：整体赋值，不是合并\nupdated[updated.length - 1] = { role: \"assistant\", content: assistantContent };\n```\n\n时序上只坏一瞬间：\n\n```\nt=0s    思考事件涌入（617 个）→ thinking 累积到 1742 字   ✅\nt=10s   第一个 text 事件到达  → thinking 被整个清空       ❌ 就这一瞬间\nt=10s+  后续 text 事件        → 只更新 content\n```",
     "## 二、为什么特别隐蔽\n\n- **时间窗口极窄**：只在「思考流结束、正文第一个分片到达」的那一帧触发。\n- **只在有思考的请求里出现**：上游触发思考是概率性的（实测 4 次里 3 次有），无思考的请求完全正常，看起来像是\"偶发\"。\n- **传输层是无辜的**：用页面内 `fetch` 直接抓流验证，后端确实发了 N 个 thinking 事件、前端也确实显示过。问题不在网络、不在上游，而在本地 state 更新方式。",
     "## 三、通用规则\n\n**给已有对象新增可选字段时，任何「整体赋值」的更新点都是定时炸弹。** 流式 / 增量更新一律 spread 合并（`{ ...prev, [field]: value }`），或者用不可变更新工具。这类 bug 不会报错，只会静默丢字段。",
-    "## 相关\n\n- [进度条要由真实进度驱动](/wiki/agent-session/as-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8)（同一天的前端状态与动画问题）\n- 讲bug先讲现象再讲根因"
+    "## 相关\n\n- [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8)（同一天的前端状态与动画问题）\n- 讲bug先讲现象再讲根因"
+  ]
+},
+{
+  "id": "as-concept-浮层要收敛到一个共享-primitive",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "浮层要收敛到一个共享 primitive",
+  "oneLiner": "**所有弹出卡片（菜单/弹窗/下拉）应共用同一个 primitive，而不是每个局部各写一套。用户对这类浮层有一套固定规范，散着实现必然逐项漂移。**",
+  "body": [
+    "## 用户定的浮层规范\n\n- 浅色模式白色 raised 底\n- 点击其他区域可关闭\n- 默认从触发器「右下」弹出，符合右手习惯\n- 开/关都有过渡动画（不要 `display` 硬切）\n- 每个选项都有 icon",
+    "## 共享 primitive 要承担的公共行为\n\n- portal 到 body + fixed 定位 + 视口夹取（clamp）\n- 外部点击、Escape 关闭；**嵌套时 Escape 只关最上层**（capture 阶段处理并阻止冒泡，避免一次 Escape 同时关掉下拉和整个弹窗）\n- 动画原点跟随 clamp 后的实际方向（被右边界拉左则 origin 切到 right，被底部拉上则切到 bottom），否则动效方向与弹出方向打架\n- 边界不只按 window：AI 栏/侧栏打开时，主工作区内的浮层要按主内容区域夹取，否则会压进 AI 栏",
+    "## 相关\n\n- [UI原型保真](/wiki/agent-session/as-topic-UI%E5%8E%9F%E5%9E%8B%E4%BF%9D%E7%9C%9F) —— 本条服务的主题：浮层规范要忠于原型\n- [隐藏态按钮要保留命中区](/wiki/agent-session/as-concept-%E9%9A%90%E8%97%8F%E6%80%81%E6%8C%89%E9%92%AE%E8%A6%81%E4%BF%9D%E7%95%99%E5%91%BD%E4%B8%AD%E5%8C%BA) —— 同属「浮层交互细节」\n- [折叠动画要有收起态过渡](/wiki/agent-session/as-concept-%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%E8%A6%81%E6%9C%89%E6%94%B6%E8%B5%B7%E6%80%81%E8%BF%87%E6%B8%A1)\n- [可调与固定的边界按语义划分](/wiki/agent-session/as-concept-%E5%8F%AF%E8%B0%83%E4%B8%8E%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%BE%B9%E7%95%8C%E6%8C%89%E8%AF%AD%E4%B9%89%E5%88%92%E5%88%86)"
+  ]
+},
+{
+  "id": "as-concept-滚动层会裁剪溢出内容，要与显示层拆开",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "滚动层会裁剪溢出内容，要与显示层拆开",
+  "oneLiner": "**只要一个元素负责 `overflow-x: auto`，它就会裁剪超出边界的内容。** 所以「表格要能横向滚动」和「控制按钮要露在表格外侧」不能由同一个元素承担 —— 把 `.cm-md-table-wrap` 本身设成 `overflow-x: auto`，原本定位在表格上方/左侧的按钮就被裁掉了。",
+  "body": [
+    "## 症状\n\n给表格加横向滚动后，控制按钮消失（被裁），但按钮的定位值没改过。",
+    "## 修法：拆成两层 DOM\n\n```html\n<div class=\"cm-md-table-wrap\">        <!-- 不滚动，负责让溢出内容可见 -->\n  <div class=\"cm-md-table-scroll\">    <!-- 只负责横向滚动 -->\n    <table class=\"cm-md-table\">...</table>\n  </div>\n</div>\n```\n\n- `.cm-md-table-wrap { overflow: visible; }`\n- `.cm-md-table-scroll { overflow-x: auto; max-width: 100%; }`\n- 按钮仍按**表格外侧**定位，不进滚动裁剪层，也不塞进单元格内容区。",
+    "## 被否掉的方向：把按钮塞进单元格内部\n\n第一反应是「把按钮放进单元格里就不怕被裁」。**这是错的**：单元格内部空间有限，内容一多就遮挡表格内容（第一行/第一列内容短时才勉强能用）。**问题不该用「换个地方放」解决，而该用「把职责分开」解决** —— 滚动是一层，显示是另一层。",
+    "## 可迁移的判断\n\n遇到「加了某个样式后，**别的东西**不见了」，先看这个样式是否引入了 `overflow` 裁剪。滚动容器天然是裁剪容器，把「需要溢出显示的元素」和「需要滚动的容器」放在同一层，冲突是必然的。",
+    "## 相关\n\n- flex子项的百分比max-height不可靠 —— 同为「容器高度/裁剪导致的尺寸意外」，都要先问「约束施加在谁身上」\n- [折叠动画要有收起态过渡](/wiki/agent-session/as-concept-%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%E8%A6%81%E6%9C%89%E6%94%B6%E8%B5%B7%E6%80%81%E8%BF%87%E6%B8%A1) —— 同类：动画/滚动这类视觉行为的实现层要单独考虑"
+  ]
+},
+{
+  "id": "as-concept-滚动条顶到固定栏要调视口而非隐藏滚动条",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "滚动条顶到固定栏要调视口而非隐藏滚动条",
+  "oneLiner": "**「滚动条轨道穿过了顶部固定 toolbar」的正确修法是让滚动视口从 toolbar 下方开始（`margin-top: 46px`，滚动容器作为 flex 子项），滚动条天然不会顶到 toolbar。用 `scrollbar-width: none` 隐藏滚动条只是治标，还违背原型、丢掉了滚动位置反馈。**",
+  "body": [
+    "## 三个「看起来对」的伪修\n\n| 伪修 | 为什么不对 |\n|---|---|\n| 隐藏滚动条 | 治标，原型本就有滚动条 |\n| 给正文加 top padding | 滚动视口没变，轨道仍覆盖 toolbar 区 |\n| 内层 editor 高度 100% | 高度模型错了，只是视觉凑合 |",
+    "## 验证要盯高度模型\n\n用运行时量测确认：滚动容器的 `top` 应等于 toolbar 的 `bottom`，且 `scrollbar-width` 不是 `none`。",
+    "## 相关\n\n- 滚动层会裁剪溢出内容要与显示层拆开\n- 浮层要收敛到一个共享primitive"
+  ]
+},
+{
+  "id": "as-concept-焦点环画在圆角外会露出四角",
+  "updatedAt": "2026-06-09",
+  "wikiSlug": "agent-session",
+  "term": "焦点环画在圆角外会露出四角",
+  "oneLiner": "**「边框四角有奇怪的蓝色阴影」不是边框坏了，是 focus ring 画在圆角边框外侧：通用 `Input` 自带 `focus-visible:ring-3 focus-visible:ring-ring/50`，ring 在圆角外圈露出一圈蓝色。修法是针对这个输入框 `focus-visible:ring-0` 并保留蓝色边框，不要动通用组件。**",
+  "body": [
+    "## 怎么认出来\n\n- 现象集中在**四角**，不是整条边 —— 圆角处 ring 与边框之间露出的面积最大。\n- 只在**聚焦**时出现（点进输入框编辑时才看到）。\n- 追溯来源是**继承的通用样式**，不是这个组件自己写的边框。",
+    "## 做法\n\n只改出问题的那一个输入框（例：简历名称）：\n\n```text\n保留蓝色边框\nfocus-visible:ring-0   去掉外圈 ring\n```\n\n不动通用 `Input` —— 否则会影响其它表单输入框的聚焦反馈。",
+    "## 相关\n\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同源：先确认是哪个样式在生效，再怀疑环境\n- 讲bug先讲现象再讲根因 —— 沟通侧：先说\"四角有蓝影\"，再说 ring\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) —— 同一天、同一编辑器的另一处\"样式看起来不对\"\n- [折叠动画要有收起态过渡](/wiki/agent-session/as-concept-%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%E8%A6%81%E6%9C%89%E6%94%B6%E8%B5%B7%E6%80%81%E8%BF%87%E6%B8%A1) —— 同一天同一编辑器的另一处「通用组件默认行为」问题\n- [可调与固定的边界按语义划分](/wiki/agent-session/as-concept-%E5%8F%AF%E8%B0%83%E4%B8%8E%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%BE%B9%E7%95%8C%E6%8C%89%E8%AF%AD%E4%B9%89%E5%88%92%E5%88%86) —— 同源：改动要落在正确的那一层（单个输入框 vs 通用组件）"
+  ]
+},
+{
+  "id": "as-concept-环境变量校验要按模块懒加载",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "环境变量校验要按模块懒加载",
+  "oneLiner": "**把所有环境变量都设成「启动/初始化时必填」，会让还没开发到的模块阻塞已经可用的功能：只是想登录，Auth 初始化却因为 AI key、对象存储、邮件配置不齐而报错。正解是按模块懒加载——用到哪个模块才校验那组变量。**",
+  "body": [
+    "## > 同理：校验还该按运行范围（Production / Preview / 开发）分别要求，本地只该校验它真正会用到的那一组。",
+    "## 症状\n\n`packages/shared/src/env.ts` 全局校验 → 只做账号密码登录也要求 AI / R2 / Resend 配置齐全，否则启动即炸。",
+    "## 按模块拆\n\n| 模块 | 需要的变量 |\n|---|---|\n| Auth | `DATABASE_URL`、`NEXTAUTH_SECRET`、`NEXTAUTH_URL`、OAuth 相关 |\n| AI | 用到时才校验 AI key |\n| 文件上传 | 用到时才校验对象存储（R2 等） |\n| 邮件 | 用到时才校验 Resend |\n\n短期可先填占位值让流程不炸，长期把校验拆开，避免未开发模块阻塞。",
+    "## 相关\n\n- [环境变量校验要按模块懒加载](/wiki/agent-session/as-concept-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%A0%A1%E9%AA%8C%E8%A6%81%E6%8C%89%E6%A8%A1%E5%9D%97%E6%87%92%E5%8A%A0%E8%BD%BD) —— 同类：作用域不该一刀切\n- Agent harness 要隔离复现可收尾 —— 同类：配置/环境的作用域要按使用场景隔离，而不是全局一刀切\n- [依赖版本要锁主版本而非一律取最新](/wiki/agent-session/as-concept-%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC%E8%A6%81%E9%94%81%E4%B8%BB%E7%89%88%E6%9C%AC%E8%80%8C%E9%9D%9E%E4%B8%80%E5%BE%8B%E5%8F%96%E6%9C%80%E6%96%B0) —— 同属「环境不一致导致的漂移」"
+  ]
+},
+{
+  "id": "as-concept-编辑即时反馈与落盘延迟分离",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "编辑即时反馈与落盘延迟分离",
+  "oneLiner": "**不要为了「保存及时」改成每个字符都落盘。** 正确拆法是：**内存立即更新**（UI / 切换 / 当前状态马上最新），**落盘仍 debounce**（1000ms → 300-500ms），**切笔记 / blur / 卸载时立即 flush**。",
+  "body": [
+    "## 为什么每字落盘不行\n\n一次保存不是轻量 state 更新，链路是：\n\n```\n读当前 vault 文件 → atomic 写 .md → 再读回完整 note → 对正文分词 → 更新 SQLite FTS 搜索索引\n```\n\n每个字符都调后端，在长笔记、中文输入、连续输入时会明显增加 IO 和索引压力，**也更容易制造写入乱序 race**（即 [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93) 那类问题）。",
+    "## 拆解表\n\n| 关注点 | 做法 |\n|---|---|\n| 用户感知 | 内存立即更新，UI 立刻反映 |\n| 持久化 | debounce 300-500ms |\n| 边界安全 | 切换 / blur / 卸载立即 flush |\n| 搜索索引 | 跟落盘节奏走，不跟按键走 |",
+    "## 判断依据\n\n要改的是「前端感知立即保存」，不是「每字同步写文件 + 建索引」。当前 1 秒的主要问题**不是数据丢失，而是体感慢 + 切换边界风险**——所以优化方向是「内存 immediate + 落盘 300-500ms」，而不是取消 debounce。",
+    "## 相关\n\n- [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81) —— 同源：编辑器里「界面显示」与「真实状态」是两件事，不能互相替代\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9)"
+  ]
+},
+{
+  "id": "as-concept-编辑器显示不能脱离真实光标状态",
+  "updatedAt": "2026-06-16",
+  "wikiSlug": "agent-session",
+  "term": "编辑器显示不能脱离真实光标状态",
+  "oneLiner": "**只要「显示什么」依赖「光标在哪」，一旦 selection 状态同步滞后，画面就和真实编辑状态分叉 —— 症状是标记莫名消失、或看起来正常但输入落到错误位置，而内容本身没丢。** 稳妥做法是让显示少依赖光标，或让落点直接由真实 selection 决定。",
+  "body": [
+    "## 案例一：标题的 `#` 被误隐藏\n\nlive preview 把标题 `## ` 前面的 `HeaderMark` 节点 `Decoration.replace({})`（画面上替换为空），本意是「光标在本行显示 `##`、离开则隐藏」。这个判断依赖 `cursorLine`（CodeMirror 当前 selection 同步出的光标行）。偶发情况下 selection / decoration 状态不同步，代码误判「光标不在这一行」，于是 `## ` 被隐藏，只剩放大的标题正文。\n\n- 不是 markdown 内容真的丢了，也不是保存层问题 —— **只是显示层把 `#` 藏了**\n- 修法：标题仍按 `## ` 放大，但不再隐藏 `HeaderMark`，让 `#` 一直显示（放弃「隐藏标记」这个特性，换稳定性）",
+    "## 案例二：toolbar 插入的 checkbox 光标落点错位\n\n点 toolbar 的 checkbox 后画面看起来正常（只有一个 checkbox），但真实光标 / selection 仍在 task marker **前面**；用户接着输入，文字被插到 `- [ ]` 前面，变成 `看- [ ]`。\n\n- 判定要点：**「点击后看起来正常」不代表状态正确** —— 要区分「视觉已更新」与「selection 已更新」\n- 症状形态与案例一同源：显示层与真实编辑状态不同步",
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：显示要由真实光标位置决定\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) —— 同源：界面状态与真实状态的时序错位\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) —— 本条是该骨架的一处实例\n- 条件return前必须调用所有hooks —— 同属「子层/编辑器状态与显示不一致」\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB)\n- [手搓编辑器核心逻辑到深处要评估换社区方案](/wiki/agent-session/as-concept-%E6%89%8B%E6%90%93%E7%BC%96%E8%BE%91%E5%99%A8%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91%E5%88%B0%E6%B7%B1%E5%A4%84%E8%A6%81%E8%AF%84%E4%BC%B0%E6%8D%A2%E7%A4%BE%E5%8C%BA%E6%96%B9%E6%A1%88) —— 同属编辑器内核 / 规则层的职责划分"
   ]
 },
 {
@@ -240,12 +661,25 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、症状与误判\n\n自己写一个看板（8777）去读官方服务（3010）的数据，页面**能连上服务器但拿不到数据**，显示的内容要么是假的、要么只来自极少数放行的接口。\n\n容易被当成\"前端写得不好 / UI 不够好看\"，实际是**同源政策**在拦：隔壁楼的人来拿东西，除非对方明确欢迎，一律拦下。实测该服务**只对\"模型列表\"这一个接口放行**，其他全部默认拒绝。\n\n**判断动作**：先逐个接口试哪些能读通。如果只有个别接口通，问题不在前端代码。",
     "## 二、解法：加一层同源代理\n\n```\n你的看板  →  你自己的代理  →  官方服务\n（同源，放行）   （服务器间调用，无同源限制）\n```\n\n看板不直接请求官方服务，而是请求**同源的本地代理**，由代理在服务端去取官方数据再回传。服务端之间互相调用不受同源政策约束。\n\n落地通常是三件事：写一个小代理脚本（几十行，用系统自带 Python 即可）、把启动脚本从静态文件服务器换成这个代理、然后前端再谈样式与图表。",
     "## 三、连带的产品权衡\n\n走代理之后，原本每次都要手动输入的 API Key 可以存在代理侧，打开看板就有数据。**代价是密钥落在本地文件里** —— 这是「免密便利」与「手动输入更保险」之间的选择，属于需要用户本人拍板的安全取舍，不能替他默认。",
-    "## 相关\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)（同为先定位故障层）\n- 零延迟零尝试说明请求没发出去（另一类\"看起来是网络，其实是本地\"）\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)（同为先定位故障层）\n- 零延迟零尝试说明请求没发出去（另一类\"看起来是网络，其实是本地\"）\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-过期响应不能覆盖当前编辑内容",
+  "updatedAt": "2026-06-05",
+  "wikiSlug": "agent-session",
+  "term": "过期响应不能覆盖当前编辑内容",
+  "oneLiner": "**「刚写的字被回退」不是文件写错了，而是异步保存返回顺序不可靠：旧请求晚回来时，把过期的 `content_md` 又合并回了前端内存。** 修法：本地输入给正文版本号 +1，发起保存时记住版本号，返回时若当前版本已更新，则**不允许这次返回覆盖正文**。",
+  "body": [
+    "## 一、链路与故障点\n\n```\nCodeMirror（受控，value={note.content_md}）\n  ← React state（内存里的笔记对象）\n  ← 后台 debounce 写 vault 文件\n```\n\n用户输入 A → 内存 A → 后台保存 A；继续输入 B → 内存 AB → 保存 AB。**若「保存 A」比「保存 AB」更晚返回**，旧代码把 `{...n, ...patch, updated_at: now}` 合并回内存，`patch` 里带着旧 `content_md`，CodeMirror 收到 `value=A`，画面回退。",
+    "## 二、为什么保存返回本来就要回写内存\n\n保存成功带回的是**只有后端才知道的结果**：`updated_at`（列表排序/时间显示）、`title` 变化导致的 slug / 文件名变化（`untitled.md` → `项目复盘.md`）、`content_loaded` 状态。所以不能「保存返回就一律不回写」。\n\n正确边界：\n\n| 内容 | 能否回写 |\n|---|---|\n| `updated_at` / slug / id / `content_loaded` | ✅ 回写 |\n| `content_md` | 仅当**没有更晚的本地输入**时才允许 |\n\n一句话：**保存成功可以更新元信息，但不能用过期正文覆盖正在编辑的正文。**",
+    "## 三、同源的显示问题：live preview 由光标位置决定\n\nMarkdown live preview 里 `---` 与横线同时出现，是因为规则写成了「光标在本行：显示 `---`，但仍然画横线」。改成**光标在本行只显示源码 `---`，离开本行才隐藏源码、只显示渲染结果**，才是 Obsidian 那种体验。\n\n两者共享同一主题：**编辑器显示什么，要由「本地最新状态 / 光标位置」决定，而不是由过期的远端返回或固定的渲染规则决定。**",
+    "## 相关\n\n- [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93) —— 同一保存链路的另一种乱序：写错目标对象\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB) —— 延迟多久、延迟什么\n- [流式更新要合并字段而非替换对象](/wiki/agent-session/as-concept-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1) —— 另一类「静默覆盖」的更新 bug"
   ]
 },
 {
   "id": "as-concept-进度条要由真实进度驱动",
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-21",
   "wikiSlug": "agent-session",
   "term": "进度条要由真实进度驱动",
   "oneLiner": "**「点击后加载动画」不能用无限循环动画假装：要么绑定真实加载状态，要么基于经过时间连续推进。用 rAF 的帧间隔（`dt ≈ 16ms`）去判断 60ms 定时器，条件永远不成立。**",
@@ -253,11 +687,47 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、需求本身有四个约束\n\n1. 覆盖范围要完整 —— 侧边栏的品牌栏与主 nav 是**两个独立元素**（只是恰好都高 60px、都有底边框），只给主 nav 挂动画，左边自然是空的。\n2. 要**一直从左到右扫过**，不是闪烁。\n3. 扫到**尽头时刚好加载完成** —— 与加载状态同步。\n4. 到尽头后**停在满格**，等加载完才消失。",
     "## 二、坏掉的推进逻辑（根因）\n\n```js\nconst dt = now - last;   // ≈ 16ms（两帧间隔）\nlast = now;              // 每帧都重置\nif (dt >= TICK_MS) {     // 16 >= 60 → 永远 false\n  setProgress(...)\n}\n```\n\n两个叠加错误：\n\n- `dt` 单帧只有 ~16ms，**永远达不到 60ms**，`setProgress` 在绝大多数帧里根本不执行；\n- `last = now` 每帧重置，`dt` 永远累积不起来。\n\n真正把进度推到 100% 的是 `pathname` effect 里的一次性赋值。于是视觉上就是 **0 → 100%，中间没有任何帧** —— 这就是\"固定时间快速闪过、与加载不同步\"。\n\n**正确做法**：按**经过时间**做连续计算（`elapsed / duration`），而不是用帧间隔做定时判定。",
     "## 三、验证时的采样陷阱\n\n用 `MutationObserver` 观察 `style` 变化来采样进度，只拿到 4 个点 —— 因为 rAF 每帧写入相同的值会被浏览器合并，只有真正变化的属性才触发。要验证中间帧，得**连续读取**，不能依赖观察器。",
-    "## 相关\n\n- [流式更新要合并字段而非替换对象](/wiki/agent-session/as-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1)（同一天的前端状态更新问题）\n- 样式丢失先核对类名再怀疑缓存与权限（先确认元素是不是同一个）"
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：拿「帧间隔/循环动画」当真实进度\n- [流式更新要合并字段而非替换对象](/wiki/agent-session/as-concept-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1)（同一天的前端状态更新问题）\n- 样式丢失先核对类名再怀疑缓存与权限（先确认元素是不是同一个）\n- 高频手势缩放不要走React状态（同类：高频更新不该驱动框架状态）"
   ]
 },
 {
-  "id": "as-concept-一次循环只做一个可体验的 v1 能力",
+  "id": "as-concept-隐藏态按钮要保留命中区",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "隐藏态按钮要保留命中区",
+  "oneLiner": "**用 `pointer-events: none` 让 hover 才出现的按钮「不可点」，会让光标先落在该区域时事件被底下的链接/卡片吃掉——按钮随后出现也点不到，表现为「点三点菜单有时候没反应」。正解是按钮视觉隐藏但保留命中区（`pointer-events: auto`）。**",
+  "body": [
+    "## 症状与根因\n\n- 症状：卡片右侧的三点菜单有时点击无反应。\n- 根因：隐藏态按钮 `pointer-events: none`，事件穿透到底层元素。",
+    "## 相关\n\n- 图片加载失败要可重试并升级到HTTPS\n- 浮层要收敛到一个共享primitive"
+  ]
+},
+{
+  "id": "as-concept-首次内容事件不能无条件跳过",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "首次内容事件不能无条件跳过",
+  "oneLiner": "**编辑器为了避免「刚打开就标记为已修改」，常会跳过第一次内容变更事件。但如果这次事件本身就是用户的真实输入（例如空正文里第一次粘贴图片），无条件跳过会把它整个丢掉，表现为「粘了图但保存不了」。判据应是「内容是否仍等于初始内容」，不是「事件序号」。**",
+  "body": [
+    "## 症状与根因\n\n- 症状：正文为空时粘贴图片，图片进了编辑器却没触发保存；后端 PATCH 本身允许 `content: \"\"` 或图片 markdown，不是 API 拒绝。\n- 根因：保存逻辑跳过 Crepe 编辑器的第一次 `markdownUpdated` 事件，本意是过滤「打开笔记时的初始化事件」。空正文场景下，首次粘贴图片的 markdown 恰好是第一次事件，被误判为初始化而丢弃。",
+    "## 修法\n\n第一次事件只在**内容仍等于初始内容**时才跳过；若已从空内容变为 `![image](...)` 这类真实变更，则正常保存。",
+    "## 相关\n\n- [判据要用真值而非代理](/wiki/agent-session/as-synthesis-%E5%88%A4%E6%8D%AE%E8%A6%81%E7%94%A8%E7%9C%9F%E5%80%BC%E8%80%8C%E9%9D%9E%E4%BB%A3%E7%90%86) —— 本条是该 synthesis 的一处实例：拿「事件序号」当内容是否变化的代理\n- [编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB)\n- [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93)"
+  ]
+},
+{
+  "id": "as-concept-高频手势缩放不要走-React-状态",
+  "updatedAt": "2026-06-05",
+  "wikiSlug": "agent-session",
+  "term": "高频手势缩放不要走 React 状态",
+  "oneLiner": "**触控板捏合 / 滚轮缩放掉帧，根因通常不是「事件太多」，而是把每次事件都塞进了 React state，还顺带改了大 DOM 的布局。** 正确做法：缩放过程中用 `ref + requestAnimationFrame` 直接改预览 DOM 的 `style.zoom` 和外壳宽度，React state 只保存最终倍率 / 指示器 / 重置。",
+  "body": [
+    "## 一、掉帧的五个叠加原因\n\n1. **每次捏合都 `setUserZoom`** —— pinch 会连续触发大量 `wheel` 事件，每个事件都进 React state，触发整棵预览重新 render。\n2. **`CSS zoom` 不是 GPU 合成层动画** —— `zoom` 会触发布局重算与重绘；`transform: scale()` 多数情况可以走 compositor。\n3. **缩放同时改外壳宽度** —— `zoomedWidth = A4_WIDTH_PX * effectiveZoom` 每次变化都会让外层滚动区的 `scrollWidth` 重算。\n4. **预览 DOM 被重复渲染** —— 隐藏测量容器 + 可见分页，缩放 state 变化会把它们一起走一遍。\n5. **没有 `requestAnimationFrame` 节流** —— `wheel` 频率可能高于屏幕刷新率，事件来一次更新一次，主线程被打满。\n\n真正的组合是：**`CSS zoom` + React state 高频更新 + 大 DOM 重排**。",
+    "## 二、可迁移的判断\n\n- **高频连续手势（pinch / drag / resize）不该驱动框架状态**，应该直接写 DOM 样式；框架状态只留「最终值」。\n- 优化方向不是换掉 `zoom`，而是**把高频路径移出渲染链路**——保留 `zoom` 的纵向滚动优势（`transform: scale` 不改变布局尺寸，滚动条行为会变）。\n- 定位这类问题时，先问「这个值变一次，要重排多大的 DOM」，而不是先怀疑事件监听写错了。",
+    "## 三、跨平台适配：判断修饰键语义，不判断系统\n\n缩放逻辑里写 `if (!e.ctrlKey && !e.metaKey) return;`，就同时覆盖了 macOS（`Cmd + 滚轮`）和 Windows（`Ctrl + 滚轮`、Precision Touchpad 捏合在 Chrome/Edge 里通常也表现为 `ctrlKey + wheel`）。\n\n**不要按操作系统分支**——按输入语义（修饰键）判断，能力自然跨平台。没适配的部分要明说：触屏 pinch 需要额外的 `pointer/touch` 手势逻辑，当前没有。",
+    "## 相关\n\n- flex子项的百分比max-height不可靠 —— 同类：CSS 机制本身决定了代价\n- [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8) —— 高频 UI 更新的另一种状态设计"
+  ]
+},
+{
+  "id": "as-concept-一次循环只做一个可体验的-v1-能力",
   "updatedAt": "2026-08-09",
   "wikiSlug": "agent-session",
   "term": "一次循环只做一个可体验的 v1 能力",
@@ -266,9 +736,22 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、范围判定：一个 loop = 一个连贯的 v1 能力\n\n```text\n太小（补丁）→ 用户感受不到变化\n刚好（v1 能力）→ 端到端可体验，允许跨多个文件/模块\n太大（路线图）→ 不是一次循环，是无法验证的赌注\n```\n\n关键取舍：**允许为「端到端可体验」而跨模块改动**，但不允许扩张成「一次做完整个路线图」。\nv2/v3 只记录不执行 —— 记录是为了不丢，不执行是为了能验证。",
     "## 二、能力地图：按用户能力组织，不按代码模块\n\n维护一份当前的能力边界地图（历史日志 ≠ 地图，地图 ≠ 当前证据，三者互不替代）。\n\n| 维度 | 要求 |\n|---|---|\n| 组织方式 | **用户能力**（代码路径只是某条能力下的证据） |\n| 每条能力记录 | 状态、新鲜度、上次核查日期、证据、边界、明确的 non-goals、可见缺口 |\n| 新鲜度取值 | 只有三个：`confirmed` / `stale` / `unknown` |\n| 使用规则 | **只有 `confirmed` 的边界才能作为推荐依据** |\n\n「按用户能力组织」是这份地图最容易被做错的地方 —— 一旦按模块/页面/实现层来分，它就退化成代码结构图，回答不了「用户现在到底能做什么」。",
     "## 三、证据门槛：证据不足时不许发明方向\n\n推荐之前必须先看够证据（最近几次循环日志、能力地图、产品契约、相关代码路径、当前 git 状态、涉及 UX 时必须看真实渲染态）。\n\n- 涉及 UX / 产品流的推荐，**必须看真实产品表面**（浏览器、真机、截图、日志），不能用 mock 替代；真看不到就明说。\n- 若关键产品表面无法查看 → 把这些能力标为 `unknown`，并**声明本轮证据受限**，在决策依赖它们时停下或提问。\n- 证据太薄时，**问一个聚焦的产品上下文问题**，而不是编一个方向。\n\n门槛通过的标准：主推荐能引用具体观察 + 相关能力条目都有明确新鲜度 + 备选方案都能给出「为什么可以推迟」的理由。",
-    "## 四、每个 loop 都必须命名一个北极星指标\n\n指标要写全：名称、为什么对 0-1 重要、当前基线（及基线来源）、v1 的目标、怎么检查、以及不可回退的护栏（构建健康、无障碍、无可见溢出、无 console 错误、持久化不被破坏、数据契约不变、用户数据不丢）。\n\n**没有指标，就没有这一轮循环。** 指标选什么见 [北极星指标要量价值闭环](/wiki/agent-session/as-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF)。",
+    "## 四、每个 loop 都必须命名一个北极星指标\n\n指标要写全：名称、为什么对 0-1 重要、当前基线（及基线来源）、v1 的目标、怎么检查、以及不可回退的护栏（构建健康、无障碍、无可见溢出、无 console 错误、持久化不被破坏、数据契约不变、用户数据不丢）。\n\n**没有指标，就没有这一轮循环。** 指标选什么见 [北极星指标要量价值闭环](/wiki/agent-session/as-concept-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF)。",
     "## 五、批准闸门：产品代码改动前必须明确批准\n\n先给出「产品推荐 + 实施方案」，等明确批准后才动产品代码；只有用户已经批准过那一份具体方案时才可以跳过。\n遇到会改变产品行为、有数据丢失风险、暴露密钥或使验证无法完成的阻塞项 —— **停下报告，不要猜**。",
-    "## 相关\n\n- [北极星指标要量价值闭环](/wiki/agent-session/as-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF) —— 指标该量什么（本条只规定「每轮必须有」）\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) —— 「用户能体验到」是范围判定的同一把尺\n- [知识入库的筛选标准](/wiki/agent-session/as-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) —— 证据门槛的同源判断：没有依据就不下结论\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [北极星指标要量价值闭环](/wiki/agent-session/as-concept-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF) —— 指标该量什么（本条只规定「每轮必须有」）\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) —— 「用户能体验到」是范围判定的同一把尺\n- [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) —— 证据门槛的同源判断：没有依据就不下结论\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-修复范围分保守、彻底与最小闭环三档",
+  "updatedAt": "2026-06-15",
+  "wikiSlug": "agent-session",
+  "term": "修复范围分保守、彻底与最小闭环三档",
+  "oneLiner": "**同一个问题给两档方案（只改表层 / 从源头重构）是错的提问方式 —— 缺了第三档「最小闭环」：把修复点挪到正确的层，但只加一个字段、不做全量重构。** 范围取舍的标准是「修在源头」与「改动面」两个轴，不是「快」与「对」两个极端。",
+  "body": [
+    "## 一、三档是什么\n\n以「订阅条目的公众号封面拿不到」为例：\n\n| 档 | 做法 | 代价 | 结果 |\n|---|---|---|---|\n| **保守** | 只改前端：继续从 `content_html` 里多匹配几种 `<img>` 当缩略图 | 风险低、快 | 源里没这张图时**永远拿不到**，「单独获得封面」做不扎实 |\n| **彻底** | 抓取阶段抽共享模块：media thumbnail / enclosure / og:image / 正文首图兜底，存成结构化字段 | 动 Rust parser + 数据结构 + schema，范围大、回归测试多 | 正确，但把一次修复变成一次重构 |\n| **最小闭环** | 只给订阅条目加一个 `cover_image` 字段，在抓取处填它 | 比保守可靠，不做大重构 | 修复落在源头，改动面可控 |",
+    "## 二、判据\n\n- **能不能落在源头** —— 只在前端补救 = 打补丁，源里没有的信息补不出来；信息在源里就该在源里被提取。\n- **改动面是否被最小化** —— 「顺便把逻辑抽成共享模块」是**独立的重构目标**，不该塞进一次修复里；它值得做，但要单独立项。",
+    "## 三、可复用动作\n\n遇到「改 A 还是重构 B」的二选一时：\n\n1. 先问「信息/行为**源头**在哪一层」（见 [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B)）。\n2. 把修复点挪到那一层，**但只加它需要的那一个字段 / 那一处消费**。\n3. 把「抽共享模块 / 统一实现」单独记为后续目标，不在本轮扩张。\n\n> 二选一的提问本身就是信号：**选项只有「太小」和「太大」时，缺的是中间那档。**",
+    "## 相关\n\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条的定位步骤：先定层，再定范围\n- 一次循环只做一个可体验的v1能力 —— 范围控制的同一把尺：够端到端，不扩成路线图\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) —— 只改表层的另一种静默失效：值到了，消费方没接\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) —— 「抽共享模块」属于可复用物治理，应独立进行"
   ]
 },
 {
@@ -282,7 +765,44 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 二、价值激活时刻\n\n你提出的定义（16:42）：**价值激活发生在用户对 Agent 产出感到满意、并把它保存进知识资产的那一刻**；因此最该埋点的是「保存」这个动作，再用它结合活跃度分析采纳频率。\n\n需要区分的是：**工具被调用是 Agent 的行为，不是用户的采纳行为**。模型可以调用写入工具，但用户拒绝提案或写入失败，此时记激活就是假阳性。",
     "## 三、指标口径（你的方案）\n\n北极星候选：**所有用户每周的 Agent 平均活跃天数**\n\n```text\n分子 = 一周内每个用户的去重活跃天数之和\n分母 = 该周 Agent 周活用户数\n```\n\n选择**天数**而非**调用次数**的理由（你的原话）：\n\n- 调用次数不公平：C 端用户习惯不同，某天深度学习会长时间使用，另一些天调用很少，次数无法公平反映价值\n- 活跃天数更能反映**使用的深度与时长**\n- 一周 7 天对 C 端产品是较平衡的观察窗：产品若无吸引力，用户会在几天内流失",
     "## 四、未决问题\n\n- 活跃天数只能说明「用户在多少个不同日期触发过 Agent」，**不能同时证明留存、深度和时长**；回答越差、用户反复纠正重试，活跃天数反而可能升高 —— 所以它更像**健康指标**而非价值指标。\n- 保存率能衡量一种价值激活，但总结、讲解、检索类任务可能本就无需保存。\n- 待回答：**只允许取一个证据时，看什么能区分「满意地完成任务」与「觉得没用而流失」？**\n- 待回答：**看到「保存过的用户留存是未保存用户两倍」，能否直接把提高保存率设为核心目标？**",
-    "## 相关\n\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)（口径先于数值，同属指标方法论）\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)（价值要被用户感知）\n- 一次循环只做一个可体验的v1能力 —— 每轮的范围判定"
+    "## 相关\n\n- [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)（口径先于数值，同属指标方法论）\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)（价值要被用户感知）\n- 一次循环只做一个可体验的v1能力 —— 每轮的范围判定"
+  ]
+},
+{
+  "id": "as-concept-地基阶段先跑通基础件再谈抽象",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "地基阶段先跑通基础件再谈抽象",
+  "oneLiner": "**做地基阶段（数据层 / 后端基础件）时，先把基础件跑通，不要过早为每个业务做抽象分层。** 地基任务本身价值在「跑通」，此时加很多抽象会拖慢，而且后面真正接业务时更难用。同理，前端也先把**全路由静态骨架**落地，让后续接真实 API 时不需要再改页面结构。",
+  "body": [
+    "## 基础件形态：数据库为中心，其他做成薄薄一层\n\n- `packages/db` —— 最核心：schema、client、notes/clips/feeds/tags 的 CRUD\n- `packages/shared` —— 公共校验（环境变量、创建/更新笔记、订阅源的 Zod schema）\n- `packages/auth` —— 只负责登录配置，不写业务数据逻辑\n- `packages/queue` —— 只定义队列与 `addJob()`\n- `packages/storage` / `packages/email` —— 只负责上传删除 / 发信\n\n执行顺序：先写实施 plan → 先写测试 → 再实现基础件 → 最后跑验证，如实说明哪些受环境变量或 Docker 影响没跑通。",
+    "## 前端骨架：全路由先落地\n\n所有路由都建出来（marketing / auth / app 三组），登录后布局含左侧导航、顶部栏、右侧面板；列表页用 mock 数据验证虚拟滚动；编辑页集成主编辑器入口并留备选切换位。**好处是后续接 API 不需要再改页面结构。** 反面做法是先做一堆没被真实页面验证过的 UI 组件。",
+    "## 相关\n\n- 一次循环只做一个可体验的v1能力\n- [完整蓝图不等于同阶段交付](/wiki/agent-session/as-concept-%E5%AE%8C%E6%95%B4%E8%93%9D%E5%9B%BE%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%90%8C%E9%98%B6%E6%AE%B5%E4%BA%A4%E4%BB%98)\n- [契约只承载结构，个性留给扩展层](/wiki/agent-session/as-synthesis-%E5%A5%91%E7%BA%A6%E5%8F%AA%E6%89%BF%E8%BD%BD%E7%BB%93%E6%9E%84%EF%BC%8C%E4%B8%AA%E6%80%A7%E7%95%99%E7%BB%99%E6%89%A9%E5%B1%95%E5%B1%82)"
+  ]
+},
+{
+  "id": "as-concept-完整蓝图不等于同阶段交付",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "完整蓝图不等于同阶段交付",
+  "oneLiner": "**用户要「完整方案」时，不要把完整方案砍成 MVP，也不要把完整蓝图理解成「所有东西同一阶段交付」；正确形态是「全量架构 + 分阶段落地 + 风险门控」。** 把「要做什么」（全量）和「什么时候做」（阶段）分成两个维度，才能既不漏系统、又不承诺一次交完。",
+  "body": [
+    "## 完整方案至少要覆盖的六块\n\n只写技术结构不算完整方案，还缺：\n\n1. **产品版图** —— 2.0 到底包含哪些用户能力（笔记、剪藏、订阅、搜索、AI 回顾、标签/知识库、多端同步、浏览器扩展、账号/订阅/支付、Admin、导入 1.x 数据）\n2. **数据权威模型** —— 云端 PostgreSQL 是不是 source of truth？本地是缓存还是可离线编辑的真相？原 vault 文件还保留吗？能否导出完整本地知识库？见 [数据权威模型要先于同步与迁移确定](/wiki/agent-session/as-concept-%E6%95%B0%E6%8D%AE%E6%9D%83%E5%A8%81%E6%A8%A1%E5%9E%8B%E8%A6%81%E5%85%88%E4%BA%8E%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%BF%81%E7%A7%BB%E7%A1%AE%E5%AE%9A)\n3. **同步协议** —— 版本字段、sync cursor、pull/push/conflict、tombstone、改名与附件规则、两端跑同一组测试用例\n4. **迁移方案** —— 2.0 不能无视 1.x：扫描本地 vault、导入 Markdown/HTML/clips/feeds、绑定本地路径与云端 ID、失败回滚、可否选择「不上传只本地用」\n5. **各端完整范围** —— 例如 Apple 端不只是「调 API」，而是完整客户端：SwiftUI、SwiftData、SyncEngine、Keychain、Share Extension、Spotlight、Menu Bar、全局快捷键、推送、自适应布局、打包签名审核\n6. **后端完整范围** —— 把散落在 Web API / packages / agent 里的职责收拢成明确的后端边界",
+    "## 常见失误\n\n把「完整方案」和「分阶段落地」对立起来，于是要么交一份被砍到只剩骨架的 MVP，要么承诺一次性把所有端和系统做完。**架构上可以全量，交付上必须分阶段。**",
+    "## 相关\n\n- 一次循环只做一个可体验的v1能力 —— 阶段内怎么切\n- 修复范围分保守彻底与最小闭环 —— 同一套「范围分档」思路\n- [本地优先知识产品的架构演进](/wiki/agent-session/as-topic-%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88%E7%9F%A5%E8%AF%86%E4%BA%A7%E5%93%81%E7%9A%84%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B)\n- [地基阶段先跑通基础件再谈抽象](/wiki/agent-session/as-concept-%E5%9C%B0%E5%9F%BA%E9%98%B6%E6%AE%B5%E5%85%88%E8%B7%91%E9%80%9A%E5%9F%BA%E7%A1%80%E4%BB%B6%E5%86%8D%E8%B0%88%E6%8A%BD%E8%B1%A1) —— 蓝图分阶段落地时，地基期先跑通基础件"
+  ]
+},
+{
+  "id": "as-concept-容器要有超出文件夹的意义才值得独立入口",
+  "updatedAt": "2026-06-16",
+  "wikiSlug": "agent-session",
+  "term": "容器要有超出文件夹的意义才值得独立入口",
+  "oneLiner": "**如果一个「知识库」只做到文件夹的形态，它本质上就是笔记的文件夹系统，不该再单独占一个顶层入口 —— 要么降级为笔记里的顶层集合，要么给它文件夹之外的意义。** 否则用户找内容时，得先想「这是笔记还是知识库」，这是凭空多出来的一道认知成本。",
+  "body": [
+    "## 两条出路\n\n| 方向 | 做法 |\n|---|---|\n| 降级 | 把笔记升级成「全部笔记 / 最近 / 文件夹集合」的结构，知识库只是笔记里的顶层彩色集合；一个入口找所有内容 |\n| 赋义 | 保留独立知识库，但它必须比文件夹多一层：独立资料源、剪藏引用、AI 上下文范围、阅读队列、整理输出、知识卡片 |\n\n判据：**问「去掉这个入口，用户会损失什么能力」**。答不出来，说明它只是文件夹。",
+    "## 边界没定，数据先混进来的代价\n\n`query::list_notes` 把 `library/` 下的知识库笔记一起扫进了普通笔记区，于是它们出现在笔记列表里；但笔记区的打开 / 编辑逻辑仍按普通 `wiki/notes` 笔记设计，结果就是「在知识库里创建的笔记，在笔记区显示得出来却打不开」。\n\n- 先定边界（知识库笔记算不算笔记区内容），再改前端 —— 否则只是把不一致从一处挪到另一处\n- 一个列表混入第二种数据来源前，先确认两种来源的操作语义是否一致",
+    "## 时机\n\n若 1.0 的重点是写作与整理手感，**先别急着实现知识库 UI，回头重构信息架构**；等真的有了「按知识库做 AI 上下文 / 资料源 / 总结沉淀」的能力，再把它独立出来。",
+    "## 相关\n\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)\n- 一次循环只做一个可体验的v1能力"
   ]
 },
 {
@@ -297,7 +817,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 推导\n\n你反复追问同一件事（\"转换成用户可感知的内容要怎么转换会显得更好？\"\n→ \"产品对外宣传的让用户可感知到的点，在于哪里？我觉得这里讲的还不够有区别化\"），\n最后在 canvas 里落成了结构化答案。",
     "## 框架\n\n### 一、可感知的本质\n不是罗列功能，而是给出**对照**。用户只有在 A/B 之间才产生感知。\n\n### 二、差异化的三层\n| 层 | 说明 |\n|---|---|\n| 品类 | 你和谁站在一起（用户拿什么类比你） |\n| 品牌 | 提到你时用户脑子里浮现什么 |\n| 功能 | 具体能力上的差别 |\n\n原表述的问题通常是：只在功能层打转，没有品类和品牌的对照。\n\n### 三、提炼公式\n```\n价值陈述 = 痛点 + 场景 + 对比 + 结果\n```\n四个要素缺一个就空：\n- **痛点**：他此刻正在被什么折磨\n- **场景**：什么时候发生\n- **对比**：不用/用别家的分别是什么\n- **结果**：能量化的变化",
     "## 给自己的检查\n\n写完任何一句宣传语，逐项打钩：痛点真吗？场景具体吗？有对比吗？结果可量化吗？\n\n四项全无 → 这不是表达问题，是产品价值没想清楚。",
-    "## 相关\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)"
+    "## 相关\n- [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)"
   ]
 },
 {
@@ -312,7 +832,21 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 三、动手前先复述理解，让用户确认\n\n「区块对齐」这类需求是**组合约束**：13:36 的需求只有一句「welcome 区块高度减半，使它和六宫格的上半部分对齐」。agent 连改两版都跑偏（先连宽度一起砍，再反复调高度），最后自己复盘根因：\n\n> **「我两次都没在改之前先复述理解让你确认。」**\n\n约束不完整时（只说了高度，没说宽度动不动），**该问，不能猜**。改之前把理解复述成一句可确认的话：「只动高度，宽度一行不改 —— 对吗？」",
     "## 四、可迁移的规则\n\n- **难度问题 = 约束问题**：没有约束（复刻对象、画布比例、完成度目标、时间盒）就没有难度，只有形容词。\n- **评审不是复述需求，是先把需求翻译成方案**：用户说「不需要过度评审」，指的是不要写长篇评述，而不是不要给方案。\n- **分层交付优于一次性铺开**：先让最不确定的一层（静态构图）达到可比对的状态，再叠加动效。\n- **改动前先复述理解**：约束有歧义时先问再动手，比改错两版再回滚便宜。",
     "## 五、反过来的边界：没有歧义就不要问\n\n提问的成本要**按歧义大小来付**。上面说的是「约束不完整时必须问」，这里说的是它的反面。\n\n09-15 19:18 你直接打断：「不是，你听懂没，问的都是什么问题」。当时 agent 连续四轮用提问工具去问「这些 `1.` 是独立条目还是一个序列」这类**已被上下文和规范唯一确定**的问题，把你的时间花在了没有信息量的确认上。agent 自己承认：**「这个没有歧义，我直接做。」**\n\n| 情形 | 动作 |\n|---|---|\n| 约束有歧义、目标有多个所指、改动不可逆 | **先问**（或先复述理解让用户确认） |\n| 上下文/规范已能唯一确定 | **直接做**，把判断依据写出来，让用户事后纠错 |\n\n误用任一侧的代价不同：该问不问 → 改错两版再回滚；不该问而问 → 消耗用户注意力，且用户答完还未必答得比上下文准。",
-    "## 相关\n\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) —— 同源判断：「做出来」也有多种所指，先确认再回答\n- 一次循环只做一个可体验的v1能力 —— 分三步、每步可验证的同一把尺\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同轮教训的另一半：截图 ≠ 代码"
+    "## 相关\n\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) —— 同源判断：「做出来」也有多种所指，先确认再回答\n- 一次循环只做一个可体验的v1能力 —— 分三步、每步可验证的同一把尺\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同轮教训的另一半：截图 ≠ 代码"
+  ]
+},
+{
+  "id": "as-concept-Agent-读语义文件，App-读结构化存储",
+  "updatedAt": "2026-06-15",
+  "wikiSlug": "agent-session",
+  "term": "Agent 读语义文件，App 读结构化存储",
+  "oneLiner": "**知识库不该让 agent 直连数据库：SQLite 是导航系统，Markdown 才是知识本体。** App 用它做检索 / 排序 / 状态，agent 用语义文件做理解 / 改写 / 迁移；两边不是二选一，而是分工。",
+  "body": [
+    "## 一、两者定位不同\n\n| | SQLite（结构化记录） | Markdown（语义文件） |\n|---|---|---|\n| agent 读到的东西 | 表、字段、行（需要先懂 schema、写 SQL） | 标题、正文、frontmatter、链接、路径 |\n| 强项 | 快、可筛选、可排序、可聚合（万篇级仍稳） | 语义自明、人和外部工具都能直接消费 |\n| 弱项 | 语义弱，对人和外部 agent 不透明 | 大规模查询不如 DB |\n\n关键差别不在「能不能读」，而在**读到的信息里有没有上下文线索**。Markdown 的路径、标题层级、frontmatter、双链天然就是语义；SQLite 的一行只是字段集合。",
+    "## 二、为什么不让 agent 直连 DB\n\n1. **耦合内部实现** —— schema 一改，skill / prompt 全要跟着改。\n2. **容易读到衍生数据** —— FTS 表、缓存表、状态表不是用户知识本身。\n3. **不利于外部工具** —— 不是每个 agent 环境都方便开 SQLite，但几乎都能读一个 Markdown 目录。\n4. **上下文质量更差** —— 行数据缺语义线索，agent 更容易误把索引当主数据。",
+    "## 三、推荐分工\n\n```text\nAgent 要理解 / 改内容   → 读写 Markdown\nApp 要检索 / 排序 / 状态 → 读 SQLite\nSQLite 坏了             → 从 Markdown 重建\nMarkdown 坏了           → 那才是真数据损坏\n```\n\n即：**Markdown 是唯一真源，SQLite 是可重建的派生层。**",
+    "## 四、两者组合的最佳路径：先筛选，再读全文\n\n不要「全扫文件」，也不要「只信 DB 里的摘要」：\n\n```text\nSQLite FTS / metadata 找候选（如最近 30 天的 iOS 笔记 → 20 篇）\n    → agent 读这 20 篇 Markdown 全文\n    → 总结 / 回答\n```\n\nDB 只负责把候选范围缩小，召回质量仍由正文（Markdown）承担 —— 这也解释了为什么检索的改进重点在正文入索引而不是把 DB 字段做多。",
+    "## 相关\n\n- [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— 「真源只有一个」的同源判断：Markdown 是本体，DB 可重建\n- [关键词检索的三个打分缺陷](/wiki/agent-session/as-concept-%E5%85%B3%E9%94%AE%E8%AF%8D%E6%A3%80%E7%B4%A2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%89%93%E5%88%86%E7%BC%BA%E9%99%B7) —— DB 侧只做候选筛选，正文才承担召回\n- [跨源取数据要靠自建代理](/wiki/agent-session/as-concept-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) —— 同属「数据该由哪一层持有」的取舍\n- [真源要按维度显式指定](/wiki/agent-session/as-synthesis-%E7%9C%9F%E6%BA%90%E8%A6%81%E6%8C%89%E7%BB%B4%E5%BA%A6%E6%98%BE%E5%BC%8F%E6%8C%87%E5%AE%9A) —— 本条是该骨架的一处实例：真源唯一 + 派生层可重建"
   ]
 },
 {
@@ -324,9 +858,59 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## 理由（你自己提的）：无用内容（寒暄、`hi`、工具回显）堆叠起来再送去提炼，「就显得非常的乱，模型提取的效果也并不好」。所以顺序是：\n\n```\n原始会话  →  ① 清洗层（每天一次，机械过滤）  →  ② 提炼层（判断哪些成知识）  →  wiki\n```",
     "## 两层的服务对象不同\n\n这是这个设计真正的支点：\n\n| 层 | 干什么 | 服务对象 |\n|---|---|---|\n| 清洗层 | 机械过滤：开场白、`hi`、agent 叙述、工具回显 | **agent**（让提炼输入干净） |\n| 提炼层 | 判断：哪一轮是知识、该进哪个类别 | **人**（产出给人读） |\n\n「**这个是针对 agent 的**」——清洗层的价值不在产出物本身，而在于**降低下一层的判断难度**。它本身可以完全扔掉。",
-    "## 和「筛选标准」的分工\n\n- [知识入库的筛选标准](/wiki/agent-session/as-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) 回答：**收什么**（对未来有帮助 / 知识型非动作 / 反复提问权重更大）。\n- 本页回答：**在哪一层收**。\n\n先分层，再谈标准：如果不分层，标准再准也是在噪声里做判断，成本高且不稳。",
+    "## 和「筛选标准」的分工\n\n- [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) 回答：**收什么**（对未来有帮助 / 知识型非动作 / 反复提问权重更大）。\n- 本页回答：**在哪一层收**。\n\n先分层，再谈标准：如果不分层，标准再准也是在噪声里做判断，成本高且不稳。",
     "## 反直觉点\n\n直觉上「多一层 = 多一道工序 = 更慢」。这里相反：**先丢垃圾比先读垃圾更省**。\n清洗层是机械的、可批量的；提炼层是判断的、昂贵的。把机械活提前做掉，等于把昂贵的那层喂干净。",
-    "## 相关\n\n- [清洗合并会破坏源格式语义](/wiki/agent-session/as-%E6%B8%85%E6%B4%97%E5%90%88%E5%B9%B6%E4%BC%9A%E7%A0%B4%E5%9D%8F%E6%BA%90%E6%A0%BC%E5%BC%8F%E8%AF%AD%E4%B9%89) —— 过滤之后若要合并，必须做渲染级验收"
+    "## 相关\n\n- [清洗合并会破坏源格式语义](/wiki/agent-session/as-concept-%E6%B8%85%E6%B4%97%E5%90%88%E5%B9%B6%E4%BC%9A%E7%A0%B4%E5%9D%8F%E6%BA%90%E6%A0%BC%E5%BC%8F%E8%AF%AD%E4%B9%89) —— 过滤之后若要合并，必须做渲染级验收\n- [放宽过滤会连噪声一起放进来](/wiki/agent-session/as-concept-%E6%94%BE%E5%AE%BD%E8%BF%87%E6%BB%A4%E4%BC%9A%E8%BF%9E%E5%99%AA%E5%A3%B0%E4%B8%80%E8%B5%B7%E6%94%BE%E8%BF%9B%E6%9D%A5) —— 过滤层调参时，「修漏」与「修假」必须同时管"
+  ]
+},
+{
+  "id": "as-concept-导入要保留来源类型以选对渲染链",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "导入要保留来源类型以选对渲染链",
+  "oneLiner": "**内容导入时如果把不同来源的正文塞进同一个字段，就会丢掉「它原本是什么格式」这个信息，渲染时自然选错渲染链。** 表现为：知识库里的剪藏打开后不像剪藏，而是像普通笔记。",
+  "body": [
+    "## 症状与根因\n\n| 现象 | 根因 |\n|---|---|\n| 知识库里的剪藏内容格式和剪藏区不一样 | 订阅导入时把 HTML 正文直接塞进 `content_md`，于是走了 Markdown 渲染链 |\n| 同一个剪藏，从「已有剪藏」导入是对的，从「订阅」导入是错的 | 两条导入路径给的正文格式不同（前者已是解析后的正文格式），但落库字段相同 |\n\n**格式与字段是两件事**：`content_html` 和 `content_md` 不是可互换的容器。剪藏解析器会把网页转成适合 `ClipReader` 的正文格式；跳过这一步直接落库，等于把 HTML 当成 Markdown 读。",
+    "## 判断与做法\n\n1. **落库时要保留来源类型**（如 `kind: 'note' | 'clip' | 'html'`），它决定打开时用哪个渲染器 —— 图标、阅读器、滚动行为都跟着这个类型走。\n2. **多来源入口必须收敛到同一个「归一化」步骤**：不管从剪藏导入还是从订阅导入，都先转成该类型对应的正文格式，再落同一个字段。否则每加一条导入路径就会多一种格式事故。\n3. 症状「格式不对」先问：**这条内容是从哪个入口进来的？它进来时是什么格式？** 而不是先怀疑渲染器。",
+    "## 相关\n\n- [文章元信息用发布日期而非创建日期](/wiki/agent-session/as-concept-%E6%96%87%E7%AB%A0%E5%85%83%E4%BF%A1%E6%81%AF%E7%94%A8%E5%8F%91%E5%B8%83%E6%97%A5%E6%9C%9F%E8%80%8C%E9%9D%9E%E5%88%9B%E5%BB%BA%E6%97%A5%E6%9C%9F) —— 同一条入库链路的元信息侧：要单独存的字段也要在抓取阶段一并提取\n- [清洗合并会破坏源格式语义](/wiki/agent-session/as-concept-%E6%B8%85%E6%B4%97%E5%90%88%E5%B9%B6%E4%BC%9A%E7%A0%B4%E5%9D%8F%E6%BA%90%E6%A0%BC%E5%BC%8F%E8%AF%AD%E4%B9%89) —— 同为「格式语义在管道中静默丢失」，那条讲**合并**环节，这条讲**导入**环节\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 归一化步骤就是清洗层该做的事\n- 兼容fallback会让内容重复渲染 —— 另一类「渲染链选择错误」的后果"
+  ]
+},
+{
+  "id": "as-concept-放宽过滤会连噪声一起放进来",
+  "updatedAt": "2026-06-23",
+  "wikiSlug": "agent-session",
+  "term": "放宽过滤会连噪声一起放进来",
+  "oneLiner": "**为了修「新内容被跳过」而删掉入库过滤条件，会把「只有摘要、没有正文」的条目一起放进来。** 修漏和修假是两件事，改闸门时必须同时设质量下限，否则噪声立刻从新开的口子涌入。",
+  "body": [
+    "## 这次的形状：为了让新文章不被跳过，去掉了「`content_html` 长度 > 100」的过滤 → 结果同一源里只有 RSS `description`（约 40 字摘要）、没有 `content:encoded` 正文的条目也入库了。",
+    "## 正确的改法是换判据，不是拆闸门\n\n- ❌ 删掉「必须有正文」的检查\n- ✅ 把判据换成**按源类型定义**的：中转源（WeRSS）条目**必须有正文**，不能拿 `description` 当正文兜底；摘要长度这类间接指标不能代替「正文是否存在」这个语义判断。",
+    "## 一般化\n\n任何入库闸门都同时承担两个职责：**挡住噪声**（假）和**别误杀**（漏）。调参时只盯着一侧，另一侧必然失守。\n\n推论：**「不要入库没内容的东西」应该是入库层的硬约束，而不是靠上游少发或下游人肉清理。**",
+    "## 相关\n\n- [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) —— 收什么\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 在哪一层收"
+  ]
+},
+{
+  "id": "as-concept-数据权威模型要先于同步与迁移确定",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "数据权威模型要先于同步与迁移确定",
+  "oneLiner": "**多端产品在写同步协议、迁移方案之前，必须先定「谁是数据权威」（source of truth）；这块不定，后面的同步、迁移、冲突、离线都会乱。** 这是完整方案里最容易缺、也最关键的一环。",
+  "body": [
+    "## 必须回答的四个问题\n\n- 2.0 之后云端 PostgreSQL 是 source of truth 吗？\n- 各端本地库（如 SwiftData）只是缓存，还是可离线编辑的本地真相？\n- 原来的 vault Markdown / HTML 文件还保留吗？\n- 用户能不能导出完整本地知识库？",
+    "## 定完权威模型后，同步协议要写死这些\n\n- 每条数据带 `id / version / updatedAt / deletedAt / deviceId`\n- 客户端保存 sync cursor\n- 服务端提供 pull / push / conflict response\n- 删除用 tombstone，不物理删除\n- 标题改名、slug 改名、HTML 笔记、附件都要有规则\n- Web 和原生端（Swift）必须跑同一组同步测试用例",
+    "## 迁移不能后补\n\n2.0 不能无视 1.x。要写清：首次启动扫描本地 vault；Markdown / HTML / clips / feeds 怎么导入云端；本地文件路径与云端 ID 怎么绑定；迁移失败如何回滚；用户是否可以选择「不上传，只本地使用」。",
+    "## 相关\n\n- [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— 单条数据层面的「真源」判定\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) —— 冲突合并时的时序依据\n- [完整蓝图不等于同阶段交付](/wiki/agent-session/as-concept-%E5%AE%8C%E6%95%B4%E8%93%9D%E5%9B%BE%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%90%8C%E9%98%B6%E6%AE%B5%E4%BA%A4%E4%BB%98)\n- [本地优先知识产品的架构演进](/wiki/agent-session/as-topic-%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88%E7%9F%A5%E8%AF%86%E4%BA%A7%E5%93%81%E7%9A%84%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B)"
+  ]
+},
+{
+  "id": "as-concept-文章元信息用发布日期而非创建日期",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "文章元信息用发布日期而非创建日期",
+  "oneLiner": "**剪藏详情页顶部的日期应是「文章发布日期」，不是入库创建日期；创建日期只属于左侧列表。二者混用会让用户看到错误时间。前提是数据模型要分别存这两类字段——只有创建时间时，详情页只能拿它硬凑。**",
+  "body": [
+    "## 需要单独存的字段\n\n- 文章侧元信息（详情页展示）：发布日期、作者、来源名\n- 系统侧时间（列表/排序）：创建时间",
+    "## 提取要点\n\n以公众号文章为例，`nickname` / `author` / `publish_time`（或 `ct`）这些字段不在正文 `#js_content` 里，而在页面脚本变量中，必须在抓取阶段提取并随剪藏落库，详情页才能渲染。",
+    "## 相关\n\n- [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE) —— 同一条入库链路的上游环节\n- [数据权威模型要先于同步与迁移确定](/wiki/agent-session/as-concept-%E6%95%B0%E6%8D%AE%E6%9D%83%E5%A8%81%E6%A8%A1%E5%9E%8B%E8%A6%81%E5%85%88%E4%BA%8E%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%BF%81%E7%A7%BB%E7%A1%AE%E5%AE%9A) —— 哪些字段该单独存，属于数据模型决定"
   ]
 },
 {
@@ -339,7 +923,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、三类现象（你当场逐个抓出来的）\n\n| 你看到的现象 | 根因 |\n|---|---|\n| 4 条编号条目被渲染成**一整段**，没分成 4 行 | Markdown 单个换行不产生新段落，需要**空行**或行尾两个空格 |\n| 列表前两项**序号消失**，第三项掉出列表变成普通段落 | `3.` 后**缺空格** → 该项不被识别为列表项，连带前面几项的解析一起错乱 |\n| 「有序列表**都是 1.**」 | 飞书里手写的 `1.` 由**显示端自动编号**，导出成 Markdown 后原样保留 —— 编号是假的 |\n\n你连问三轮（「这里的换行不是没变化吗」「为什么还有空行」「有序列表都是 1.」）才把三类问题区分开：**它们根因不同，不能用一个修法糊过去。**",
     "## 二、两条可迁移的判断\n\n1. **显示端生成的信息，导出即失真。** 自动编号、列表样式这类不属于源数据，一旦离开原编辑器就必须自己重建。\n2. **格式验收只能看渲染。** 只 grep / diff 文本会漏掉整类结构问题；必须看渲染后的 DOM 或截图，再决定是否算修好。",
     "## 三、修法\n\n- `\\d+.` 后补空格（与 `-` 后补空格同理），让列表项被正确识别\n- 连续列表项之间补空行，避免被当成同一段落\n- 源里全为 `1.` 的「小标题式」条目，按语义重新编号（RBAC0/1/2/3 是同一序列）",
-    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 清洗层的职责是过滤；**合并**一旦动了格式，就必须有渲染级验收\n- 讲bug先讲现象再讲根因 —— 你追问的始终是现象（「换行没生效」），根因要自己去找\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 清洗层的职责是过滤；**合并**一旦动了格式，就必须有渲染级验收\n- [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE) —— 同源的另一环节：这条讲**合并**，那条讲**导入**\n- 讲bug先讲现象再讲根因 —— 你追问的始终是现象（「换行没生效」），根因要自己去找\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
   ]
 },
 {
@@ -352,11 +936,11 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 1. **对未来有帮助**\n2. **是知识型内容，不是动作层面**\n3. **有反复的疑问和思考、反复的提问 —— 这一条权重更大**",
     "## 为什么这样定\n\n- 全量入库 = 噪音淹没信号。判断成本只是从「提炼时」挪到了「检索时」，而检索时**没有上下文**，更判不动。\n- 「**反复提问**」是需求强度的**天然标注**：不用额外打分，行为本身已经把权重标好了。同一个疑问跨天跨 session 出现，说明它是真痛点，不是随口一问。\n- 「**动作层面**」不收：文件路径、命令参数、执行步骤都会过期，复用价值低。",
     "## 衍生的质疑（未决）\n\n- **概念 / topic 的划分是 agent 界定的，不是你先定义的** —— 你当场追问「这是你界定的吗」。\n  分类法若由 agent 单方面给出，使用者长期会错位；schema 必须由使用者确认过一次才算数。\n- 「知识单元 / 知识簇」同样是**被追问后才补的定义**，不是先有框架再落地。",
-    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97)（在哪一层收）\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)"
+    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97)（在哪一层收）\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87)\n- [放宽过滤会连噪声一起放进来](/wiki/agent-session/as-concept-%E6%94%BE%E5%AE%BD%E8%BF%87%E6%BB%A4%E4%BC%9A%E8%BF%9E%E5%99%AA%E5%A3%B0%E4%B8%80%E8%B5%B7%E6%94%BE%E8%BF%9B%E6%9D%A5) —— 放宽准入时，噪声会从新开的口子涌入\n- [定义要由使用者确认](/wiki/agent-session/as-synthesis-%E5%AE%9A%E4%B9%89%E8%A6%81%E7%94%B1%E4%BD%BF%E7%94%A8%E8%80%85%E7%A1%AE%E8%AE%A4) —— 「概念/topic 的划分是谁定的」这一追问的综合判断"
   ]
 },
 {
-  "id": "as-concept-GitHub 打不开先分清主站与静态资源域名",
+  "id": "as-concept-GitHub-打不开先分清主站与静态资源域名",
   "updatedAt": "2026-09-19",
   "wikiSlug": "agent-session",
   "term": "GitHub 打不开先分清主站与静态资源域名",
@@ -365,7 +949,57 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、实测分层结果\n\n| 目标 | 结果 |\n|---|---|\n| `github.com` | ✅ 200（稍慢） |\n| `api.github.com` | ✅ 200（很快） |\n| `raw.githubusercontent.com` | ❌ 超时，`http_code=000` |\n\n主站与 API 都通，只有静态资源域名不通。**这是中国大陆最常见的 GitHub 症状：主站能开，raw 与 release 下载不通。**\n\n对应的用户体感不是\"网页打不开\"，而是：README 里图片裂了、README 显示空白、点下载/克隆失败。**报障描述与真实故障点经常不是一回事。**",
     "## 二、DNS 层的异常信号\n\n`dig` 同时报了：\n\n```\n;; Warning: Message parser reports malformed message packet.\n```\n\n这个警告通常意味着**本地有 DNS 劫持 / 代理软件在中间插手**（Clash / Surge / AdGuard 之类 fake-ip 模式，或运营商 DNS 污染）。典型原因是代理开了 fake-ip 但分流规则漏了某个域名，于是走直连被墙。",
     "## 三、可复用的排查动作\n\n1. **按域名分层测**：主站、API、raw、codeload（clone/下载）分别测，锁定范围。\n2. **让用户在浏览器里对照打开**一个主站链接和一个 raw 链接，看哪个挂 —— 直接区分\"整站\"还是\"静态资源\"。\n3. **问清具体错误**：`ERR_CONNECTION_TIMED_OUT` / `ERR_CONNECTION_RESET` / 一直转圈，指向不同原因。\n4. **代理用户先试全局模式**再复测，用来区分\"规则漏了\"还是\"线路本身不通\"。",
-    "## 相关\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)（同为\"先定层再排查\"）\n- 讲bug先讲现象再讲根因\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)（同为\"先定层再排查\"）\n- 讲bug先讲现象再讲根因\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-INSERT-OR-IGNORE-会让旧行不更新",
+  "updatedAt": "2026-06-16",
+  "wikiSlug": "agent-session",
+  "term": "INSERT OR IGNORE 会让旧行不更新",
+  "oneLiner": "**「DB 里新数据的字段是对的，界面上旧数据还是旧值」——先查插入语句是不是 `INSERT OR IGNORE`。** 老记录已存在时整行被跳过，提取 / 解析逻辑改对以后，刷新也不会回填旧行，只有新入库的记录才有新值。",
+  "body": [
+    "## 现场\n\n- 现象：订阅列表封面显示正文第一张图，而不是 RSS feed 的题图（enclosure）\n- 后端提取逻辑已修对，DB 里**新入库文章**的 `cover_image` 确实是正确题图（已验证某 source 最新文章）\n- 但列表里仍看到正文图 —— 因为 `feed_entries` 用的是 `INSERT OR IGNORE`，旧文章的那一行 `cover_image` 还是空值 / 旧值",
+    "## 排查要点\n\n1. 别停在「DB 里有正确值」——要问「这条正确值是新行还是旧行」\n2. 顺手排除掉不成立的怀疑：「前端走了另一条查询路径」在当前代码里不成立 —— 没有「全部」源，只有一条 `listEntriesForSource(source_id)` 数据路径\n3. 后端提取逻辑升级必须配一条回填（UPDATE / 一次性迁移），否则修复只对新数据生效",
+    "## 相关\n\n- 修复范围分保守彻底与最小闭环 —— 同一封面提取问题的修复范围取舍\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) —— 本条是该骨架的一处实例：只改提取逻辑，存量行不会跟上\n- 以前能用最近坏了先查自己改了什么\n- 图片加载失败要可重试并升级到HTTPS"
+  ]
+},
+{
+  "id": "as-concept-中转源不更新，先分清是哪一层",
+  "updatedAt": "2026-06-23",
+  "wikiSlug": "agent-session",
+  "term": "中转源不更新，先分清是哪一层",
+  "oneLiner": "**聚合端「这条源没更新」时，先数一下这条源经过几层中转。** 直连 RSS 只有两段（源站 → 聚合端），中转源（WeRSS 这类：公众号 → 中转服务抓取 → 中转 feed → 聚合端拉取）有三段，**任一环没准点都表现成同一个症状：聚合端没更新**。",
+  "body": [
+    "## 用「同类源的差异」切分故障层\n\n最快的定位手段是看**同一批订阅里哪类源是正常的**：\n\n- 正常的那批（如人人都是产品经理）是**普通 RSS**，绕过了中转层 → 说明聚合端的调度与拉取链路本身没问题。\n- 异常的那批都是**中转源** → 问题在中转层（没抓到 / 正文没补好 / feed 没刷新）或中转的调度没准点。\n\n推论：**「有的源正常」不等于「聚合端正常」**，要先把源按链路类型分组再比较，否则会误把中转层的锅算到聚合端。",
+    "## 相关\n\n- [对照两端要用同一条标识](/wiki/agent-session/as-concept-%E5%AF%B9%E7%85%A7%E4%B8%A4%E7%AB%AF%E8%A6%81%E7%94%A8%E5%90%8C%E4%B8%80%E6%9D%A1%E6%A0%87%E8%AF%86) —— 分层之后，还要用对标识来确认到底有没有更新\n- 以前能用最近坏了先查自己改了什么 —— 时间维度的归因：先排除自己的回归"
+  ]
+},
+{
+  "id": "as-concept-仓库残留会误导对现状的判断",
+  "updatedAt": "2026-06-05",
+  "wikiSlug": "agent-session",
+  "term": "仓库残留会误导对现状的判断",
+  "oneLiner": "**当运行时的东西已经全部来自数据库，仓库里的 `prototypes/`、旧文档、旧测试假数据、旧 migration 默认值仍然存在，会让 agent 反复误判「还有一套本地实现」。** 排查当前行为要直接看运行时真实数据源，不拿本地原型当依据。",
+  "body": [
+    "## 一、五类强误导信号\n\n| 信号 | 为什么误导 |\n|---|---|\n| `prototypes/` 里留着完整 HTML 模板 | 看起来像真实模板，slot 还完整，容易被当成运行时模板来排查 |\n| 历史文档仍在描述「已上线三套内置模板」 | 历史上下文被当成当前事实 |\n| 单测里构造的假数据行 id 就是 `professional/classic/modern` | 像内置模板注册表，其实只是模拟的 DB row |\n| 旧 migration 的 `templateId DEFAULT 'professional'` | 默认值虽已 drop，搜索时仍会看到痕迹 |\n| 目录名仍叫 `lib/templates` | 本身没问题，但配合上面几条就形成「有本地模板系统」的错觉 |",
+    "## 二、要记住的现状表述\n\n> 运行时模板只来自数据库表。`prototypes/` 是历史原型 / 参考文件，不参与渲染。`professional/classic/modern` 若存在，也是数据库 row 的 id，不是本地模板分支。",
+    "## 三、可迁移的判断\n\n- **「代码里有什么」≠「运行时用什么」。** 判断当前架构要查运行时数据源（DB row、真实请求返回），仓库里的文件只能证明「曾经这样」。\n- 历史残留越多，越要显式写一条「现状事实」来抵消——否则每个新来的 agent（或人）都会重踩一次。\n- 自己也要认账：这次被 `prototypes` 误导过，之后排查页面模板直接查 DB 的 `html/css`。",
+    "## 相关\n\n- 面板多出的固定区块先查数据源再改前端 —— 同一取向：先看数据链路，再改渲染\n- 以前能用最近坏了先查自己改了什么 —— 另一种「默认假设」导致的误判\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架在「读代码」场景的实例"
+  ]
+},
+{
+  "id": "as-concept-以前能用最近坏了，先查自己最近的改动",
+  "updatedAt": "2026-06-04",
+  "wikiSlug": "agent-session",
+  "term": "以前能用最近坏了，先查自己最近的改动",
+  "oneLiner": "**「之前没问题、最近出问题」时，默认假设是自己这边的改动造成的回归：先去翻最近几次提交动了哪条链路，而不是先怀疑外部源（网站改版、上游接口、环境）。** 外部源没变，也完全能解释全部症状。",
+  "body": [
+    "## 一、排查顺序\n\n1. 列最近的改动，尤其**最近的修复提交**——修复往往就是下一次故障的起点。\n2. 把症状按「链路换实现的时间点」对齐：症状是跟着某次提交出现的，就是回归。\n3. 只有当自己的改动解释不了现象时，再去怀疑外部。",
+    "## 二、修复补丁常把旧问题换个形态暴露\n\n为修「图片显示成 `![](url)` 字面量」，parser 从输出 Markdown 改成输出 inline HTML，同时加了兜底「渲染前剥掉所有 `<span>`」。图片是好了，但副作用是：靠 `span/section` 组织版式的页面（公众号文章）段落和样式被压平。\n\n教训：补丁解决的是**现象**，如果它的作用面比问题大（这里是全局剥标签），副作用就会以另一种症状出现。改全局渲染规则前，先想清楚有哪些页面依赖被改掉的结构。",
+    "## 三、换存储载体会让数据质量问题从隐性变显性\n\n同一段内容，从 SQLite（只当 app 内部数据用）改成落盘 Markdown 文件后，parser 输出质量就变成了「数据真相」：以前视觉问题不显眼，现在文件里第 18 行就是一整条超长 inline HTML，一眼可见。\n\n推论：**持久化位置/格式变更后，要重新审视上游产物的质量**。问题不是新产生的，只是从看不见变成看得见。",
+    "## 四、连带的表象不要单独修\n\n窗口偏移是这个坏数据的第二后果（超长 inline HTML + 缺横向溢出约束把阅读区撑宽，露出透明背景），不是布局单独写错。先修根因，表象跟着消失。",
+    "## 相关\n\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) —— 本条补上时间维度的归因：先看自己最近改了什么\n- 讲bug先讲现象再讲根因\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B)"
   ]
 },
 {
@@ -376,9 +1010,93 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "oneLiner": "**`500 status code (no body)` 这种「有状态码、无响应体」的报错是平台层（Vercel 函数超时/崩溃）的格式；应用代码的错误都会是带 `{\"error\": \"...\"}` 的 JSON。凭响应体就能先分流排查方向。**",
   "body": [
     "## 一、判断依据\n\n| 形态 | 归属 | 往哪查 |\n|---|---|---|\n| `500 status code (no body)` | **平台**（函数超时 / 崩溃） | 平台函数日志、`maxDuration`、执行耗时 |\n| `{\"error\": \"...\"}` JSON | **应用代码** | 自己代码里的错误分支 |\n\n格式本身是信号：应用层只要还能返回，就一定会带上自己的错误体；返回不了，才是平台在替你回。",
-    "## 二、配套动作\n\n- **先复测线上**：如果生产环境此刻 200（哪怕要 14s），说明是**间歇性故障**，不要按\"服务挂了\"去改代码。\n- 平台函数超时往往和**重试链的总耗时**耦合（见 [轮换要带健康状态记忆](/wiki/agent-session/as-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86)：盲目串行 12 组 × 8s = 96s > 60s 上限）。",
+    "## 二、配套动作\n\n- **先复测线上**：如果生产环境此刻 200（哪怕要 14s），说明是**间歇性故障**，不要按\"服务挂了\"去改代码。\n- 平台函数超时往往和**重试链的总耗时**耦合（见 [轮换要带健康状态记忆](/wiki/agent-session/as-concept-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86)：盲目串行 12 组 × 8s = 96s > 60s 上限）。",
     "## 三、附带的一次误判澄清\n\n「主题闪烁」只在**客户端导航**时出现（Provider 新挂载，异步读 `localStorage`，此时页面已有旧主题状态）；**全页刷新本来就正常**，所以\"我刷新没遇到\"与\"存在这个问题\"并不矛盾。影响极小 → 优先级低。",
-    "## 相关\n\n- 零延迟零尝试说明请求没发出去（同为「从错误形态反推归属层」）\n- GitHub打不开先分清主站与静态资源域名\n- [轮换要带健康状态记忆](/wiki/agent-session/as-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86)\n- 讲bug先讲现象再讲根因\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n\n- 零延迟零尝试说明请求没发出去（同为「从错误形态反推归属层」）\n- GitHub打不开先分清主站与静态资源域名\n- [轮换要带健康状态记忆](/wiki/agent-session/as-concept-%E8%BD%AE%E6%8D%A2%E8%A6%81%E5%B8%A6%E5%81%A5%E5%BA%B7%E7%8A%B6%E6%80%81%E8%AE%B0%E5%BF%86)\n- 讲bug先讲现象再讲根因\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+  ]
+},
+{
+  "id": "as-concept-功能缺失先确认运行的是哪份产物",
+  "updatedAt": "2026-06-22",
+  "wikiSlug": "agent-session",
+  "term": "功能缺失先确认运行的是哪份产物",
+  "oneLiner": "**「我本地 app 还是旧版本、新功能都没有」这类症状，第一件事不是查功能代码，而是确认你实际打开的是哪一份产物：安装目录（`/Applications/*.app`）里的是旧版本，刚构建出的新版本还躺在构建输出目录里。构建完成 ≠ 安装完成。**",
+  "body": [
+    "## 一、为什么容易误判\n\n- 构建流水线（build / test / bundle）与「安装到用户会点开的位置」是两件独立的事。跑完 `build` 只说明产物生成了，不代表 Launchpad/Finder 打开的入口被替换。\n- 打包器打的 bundle 也可能带旧版本号：改版本号后若只重跑了构建、没重跑打包步骤，产物名字对了、内容还是旧的。\n- 用户感知到的是「功能缺失」，很自然会往功能实现上找，而真相在分发链路上。",
+    "## 二、排查顺序\n\n1. 确认打开的绝对路径（`/Applications/xxx.app` vs 构建输出目录里的 bundle）。\n2. 读那份产物的版本号，而不是读源码里的版本号。\n3. 再确认打包步骤是否在版本号变更**之后**重跑过。",
+    "## 三、可迁移的判断\n\n- **「改了代码」和「用户能用到」之间隔着构建、打包、安装三段**，任何一段没跟上，症状都表现为「功能不存在」。\n- 版本号这种元数据要在打包步骤里生成，否则会与实际内容脱节。\n- 覆盖安装前先备份旧版，回滚成本才低。",
+    "## 相关\n\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) —— 同一取向：判断现状要看真正在跑的那一份，而不是「文件里有什么」\n- [改版后旧路由仍指向旧实现](/wiki/agent-session/as-concept-%E6%94%B9%E7%89%88%E5%90%8E%E6%97%A7%E8%B7%AF%E7%94%B1%E4%BB%8D%E6%8C%87%E5%90%91%E6%97%A7%E5%AE%9E%E7%8E%B0) —— 同类：入口指向的还是旧实现\n- 真机白屏先分清Debug包与证书 —— 同类：先分清跑的是哪份产物/哪个构建\n- 以前能用最近坏了先查自己改了什么 —— 另一种默认假设导致的误判"
+  ]
+},
+{
+  "id": "as-concept-合盖仍会睡眠后台任务会被中断",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "合盖仍会睡眠后台任务会被中断",
+  "oneLiner": "**想让 Codex/Claude 这类后台任务跑完，不能靠 agent 自己的设置——它们没有「合盖后继续跑」的开关，控制权在 macOS 电源管理。机器一旦睡眠，后台任务就停/断。**",
+  "body": [
+    "## 做法\n\n- 插电时不自动睡眠：`sudo pmset -c sleep 0`（屏幕仍可 `displaysleep` 自动关）\n- 临时保持唤醒：`caffeinate -dimsu`，直到手动 `Ctrl+C`",
+    "## 关键限制\n\n**MacBook 合盖通常仍会睡眠**，除非接电源 + 外接显示器/键鼠进入 clamshell 模式。否则合盖想继续跑，`caffeinate` 也不一定可靠。\n\n最稳方案：插电、不合盖、屏幕可自动关闭，并设置不自动睡眠。",
+    "## 相关\n\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-concept-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6)\n- 远程控制本机Agent要让bridge跑在本机"
+  ]
+},
+{
+  "id": "as-concept-同一应用开出两个窗口先查单实例限制",
+  "updatedAt": "2026-06-12",
+  "wikiSlug": "agent-session",
+  "term": "同一应用开出两个窗口先查单实例限制",
+  "oneLiner": "**桌面应用出现两个窗口，先怀疑两件事：框架没做单实例限制、旧进程没退出 —— 而不是渲染 bug。** 两次启动（例如重跑 dev 命令）就会留下两个独立进程实例，各自开一个窗口。",
+  "body": [
+    "## 排查顺序：\n\n1. 确认是不是自己又启动了一次（`pnpm tauri dev` 之类）\n2. 看旧实例是否还在运行、窗口是否只是没关闭\n3. 框架默认是否提供 single-instance 限制；没有就补上，避免用户误开多实例\n\n判定要点：两个窗口内容/主题可能不同（一个是你之前的运行、一个是最新启动的），这恰恰说明是**两个进程**，而不是一个进程渲染了两次。",
+    "## 相关\n\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-concept-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5) —— 同类：先分清有几个进程/连接，再动手\n- 以前能用最近坏了先查自己改了什么 —— 先怀疑自己又启动了一次，而不是先改代码\n- 零延迟零尝试说明请求没发出去 —— 同类：从「现象计数」反推归属层"
+  ]
+},
+{
+  "id": "as-concept-备用构建目录不要嵌在-next-目录里",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "备用构建目录不要嵌在 next 目录里",
+  "oneLiner": "**为了在别的端口起第二个 dev server 而改 `distDir` 时，把临时目录放在 `.next` 里面（如 `.next/codex-3001`）会触发 Next 16/Turbopack 的目录写入与 manifest 竞态，页面直接报 `Internal Server Error`（找不到 `routes-manifest.json` / `pages-manifest.json`）。改用 `.next-codex-3001` 这种与 `.next` 同级的目录即可。**",
+  "body": [
+    "## 连带问题\n\n- 备用 distDir 目录若不在 eslint ignore 里（默认只忽略 `**/.next/**`），`eslint .` 会把它当源码扫，产生莫名其妙的 lint 失败。构建产物目录要显式排除。\n- `next.config.mjs` 是 JS 文件，eslint 若没声明 Node globals，直接访问 `process.env` 会报 `no-undef`。",
+    "## 相关\n\n- [功能缺失先确认运行的是哪份产物](/wiki/agent-session/as-concept-%E5%8A%9F%E8%83%BD%E7%BC%BA%E5%A4%B1%E5%85%88%E7%A1%AE%E8%AE%A4%E8%BF%90%E8%A1%8C%E7%9A%84%E6%98%AF%E5%93%AA%E4%BB%BD%E4%BA%A7%E7%89%A9)\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD)"
+  ]
+},
+{
+  "id": "as-concept-对照两端要用同一条标识",
+  "updatedAt": "2026-06-23",
+  "wikiSlug": "agent-session",
+  "term": "对照两端要用同一条标识",
+  "oneLiner": "**判断「这条内容到底有没有入库」时，必须拿系统间共享的那条标识去对照。** 用中转平台的内部 URL 去查聚合端，明明已经入库也会看起来像没更新。",
+  "body": [
+    "## 具体到这次：聚合端存的是 feed 里的 `guid/link`，也就是**公众号原文链接**（`mp.weixin.qq.com/s/...`）；用户拿来对照的是中转平台自己的页面 URL（`/views/article/<id>`）。两者不是同一套标识，于是「查不到 = 没更新」的结论是假的——实际那条已经带正文入库了。",
+    "## 一般化\n\n排查「两端数据不一致」时先问一句：**我用来对照的 key，是不是两端都认的那个 key？**\n\n- 不是同一个 key → 先换 key 重查，再谈有没有 bug。\n- 同一内容在两套系统里有多套 ID（内部 ID / 原始链接 / 中转页 URL）时，以**最靠近内容源的那套**为准。\n\n推论：**表象「没更新」有两个来源——真的没同步，和标识不匹配。** 后者成本极低，应该先排除。",
+    "## 相关\n\n- 中转源不更新先分清是哪一层 —— 排除标识问题后，再去分层定位\n- 以前能用最近坏了先查自己改了什么"
+  ]
+},
+{
+  "id": "as-concept-文件被回退先分清是工具还是并发会话",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "文件被回退先分清是工具还是并发会话",
+  "oneLiner": "**看到「文件被 linter 大幅回退了」，第一步不是去查 linter 配置，而是先确认这个工具到底有没有写文件的能力。** 如果 lint 脚本只是 `eslint .`（没有 `--fix`），那它**不可能改文件**，这条线索当场排除 —— 剩下的嫌疑只有「另一个 session 同时在写同一批文件」。",
+  "body": [
+    "## 分诊顺序\n\n1. **核对被怀疑的工具是否有写能力。** 看脚本本身（有没有 `--fix`、格式化、`checkout`、`restore`）。没有写能力 → 直接排除，不要在这条线上耗时间。\n2. **看工作区还剩哪些改动、哪些文件同时带着多个来源的 diff。** 若一个文件里既有本轮改动、又有别人先前的差异，它就是**并发冲突高风险文件**。\n3. **确认是否有并行 session 在改同一批文件**（同一 worktree 内的多 session 与跨 worktree 是两种不同情形）。",
+    "## 修复原则：按 hunk 合并，不整文件回滚\n\n- **先暂停所有在改同一批文件的 session**，否则边修边被覆盖。\n- 找到另一个 session 的目标改动来源，先保存它的 diff/patch。\n- **不要 `reset` 整个文件** —— 会把别人的改动一起删掉。正确做法是「按 hunks 合并」：保留别人的改动，再把自己的 patch 重新套上。\n- 只碰自己这轮真正改过的文件，不是自己改的文件不动。\n- **验证只跑 `lint` / `build`**，不跑任何带 `--fix`、格式化、`checkout`、`restore` 的命令 —— 那会再制造一次「文件被改回去」。",
+    "## 可迁移的判断\n\n**归因「是谁改的」之前，先确认被怀疑的对象是否具备「改」的能力。** 不具备写能力的工具/命令可以直接从嫌疑名单里划掉；剩下能改文件的只有「并发写者」和「你自己」。这条和「先分清平台错误还是应用错误」是同一个动作：**先用排除法把不可能的分支砍掉，再在剩余分支里找根因。**",
+    "## 相关\n\n- [多Agent协作控制面](/wiki/agent-session/as-topic-%E5%A4%9AAgent%E5%8D%8F%E4%BD%9C%E6%8E%A7%E5%88%B6%E9%9D%A2) —— 并发写冲突是隔离层（一 agent 一 worktree 一 branch）要解决的核心问题\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) —— 同为「先分诊再动手」\n- 以前能用最近坏了先查自己改了什么 —— 另一条归因顺序"
+  ]
+},
+{
+  "id": "as-concept-本机卡顿先清残留开发进程",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "本机卡顿先清残留开发进程",
+  "oneLiner": "**开发时「莫名越来越卡」，常见根因不是当前代码死循环，而是环境被残留进程拖爆：多个端口的 dev server、遗留的 `build` 进程、旧的 `.next-*` 缓存目录同时存在。**",
+  "body": [
+    "## 排查动作\n\n1. 列出端口监听，确认有几个 dev server 在跑（常见于用不同端口做验证后没关）\n2. 停掉遗留的 `build` / `next build` 进程\n3. 删掉旧生成缓存目录（`.next-codex-*`、`.next-*verify` 等）\n4. 只保留当前主服务，再测热请求耗时",
+    "## 注意区分层次\n\n机器层面可能另有高负载来源（如 Xcode / iOS Simulator 编译、WindowServer、编辑器），会和浏览器、拖动、热更新一起变慢。清残留只解决「服务侧」那一份。",
+    "## 相关\n\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-concept-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6)\n- [合盖仍会睡眠后台任务会被中断](/wiki/agent-session/as-concept-%E5%90%88%E7%9B%96%E4%BB%8D%E4%BC%9A%E7%9D%A1%E7%9C%A0%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E4%BC%9A%E8%A2%AB%E4%B8%AD%E6%96%AD) —— 同为机器资源层（睡眠/后台）问题\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-concept-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5)\n- 备用构建目录不要嵌在next目录里"
   ]
 },
 {
@@ -391,7 +1109,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 一、踩的坑\n\n清理 3456 端口时，`lsof -ti:3456` 返回的列表里除了 `next-server`，还混着 **Chrome 的渲染进程**（它们只是*连接*到 3456 的客户端，不是服务端）。一把 `xargs kill -9` 把整个列表都杀了。",
     "## 二、影响与恢复\n\n浏览器主进程（另一个 PID、已运行数天、13 个子进程）**没有被误杀**，被杀的只是渲染进程与 3456 的 socket 连接，Chrome 会自动重建连接。所以这次是虚惊，但同样的手法用在别的端口上完全可能真的关掉用户的东西。",
     "## 三、正确做法\n\n```bash\nlsof -i:3456          # 先看 COMMAND / PID / 连接方向\nkill <next-server 的 PID>   # 只杀服务进程\n```\n\n`-t` 只输出 PID，丢掉了判断依据；排查端口占用时不要用它一把梭。",
-    "## 相关\n\n- 讲bug先讲现象再讲根因\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6)"
+    "## 相关\n\n- 讲bug先讲现象再讲根因\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-concept-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6)\n- [同一应用开出两个窗口先查单实例限制](/wiki/agent-session/as-concept-%E5%90%8C%E4%B8%80%E5%BA%94%E7%94%A8%E5%BC%80%E5%87%BA%E4%B8%A4%E4%B8%AA%E7%AA%97%E5%8F%A3%E5%85%88%E6%9F%A5%E5%8D%95%E5%AE%9E%E4%BE%8B%E9%99%90%E5%88%B6) —— 同类：先分清有几个进程，再动手"
   ]
 },
 {
@@ -403,11 +1121,23 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## 排查顺序\n\n| 顺序 | 检查 | 说明 |\n|---|---|---|\n| 1 | **类名是否匹配** | 重写组件（如 `page.tsx`）后，CSS 若停留在旧版类名上（旧版 `grid` 卡片类 vs 新版索引页类），规则再多也全部不命中 |\n| 2 | 编辑历史是否弄丢了样式 | 用脚本改写 CSS 时容易把规则插到顶部或覆盖掉主体，导致「文件在、样式没了」 |\n| 3 | 文件权限 | `-rw-------`（600）这类权限确实可能让构建进程读不到，但它是**次要嫌疑**，放在类名之后 |\n\n**反面教材**：先按权限和 import 排查，得出「一切看起来正常」的结论；真正原因是改造索引页时把新样式写进了另一个文件（后又删除），而 `wiki.css` 从未同步到新版类名。",
     "## 延伸：截图 ≠ 代码（HMR 中间态）\n\n缓存/热更新不只是「看不到最新」，也可能让你**看到不存在的中间态**：dev server 的 HMR 缓存会让页面停留在上一版，于是「代码已回退」而截图仍是旧样子，双方据此互相误判（09-07 13:36 的复盘：用户以为 agent 又改错了，直接要求「回到最初状态」）。\n\n**因此判断样式是否生效，以代码为准，不以截图为唯一依据**；看到的结果与刚写的代码不符时，先怀疑是中间态（刷新/重启 dev server 再确认），别急着改第三版。",
-    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 同一习惯：先确认「是不是同一件事」，再往下查\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6) —— 同类经验：先排除最容易错的那一层\n- 讲bug先讲现象再讲根因 —— 沟通层：先对齐「看到的坏」是什么\n- 评审设计可行性先问方案再定难度 —— 同轮教训的另一半：改前先复述理解"
+    "## 相关\n\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 同一习惯：先确认「是不是同一件事」，再往下查\n- [高负载发烫先排除负载而非硬件](/wiki/agent-session/as-concept-%E9%AB%98%E8%B4%9F%E8%BD%BD%E5%8F%91%E7%83%AB%E5%85%88%E6%8E%92%E9%99%A4%E8%B4%9F%E8%BD%BD%E8%80%8C%E9%9D%9E%E7%A1%AC%E4%BB%B6) —— 同类经验：先排除最容易错的那一层\n- 讲bug先讲现象再讲根因 —— 沟通层：先对齐「看到的坏」是什么\n- 评审设计可行性先问方案再定难度 —— 同轮教训的另一半：改前先复述理解\n- 图片加载失败要可重试并升级到HTTPS —— 同类：先分清「本来就没有」与「这次没加载出来」"
   ]
 },
 {
-  "id": "as-concept-讲 bug 先讲现象，再讲根因",
+  "id": "as-concept-真机白屏先分清-Debug-包与证书",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "真机白屏先分清 Debug 包与证书",
+  "oneLiner": "**iOS 真机装上 App 却打不开/白屏/闪退，先别怀疑业务代码。两个最平凡的原因：一是证书没被手机信任（iPhone 拦截），二是装的是 Debug 包。**",
+  "body": [
+    "## Debug 包的坑\n\nDebug 包不内置完整 JS，打开后会去开发机找 Metro dev server。默认地址是 `localhost:8081`——真机上的 `localhost` 是手机自己，不是 Mac，所以必然连不上。\n\n- 让 Metro 监听局域网：以 `--host lan` 启动，手机通过 Mac 局域网 IP 访问。\n- 或打 Release 包，让 App 不依赖 Metro、像普通 App 一样直接打开。",
+    "## 判断顺序\n\n1. 证书是否已被信任\n2. 装的是 Debug 还是 Release\n3. 若是 Debug：Metro 是否在跑、地址是否可达",
+    "## 相关\n\n- [功能缺失先确认运行的是哪份产物](/wiki/agent-session/as-concept-%E5%8A%9F%E8%83%BD%E7%BC%BA%E5%A4%B1%E5%85%88%E7%A1%AE%E8%AE%A4%E8%BF%90%E8%A1%8C%E7%9A%84%E6%98%AF%E5%93%AA%E4%BB%BD%E4%BA%A7%E7%89%A9)\n- 图片加载失败要可重试并升级到HTTPS —— 真机上的加载失败也可能是网络/证书层\n- 远程控制本机Agent要让bridge跑在本机"
+  ]
+},
+{
+  "id": "as-concept-讲-bug-先讲现象，再讲根因",
   "updatedAt": "2026-09-07",
   "wikiSlug": "agent-session",
   "term": "讲 bug 先讲现象，再讲根因",
@@ -415,7 +1145,29 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## 两轮追问暴露的落差\n\n| 轮次 | 用户说 | 说明 |\n|---|---|---|\n| 17:07 | 「没懂你目前讲到的 bug 的修复方案是什么」 | 上一轮只讲了\"哪里坏\"（根因层），没讲怎么修 |\n| 17:10 | 「不是，我是还是不懂你的那里坏是什么」 | 换成讲根因 + CSS 变量后仍没懂 —— 要的是**肉眼可见的症状** |\n\n直到第三轮改口径「只讲肉眼可见的现象，不谈 CSS」，对话才对上。**用户说的\"坏\"是现象，不是根因。**",
     "## 现象层怎么写\n\n每个 bug 用四段式：\n\n1. **你在**：具体页面 / 屏幕宽度（如 `/wiki/pm/rice`、窗口 760–1100px）\n2. **你想**：期望发生什么\n3. **你做**：触发的操作\n4. **实际**：看到的错误结果（可配简单示意图）\n\n例：「点左上角 `←`，没回到有那两张大卡片的 `/wiki`，而是被丢到 PM 这套的第一个词条。」\n\n**别用实现术语代替现象**：`--wiki-sidebar-w` 语义混乱、`left` 走 fallback `260px` —— 这些是根因，不是\"坏\"。",
-    "## 相关\n\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同类：先确认现象 / 事实，再往下推理\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) —— 用户纠正 agent 理解偏差的同一模式\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5) —— 现象先行的另一个实例"
+    "## 相关\n\n- 样式丢失先核对类名再怀疑缓存与权限 —— 同类：先确认现象 / 事实，再往下推理\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) —— 用户纠正 agent 理解偏差的同一模式\n- [杀端口要区分服务端与客户端连接](/wiki/agent-session/as-concept-%E6%9D%80%E7%AB%AF%E5%8F%A3%E8%A6%81%E5%8C%BA%E5%88%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5) —— 现象先行的另一个实例"
+  ]
+},
+{
+  "id": "as-concept-远端主线可能与本地主线无共同祖先",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "远端主线可能与本地主线无共同祖先",
+  "oneLiner": "**看到「远端 main 很旧」时，先别假设是普通分叉。用 `git merge-base main origin/main` 判断：找不到共同祖先，说明它们是两套独立历史（例如远端 main 是旧发布线，本地 main 是重写后的新主线）。这种情况不能普通 merge。**",
+  "body": [
+    "## 处理顺序\n\n1. 确认远端默认 HEAD 到底是哪条分支（可能已经不是 `main`，而是 `2.0` 之类）\n2. 先备份旧 `origin/main`\n3. 再用 `--force-with-lease` 或改默认分支策略处理",
+    "## 相关\n\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD)\n- 以前能用最近坏了先查自己改了什么\n- [多Agent协作控制面](/wiki/agent-session/as-topic-%E5%A4%9AAgent%E5%8D%8F%E4%BD%9C%E6%8E%A7%E5%88%B6%E9%9D%A2)"
+  ]
+},
+{
+  "id": "as-concept-需要认证的命令不要并行执行",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "需要认证的命令不要并行执行",
+  "oneLiner": "**并行跑两条需要登录的命令，两条都会各自发现「当前未登录」并各自发起一次授权流程，于是浏览器弹出两个授权页。正解是先单独跑一条确认登录态（如 `whoami`），再跑下一条。**",
+  "body": [
+    "## 症状与根因\n\n- 症状：一次操作后浏览器开出两个授权 tab。\n- 根因：`vercel whoami` 与 `vercel env ls` 并行，二者都检测到未登录，各自触发 device login。",
+    "## 相关\n\n- [一次性凭证拿到就落盘](/wiki/agent-session/as-concept-%E4%B8%80%E6%AC%A1%E6%80%A7%E5%87%AD%E8%AF%81%E6%8B%BF%E5%88%B0%E5%B0%B1%E8%90%BD%E7%9B%98) —— 同属「一次性流程不能被重复触发」\n- 零延迟零尝试说明请求没发出去\n- 以前能用最近坏了先查自己改了什么"
   ]
 },
 {
@@ -426,8 +1178,8 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "oneLiner": "**前端\"总是显示一个不该有的卡片\"，且不随切换条件变化时，问题多半在数据链路而不是渲染逻辑：请求被转发到了固定实例，而该实例的数据里包含了对端实例的信息。**",
   "body": [
     "## 一、判断信号\n\n- 该区块**永远存在**，不跟随你访问哪个端口/参数变化 → 说明不是前端条件渲染写错，而是**输入数据里本来就有它**。\n- 面板的代理把某类请求**转发到固定的一个实例**（硬编码），而两个实例在服务端**互设为 peer** → 返回的数据天然带着对端账号信息，前端只能把它渲染出来。\n\n**所以\"去掉显示\"最干净的做法是断掉数据源里的对端部分，而不是在前端加过滤。** 顺带清掉那些为了区分\"分区\"而加的标识 chip，避免同一个困惑再次出现。",
-    "## 二、通用规则\n\n**当\"显示不对\"而渲染条件看起来没错时，先去核对接口实际返回了什么。** 前端只能显示它拿到的东西；把链路里混入的多余数据断掉，比在展示层打补丁更彻底，也不会留下\"下次换个人又漏出来\"的隐患。",
-    "## 相关\n\n- [跨源取数据要靠自建代理](/wiki/agent-session/as-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86)（同一天的另一处\"看起来是前端，其实是链路\"）\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 二、通用规则\n\n**当\"显示不对\"而渲染条件看起来没错时，先去核对接口实际返回了什么。** 反过来「少了东西」也一样：某类数据只剩几条时，先确认数据源里真的只有这几条（而不是前端过滤或自己改坏的），再谈修法。 前端只能显示它拿到的东西；把链路里混入的多余数据断掉，比在展示层打补丁更彻底，也不会留下\"下次换个人又漏出来\"的隐患。",
+    "## 相关\n\n- [跨源取数据要靠自建代理](/wiki/agent-session/as-concept-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86)（同一天的另一处\"看起来是前端，其实是链路\"）\n- [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF)\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
   ]
 },
 {
@@ -440,7 +1192,56 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 机制：无风扇机型把功耗直接变成体感温度\n\nMacBook Air 一类的无风扇机器，十几瓦的**持续**功耗没有风扇可以吹走，只能靠机身散热，于是直接表现成「明明没干什么却很烫」。因此体感温度高 ≠ 负载高，但持续功耗是充分条件。\n\n一个可用的分界线：**系统没有报过热或降频、电池温度正常 → 属于「负载很高所以烫」，不像硬件问题。**",
     "## 排查顺序（从最可能到最不可能）\n\n| 层 | 典型表现 |\n|---|---|\n| 前台应用 | 播放视频的浏览器页面进程可以长期占住 30%–60% CPU |\n| **后台应用（最易漏）** | 窗口已关但进程还在，仍在持续吃 GPU；「不在前台」不等于不耗电 |\n| 系统进程 | 窗口服务类进程（合成/绘制）会随页面数量一起涨 |\n| 常驻服务脚本 | 开发/同步类常驻进程会间歇冲到高 CPU |\n| 内存压力 | 压缩内存升高意味着换页开销也在消耗 |\n\n**排查动作本身要留证据：** 先记录当前功耗/温度基线，退出应用后再看一次，才有对照。否则只是「感觉好像凉了」。",
     "## 判断规则\n\n- 退出高负载进程后 **3–5 分钟内迅速降温** → 主因确认是负载，无需维修。\n- 降温不明显、且系统出现降频/过热告警 → 才转向硬件。",
-    "## 相关\n\n- [缓存命中率](/wiki/agent-session/as-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) —— 同属本机排障，共同的判断习惯是**先排除最平凡的解释，再怀疑异常**。"
+    "## 相关\n\n- [缓存命中率](/wiki/agent-session/as-concept-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) —— 同属本机排障，共同的判断习惯是**先排除最平凡的解释，再怀疑异常**。\n- [合盖仍会睡眠后台任务会被中断](/wiki/agent-session/as-concept-%E5%90%88%E7%9B%96%E4%BB%8D%E4%BC%9A%E7%9D%A1%E7%9C%A0%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E4%BC%9A%E8%A2%AB%E4%B8%AD%E6%96%AD) —— 同为「机器层面的功耗/睡眠」而非代码问题\n- [本机卡顿先清残留开发进程](/wiki/agent-session/as-concept-%E6%9C%AC%E6%9C%BA%E5%8D%A1%E9%A1%BF%E5%85%88%E6%B8%85%E6%AE%8B%E7%95%99%E5%BC%80%E5%8F%91%E8%BF%9B%E7%A8%8B) —— 另一类持续负载：残留开发进程"
+  ]
+},
+{
+  "id": "as-topic-UI原型保真",
+  "updatedAt": "2026-07-05",
+  "wikiSlug": "agent-session",
+  "term": "UI原型保真",
+  "oneLiner": "**做有原型的界面时，原型是唯一真源：要求「完全忠于原型」，不接受「差不多」的近似替代。** 这个主题下的几条判断：",
+  "body": [
+    "## - **逐片对照，不整块重写**：把浮层按家族（菜单/弹窗/下拉/编辑器菜单）一片片审，每片都对照原型的具体数值（尺寸、间距、icon、定位）。\n- **共享 primitive 优先**：公共行为（白底、外点关闭、右下弹出、开合过渡、icon）收敛到一处，避免逐页补丁互相打架。见 浮层要收敛到一个共享primitive。\n- **不用替代物**：原型里有的 icon 就用真的 icon，不用文字符号/emoji；原型没有毛玻璃就不加毛玻璃。\n- **考虑周边状态**：浮层弹出要顾及 AI 栏打开、侧栏折叠等状态下的定位与夹取。\n- **判断机制而非抄常量**：原型 JS 里的阈值若与用户要的机制冲突（如固定像素 vs 元素可见性），按用户要的机制实现。见 [显示阈值应按元素可见性而非固定像素](/wiki/agent-session/as-concept-%E6%98%BE%E7%A4%BA%E9%98%88%E5%80%BC%E5%BA%94%E6%8C%89%E5%85%83%E7%B4%A0%E5%8F%AF%E8%A7%81%E6%80%A7%E8%80%8C%E9%9D%9E%E5%9B%BA%E5%AE%9A%E5%83%8F%E7%B4%A0)。",
+    "## 相关\n\n- 修复范围分保守彻底与最小闭环\n- 一次循环只做一个可体验的v1能力\n- [折叠动画要有收起态过渡](/wiki/agent-session/as-concept-%E6%8A%98%E5%8F%A0%E5%8A%A8%E7%94%BB%E8%A6%81%E6%9C%89%E6%94%B6%E8%B5%B7%E6%80%81%E8%BF%87%E6%B8%A1)"
+  ]
+},
+{
+  "id": "as-topic-几何题-3D-化的题库定位",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "几何题 3D 化的题库定位",
+  "oneLiner": "**几何题的产品形态应该是「题库播放器」，不是自由探索平台：组合分支已经是题库的标准形态，截面分支同样适合题库，只是「预设立方体」这个壳不对。题目形态不止参数体 / 方块体两类；基础图形只有服务于刷真题才有意义。**",
+  "body": [
+    "## 一、组合分支 = 题库播放器的标准形态\n\n判断依据是页面已经长成了题库该有的样子：题号、题干、页码、组合/分解进度、颜色图例、固定的题目数据。到这一步它**已经不是自由平台**，而是题库产品。",
+    "## 二、截面分支也适合题库，错的是「预设立方体」\n\n- 现状：每个 chip 是**自由预设体**，用户自己选方向、偏移、倾角 → 更像工具，不像题库讲解。\n- 应该变成：**每道题自带一个模型 + 一组切面步骤**。\n- 截面的多样性不是障碍，反而说明它适合题库化 —— 每道截面题本来就有固定的立体和固定的切法。",
+    "## 三、题库化的原则：模型与切法由题目决定，用户不选\n\n> **题目加载什么模型，不让用户选；题目需要什么切面，不让用户猜；用户只拖动 / 点击看过程。**\n\n题库只要记录四件事：立体由哪些基本体组成、正确切面在哪里、截面长什么样、哪个选项匹配。",
+    "## 四、题目形态不止两类\n\n原以为截面题只有「参数体」和「方块堆叠」两类；实测原题（题 80）**中间有一面是斜的，不是正方体堆叠** → 必须有第三类：**自定义多面体（顶点 + 面 + P/Q/R 三点切面）**。\n\n按方块堆叠去表达斜面题，即使看起来「能跑」，也是错的 —— **类型先对了才算还原**，近似模型不等于原题。",
+    "## 五、基础图形的定位：服务于真题才有意义\n\n- 用户的根本需求是**刷题、练真题**，不是玩基础几何。\n- 简单图形不需要人工建模，**这类需求本身意义不大**；难点在复杂模型。\n- 所以基础图形只能是「真题不会时的辅助演示」（如空心圆柱斜切看不懂 → 先看 30 秒基础演示），不能作为主产品。\n- 判断标准：**和真题绑定时才有意义**；脱离真题做开放工具，用户价值会弱。",
+    "## 相关\n\n- 一次循环只做一个可体验的v1能力 —— 先做第一版标准题库，而不是继续做自由平台\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) —— 「服务于真题」就是用户能感知的价值所在\n- 引擎不做建模器 —— 复杂模型交给外部工具建模，引擎只负责切与渲染"
+  ]
+},
+{
+  "id": "as-topic-多Agent协作控制面",
+  "updatedAt": "2026-06-21",
+  "wikiSlug": "agent-session",
+  "term": "多Agent协作控制面",
+  "oneLiner": "**多 agent 协作的核心矛盾不是「文档不够多」，而是「协作控制面分裂」**——不同 agent 从不同入口进来，读到不同的状态和知识，于是每次都得靠人转述。",
+  "body": [
+    "## 症状：开了多 agent，总要人工告诉别的 agent 当前进度、规则变了没；写了文档但别处没更新；做过的东西反复造轮子。",
+    "## 问题定义收敛成四层\n\n| 层 | 解决什么 | 关键词 |\n|---|---|---|\n| 0 统一入口 | Claude / Codex / Cursor 读到的规则不一样 | 所有 agent 读同一套规则 |\n| 1 共享当前进度 | 谁在干什么、做到哪、下一个怎么接 | 当前、临时、跨 worktree |\n| 2 独立协作 | 多 agent 不互相踩代码、不混改、不覆盖 | 一人一个 worktree + branch |\n| 3 复用知识 | 做过的找不到、相似 bug 反复踩 | 长期知识、可搜索、跟 Git 走 |\n\n这四层不要混：**把「当前状态」写进「长期知识」，或反过来，都会让下一层失真。**",
+    "## 每层对应一种文件，职责单一\n\n```\n入口层：agent.md / AGENTS.md / CLAUDE.md    → 统一入口\n当前层：~/.agent-state/<proj>/STATUS.md     → 现在谁在做什么\n隔离层：git branch + git worktree           → 并行施工隔离\n历史层：journal.md                          → 为什么当时这么做\n知识层：.agent/registry/                    → 组件 / bug / 惯例索引\n复盘层：lessons/                            → 心智模型怎么改\n规格层：specs/ + .specify/                  → 要做什么、怎么做\n```\n\n一句话：**status 管现在，journal 管过去，registry 管可复用，lesson 管教训，branch/worktree 管隔离。**\n\n- `status.md` 不是日志，是「当前战场地图」：当前分支 / 目标 spec / 正在动的文件 / 不要碰的文件 / 最近一次验证结果 / 阻塞点 / 下一步 1-3 件 / 最后更新人。要短、可覆盖。\n- `registry` 不要写成百科。组件条目只回答「干什么、在哪、什么时候复用、有什么坑」；bug 条目必须写「症状 → 根因 → 修法 → 防复发信号」，只写「修好了」等于没写。\n- `lesson` 不要被 registry 顶替：registry 负责「下次能搜到」，lesson 负责「为什么会发生、之后心智模型怎么改」。复杂 bug 可以两边都写。",
+    "## 跨 worktree 的依赖与共享配置\n\n隔离层只解决「不互相踩」，不解决「怎么共享」。依赖的分发规则：\n\n- 共享依赖、vendor 库、共享配置**默认落 main**，feature 分支通过 `merge` / `rebase` main 拿到；\n- **worktree 之间只共享提交，不共享工作区**：staged 但未 commit 的依赖不算进仓库，别的 worktree 看不到 —— 所以「我装好了」不等于「别人有了」；\n- `node_modules` 不进 git；国内项目不建议外部 CDN，依赖应本地化 vendor。\n\n配套的防撞车机制（隔离层的执行细则）：开工前写 session 卡、声明 `touching` 与 `do-not-touch`、看到别人声明在改的文件就不碰、**一 agent 一 worktree 一 branch**。",
+    "## 版本线与分支模型\n\n`main` = 稳定发布版；大版本用一条**集成分支**（如 `1.0version`）承载；小功能分支一律从集成分支开出，做完合回集成分支；集成分支整体测试稳定后，再一次性 `merge` 进 `main`。\n\n```\nmain\n  └─ 1.0version            ← 大版本集成区\n       ├─ 1.0-toc\n       ├─ 1.0-ai-panel\n       └─ 1.0-settings\n```\n\n- 不要让所有人直接改 `main`，也尽量不要所有人直接改集成分支 —— 集成分支是汇总区，不是公共工作区。\n- 多个分支各有未提交改动时，**不要把未收口的状态直接塞进 `main`**：先把各自的改动提交或明确丢弃，再评估大功能分支。\n- 落后的分支不要在落后状态上继续堆，基于最新基线重开一个小分支单独合。\n- 「在分支中开分支」= 从当前点开新分支：在 worktree 里 `git switch -c <new>`，或从主目录 `git worktree add <dir> -b <new> <base>`（后者更适合一 agent 一 worktree，不占用原 worktree）。",
+    "## 推倒重来之前：先开保险分支，不要拿 stash 当主备份\n\n要 `reset --hard upstream/main` + 重装依赖这种「推倒重来」时，**第一步不是 pull，而是先把本地改动完整落成提交**：\n\n```bash\n git switch -c codex/backup-before-rebuild\n git add -A\n git commit -m \"wip: save local work before rebuild\"\n# 之后才切回 main、fetch upstream、reset --hard、重装依赖\n```\n\n- `git stash` 不适合做主备份：它不覆盖未跟踪的新文件，也不形成一个可随时回来挑改动的基线。\n- 备份分支的价值是「可挑拣」：重建后从 backup 分支里按需重新合入需要的改动（登录页修正、schema 文档、skill、测试……），而不是全量回放。\n- 推倒重来前先清点本地有哪些未提交改动（含未跟踪文件），确认都进了备份分支再 reset。",
+    "## 领先/落后只是提交计数，不是先进程度\n\n```\nA---B---C main\n \\\n  D---E old-branch\n```\n\nold-branch 对 main「领先 2」，同时「落后 2」。**领先只说明有 main 没有的提交**，不等于更新、更先进，也不代表应该直接合。\n\n所以判断一条老分支要不要处理，**不能看领先数**，要看 diff 内容和产品是否还需要：可能是（a）有价值但还没合、（b）已被别处用另一种方式实现、（c）旧实验/废弃，可直接清理。",
+    "## worktree 的两个坑\n\n- **分支不是目录，不能 `cd` 到分支**。worktree 已经把每条分支 checkout 到一个固定文件夹，要进的是文件夹。在主目录里 `git checkout <branch>` 会被拒绝，因为该分支已被某个 worktree 占用 —— 这正是「两个目录不会同时改同一条分支」的保护。看别的 agent 的改动用 `cd <worktree>` 或 `git -C <worktree> diff`。\n- **`.git/worktrees/<旧名>` 是 Git 内部元数据，别手删**。分支改名后元数据目录名可能还是旧的（旧名对应新分支），Git 照样能对应上；worktree 目录里的 `.claude/settings.local.json` 是该 worktree 自己的配置，也不是旧分支残留。",
+    "## 入口分裂的典型症状\n\n根因往往很蠢：`AGENTS.md` 里写「事实进 `.Codex/memory/`」，但目录里实际存在的是 `.claude/`。于是：\n\n- 入口索引指向**不存在的路径** → 死链；\n- Codex 读 `AGENTS.md`、Claude 读 `CLAUDE.md`，**两个 agent 进来读到两套世界**；\n- 规则「写了」但没生效，因为没人指向它。\n\n修法是让 `AGENTS.md` 和 `CLAUDE.md` 退化成**薄壳**，都指向同一份真实源（`.agents/START_HERE.md` 或 `agent.md`）。工具专属配置才留在 `.claude/` / `.codex/`。",
+    "## `.agents` 和 `.agent` 为什么不是重复\n\n```\n.agents = 工具箱（能力目录）   → 有哪些 skill / 命令可以调用，如 speckit-*\n.agent  = 项目白板（协作目录） → 现在什么状态、谁在哪个分支、修过什么 bug、有什么可复用\n```\n\n有 `.agents` 仍然需要 `.agent`：能力目录不存当前进度、不存 worktree 状态、不存 bug/组件索引。名字太像时，协作目录可改名 `.agent-collab/`。",
+    "## Git 能替代多少\n\nGit 擅长回答：改了什么（`diff`）、谁在哪个分支（`branch`/`log`）、文件历史（`log -- path`）、bug 哪次引入/修复（`bisect`/`blame`）、哪些没合并。\n\nGit 不擅长回答：**「现在下一个 agent 该接什么」「这个 bug 当时为什么这么修」「这个组件能不能复用」「这条规则刚变了要不要重读」「这个分支卡在用户拍板还是测试失败」**。\n\n所以分支表、最近变更、bug 索引都能部分由 Git 生成（写好 commit message，`git log --grep` 就是 bug 历史库），但**「当前意图」和「未完成状态」Git 不知道**，`STATUS.md` 不能省。",
+    "## 同一 worktree 内的并发写冲突\n\n隔离层（一 agent 一 worktree）只挡住「跨 worktree 踩代码」，**挡不住同一个工作区里并行跑多个 session** —— 同一批文件被两个 session 同时写时，症状是「我的改动被回退了 / 文件被 linter 改了」。\n\n分诊：**先确认被怀疑的工具是否有写能力**（lint 脚本只有 `eslint .`、没有 `--fix`，就不可能是它），再去看哪些文件同时带着多个来源的 diff —— 那些就是冲突点。\n\n修复：暂停所有在改同一批文件的 session → 保存对方的 diff → **按 hunks 合并，不 `reset` 整个文件**（否则删掉的是别人的改动）→ 只跑 `lint`/`build` 验证，不跑任何带 `--fix`、格式化、`checkout`、`restore` 的命令。\n\n结论：**并发写冲突要用「声明 + 按 hunk 合并」处理，不要用「整文件回滚」。** 更根本的解法是让每个 session 有明确的文件所有权（`touching` / `do-not-touch`），同一时刻只有一个 session 写同一文件。",
+    "## 与 project-setup skill 的关系\n\n原理相同：都是先建项目协作骨架，让 agent 不靠对话记忆工作。区别是规模——从「单 session 项目初始化」升级成「多 agent / 多 worktree 协作系统」。",
+    "## 相关\n\n- [远端主线可能与本地主线无共同祖先](/wiki/agent-session/as-concept-%E8%BF%9C%E7%AB%AF%E4%B8%BB%E7%BA%BF%E5%8F%AF%E8%83%BD%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%B8%BB%E7%BA%BF%E6%97%A0%E5%85%B1%E5%90%8C%E7%A5%96%E5%85%88) —— 重建/重置工作区前要先分清两套历史\n- [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) —— 入口统一之后，自动化 brief 还得有工具适配层\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) —— 同样是「按职责分层，不混」的思路\n- [远端主线可能与本地主线无共同祖先](/wiki/agent-session/as-concept-%E8%BF%9C%E7%AB%AF%E4%B8%BB%E7%BA%BF%E5%8F%AF%E8%83%BD%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%B8%BB%E7%BA%BF%E6%97%A0%E5%85%B1%E5%90%8C%E7%A5%96%E5%85%88) —— 推倒重来前先确认远端与本地是不是同一套历史\n- [文件被回退先分清是工具还是并发会话](/wiki/agent-session/as-concept-%E6%96%87%E4%BB%B6%E8%A2%AB%E5%9B%9E%E9%80%80%E5%85%88%E5%88%86%E6%B8%85%E6%98%AF%E5%B7%A5%E5%85%B7%E8%BF%98%E6%98%AF%E5%B9%B6%E5%8F%91%E4%BC%9A%E8%AF%9D) —— 本节的分诊与修复细则"
   ]
 },
 {
@@ -458,7 +1259,7 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 四、紧张是好信号，别等它消失\n\n> \"立刻马上做正事时还是会紧张、怯于做事\"\n\n紧张的 90% 来自**\"正事\"这个词太模糊**。大脑对模糊任务会恐惧。\n所以把模糊词换成**极其具体、物理上能完成的动作**：\n\n- ❌ \"我要开始做正事\"\n- ✅ \"打开那个文件\"\n- ✅ \"把标题写上去\"\n- ✅ \"写第一句话，哪怕写得烂\"\n\n**只做这一个动作。做完就算赢。**\n\n> 关键认知：**别等紧张消失再开始。紧张只会在开始之后消退，不会在开始之前。**",
     "## 五、遇到难题想逃避\n\n你原话：*\"完了一遇到难题还是想逃避怎么办，就像每一道数学大题那样，完全思考不进去\"*\n\n未完成。**这是「待探索」钩子**——目前有框架（环境/产出锚点/具体动作），\n但缺\"面对具体难题时的切入法\"。",
     "## 待探索\n- 难题逃避的具体解法（和\"具体动作降门槛\"不同，难题本身没有降门槛空间）\n- 那条\"总结上述方法论给我吧\"——方法论有了，缺的是**坚持机制**",
-    "## 相关\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) — 产出锚点 vs 结果锚点，本质也是「造对照」\n- [先定位归属层再动手](/wiki/agent-session/as-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
+    "## 相关\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) — 产出锚点 vs 结果锚点，本质也是「造对照」\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 本条是该骨架的一处实例"
   ]
 },
 {
@@ -475,9 +1276,27 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 三、实际案例读数（投流看板）\n\n| 指标 | 数值 | 环比 | 读数 |\n|---|---|---|---|\n| 消耗 | ¥4,378.77 | ▼3.51% | 投入端在收缩 |\n| 成交订单 | 30 单 | ▲50% | 单量在涨 |\n| 成交金额 | ¥7,706 | ▲72.39% | |\n| 客单价 | ¥146.83 | ▼35.29% | **⚠️ 单笔变小** |\n| 整体 ROI | 1.75 | ▲76.77% | |\n| 净成交 ROI | 1.69 | ▲77.89% | 与整体差 0.06，风险可控 |\n\n**核心信号：少花钱、多办事、效率提升**，但客单价大幅下滑 ——\n要查是低价品占比上升，还是优惠策略变了。",
     "## 四、为什么必须看自然流量/内容/用户画像\n\n你原来只看了投流数据。补上这三块才能回答：\n\n- **自然流量**：区分\"产品自己长\"和\"买来的量\"，付费占比过高不健康\n- **内容数据**：解释为什么转化变了（内容质量影响转化率）\n- **用户画像**：客单价下滑到底是人群结构变了，还是同一群人买便宜了\n\n> 只看投流指标 = 只看漏斗最后一段，做不了归因。",
     "## 五、为什么数据不可替代（四条理由）\n\n> 提出任何产品主张前先问：**这个效果能否被量化、用什么指标量化？无法量化的主张，说服力等于零。**\n\n| 理由 | 说明 |\n|---|---|\n| 量化产品价值 | 价值主张不能被量化，就无法评估好坏、无法争取资源 |\n| 避免经验局限 | 没有关键指标只能凭感觉，受个人经验局限，难以持续做对决策 |\n| 统一团队认知 | 核心指标用来表述产品现状，所有人都能明确理解 |\n| 支撑决策与复盘 | 数据贯穿分析、洞察、决策，是产品动作的导航 |\n\n核心命题：**数据不会被观点打败，数据只能被数据打败。** 别人拿数据得出的结论跟你的直觉对不上时，你也必须拿数据反驳。",
-    "## 六、LTV 的算法链路\n\n```\n先算留存数值 → 每阶段付费率、付费金额 → 用户总价值 = 留存用户 × 付费率 × 付费金额\n```\n\n**留存只是中间量。** 把留存率乘上每阶段的付费率与付费金额，才得到一个能用于决策的金额口径 —— 这也是「指标必须接到价值上」的具体形态（见 [北极星指标要量价值闭环](/wiki/agent-session/as-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF)）。",
+    "## 六、LTV 的算法链路\n\n```\n先算留存数值 → 每阶段付费率、付费金额 → 用户总价值 = 留存用户 × 付费率 × 付费金额\n```\n\n**留存只是中间量。** 把留存率乘上每阶段的付费率与付费金额，才得到一个能用于决策的金额口径 —— 这也是「指标必须接到价值上」的具体形态（见 [北极星指标要量价值闭环](/wiki/agent-session/as-concept-%E5%8C%97%E6%9E%81%E6%98%9F%E6%8C%87%E6%A0%87%E8%A6%81%E9%87%8F%E4%BB%B7%E5%80%BC%E9%97%AD%E7%8E%AF)）。",
     "## 待探索\n- 每次只看当天数据，缺**趋势视角**：环比/同周期对比该怎么建",
-    "## 相关\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)"
+    "## 相关\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)"
+  ]
+},
+{
+  "id": "as-topic-本地优先知识产品的架构演进",
+  "updatedAt": "2026-06-25",
+  "wikiSlug": "agent-session",
+  "term": "本地优先知识产品的架构演进",
+  "oneLiner": "本地优先知识产品的架构演进",
+  "body": [
+    "## # 本地优先知识产品的架构演进",
+    "## 结论\n\n> 从本地单机 App 走向多端成熟产品，关键不是「要不要服务器」，而是把边界划成\n> **云端加工厂 + 本地主仓库**；并且从第一天就把 AI 执行层抽成可替换的接口，\n> 产品形态改在前端，数据模型改在后端。",
+    "## 一、Agent 先变成可执行入口，再动数据模型\n\n原状态：侧边栏四个功能入口（订阅 / 笔记 / 剪藏 / 沉淀），AIPanel 已有对话，\n但工具只能**读**（读笔记、读剪藏、搜索），不能创建和整理。\n\n演进顺序：\n\n| 阶段 | 内容 | 是否动数据模型 |\n|---|---|---|\n| P0 | 把 `createNote` / `saveClip` / `addSubscription` 暴露给 AI tools，让对话能创建笔记、存剪藏、加订阅、搜索后整理成新笔记 | 否（改 AIPanel 与 tools 的接线） |\n| P1 | 侧边栏信息架构改成 `Agent` / `Inbox` / `知识库` / `订阅` | 否（前端结构） |\n| P2 | 剪藏、RSS 新文章、临时笔记统一进 Inbox | **先不做**底层合并 |\n| P3 | RSS 每篇总结 | 是（给 `feed_entries` 加字段） |\n\n两个关键取舍：\n\n- **Inbox 第一版做「虚拟 Inbox」**：前端把 clips / feed entries / 未整理 notes 混合展示，\n  每个 item 标来源类型；点「整理到知识库」时生成或更新一条 note。\n  统一字段（`inbox_status`、`output_note_id`、`ai_tags`、`processed_at`）等跑通后再补。\n  理由是直接合成一张大表会牵动 Rust、迁移、搜索、列表、阅读器，成本远大于收益。\n- **RSS 总结不要一刷新就全量跑**：慢、贵、失败难处理。先做「打开文章时可生成」，\n  并给每个 AI 任务留状态字段（`summary_status` / `summarized_at`）。\n\n判据：**用户能体验到的能力先上线，迁移成本后置**；能让前端解决的就不要先动表结构。",
+    "## 二、Agent 是侧边栏主入口，不是独立窗口\n\n用户问「是否要单独一个 agent 窗口」，收敛结论是**不要**。\n\n- 独立 Agent 窗口很容易变成「又一个 ChatGPT 窗口」，和知识库本体割裂，\n  用户会困惑：我到底是在用知识库，还是在和一个机器人聊天。\n- 正确形态是**贴着用户正在看的内容**工作：\n  - 侧边栏 `Agent` = 工作台 / 起点（主区域首页 + 大输入框 + 当前可执行动作 + 最近的 Inbox / 待处理）\n  - 右侧 AI Panel = 当前内容的上下文助手（看文章时总结/整理/解释名词，写笔记时润色/扩写/找关联）\n- 整体结构：左侧选工作区，中间放知识内容与任务，右侧浮层是上下文 AI，**Agent 作为第一入口而不是独立 app**。\n\n判据同族：**新增一个独立入口，必须回答「去掉它用户会损失什么能力」**（见 [容器要有超出文件夹的意义才值得独立入口](/wiki/agent-session/as-concept-%E5%AE%B9%E5%99%A8%E8%A6%81%E6%9C%89%E8%B6%85%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%84%8F%E4%B9%89%E6%89%8D%E5%80%BC%E5%BE%97%E7%8B%AC%E7%AB%8B%E5%85%A5%E5%8F%A3)）。",
+    "## 三、AI 调用要抽成可替换的执行层\n\n**什么时候才真的需要独立 AI server** —— 不是「AI 更耗性能」，而是这些需求出现时：\n\n1. 用户关闭 App 后仍要自动刷新 RSS、自动总结、发日报\n2. 不想让用户自己填 API key，由你统一提供 AI 能力\n3. 邮件推送、通知推送、定时日报\n4. 多设备同步\n5. 统一的成本控制、限流、缓存、失败重试\n6. 更复杂的 Agent 任务队列（每天处理大量订阅源）\n7. 账号体系、会员、用量统计\n\n**当前该怎么做**：本地跑 AI，但按「未来可替换为 server」的方式写 ——\n\n```text\nai/summarizeFeedEntry()\nai/generateNote()\nai/classifyContent()\n```\n\n现在内部调本地 API，将来只把实现换成 `call('/api/ai/summarize-feed-entry')`，\nUI 和业务流程不用大改。要点：**不要把 OpenAI 调用散落在 React 组件里**，\nprompt 与 JSON schema 独立成模块，总结结果落 SQLite 并给每个 AI 任务留状态字段。\n\n分层边界：\n\n| 层 | 职责 |\n|---|---|\n| UI 组件 | 展示、按钮、状态 |\n| 业务服务层 | `summarizeEntry` / `createNoteFromEntry` / `addSubscription` |\n| Tauri/Rust | SQLite、RSS fetch、本地文件、系统能力 |\n| AI Client | 模型调用、prompt、JSON schema、错误处理 |",
+    "## 四、云端加工厂 + 本地主仓库\n\n用户提出的方案：**本地把订阅源列表给云端 → 云端抓 RSS → 云端 AI 总结 → 结果回本地 → 本地保存**。\n\n这比「纯本地抓 RSS」更适合多端：\n\n- 移动端后台任务限制多，本地 App 不一定能稳定定时抓；云端不受设备限制\n- 多端体验一致，不会出现某台设备有新文章、另一台没有\n- AI pipeline 更自然：云端抓到就总结，客户端只拿「标题 + 正文/摘要 + 总结 + 标签 + 名词解释」\n- 日报天然适合云端生成\n\n**代价是隐私边界改变**：云端至少会接触用户订阅了哪些源、文章标题/链接、正文或摘要、总结结果。\n产品定义要跟着改成：\n\n> 本地保存知识库主数据，云端负责订阅抓取和 AI 加工，可短期缓存处理结果。\n\n要配的产品承诺：云端只存订阅任务与近期处理结果、本地才是长期知识库、用户可清除云端缓存、\n可选「本地抓取 / 云端抓取」。云端的角色是**待同步结果池**，不是永久知识库。\n\n**结果怎么回本地**：\n\n| 方式 | 特点 |\n|---|---|\n| 本地主动拉取（App 打开时问「有没有新处理好的」→ 下载 → 写入 → 回执） | 第一版选它：最简单稳定；代价是不打开 App 本地就没有最新数据 |\n| 云端推送（push / websocket） | 体验更好但复杂，Mac/Win/iOS/Android 推送体系各不相同 |",
+    "## 五、多端共享的是服务，不是 UI\n\n目标若是 Mac / Windows / iOS / Android / iPad 的成熟产品，架构必须改：\n**数据不能只存在某一台电脑，RSS 也不能依赖用户打开某个设备才刷新。**\n\n```text\n客户端（只负责展示、编辑、缓存）\n  → 统一服务器\n  → 账号 / 数据同步 / RSS 抓取 / AI 总结 / 日报 / 知识库数据\n```\n\n- 4G 内存服务器够第一版（只要不在服务器跑本地大模型）；真正的成本是 AI API 费用、并发与数据库设计\n- 客户端选型：Mac/Windows 继续 Tauri，Web 保留一套，移动端可评估 Tauri mobile，但更稳的路线通常是 RN/Expo\n- 原 Tauri 代码不废：本地 SQLite 从「唯一数据库」降级为「缓存」，RSS 抓取迁服务器，前端 AI 调用改成请求自己的服务器\n\n判据：**不要追求「一份 UI 跑所有端」，要追求「一套后端数据和 AI 能力，多端共用同一套服务」。**",
+    "## 六、云端版先做骨架，Agent 面板先留位\n\n从本地 Tauri App 迈向云端产品时，第一步不是「把 Agent 接上」，而是**先把云端骨架搭出来**：\n\n- 新开独立云端项目（如 `mewmo-cloud`），不要塞进本地 Tauri App —— 它是新云端产品，不是「本地知识库 2.0」\n- 技术选型偏云端能力：Next.js + TypeScript + Tailwind，后续 Postgres、cron/队列\n- 首页只表达三件事：这是什么产品、它能做什么、怎么开始；主按钮进静态 demo dashboard\n- 右侧 Agent 面板**先留空占位**（「将在这里读取当前页面上下文并对话」），不接模型、不接数据库、不接登录\n\n理由：用户此时还不熟 Web Agent 的交互与技术架构，先验证「云端 mewmo 应该长什么样」的页面结构是否成立。Agent 后续分三层接：前端聊天 UI → 网站后端 API（读云端数据再调模型）→ Agent 工具层（`search_notes` / `read_note` / `write_note` / `list_clips`）。编排层选择见 Agent编排层薄自建优先于重型框架。\n\n完整蓝图（Web / Mac / iOS / iPad / 扩展 / Agent / Admin / 同步 / 支付）要保留全量，但按阶段落地：见 [完整蓝图不等于同阶段交付](/wiki/agent-session/as-concept-%E5%AE%8C%E6%95%B4%E8%93%9D%E5%9B%BE%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%90%8C%E9%98%B6%E6%AE%B5%E4%BA%A4%E4%BB%98)、[数据权威模型要先于同步与迁移确定](/wiki/agent-session/as-concept-%E6%95%B0%E6%8D%AE%E6%9D%83%E5%A8%81%E6%A8%A1%E5%9E%8B%E8%A6%81%E5%85%88%E4%BA%8E%E5%90%8C%E6%AD%A5%E4%B8%8E%E8%BF%81%E7%A7%BB%E7%A1%AE%E5%AE%9A)。",
+    "## 相关\n\n- Agent编排层薄自建优先于重型框架 —— 编排层怎么选\n- [完整蓝图不等于同阶段交付](/wiki/agent-session/as-concept-%E5%AE%8C%E6%95%B4%E8%93%9D%E5%9B%BE%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%90%8C%E9%98%B6%E6%AE%B5%E4%BA%A4%E4%BB%98) —— 全量架构与分阶段交付\n- [容器要有超出文件夹的意义才值得独立入口](/wiki/agent-session/as-concept-%E5%AE%B9%E5%99%A8%E8%A6%81%E6%9C%89%E8%B6%85%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9A%84%E6%84%8F%E4%B9%89%E6%89%8D%E5%80%BC%E5%BE%97%E7%8B%AC%E7%AB%8B%E5%85%A5%E5%8F%A3) —— 独立入口的判据\n- 一次循环只做一个可体验的v1能力 —— 范围与优先级\n- 修复范围分保守彻底与最小闭环 —— 虚拟 Inbox 是「最小闭环」档\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)\n- Agent读语义文件App读结构化存储"
   ]
 },
 {
@@ -494,7 +1313,28 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
     "## 三、第一句 —— 先给料，再提问\n\n> 先说个我自己的困惑吧：我做 AI 产品，最卡的是\"效果好不好\"没有统一标准，\n> 上线前经常拍脑袋决定够不够格。你们平时也会被这种\"说不清好坏\"的事卡住吗？\n\n**为什么有效**：\n1. 你先暴露真问题 → 他不用\"准备答案\"，直接进入对话\n2. 你的困惑具体且带场景 → 他知道该从哪儿接话\n3. 他用回答自己的方式**自然带出他的产品和日常**",
     "## 四、方法提炼\n\n不要问：*\"你们是怎么做需求的？\"*（封闭、像考卷）\n要问：*\"你有没有被那种说不清好坏的事卡住过？\"*（具体场景 + 开放）\n\n> **用一个具体的困境，换一个真实的故事。**",
     "## 待探索\n- 访谈中段怎么追深（第一句已解决开场，缺中段追问框架）",
-    "## 相关\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)"
+    "## 相关\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)"
+  ]
+},
+{
+  "id": "as-topic-简历模板的三层渲染协议与迁移",
+  "updatedAt": "2026-06-11",
+  "wikiSlug": "agent-session",
+  "term": "简历模板的三层渲染协议与迁移",
+  "oneLiner": "**prototype 不能直接粘进模板文件。模板要按 data / layout / render 三层落地；section 只按内容形态分「block | list」两类，不按 experience / education / projects 逐模块枚举；迁移先补齐通用协议，只迁一个模板当样板；双栏结构不要交给 DB 的 layout 配置。**",
+  "body": [
+    "## **06-11 定稿的边界：renderer / protocol 只管结构稳定性（slot 渲染、icon 尺寸、空值隐藏、flex 不撑爆），视觉（加粗 / 字号 / 颜色 / 间距）归模板 CSS；CSS 的内容语义命名也必须统一为协议 class，模板自定义只留布局外壳。**",
+    "## 一、三层的职责边界\n\n| 层 | 职责 | 禁区 |\n|---|---|---|\n| data | 只提供**语义** | 不写视觉 |\n| layout（模板 html/css） | 只描述「这个模板怎么排」 | 不在模板里查简历数据 |\n| render（SlotRenderer） | 把 HTML 变成 React | 不靠模块名枚举分发 |\n\nprototype 的结构可以迁进 layout，但必须换成 slot（`<slot data-bind=\"basics.name\">`、`<slot data-bind=\"section.items\" data-template=\"item-tpl\">`）。\n\n需要补的能力放在 render 层：例如让 `<slot data-bind=\"section.icon\">` 直接渲染图标，而不是允许在 HTML 里塞一堆 inline SVG；图标继续来自 `section-meta.ts`。",
+    "## 二、section 只分两种内容形态（关键抽象）\n\n不要一上来就按 `experience / education / projects / skills` 每个都定制 —— 那会把 render 协议变成「模块枚举」，长期很重。通用抽象是**内容形态**：\n\n| 形态 | 内容 | HTML 需要 |\n|---|---|---|\n| **block** | 只有一段：个人总结、技能、荣誉奖项、自定义富文本 | `section.title` + `section.body` |\n| **list** | 多个条目：工作 / 项目 / 教育 / 社团 / 实习 / 科研经历 | `section.title` + `section.items`（`item-tpl`） |\n\nrender 层只需要识别：\n\n```ts\nsection.kind = \"block\" | \"list\"\n```\n\n而不是识别一长串模块名。同一形态在不同模块下复用同一套模板，`荣誉奖项` 这类看数据结构决定归 block 还是 list。",
+    "## 三、迁移策略：先补协议，再用一个模板做样板\n\n1. **补 render 层通用协议**：`profile.*`、`profile.contacts` 循环（`contact.icon / contact.label`）、`sectionOrder`、`section.kind / icon / body / items`、`item.title / subtitle / meta / dateRange / bullets`\n2. **只迁 classic**：把确认过的 prototype 迁进 `templates/html/classic.html` + `classic.css`，里面必须用 slot，不写死 demo 数据\n3. **验证 classic**：走 `[render] source: unified id: classic`，视觉接近旧 React，图标与各类 section 结构正常\n4. **classic 稳了再迁其它**：用同一套协议迁 professional / modern\n\n不要同时碰三个模板。一句话：**先把 render 的通用协议补齐，再用 classic 做第一个迁移样板。**",
+    "## 四、影响面收窄（排版混乱的来源）\n\n本地 HTML fallback 若扫所有内置模板（professional / classic / modern），不该迁的模板也会走 unified —— 这才是排版混乱的根因，不是简历数据坏了：\n\n- `classic`：有 `templates/html/classic.html/css` → `source: uploaded` → 经 `toSerializable()` 变成 `source: unified`\n- `professional / modern`：继续 `source: builtin`，走旧 React Layout\n\n典型症状是「section 标题的灰条/蓝标签尺寸、间距、行高没重新校准」和「双栏内容全挤在左列、右侧空白」——都是**模板 CSS / 版心列宽协议没和新 SlotRenderer 接好**。",
+    "## 五、双栏布局与 DB 定档\n\n- 双栏**不要依赖 DB 的 `layout.sidebar.sections`** 来拆 `sidebarSections / mainSections`。两栏结构由模板 HTML/CSS 自己定义：sidebar 放 `profile.*`，main 里跑 `sectionOrder`。`layout` 保留为兼容旧 v1 uploaded 模板的字段，不再扩展。\n- **DB schema 可以定档**：`customHtml / customCss / layout` 已经够表达 unified render。`profile.*`、`section.kind`、`section.body`、`section.items` 都是 render 层从 `ResumeContent` 派生出来的协议，不需要新增字段。\n- 若上线前要统一，只是「把本地 HTML/CSS 写回 DB 的 `customHtml / customCss`」的**数据 seed / 同步**，不是 schema migration。",
+    "## 六、渲染缺字段怎么排查\n\n要求是**逐字段对照**：把「表单 / schema 里有什么」与「SlotRenderer 实际消费了什么」一条条比，产出缺失清单；**先定位 bug，不要立刻改**。\n\n排查时同时拿表现正常的模板做对照（「为什么专业这一个模板又是正常的」）——同一字段在不同模板下表现不同，说明差异在模板结构而非数据本身。",
+    "## 七、表单字段 → slot 契约（逐字段清单）\n\n排查「表单里有、预览里没有」时，先照这张表对，再看模板 HTML 有没有写对应 slot。**表单字段没丢，丢的是模板没用这个 slot。**\n\n**基础信息 `basics.*`（别名 `profile.*`）**\n\n```text\nname → 姓名        status → 求职状态   title → 求职方向\nemail / phone / location / website / summary / photo\n```\n\n### 为什么会有两套名字（`basics` 与 `profile`）\n\n两者不是两份数据，读的是同一份 `ResumeContent.basics`：\n\n```text\nbasics.*  = 表单 / 数据库真实字段名（也是 render 允许直接读的名字）\nprofile.* = 模板 slot 协议层的语义别名（「个人头部信息」视角）\n```\n\n冗余来自演进：先有表单结构 `basics`，模板层后来为写 `profile.contacts` 这种语义化循环又加了 `profile.*`。`basics` 恰好两层同名，所以看起来像同一层。\n\n结论：**render 继续兼容两套，但 skill 只教一套**。\n\n### 对外协议的最终划分：`basic.* + profile.contacts`\n\n命名按语义分组（用户定义）：\n\n```text\nbasic.*   姓名 / 求职岗位 / 求职状态     ← 头部身份，可固定样式\nprofile.contacts → contact.icon / label / href   ← 带 icon 的联系方式\n```\n\n- `basics.*`（含 `basics.icon.*`）对外不再暴露，属于 deprecated；`profile.name/title/status/summary` 也不是新标准。\n- 底层存储字段可以仍是 `content.basics`，但那是**内部适配层**，不能因此说「协议里还留着 `basics`」。\n- 判定标准是「对外协议有没有别名」，不是「代码里还有没有旧名字」。\n\n### 一个名字被复用到多层，是混乱的真源\n\n`basics` 同时表示：表单数据组、编辑器固定模块、`sectionOrder` 里的正文 section、completeness 的基础信息桶、模板旧 binding 命名空间。这些**不是同一层概念却共用一个名字** —— 排查时容易把「协议冗余」误判成「两个 render」。\n\n### 抽象不因局部清理而退化\n\n清 basic / profile 只是**头部区的数据分组**，正文仍必须走统一的 `sectionOrder / section.body / section.items / item.*`。**不允许为了让基础信息好改，把正文格式特殊化成一堆专用字段。**\n\n### 文档分层：DB schema 不靠文档镜像\n\n`docs/schema-v2/` 混了三层东西，需要分开对待：\n\n| 文件 | 实际是什么 |\n|---|---|\n| `resume-table.json` / `templates-table.json` | 偏 DB schema |\n| `resume-content.json` | `resume.content` 这个 jsonb 的**内容协议**，不是 DB schema |\n| `template-slot-fields.*` / `html-slot-protocol.json` | 模板 slot / HTML 写法协议 |\n| `style-settings.json` | `content.styleSettings` 的排版协议 |\n\nDB schema 的真源是 `db/schema.ts` + Drizzle migration，**不要再起一份文档镜像它**；内容协议与模板协议则必须随架构更新（旧文档里 `profile.name/title/status`、兼容 `basics.*` 的中间态内容与「无兼容」目标冲突）。\n\n### 更新顺序：先对齐上游 skill，再叠加本地协议\n\n模板 skill 的真源在上游仓库（比本地新一点），schema 协议的真源在本地（改造最新）。所以做法是**拉上游 skill 作基线，再在其上应用本地协议改造**，而不是整体选一边 —— 详见 [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90)。\n\n### `required` 是模板覆盖，不是用户必填\n\n「必含字段」要说清指谁：`content_required`（用户表单必填，当前基本没有）≠ `template_coverage_required`（模板 HTML 必须预留的 slot）。用户没填 → 渲染为空是正常的；模板没写 slot → 用户填了也永远不显示。\n\n### `profile` 与 `contact` 的显示语义分工\n\n- `profile` 管「这个人是谁」：头像、姓名、目标岗位、求职状态、自我介绍。\n- `contact` 管「怎么联系这个人」：电话、邮箱、所在地、个人主页。它不是表单字段，是 render 从 profile 派生出的列表。\n- 两者位置常挨在一起（都在简历头部），所以看着重叠。`location` 是唯一真正的重叠点 —— 既可当 profile 的所在地，也可当 contact 的地址项；**这是产品决定**，两边都允许就会持续有重叠感。\n\n### slot / data-bind / render 三种说法不要混\n\n```text\nslot      = 模板 HTML 里的占位符语法（<slot data-bind=\"...\">）\nslot 协议 = data-bind 允许写哪些名字（profile.name / item.title ...）\nrender    = 按 data-bind 去 ResumeContent 取值的引擎\n```\n\n所以「`basics` 和 `profile` 并存」是**协议命名冗余**，不是 slot 机制的问题，也不是两个 render。\n\n**列表条目：`item.*` 由不同模块的字段共同供给**\n\n| 模块 | title | subtitle | location | dateRange | 其他 |\n|---|---|---|---|---|---|\n| 工作 `experience[]` | company | title | location | start/end | content → `item.bullets`；**无 meta / link** |\n| 教育 `education[]` | school | degree+major+gpa | location | start/end | highlights → `item.bullets`；**无 meta / link** |\n| 项目 `projects[]` | name | role | location | start/end | stack → `item.meta`（join ` · `）与 `item.tags`；link → `item.link`；content → `item.bullets` |\n| 研究 `research[]` | name | role | **无此字段** | start/end | link → `item.link`；content → `item.bullets`；**无 location / meta** |\n\n**块内容不走 `item.*`**：技能 `skills → section.body`；自定义模块 `custom[].title → section.title`、`custom[].content → section.body`。\n\n### 同一语义字段可能有多个入口（静默不显示的来源）\n\n「城市」有两条独立渲染路径，漏掉任一条，对应模板就永远不显示城市，而且**不报错**：\n\n1. **个人信息头部**：模板写联系方式循环 `profile.contacts`，城市需要由代码把 `basics.location` 派进 contacts 列表（原本只放了 phone / email / website）。\n2. **条目内**：模板必须自己写 `<slot data-bind=\"item.location\">`，CSS 不能凭空渲染字段。\n\n所以「有的模板正常、有的不显示」时，差异在**模板结构**，不在数据。\n\n### 缺字段怎么补：改模板，不要代码兜底\n\n曾经加过「条目有城市但模板没写 location slot 就自动补 ` · 城市`」的兜底，随后撤掉了。理由：协议缺字段应在模板 HTML/CSS 层补齐（含位置、字号、颜色、间距），代码兜底会与已写 slot 的模板重复，且把「模板缺什么」这个信息掩盖掉。",
+    "## 八、schema / protocol / renderer 三层区分（06-11 定稿）\n\n排查「协议」问题时先分清说的是哪一层，否则会把「命名冗余」误判成「机制坏了」：\n\n```text\nschema   = 模板能写什么（词汇表 / 类型定义：slot 名、字段名、数据结构、允许的 HTML/CSS 约束）\nprotocol = 运行时语义 / 行为契约（这些 slot 被怎么解释、保证什么）\nrenderer = protocol 的执行器\n```\n\n- `schema` 回答：模板作者可以声明哪些槽位、数据从哪来、哪些写法合法。\n- `protocol` 回答：`contact.icon` 一定渲染成 lucide icon 且按正文比例、`item.link` 为空不占位、`section.items` 循环自动加 `data-pagination-item`、`sectionOrder` 循环按 list/block 选模板、模板 CSS 被 scope 到 `data-template-id`。\n- 本项目的典型 bug 正是「schema 里规定了 `contact.icon`，protocol 没保证它的尺寸」—— 于是每个模板 CSS 自己写一份，漏一个模板就炸（如 `modern` 的 `.modern-contact-item` 被换成通用 `.contact-item` 后图标巨大化）。修法是把运行时默认行为放进 renderer 的 protocol base CSS，而不是改 schema。",
+    "## 九、render 与模板 CSS 的职责边界（用户定稿）\n\n**renderer / protocol 只管「结构稳定性」；视觉表现归模板 CSS。** 用户明确纠正过两次方向：\n\n1. **视觉属性不上收 renderer。** 加粗（`font-weight`）、字号、颜色、间距细节属于「这个模板里这个角色长什么样」，不该进 renderer 默认。曾把 `.item-title { font-weight: 700 }` 加进 renderer，被要求撤掉。renderer 的职责是 slot 渲染、icon 尺寸兜底、空字段隐藏、flex 不撑爆这类「基础可用行为」。\n2. **CSS 的内容语义命名也必须统一，自定义只留布局。** 用户原话：**「css 的自定义只有排版布局啊」**。正确形态是内容语义一律绑协议 class：\n\n   ```html\n   <span class=\"item-title\"><slot data-bind=\"item.title\"></slot></span>\n   ```\n   ```css\n   .item-title { font-weight: 700; }                                /* 视觉可改，selector 仍绑协议 class */\n   [data-template-id=\"abbey-blue\"] .item-title { font-size: 13px; } /* 特异性靠作用域，不靠私有命名 */\n   ```\n\n   不应该再出现 `.pro-item-title / .entry-title / .modern-item-primary / .classic-body` 这类**每个模板一套的内容角色命名**。模板自定义 class 只用于真正的布局外壳（`.modern-layout`、`.abbey-blue-banner`、`.pro-page`）。\n\n**边界一句话**：`render/protocol` 管「这个东西是什么角色，以及基础可用行为」；`template CSS` 管「这个模板里这个角色长什么样」。\n\n> 注意区分两种「不通用」：`item.title / item.dateRange` 这类 **slot binding 是通用协议**，而 HTML class / CSS selector 曾经**不通用**（`abbey-blue` 用 `.abbey-blue-entry-header .entry-title`、`professional` 用 `.pro-item-title`）。「能兼容」只是现状描述，不是理想架构 —— 兼容机制让 renderer 只看 slot、外层叫什么都能填值，所以看起来没事，但每改一次结构就要扫所有模板 CSS。",
+    "## 十、迁移与兜底的两个机制细节\n\n- **HTML 与 CSS selector 必须成对迁移。** 只改 DB HTML（`.pro-item-title` → `.item-title`）而 CSS 还写旧 selector，视觉必丢；同时改 DB CSS，浏览器只看最终 DOM 与 CSS 是否匹配，所以线上旧 renderer 完全不知道新协议也不影响视觉。这正是「DB 改了、线上 render 没改、视觉却不受影响」的原因，也说明这次 DB 迁移本身是自洽的。\n- **renderer protocol CSS 是兜底基础行为，不是模板样式生效的唯一来源。** DB 模板 CSS 负责「这个模板的视觉不要断」，renderer protocol CSS 负责「所有模板都该有的最低行为」（空值隐藏、日期不换行、链接换行、icon 尺寸、正文行高），避免每个模板复制一份。\n- **模板默认样式（`defaultStyleSettings`）在创建 / 切换模板时写进简历内容，不在 render 阶段自动合并**；渲染器对内容里的 `styleSettings` 生效。所以「默认样式不生效」要分「没写进内容」还是「渲染器没消费」两条链路查。",
+    "## 相关\n\n- 样式丢失先核对类名再怀疑缓存与权限 —— HTML class 与 CSS selector 对不上，就是本节「成对迁移」缺一半的典型\n- 一次循环只做一个可体验的v1能力 —— 单模板样板、验证通过再扩展的同一把尺\n- 面板多出的固定区块先查数据源再改前端 —— 同源判断：先看数据链路，再改渲染\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) —— 同一项目的实例：`--heading-gap` 传进渲染器但模板 CSS 没消费\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 「拿正常模板做对照」是本条的一处实例\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) —— 模板作者是 AI skill，所以协议要唯一写法 + coverage 校验\n- [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) —— `prototypes/` 与旧文档让人误以为还有本地模板系统\n- [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— skill 取自上游、协议取自本地\n- 兼容fallback会让内容重复渲染 —— `section.body` 与 `section.items` 双路径并存的代价\n- [可调与固定的边界按语义划分](/wiki/agent-session/as-concept-%E5%8F%AF%E8%B0%83%E4%B8%8E%E5%9B%BA%E5%AE%9A%E7%9A%84%E8%BE%B9%E7%95%8C%E6%8C%89%E8%AF%AD%E4%B9%89%E5%88%92%E5%88%86) —— 头部固定 / 正文可调的样式边界\n- [控件参数要在下游被消费](/wiki/agent-session/as-concept-%E6%8E%A7%E4%BB%B6%E5%8F%82%E6%95%B0%E8%A6%81%E5%9C%A8%E4%B8%8B%E6%B8%B8%E8%A2%AB%E6%B6%88%E8%B4%B9) —— 协议里的 slot / 变量必须被模板真正消费\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条是该骨架的一处实例：协议 class 与 selector 要成对迁移"
   ]
 },
 {
@@ -506,10 +1346,41 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## # 先定位归属层再动手",
     "## 结论\n\n> **症状看起来在哪一层，和问题实际在哪一层，是两件事。**\n> 排障的第一个动作不是改代码，而是**用最便宜的信号把归属层划出来** —— 划错层，\n> 后面所有努力（改前端、查网络、换 key）都是白费。",
-    "## 五处证据：每一处都是「看起来是 X，其实是 Y」\n\n| 出处 | 看起来像 | 实际归属 | 分流信号 |\n|---|---|---|---|\n| [先分清平台错误还是应用错误](/wiki/agent-session/as-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) | 服务挂了 | 平台层函数超时 | 错误体**有没有 JSON** |\n| 零延迟零尝试说明请求没发出去 | 上游不可用 | 本地调度层前置拦截 | `latency=0` 且 `attempt=0` |\n| 面板多出的固定区块先查数据源再改前端 | 前端渲染写错 | 数据链路（转发到固定实例 + 对端信息混入） | 该区块**是否随参数变化** |\n| [跨源取数据要靠自建代理](/wiki/agent-session/as-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) | UI 做得不好 | 同源政策拦下了数据 | 接口**是否真的返回了数据** |\n| GitHub打不开先分清主站与静态资源域名 | 整站被墙 | 只有部分域名不通 | **按域名分层**逐个测 |",
+    "## 五处证据：每一处都是「看起来是 X，其实是 Y」\n\n| 出处 | 看起来像 | 实际归属 | 分流信号 |\n|---|---|---|---|\n| [先分清平台错误还是应用错误](/wiki/agent-session/as-concept-%E5%85%88%E5%88%86%E6%B8%85%E5%B9%B3%E5%8F%B0%E9%94%99%E8%AF%AF%E8%BF%98%E6%98%AF%E5%BA%94%E7%94%A8%E9%94%99%E8%AF%AF) | 服务挂了 | 平台层函数超时 | 错误体**有没有 JSON** |\n| 零延迟零尝试说明请求没发出去 | 上游不可用 | 本地调度层前置拦截 | `latency=0` 且 `attempt=0` |\n| 面板多出的固定区块先查数据源再改前端 | 前端渲染写错 | 数据链路（转发到固定实例 + 对端信息混入） | 该区块**是否随参数变化** |\n| [跨源取数据要靠自建代理](/wiki/agent-session/as-concept-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) | UI 做得不好 | 同源政策拦下了数据 | 接口**是否真的返回了数据** |\n| GitHub打不开先分清主站与静态资源域名 | 整站被墙 | 只有部分域名不通 | **按域名分层**逐个测 |",
     "## 综合判断\n\n1. **归属层的数量是有限的，且各有专属「指纹」。** 五处症状分布在平台层、本地调度层、\n   数据链路层、浏览器安全策略层、网络域名层 —— 但它们都能靠**一个几乎零成本的观测**\n   （响应体形态 / 计数字段 / 是否随参数变化 / 接口实际返回 / 分域名探测）先归位。\n\n2. **最贵的错误是「层错但方法对」。** 改前端去修数据源问题、查网络去修本地校验问题，\n   都不会报错，只会**安静地浪费时间**。所以「先分层」不是谨慎，是省钱。\n\n3. **可迁移的动作**：遇到\"某处不对\"，先问两句 ——\n   **「这个现象能区分出哪几种可能？」「哪一个观测最便宜就能排除其中一种？」**\n   找到那个观测，再决定动不动手。",
     "## 为什么这是 synthesis\n\n单看每一页，都是\"某次排障的一个技巧\"。并排之后才看得出它们共享**同一个方法论骨架**：\n先定位归属层 → 再在该层内找根因。这个骨架独立于任何一次具体故障，可以带走。",
-    "## 相关\n\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 同源：分层本质上也是「造对照」\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源：先确定\"这属于谁\"，再谈数值\n- 讲bug先讲现象再讲根因 —— 沟通侧的同一条原则"
+    "## 相关\n\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 同源：分层本质上也是「造对照」\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源：先确定\"这属于谁\"，再谈数值\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) —— 同源：改对了逻辑，还要问「存量对象会不会再经过它」\n- 讲bug先讲现象再讲根因 —— 沟通侧的同一条原则"
+  ]
+},
+{
+  "id": "as-synthesis-分层要落到运行时才有效",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "分层要落到运行时才有效",
+  "oneLiner": "分层要落到运行时才有效",
+  "body": [
+    "## # 分层要落到运行时才有效",
+    "## 结论\n\n> 你在「协议 / 分层」上踩的是同一个坑：**层分对了、文档写好了，但没有任何东西在执行它。**\n> 判定标准只有一条 —— **这一层有没有被运行时（代码 / 校验器 / 消费方）真正读取。**\n> 没被读取的分层等于不存在：它不报错，只是不生效。",
+    "## 五处证据：每一处都是「分层存在，但没落地」\n\n| 出处 | 分好的层 | 落地缺在哪 | 后果 |\n|---|---|---|---|\n| [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) | 真源 / 机器可读契约 / 人类说明三层 | 校验器只查 required slot，不拦旧私有 class 与 renderer-owned 规则回填 | 导入模板继续污染数据库 |\n| [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) | skill 正文 → 上游；协议字段 → 本地 | 「还没同步的层」只在文档里列，没有同步校验 | 文档与运行时各说各话 |\n| 评测平台是平台层项目规则是适配层 | 平台（版本/数据集/trace/评分） vs 项目（fixtures/cases/runners/evaluators） | 只上传固定 `modelOutput` 就跑实验 | 验证了「解析与契约」，被当成「链路回归」 |\n| [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) | 中立逻辑 vs 某端格式要求 | 直接注册通用脚本、把格式写进通用件 | 通用件被绑死在单个工具上 |\n| [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) | data / layout / render；协议只管结构，视觉归模板 CSS | 协议 class 与 selector 不成对迁移 | 「DB 改了、线上 render 没改、视觉不变」 |",
+    "## 综合判断\n\n1. **分层的价值全部押在「消费」上。** 契约被 validator 读、中立件被适配器包、结构规则被 render 执行 ——\n   才算一层；否则它只是文档里的一个说法。这也解释了为什么这些坑**全都静默**：\n   没被执行的约束不会报错，只会让人在错误的前提上继续做。\n\n2. **「层分对了」和「层生效了」是两件事，要用不同的动作验收。**\n   分层是设计动作（写文档、定职责），生效是运行时动作（加校验、加适配器、跑真链路）。\n   只做前者，得到的是**看起来很有秩序的、没有约束力的**体系。\n\n3. **可迁移的动作**：每次划完一层，追问一句 ——\n   **「谁会在运行时读它？如果没有，我凭什么相信它会被遵守？」**\n   答不出「谁读」，这一层就还没落地，别急着往下一层走。",
+    "## 与既有 synthesis 的关系\n\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) 讲的是**怎么分层**（按寿命 / 复用性）；\n  本条讲的是**分层之后怎么才算数**（落到运行时）。两者是同一条链的前后两段：\n  分错层 → 过期物污染没过期物；分对层但没落地 → 约束形同虚设，同样静默。\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) 讲排障时**先判断归属层**；\n  本条是它的建设侧镜像：动手之前，先确认这一层有没有执行者。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某次具体协作里的一个疏漏（校验器漏拦、文档没同步、实验覆盖不够、适配器没写、迁移不成对）。\n并排之后才看得出它们共享**同一个失败形状**：**分层做了、执行没做**。\n这个形状与项目无关，可以直接带走。",
+    "## 相关\n\n- [契约只承载结构，个性留给扩展层](/wiki/agent-session/as-synthesis-%E5%A5%91%E7%BA%A6%E5%8F%AA%E6%89%BF%E8%BD%BD%E7%BB%93%E6%9E%84%EF%BC%8C%E4%B8%AA%E6%80%A7%E7%95%99%E7%BB%99%E6%89%A9%E5%B1%95%E5%B1%82) —— 本条讲「分层怎么才算数」，那条讲「层与层之间怎么切界」\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) —— 有人读了还不够，还要所有对象都经过它\n- [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) / [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) / 评测平台是平台层项目规则是适配层 / [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) / [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB)"
+  ]
+},
+{
+  "id": "as-synthesis-判据要用真值而非代理",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "判据要用真值而非代理",
+  "oneLiner": "判据要用真值而非代理",
+  "body": [
+    "## # 判据要用真值而非代理\n\n> 你反复踩的坑不是「判断写错了」，而是**判断用的那个量根本不是你要问的东西**。\n> 「第几次事件」「滚了多远」「动画转到第几帧」「这次会话缓存过没有」——\n> 它们都只是真值的**代理**，在边界条件下会和真值分叉，而且**不报错**。\n> 解法统一：**把判据换成真值本身**（内容是否变化、元素是否可见、真实进度、真实加载状态）。",
+    "## 六处证据：每一处都是「用代理当判据」\n\n| 出处 | 代理（错的判据） | 真值（对的判据） | 分叉后的症状 |\n|---|---|---|---|\n| [首次内容事件不能无条件跳过](/wiki/agent-session/as-concept-%E9%A6%96%E6%AC%A1%E5%86%85%E5%AE%B9%E4%BA%8B%E4%BB%B6%E4%B8%8D%E8%83%BD%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BF%87) | 事件序号（第 1 次就跳过） | 内容是否仍等于初始内容 | 空正文第一次粘贴图片被整个丢掉 → 保存不了 |\n| [显示阈值应按元素可见性而非固定像素](/wiki/agent-session/as-concept-%E6%98%BE%E7%A4%BA%E9%98%88%E5%80%BC%E5%BA%94%E6%8C%89%E5%85%83%E7%B4%A0%E5%8F%AF%E8%A7%81%E6%80%A7%E8%80%8C%E9%9D%9E%E5%9B%BA%E5%AE%9A%E5%83%8F%E7%B4%A0) | 固定滚动距离（`scrollTop > 18`） | 标题元素是否已滚出覆盖区 | 字号/行高不同 → 标题提前或延后出现 |\n| [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8) | 无限循环动画 / 帧间隔计时 | 真实加载状态或经过时间 | 条件永不成立 → 进度条卡在假进度上 |\n| 图片加载失败要可重试并升级到HTTPS | 「这场会话加载失败过」的缓存标记 | 本次请求的实际结果 | 一次失败被会话级永久记住 → 整场不再重试 |\n| [缓存命中率](/wiki/agent-session/as-concept-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) | 命中率数字（0 就以为坏了） | 「是不是每次都是新会话首请求」 | 测量动作本身绕过了被测对象 → 误判实现有 bug |\n| [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81) | 固定的渲染规则 / 滞后的 selection | 真实光标位置 | 源码与渲染同时出现；「看起来正常」但输入落到错误位置 |",
+    "## 综合判断\n\n1. **代理量在「典型输入」下与真值一致，只在边界处分叉。** 这正是它们难被发现的原因：\n   日常使用完全正常，只在「第一次」「刚好滚动到临界」「刚好那一次失败」时出错 ——\n   所以第一反应永远是「偶发」，而不是「判据错了」。\n\n2. **代理量往往比真值更「好拿」**，所以会被顺手用上：事件序号比内容比较便宜，\n   固定像素比测量元素位置便宜，循环动画比接真实进度便宜。**省下的那点成本，\n   全部以「静默错误」的形式还回来。**\n\n3. **可迁移的动作**：写下任何一个条件判断时，追问一句 ——\n   **「这个量和我真正要问的东西，在所有情况下都等价吗？」**\n   只要答案不是「是」，就换成真值：内容比较、元素可见性、真实状态、显式记录。\n   配套：真值若不可得，就**显式记录它**（对照 [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A)）。",
+    "## 与既有 synthesis 的关系\n\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) —— 讲**时序**上不能拿「最后发生的」冒充「最新的」；\n  本条更宽：讲**判据本身**不能拿代理量冒充真值。时序是「用环境状态当时间」的特例。\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 代理量的问题正是「没造对照」：没拿真值对照，就看不出分叉。\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 同源：约束/判据不落到真实来源上，就等于不存在。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某个功能的一个具体 bug（粘贴丢图、标题时机、进度条、图片重试、缓存命中、光标显示）。\n并排之后才看得出它们共享**同一个失败形状**：**用可得的代理量代替了要问的真值**。\n这个形状与框架、业务无关，可以直接带走。",
+    "## 相关\n\n- [首次内容事件不能无条件跳过](/wiki/agent-session/as-concept-%E9%A6%96%E6%AC%A1%E5%86%85%E5%AE%B9%E4%BA%8B%E4%BB%B6%E4%B8%8D%E8%83%BD%E6%97%A0%E6%9D%A1%E4%BB%B6%E8%B7%B3%E8%BF%87) / [显示阈值应按元素可见性而非固定像素](/wiki/agent-session/as-concept-%E6%98%BE%E7%A4%BA%E9%98%88%E5%80%BC%E5%BA%94%E6%8C%89%E5%85%83%E7%B4%A0%E5%8F%AF%E8%A7%81%E6%80%A7%E8%80%8C%E9%9D%9E%E5%9B%BA%E5%AE%9A%E5%83%8F%E7%B4%A0) / [进度条要由真实进度驱动](/wiki/agent-session/as-concept-%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A6%81%E7%94%B1%E7%9C%9F%E5%AE%9E%E8%BF%9B%E5%BA%A6%E9%A9%B1%E5%8A%A8)\n- 图片加载失败要可重试并升级到HTTPS / [缓存命中率](/wiki/agent-session/as-concept-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) / [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81)\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A)\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)"
   ]
 },
 {
@@ -521,10 +1392,72 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## # 口径先于数值",
     "## 结论\n\n> 你在「钱」的两条战线上踩的是同一个坑：**不是数值算错，是口径与归属错配。**\n> 拿到任何数字，先问三件事：**分子是谁、分母是谁、时间窗是什么。**",
-    "## 两处证据\n\n### A. 业务数据侧 —— [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n\n- 「整体成交」和「净成交」差的是退款/取消，不是算法\n- ROI 必须**成对看**，整体与净的**差值**才是风险敞口\n- 结论：卡住你的从来是\"这个数按哪个口径算的\"\n\n### B. 计费与额度侧 —— Agent模型接入与额度机制\n\n- 免费模型 ≠ 不计费 —— 免费额度与计费口径是**两条线**\n- 额度按 **key/账号**算，不按 provider 算 —— 归属问题\n- 「很久没用却显示超限」→ 限额是**时间窗 + 总量混合判定**，不是\"最近用了多少\"\n- 「有 key 轮换却一下子满了」→ 轮换的是凭证，**额度池是共享的**\n- 结论：卡住你的同样不是\"扣了多少\"，而是\"这笔账算在谁头上、算在哪个窗口\"",
+    "## 两处证据\n\n### A. 业务数据侧 —— [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n\n- 「整体成交」和「净成交」差的是退款/取消，不是算法\n- ROI 必须**成对看**，整体与净的**差值**才是风险敞口\n- 结论：卡住你的从来是\"这个数按哪个口径算的\"\n\n### B. 计费与额度侧 —— Agent模型接入与额度机制\n\n- 免费模型 ≠ 不计费 —— 免费额度与计费口径是**两条线**\n- 额度按 **key/账号**算，不按 provider 算 —— 归属问题\n- 「很久没用却显示超限」→ 限额是**时间窗 + 总量混合判定**，不是\"最近用了多少\"\n- 「有 key 轮换却一下子满了」→ 轮换的是凭证，**额度池是共享的**\n- 结论：卡住你的同样不是\"扣了多少\"，而是\"这笔账算在谁头上、算在哪个窗口\"",
     "## 综合判断\n\n1. **数字不可信的原因几乎总是归属，不是计算。**\n   钱算在谁头上（provider vs key）、时间算在哪个窗（最近用量 vs 周期总量）、\n   成交算在哪个口径（下单 vs 净成）—— 三类错误同源。\n\n2. **由此得到一个通用检查动作**：先定位\"分子/分母/时间窗\"，三个都对不上，\n   再去怀疑计算或数据源。\n\n3. 这也解释了那个看似矛盾的体验为什么成立：**\"免费\"和\"没额度了还在扣\"\n   可以同时为真**，因为它们在两条不同的线上。",
     "## 为什么这是 synthesis 而不是单页复述\n\n单看任一页都只是\"某类指标怎么看\"。把业务侧与工程侧并排，才看得出\n**这是同一个认知缺口的两次显形** —— 你不缺算术，缺的是先定口径的习惯。",
-    "## 相关\n\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- Agent模型接入与额度机制\n- [对照才产生信息](/wiki/agent-session/as-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)"
+    "## 相关\n\n- [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- Agent模型接入与额度机制\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)"
+  ]
+},
+{
+  "id": "as-synthesis-可复用物与不可复用物分开",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "可复用物与不可复用物分开",
+  "oneLiner": "可复用物与不可复用物分开",
+  "body": [
+    "## # 可复用物与不可复用物分开",
+    "## 结论\n\n> 你反复问的其实一直是同一个问题：**「这东西下次还能不能用？」**\n> 而你踩的坑也一直是同一个：**把会过期的和不会过期的混在一起放。**\n> 解法统一是**先按「寿命 / 复用性」分层，再决定谁放哪、谁信谁。**",
+    "## 四处证据\n\n| 场合 | 混在一起的两类东西 | 分开之后的规则 |\n|---|---|---|\n| [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) | 机械过滤（寒暄/工具回显） vs 判断（哪轮成知识） | 清洗层可批量、可丢弃；提炼层昂贵、面向人 |\n| 上下文按信任等级分层 | 长期身份与原则 vs 每轮的时间/页面/可用 skill | 动态内容**不进历史**；压缩后要重新生成 |\n| [计数闸门不等于上下文管理](/wiki/agent-session/as-concept-%E8%AE%A1%E6%95%B0%E9%97%B8%E9%97%A8%E4%B8%8D%E7%AD%89%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E7%AE%A1%E7%90%86) | 会话状态（刷新即失） vs 需要跨刷新的状态 | 生命周期不同 → 落盘位置不同 |\n| [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) | 「曾经这样」（prototypes/旧文档） vs 「运行时用什么」（DB row） | 判断现状只查运行时真源 |\n| [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) | 中立逻辑（跨 agent 通用） vs 某端的格式要求 | 格式差异留在适配器，不进通用件 |\n| [跨源取数据要靠自建代理](/wiki/agent-session/as-concept-%E8%B7%A8%E6%BA%90%E5%8F%96%E6%95%B0%E6%8D%AE%E8%A6%81%E9%9D%A0%E8%87%AA%E5%BB%BA%E4%BB%A3%E7%90%86) | 数据获取 vs 展示 | 拿不到数据时，别在展示层打补丁 |",
+    "## 综合判断\n\n1. **分层的依据是「寿命」，不是「内容类型」。**\n   会过期的（寒暄、当前页面、当前进度、原型文件、某端格式）和不会过期的\n   （判断原则、通用逻辑、可复用知识）放在同一层，结果一定是**过期的那部分把没过期的污染掉**。\n\n2. **「放错层」几乎总是表现为「静默」而不是「报错」。**\n   旧原型被当成现状、过期动态上下文被压进 summary、某个 agent 的格式写进通用脚本 ——\n   没有一个会报错，只会让人在错误的前提上继续工作。\n\n3. **可迁移的动作**：拿到任何一个东西要归位前，先问两句 ——\n   **「它多久会变一次？」「下次需要它的，还是同一批人/同一场景吗？」**\n   两个答案决定它该进哪一层，以及**该不该被信任**（对照 [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86)：\n   只有 `confirmed` 的边界才能当依据）。\n\n4. **这条骨架同时解释了为什么「先分层」比「先处理」便宜**：\n   分层是一次性的、机械的；处理是重复的、昂贵的。先分层 = 把昂贵的那步喂干净\n   —— 与 [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) 是同一枚硬币的两面（一个分「归属层」，一个分「寿命层」）。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某个领域的一条具体规则（清洗顺序、上下文分层、仓库残留、脚本适配）。\n并排之后才看得出它们共享**同一个结构**：**先按寿命分层，再谈处理与信任**。\n这个结构独立于任何一个项目，可以带走。",
+    "## 相关\n\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B) —— 同源骨架：先划归属，再动手\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源：先定「这属于谁/哪一层」，再谈数值\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 分层的本质也是「造出一个可比较的对照」\n- [存量不会自动跟上新逻辑](/wiki/agent-session/as-synthesis-%E5%AD%98%E9%87%8F%E4%B8%8D%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B7%9F%E4%B8%8A%E6%96%B0%E9%80%BB%E8%BE%91) —— 同源：旧东西没清出去，就会继续污染当前行为\n- [入库前先分层清洗](/wiki/agent-session/as-concept-%E5%85%A5%E5%BA%93%E5%89%8D%E5%85%88%E5%88%86%E5%B1%82%E6%B8%85%E6%B4%97) / 上下文按信任等级分层 / [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD)"
+  ]
+},
+{
+  "id": "as-synthesis-契约只承载结构，个性留给扩展层",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "契约只承载结构，个性留给扩展层",
+  "oneLiner": "契约只承载结构，个性留给扩展层",
+  "body": [
+    "## # 契约只承载结构，个性留给扩展层",
+    "## 结论\n\n> 你在四套完全不同的系统上划的是同一条线：**中间那层契约只管「结构 / 中立逻辑」，\n> 所有「个性、格式、视觉、业务规则」都往下推到扩展层。**\n> 违反它的症状也统一 —— 契约被某一端的特殊性污染，于是别端全部跟着变形。",
+    "## 四处证据\n\n| 系统 | 契约层（只管结构/中立） | 扩展层（承接个性） | 污染后的症状 |\n|---|---|---|---|\n| [简历模板的三层渲染协议与迁移](/wiki/agent-session/as-topic-%E7%AE%80%E5%8E%86%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%B8%89%E5%B1%82%E6%B8%B2%E6%9F%93%E5%8D%8F%E8%AE%AE%E4%B8%8E%E8%BF%81%E7%A7%BB) | renderer / protocol：slot 渲染、空值隐藏、flex 不撑爆 | 模板 CSS：加粗/字号/颜色/间距 | 视觉规则回填进 renderer，所有模板一起变形 |\n| [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) | 机器可读契约：canonical / required / deprecated 字段清单 | 运行代码（真源）+ 人类说明文档 | 私有 class 与 selector 回填 DB，导入即污染 |\n| [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5) | `.agent/scripts/agent-brief.js`：中立逻辑 | 各端 adapter（`.claude/hooks/*.js`）决定输出格式 | 某端格式写进通用脚本 → 通用件绑死单工具 |\n| 评测平台是平台层项目规则是适配层 | 平台：版本 / 数据集 / 实验 / trace / 评分 | 项目：fixtures / cases / runners / evaluators | 项目知识塞进平台，或自造 Lab 重复造轮子 |\n\n旁证：引擎不做建模器 —— 引擎是「切与渲染」的执行层，建模这一「个性生产」环节整体外推给 Blender；\n[多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— 契约（协议字段）与内容（skill 正文）分属不同真源，不能整体选一边。",
+    "## 综合判断\n\n1. **「承载什么」比「放在哪」更关键。** 四处都做了分层，但真正的分界线是同一条：\n   **契约层只描述「有哪些结构位置 / 哪些中立步骤」，不描述「长什么样、谁来填、业务怎么判」。**\n   一旦契约层开始表达个性（视觉、格式、业务规则），它就从「共用底座」变成了「某一端的私有实现」。\n\n2. **越界的方向总是「向上污染」。** 具体的一端把自己的特殊要求写进共用层，代价由**所有端**承担；\n   反过来把中立逻辑下放到某一端，代价只由那一端承担。所以越界检查只需问：\n   **「这条规则是只有一端需要，还是所有端都需要？」**\n\n3. **可迁移的动作**：设计任何共享层（协议 / schema / 通用脚本 / 平台）时，逐条过一遍其中的规则，\n   问 **「这一条是在描述结构，还是在描述某个使用者的个性？」** 属于后者的一律外推。\n   配套：契约要能被 validator 读（见 [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88)），否则外推的边界没人守。",
+    "## 与既有 synthesis 的关系\n\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) —— 讲**怎么分层**（按寿命/复用性）；本条讲**层与层之间怎么切**（结构 vs 个性）。\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 讲分层之后**怎么才算数**；本条是它前面的设计动作。\n  三条串起来即：先按寿命分层 → 层间按「结构/个性」切界 → 最后让边界被运行时执行。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某个系统里的一次架构决定（模板渲染、AI 协议、hook 脚本、评测平台）。\n并排之后才看得出它们**是同一条架构原则的四个实例**，且越界的代价结构完全一致。\n这条原则独立于任何技术栈，可以直接带走。",
+    "## 相关\n\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 本条定边界，那条负责让边界被运行时执行\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) —— 先按寿命分层，再按「结构/个性」切界\n- 引擎不做建模器 / [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) / [通用脚本要靠工具适配器接入](/wiki/agent-session/as-concept-%E9%80%9A%E7%94%A8%E8%84%9A%E6%9C%AC%E8%A6%81%E9%9D%A0%E5%B7%A5%E5%85%B7%E9%80%82%E9%85%8D%E5%99%A8%E6%8E%A5%E5%85%A5)"
+  ]
+},
+{
+  "id": "as-synthesis-存量不会自动跟上新逻辑",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "存量不会自动跟上新逻辑",
+  "oneLiner": "存量不会自动跟上新逻辑",
+  "body": [
+    "## # 存量不会自动跟上新逻辑",
+    "## 结论\n\n> 你反复遇到的不是「改错了」，而是**「改对了，但只有新东西享受到了」**。\n> 新代码/新协议/新渲染路径都上线了，**存量**（旧数据行、旧文件、旧模板、已同步过的层）\n> 却还按旧规则存在，并且不报错 —— 于是症状是「改了没用 / 修了还是坏的」。\n> 判定标准：**这个改动，存量对象会不会再经过一次它？** 不会，就得单独带过去。",
+    "## 六处证据\n\n| 出处 | 改对的新逻辑 | 谁没跟上 | 症状 |\n|---|---|---|---|\n| INSERT OR IGNORE会让旧行不更新 | 封面提取逻辑修对，新行字段正确 | 已存在的旧行被 `IGNORE` 跳过 | 界面仍旧值，只有新文章对 |\n| [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) | 本地协议改造已定稿 | 「还没同步的层」没人推 | 文档与运行时各说各话 |\n| [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE) | 新入口归一化后落库正确 | 已入库的内容没补 `kind` | 老剪藏仍走错渲染链 |\n| 兼容fallback会让内容重复渲染 | 新模板写了 `section.body` 新槽 | 旧 fallback 路径仍活着并再渲染一次 | 同一份内容显示两遍 |\n| [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD) | 运行时已完全走 DB | `prototypes/`、旧文档、旧 migration 默认值仍在仓库 | 人和 agent 反复误判架构 |\n| 以前能用最近坏了先查自己改了什么 | 补丁修好了图片 | 依赖旧结构的页面（全局剥标签的副作用） | 旧问题换个形态暴露 |\n\n旁证：零延迟零尝试说明请求没发出去 —— 「强制让账号重新进路由」的运行时开关被**持久层恢复流程**覆盖，\n同一形状：**你改的那一层，不是下次真正被读的那一层。**",
+    "## 综合判断\n\n1. **一次改动的作用面，只覆盖「未来经过这条路径的对象」。** 存量对象已经过去了，它们既不会回放，\n   也不会报错 —— 所以修复的**验收必须分两栏**：新对象对不对 + 存量怎么办（回填 / 迁移 / 显式声明）。\n\n2. **「旧路径还活着」比「旧数据还在」更危险。** 旧数据只是不变；旧路径（fallback 渲染、\n   残留原型、被恢复流程覆盖的开关）会**主动参与**当前行为，把新逻辑的结果再污染一遍。\n   所以下线旧路径和写新路径是同一件事的两半。\n\n3. **可迁移的动作**：任何一次「改逻辑」之后，追问三句 ——\n   **「存量对象怎么办？」「旧路径还在跑吗？」「我改的这一层，下次真的会被读吗？」**\n   三句里有一句答不上来，这次修复就只完成了一半。",
+    "## 与既有 synthesis 的关系\n\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 讲「没人读就等于不存在」；本条讲**「有人读了，但存量没经过它」**。\n  两条合起来是「约束生效」的完整条件：**有执行者，且所有对象都会经过执行者。**\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) —— 存量问题本质是「旧东西没被清出去」，与按寿命分层同源。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某个项目里的一次「修了但没全好」（回填没写、同步没推、旧模板没下线）。\n并排之后才看得出它们共享**同一个失败形状**：**新逻辑只对新对象生效**。\n这个形状与领域无关，可以直接带走。",
+    "## 相关\n\n- INSERT OR IGNORE会让旧行不更新 / [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) / [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE)\n- 兼容fallback会让内容重复渲染 / [仓库残留会误导对现状的判断](/wiki/agent-session/as-concept-%E4%BB%93%E5%BA%93%E6%AE%8B%E7%95%99%E4%BC%9A%E8%AF%AF%E5%AF%BC%E5%AF%B9%E7%8E%B0%E7%8A%B6%E7%9A%84%E5%88%A4%E6%96%AD)\n- [先定位归属层再动手](/wiki/agent-session/as-synthesis-%E5%85%88%E5%AE%9A%E4%BD%8D%E5%BD%92%E5%B1%9E%E5%B1%82%E5%86%8D%E5%8A%A8%E6%89%8B)"
+  ]
+},
+{
+  "id": "as-synthesis-定义要由使用者确认",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "定义要由使用者确认",
+  "oneLiner": "定义要由使用者确认",
+  "body": [
+    "## # 定义要由使用者确认",
+    "## 结论\n\n> 分类法、术语、协议这类**定义**，一旦由单方（尤其是 agent）单方面给出，\n> 就会在长期使用中悄悄错位。**定义权必须显式归属到使用者，并至少被确认一次。**\n> 「这是你界定的吗？」不是一个礼貌问题，是这套系统里最重要的校验动作之一。",
+    "## 四处证据\n\n| 出处 | 谁单方面下了定义 | 后果 / 你的反应 |\n|---|---|---|\n| [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) | agent 界定了「概念 / topic 怎么分」 | 你当场追问「这是你界定的吗」；分类法未确认 → 使用者长期错位 |\n| [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) | 「知识单元 / 知识簇」是**被追问后**才补的定义 | 不是先有框架再落地，而是定义跟着追问长出来 |\n| [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) | 双方各自默认一个词的含义（如「回归」） | 整段回答可能在回答错误的问题；反复追问 = 知识体系有洞 |\n| [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) | 协议由 AI 起草、AI 执行 | 所以**必须**低歧义、唯一写法、可自动校验 —— 没有「凭感觉对齐」的余地 |\n\n旁证：[多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) —— 真源归属若不显式，就退化成「谁最后改谁说了算」，与定义权不显式是同一个病。",
+    "## 综合判断\n\n1. **当作者/执行者都是 AI 时，定义不再是「沟通问题」，而是「规范问题」。**\n   人和人之间可以靠默契、靠「你懂我意思」对齐；agent 之间不行 ——\n   定义模糊不会有中间态，只会**静默按各自的解释执行**。\n   这解释了为什么「协议要唯一规范答案」和「分类法要使用者确认」是同一条：\n\n2. **定义的正确性不能由定义者自己判定。**\n   agent 能保证的只有「自洽」和「可校验」，不能保证「这就是你要的」。\n   所以确认动作必须由使用者做，且要**在定义被大量使用之前**做 —— 之后确认的代价是返工。\n\n3. **「反复追问」是定义缺失的探测器，也是优先级标注。**\n   同一个词跨天、跨 session 被反复问，说明它在知识体系里是个洞；\n   这类词值得单独成页、单独确认，而不是每次临时查。\n\n4. **可迁移的动作**：拿到任何一份 agent 给的框架/分类/术语表，先问两句 ——\n   **「这套划分是谁定的？」「我确认过吗？」**\n   没确认过的，只能当**提案**用，不能当依据用（对照 [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) 里\n   「只有 `confirmed` 的边界才能当依据」）。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某次对话里的一个沟通技巧（先问所指、给候选、反复提问要成页）。\n并排之后才看得出：**它们都在处理同一件事 —— 定义的权威没有被显式交接**。\n这个判断只在「AI 既是定义者又是执行者」的前提下成立，是这个项目自己的处境。",
+    "## 相关\n\n- [真源要按维度显式指定](/wiki/agent-session/as-synthesis-%E7%9C%9F%E6%BA%90%E8%A6%81%E6%8C%89%E7%BB%B4%E5%BA%A6%E6%98%BE%E5%BC%8F%E6%8C%87%E5%AE%9A) —— 同源：归属（定义权 / 真源）必须显式\n- [一词多义先确认所指](/wiki/agent-session/as-concept-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) / [知识入库的筛选标准](/wiki/agent-session/as-concept-%E7%9F%A5%E8%AF%86%E5%85%A5%E5%BA%93%E7%9A%84%E7%AD%9B%E9%80%89%E6%A0%87%E5%87%86) / [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88)\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF) —— 「这是谁定的」本质上也是在找一个可比较的参照"
   ]
 },
 {
@@ -536,10 +1469,41 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "body": [
     "## # 对照才产生信息",
     "## 结论\n\n> 你在四个不同场合遇到的是**同一个结构性问题**：手里只有一个点，所以看不出信息。\n> 解法也始终是同一个动作 —— **先造一个 A/B**。",
-    "## 四处证据\n\n| 场合 | 单点时的问题 | 你最后用的对照 |\n|---|---|---|\n| [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) | 罗列功能，说不清价值 | 不用它 / 用别家 vs 用它 |\n| [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB) | 只有整体成交，看着挺好 | 整体 ROI **对**净 ROI，差值 = 风险敞口 |\n| [用户访谈与需求挖掘](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98) | 只准备问题清单，对方不知从何说起 | 我的具体困境 **换** 他的真实经历 |\n| Agent模型接入与额度机制 | \"provider 和 key 是一样的吗\" | provider（渠道）vs key（凭证）分开 |",
+    "## 四处证据\n\n| 场合 | 单点时的问题 | 你最后用的对照 |\n|---|---|---|\n| [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) | 罗列功能，说不清价值 | 不用它 / 用别家 vs 用它 |\n| [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB) | 只有整体成交，看着挺好 | 整体 ROI **对**净 ROI，差值 = 风险敞口 |\n| [用户访谈与需求挖掘](/wiki/agent-session/as-topic-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98) | 只准备问题清单，对方不知从何说起 | 我的具体困境 **换** 他的真实经历 |\n| Agent模型接入与额度机制 | \"provider 和 key 是一样的吗\" | provider（渠道）vs key（凭证）分开 |",
     "## 综合判断\n\n1. **单点不产生信息，对照才产生信息。**\n   价值要靠\"和不用它的差别\"才存在；数据要靠\"整体与净的差值\"才有含义；\n   访谈要靠\"我 vs 他\"才有对话；额度要靠\"渠道 vs 凭证\"才分得清归属。\n\n2. **\"讲不清楚\"通常是\"缺参照系\"，不是\"表达能力差\"。**\n   这也是为什么加形容词、换措辞都没用 —— 缺的是另一个点，不是更好的词。\n\n3. **可迁移的动作**：任何时候觉得\"说不清 / 看不出问题\"，\n   先问一句 **\"它的对照组是什么？\"** 找不到对照组，就是还没理解。",
     "## 为什么这是 synthesis\n\n单看任一页，都只是\"某领域的一个技巧\"。并排之后才看得出\n**四页共享同一个认知结构** —— 而这个结构本身是可以带走的。",
-    "## 相关\n\n- [口径先于数值](/wiki/agent-session/as-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- [用户访谈与需求挖掘](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98)\n- [执行力的复盘](/wiki/agent-session/as-%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E5%A4%8D%E7%9B%98) —— 产出锚点 vs 结果锚点，同样是「造对照」"
+    "## 相关\n\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC)\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-concept-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE)\n- [数据指标的解读](/wiki/agent-session/as-topic-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB)\n- [用户访谈与需求挖掘](/wiki/agent-session/as-topic-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98)\n- [执行力的复盘](/wiki/agent-session/as-topic-%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E5%A4%8D%E7%9B%98) —— 产出锚点 vs 结果锚点，同样是「造对照」"
+  ]
+},
+{
+  "id": "as-synthesis-更新时序要由本地最新状态决定",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "更新时序要由本地最新状态决定",
+  "oneLiner": "更新时序要由本地最新状态决定",
+  "body": [
+    "## # 更新时序要由本地最新状态决定",
+    "## 结论\n\n> 你在同一条「编辑 → 保存 → 回写」链路上踩了三次坑，形状完全一样：\n> **「谁最新」这个判断，被交给了「谁最后返回 / 谁最后执行」。**\n> 而异步世界里，**返回顺序和用户操作顺序无关**。\n> 解法统一：把时序显式记下来 —— 版本号、捕获的实体 id、光标状态 —— 更新点一律读它，不读环境。",
+    "## 三处证据\n\n| 出处 | 症状 | 被误用的「当前值」 | 显式时序 |\n|---|---|---|---|\n| [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) | 刚写的字被回退 | 晚返回的旧请求带着旧正文 | 本地输入版本号 +1，返回时比对 |\n| [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93) | 编辑 A 的内容写进了 B | 计时器触发时的「当前活跃 tab」 | 创建任务时捕获 `note.id` 并传参 |\n| [流式更新要合并字段而非替换对象](/wiki/agent-session/as-concept-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1) | 思考内容瞬间被清空 | 「最后一个元素」被整体赋值 | `{ ...prev, content }` 保留同对象其它字段 |\n| [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81) | 源码与渲染结果同时出现 | 固定的渲染规则，不看光标 | 显示由「本地光标位置」决定 |\n\n旁证：[编辑即时反馈与落盘延迟分离](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%8D%B3%E6%97%B6%E5%8F%8D%E9%A6%88%E4%B8%8E%E8%90%BD%E7%9B%98%E5%BB%B6%E8%BF%9F%E5%88%86%E7%A6%BB) —— 它给出的是这条链路的**正确分层**：内存即时、落盘延迟、\n边界 flush。三者都是在这个分层之下才会显形的时序问题。",
+    "## 综合判断\n\n1. **「最后发生的」≠「最新的」。** 三个 bug 都在同一个前提下成立：把「回调执行的那一刻的共享可变状态」\n   当成「用户想要的最新状态」。请求乱序、debounce 跨对象、流式增量替换，都只是这个前提的三种触发方式。\n\n2. **这类 bug 全部静默。** 不报错、不 crash，只是内容被覆盖、被清空、被写到别的对象上。\n   它们的时间窗口往往极窄（只在一帧内、只在有思考流的请求里），所以第一反应都是「偶发」。\n\n3. **可迁移的动作**：任何异步 / 延迟 / 流式更新点，问两句 ——\n   **「这里读的『当前值』是谁写的？它和我要更新的那个对象一定是同一个吗？」**\n   答不干净，就在**创建任务时**把身份（id / 版本号 / 光标位置）显式捕获下来带进回调。\n   推论：**加载态（`null`）不是「不用处理」，而是最需要 flush 的时刻。**",
+    "## 与既有 synthesis 的关系\n\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 讲「分层要有人执行」；本条是它在时序维度上的特例：\n  版本号/捕获的 id 就是那个「执行者」，没有它，分好的内存层与落盘层就会互相污染。\n- [口径先于数值](/wiki/agent-session/as-synthesis-%E5%8F%A3%E5%BE%84%E5%85%88%E4%BA%8E%E6%95%B0%E5%80%BC) —— 同源：先确定「这个值属于谁、是哪个时刻的」，再拿它做判断。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某次前端 bug 的一个修法（加版本号、捕获 id、spread 合并）。\n并排之后才看得出它们共享**同一个根因假设**：用环境状态代替显式时序。\n这个形状与框架、业务无关，可以直接带走。",
+    "## 相关\n\n- [过期响应不能覆盖当前编辑内容](/wiki/agent-session/as-concept-%E8%BF%87%E6%9C%9F%E5%93%8D%E5%BA%94%E4%B8%8D%E8%83%BD%E8%A6%86%E7%9B%96%E5%BD%93%E5%89%8D%E7%BC%96%E8%BE%91%E5%86%85%E5%AE%B9) / [延迟保存要捕获创建时的实体](/wiki/agent-session/as-concept-%E5%BB%B6%E8%BF%9F%E4%BF%9D%E5%AD%98%E8%A6%81%E6%8D%95%E8%8E%B7%E5%88%9B%E5%BB%BA%E6%97%B6%E7%9A%84%E5%AE%9E%E4%BD%93) / [流式更新要合并字段而非替换对象](/wiki/agent-session/as-concept-%E6%B5%81%E5%BC%8F%E6%9B%B4%E6%96%B0%E8%A6%81%E5%90%88%E5%B9%B6%E5%AD%97%E6%AE%B5%E8%80%8C%E9%9D%9E%E6%9B%BF%E6%8D%A2%E5%AF%B9%E8%B1%A1)\n- [编辑器显示不能脱离真实光标状态](/wiki/agent-session/as-concept-%E7%BC%96%E8%BE%91%E5%99%A8%E6%98%BE%E7%A4%BA%E4%B8%8D%E8%83%BD%E8%84%B1%E7%A6%BB%E7%9C%9F%E5%AE%9E%E5%85%89%E6%A0%87%E7%8A%B6%E6%80%81)\n- [对照才产生信息](/wiki/agent-session/as-synthesis-%E5%AF%B9%E7%85%A7%E6%89%8D%E4%BA%A7%E7%94%9F%E4%BF%A1%E6%81%AF)\n- [真源要按维度显式指定](/wiki/agent-session/as-synthesis-%E7%9C%9F%E6%BA%90%E8%A6%81%E6%8C%89%E7%BB%B4%E5%BA%A6%E6%98%BE%E5%BC%8F%E6%8C%87%E5%AE%9A) —— 同源：没有显式记录时，「最后写入 / 最后返回」就会冒充权威"
+  ]
+},
+{
+  "id": "as-synthesis-真源要按维度显式指定",
+  "updatedAt": "2026-09-21",
+  "wikiSlug": "agent-session",
+  "term": "真源要按维度显式指定",
+  "oneLiner": "真源要按维度显式指定",
+  "body": [
+    "## # 真源要按维度显式指定",
+    "## 结论\n\n> 同一份东西出现在两处时，「谁是对的」**没有全局答案**。\n> 你踩过的每一次「以哪边为准」的坑，根因都是**默认了一个不成立的伪规则**：\n> 「谁新用谁」「谁全用谁」「谁在代码里用谁」「谁看起来像就用谁」。\n> 正确的动作是：**先按维度把真源写死，再谈同步。**",
+    "## 五处证据：伪规则各不相同，形状完全一样\n\n| 出处 | 被默认的伪规则 | 显式指定后 |\n|---|---|---|\n| [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90) | 「整体取更新的那个源」 | skill 正文 → 上游；协议字段 → 本地；以上游为基线再叠本地改造 |\n| [作者是AI时协议要唯一规范答案](/wiki/agent-session/as-concept-%E4%BD%9C%E8%80%85%E6%98%AFAI%E6%97%B6%E5%8D%8F%E8%AE%AE%E8%A6%81%E5%94%AF%E4%B8%80%E8%A7%84%E8%8C%83%E7%AD%94%E6%A1%88) | 「同一个名字在哪层出现都能对上」 | 一个概念只留**一个**规范写法，其余一律 deprecated；校验器可自动拦 |\n| Agent读语义文件App读结构化存储 | 「数据库和文件都是真源」 | Markdown 是唯一真源，SQLite 是**可重建的派生层** |\n| [导入要保留来源类型以选对渲染链](/wiki/agent-session/as-concept-%E5%AF%BC%E5%85%A5%E8%A6%81%E4%BF%9D%E7%95%99%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E4%BB%A5%E9%80%89%E5%AF%B9%E6%B8%B2%E6%9F%93%E9%93%BE) | 「落库了就是一条内容」 | 来源类型（`kind`）本身也是真源的一部分，决定后续走哪条渲染链 |\n| [多源更新按维度取真源](/wiki/agent-session/as-concept-%E5%A4%9A%E6%BA%90%E6%9B%B4%E6%96%B0%E6%8C%89%E7%BB%B4%E5%BA%A6%E5%8F%96%E7%9C%9F%E6%BA%90)（协议侧） | 「文档说了就等于运行时是那样」 | 每个字段的真源要能被校验发现「还没同步的层」 |",
+    "## 综合判断\n\n1. **「谁新 / 谁全 / 谁像」都不是判据，只有「哪个维度归哪一层」是。**\n   新旧是逐维度判定的：上游 skill 正文更新 ≠ 本地协议改造过时。\n   一旦把两个维度绑成一次「整体选择」，必然丢东西 —— 丢掉的那部分**不会报错**。\n\n2. **真源不显式，就会退化成「最后写入者胜」。**\n   这和 [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) 是同一件事的两面：\n   一个是「谁最后返回就算谁新」，一个是「谁最后改就算谁对」。\n   两者都发生在**没有显式记录**的地方。\n\n3. **派生层必须是可重建的，否则它就偷偷变成了第二个真源。**\n   「Markdown 为真源、SQLite 可重建」之所以成立，前提是**允许丢掉 SQLite 重建**。\n   任何「两边都不能丢」的设计，实际上就是两个真源。\n\n4. **可迁移的动作**：拿到任何一份有多处副本的产物，先答三句 ——\n   **「这个字段的真源在哪？」「另一处是派生还是独立？」「派生层能不能重建？」**\n   三句里有一句答不上来，这次同步就只是在制造不一致。",
+    "## 为什么这是 synthesis\n\n单看每一页，都是某个项目的局部约定（skill 从哪拉、库存在哪、导入留哪个字段）。\n并排之后才看得出它们共享**同一个缺口**：**没有把「谁说了算」写成显式规则**。\n而这个缺口独立于任何项目，只要存在多处副本就会复现。",
+    "## 相关\n\n- [定义要由使用者确认](/wiki/agent-session/as-synthesis-%E5%AE%9A%E4%B9%89%E8%A6%81%E7%94%B1%E4%BD%BF%E7%94%A8%E8%80%85%E7%A1%AE%E8%AE%A4) —— 同源：真源归属与定义权归属都要显式\n- [更新时序要由本地最新状态决定](/wiki/agent-session/as-synthesis-%E6%9B%B4%E6%96%B0%E6%97%B6%E5%BA%8F%E8%A6%81%E7%94%B1%E6%9C%AC%E5%9C%B0%E6%9C%80%E6%96%B0%E7%8A%B6%E6%80%81%E5%86%B3%E5%AE%9A) —— 同一缺口的另一面：谁最后返回 ≠ 谁最新\n- [分层要落到运行时才有效](/wiki/agent-session/as-synthesis-%E5%88%86%E5%B1%82%E8%A6%81%E8%90%BD%E5%88%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E6%89%8D%E6%9C%89%E6%95%88) —— 真源写进文档还不够，要被校验/消费\n- [可复用物与不可复用物分开](/wiki/agent-session/as-synthesis-%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E4%B8%8E%E4%B8%8D%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%89%A9%E5%88%86%E5%BC%80) —— 分层的依据之一是「谁可重建」"
   ]
 },
 ];
@@ -576,11 +1540,13 @@ export const AGENT_SESSION_META: WikiMeta = {
       id: "ch-LLM 工程",
       title: "LLM 工程",
       entries: [
+        { id: "as-concept-\u4e0a\u4e0b\u6587\u6210\u672c\u7531\u57fa\u7840\u4e0a\u4e0b\u6587\u548c\u4f1a\u8bdd\u6570\u51b3\u5b9a" },
         { id: "as-concept-\u5173\u952e\u8bcd\u68c0\u7d22\u7684\u4e09\u4e2a\u6253\u5206\u7f3a\u9677" },
         { id: "as-concept-\u591a\u8d26\u53f7\u6a21\u578b\u8def\u7531\u673a\u5236" },
         { id: "as-concept-\u68c0\u7d22\u8981\u6309\u96be\u5ea6\u8fed\u4ee3" },
         { id: "as-concept-\u6a21\u578b\u53ef\u89c1\u6027\u6309\u5165\u53e3\u5206\u6279\uff0c\u4e0d\u662f\u6309\u8d26\u53f7\u4e00\u5200\u5207" },
         { id: "as-concept-\u8ba1\u6570\u95f8\u95e8\u4e0d\u7b49\u4e8e\u4e0a\u4e0b\u6587\u7ba1\u7406" },
+        { id: "as-concept-\u8bc4\u6d4b\u5e73\u53f0\u662f\u5e73\u53f0\u5c42\uff0c\u9879\u76ee\u89c4\u5219\u662f\u9002\u914d\u5c42" },
         { id: "as-concept-\u8f6e\u6362\u8981\u5e26\u5065\u5eb7\u72b6\u6001\u8bb0\u5fc6" },
       ],
     },
@@ -588,25 +1554,64 @@ export const AGENT_SESSION_META: WikiMeta = {
       id: "ch-Agent 与 Skills 生态",
       title: "Agent 与 Skills 生态",
       entries: [
-        { id: "as-concept-Skill \u8de8 agent \u4f1a\u9759\u9ed8\u5931\u6548" },
+        { id: "as-concept-Agent-harness-\u8981\u9694\u79bb\u3001\u53ef\u590d\u73b0\u3001\u53ef\u6536\u5c3e" },
+        { id: "as-concept-Agent-\u7f16\u6392\u5c42\u8584\u81ea\u5efa\u4f18\u5148\u4e8e\u91cd\u578b\u6846\u67b6" },
+        { id: "as-concept-Skill-\u8de8-agent-\u4f1a\u9759\u9ed8\u5931\u6548" },
         { id: "as-concept-\u4e00\u6b21\u6027\u51ed\u8bc1\u62ff\u5230\u5c31\u843d\u76d8" },
+        { id: "as-concept-\u4f5c\u8005\u662fAI\u65f6\u534f\u8bae\u8981\u552f\u4e00\u89c4\u8303\u7b54\u6848" },
+        { id: "as-concept-\u591a\u6e90\u66f4\u65b0\u6309\u7ef4\u5ea6\u53d6\u771f\u6e90" },
+        { id: "as-concept-\u6539\u534f\u8bae\u8981\u540c\u65f6\u6539\u4e24\u7aef" },
+        { id: "as-concept-\u8fdc\u7a0b-Agent-\u63a7\u5236\u8981\u5b9a\u4e49\u6267\u884c\u534f\u8bae\u4e0e\u72b6\u6001\u6a21\u578b" },
+        { id: "as-concept-\u8fdc\u7a0b\u63a7\u5236\u672c\u673a-Agent-\u8981\u8ba9-bridge-\u8dd1\u5728\u672c\u673a" },
+        { id: "as-concept-\u901a\u7528\u811a\u672c\u8981\u9760\u5de5\u5177\u9002\u914d\u5668\u63a5\u5165" },
+        { id: "as-concept-\u9879\u76ee\u91cc\u7684\u6280\u80fd\u53ef\u80fd\u6709\u591a\u4efd\u526f\u672c" },
       ],
     },
     {
       id: "ch-前端工程",
       title: "前端工程",
       entries: [
+        { id: "as-concept-flex-\u5b50\u9879\u7684\u767e\u5206\u6bd4-max-height-\u4e0d\u53ef\u9760" },
+        { id: "as-concept-\u4f9d\u8d56\u7248\u672c\u8981\u9501\u4e3b\u7248\u672c\u800c\u975e\u4e00\u5f8b\u53d6\u6700\u65b0" },
+        { id: "as-concept-\u4fdd\u5b58\u5931\u8d25\u8981\u843d\u672c\u5730\u8349\u7a3f\u5e76\u81ea\u52a8\u91cd\u8bd5" },
+        { id: "as-concept-\u517c\u5bb9-fallback-\u4f1a\u8ba9\u5185\u5bb9\u91cd\u590d\u6e32\u67d3" },
+        { id: "as-concept-\u53ef\u8c03\u4e0e\u56fa\u5b9a\u7684\u8fb9\u754c\u6309\u8bed\u4e49\u5212\u5206" },
+        { id: "as-concept-\u56fe\u7247\u52a0\u8f7d\u5931\u8d25\u8981\u53ef\u91cd\u8bd5\u5e76\u5347\u7ea7\u5230-HTTPS" },
+        { id: "as-concept-\u56fe\u7247\u7c98\u8d34\u8981\u4e0a\u4f20\u5bf9\u8c61\u5b58\u50a8\u6362\u6c38\u4e45URL" },
+        { id: "as-concept-\u5ef6\u8fdf\u4fdd\u5b58\u8981\u6355\u83b7\u521b\u5efa\u65f6\u7684\u5b9e\u4f53" },
+        { id: "as-concept-\u5f15\u64ce\u4e0d\u505a\u5efa\u6a21\u5668\uff0c\u590d\u6742\u6a21\u578b\u4ea4\u7ed9\u5916\u90e8\u5de5\u5177" },
+        { id: "as-concept-\u624b\u6413\u7f16\u8f91\u5668\u6838\u5fc3\u903b\u8f91\u5230\u6df1\u5904\u8981\u8bc4\u4f30\u6362\u793e\u533a\u65b9\u6848" },
+        { id: "as-concept-\u6298\u53e0\u52a8\u753b\u8981\u6709\u6536\u8d77\u6001\u8fc7\u6e21" },
+        { id: "as-concept-\u63a7\u4ef6\u53c2\u6570\u8981\u5728\u4e0b\u6e38\u88ab\u6d88\u8d39" },
+        { id: "as-concept-\u6539\u7248\u540e\u65e7\u8def\u7531\u4ecd\u6307\u5411\u65e7\u5b9e\u73b0" },
+        { id: "as-concept-\u663e\u793a\u9608\u503c\u5e94\u6309\u5143\u7d20\u53ef\u89c1\u6027\u800c\u975e\u56fa\u5b9a\u50cf\u7d20" },
+        { id: "as-concept-\u6761\u4ef6-return-\u524d\u5fc5\u987b\u8c03\u7528\u6240\u6709-hooks" },
         { id: "as-concept-\u6d41\u5f0f\u66f4\u65b0\u8981\u5408\u5e76\u5b57\u6bb5\u800c\u975e\u66ff\u6362\u5bf9\u8c61" },
+        { id: "as-concept-\u6d6e\u5c42\u8981\u6536\u655b\u5230\u4e00\u4e2a\u5171\u4eab-primitive" },
+        { id: "as-concept-\u6eda\u52a8\u5c42\u4f1a\u88c1\u526a\u6ea2\u51fa\u5185\u5bb9\uff0c\u8981\u4e0e\u663e\u793a\u5c42\u62c6\u5f00" },
+        { id: "as-concept-\u6eda\u52a8\u6761\u9876\u5230\u56fa\u5b9a\u680f\u8981\u8c03\u89c6\u53e3\u800c\u975e\u9690\u85cf\u6eda\u52a8\u6761" },
+        { id: "as-concept-\u7126\u70b9\u73af\u753b\u5728\u5706\u89d2\u5916\u4f1a\u9732\u51fa\u56db\u89d2" },
+        { id: "as-concept-\u73af\u5883\u53d8\u91cf\u6821\u9a8c\u8981\u6309\u6a21\u5757\u61d2\u52a0\u8f7d" },
+        { id: "as-concept-\u7f16\u8f91\u5373\u65f6\u53cd\u9988\u4e0e\u843d\u76d8\u5ef6\u8fdf\u5206\u79bb" },
+        { id: "as-concept-\u7f16\u8f91\u5668\u663e\u793a\u4e0d\u80fd\u8131\u79bb\u771f\u5b9e\u5149\u6807\u72b6\u6001" },
         { id: "as-concept-\u8de8\u6e90\u53d6\u6570\u636e\u8981\u9760\u81ea\u5efa\u4ee3\u7406" },
+        { id: "as-concept-\u8fc7\u671f\u54cd\u5e94\u4e0d\u80fd\u8986\u76d6\u5f53\u524d\u7f16\u8f91\u5185\u5bb9" },
         { id: "as-concept-\u8fdb\u5ea6\u6761\u8981\u7531\u771f\u5b9e\u8fdb\u5ea6\u9a71\u52a8" },
+        { id: "as-concept-\u9690\u85cf\u6001\u6309\u94ae\u8981\u4fdd\u7559\u547d\u4e2d\u533a" },
+        { id: "as-concept-\u9996\u6b21\u5185\u5bb9\u4e8b\u4ef6\u4e0d\u80fd\u65e0\u6761\u4ef6\u8df3\u8fc7" },
+        { id: "as-concept-\u9ad8\u9891\u624b\u52bf\u7f29\u653e\u4e0d\u8981\u8d70-React-\u72b6\u6001" },
       ],
     },
     {
       id: "ch-产品方法论",
       title: "产品方法论",
       entries: [
-        { id: "as-concept-\u4e00\u6b21\u5faa\u73af\u53ea\u505a\u4e00\u4e2a\u53ef\u4f53\u9a8c\u7684 v1 \u80fd\u529b" },
+        { id: "as-concept-\u4e00\u6b21\u5faa\u73af\u53ea\u505a\u4e00\u4e2a\u53ef\u4f53\u9a8c\u7684-v1-\u80fd\u529b" },
+        { id: "as-concept-\u4fee\u590d\u8303\u56f4\u5206\u4fdd\u5b88\u3001\u5f7b\u5e95\u4e0e\u6700\u5c0f\u95ed\u73af\u4e09\u6863" },
         { id: "as-concept-\u5317\u6781\u661f\u6307\u6807\u8981\u91cf\u4ef7\u503c\u95ed\u73af" },
+        { id: "as-concept-\u5730\u57fa\u9636\u6bb5\u5148\u8dd1\u901a\u57fa\u7840\u4ef6\u518d\u8c08\u62bd\u8c61" },
+        { id: "as-concept-\u5b8c\u6574\u84dd\u56fe\u4e0d\u7b49\u4e8e\u540c\u9636\u6bb5\u4ea4\u4ed8" },
+        { id: "as-concept-\u5bb9\u5668\u8981\u6709\u8d85\u51fa\u6587\u4ef6\u5939\u7684\u610f\u4e49\u624d\u503c\u5f97\u72ec\u7acb\u5165\u53e3" },
         { id: "as-concept-\u7528\u6237\u53ef\u611f\u77e5\u7684\u4ef7\u503c\u4e0e\u5dee\u5f02\u5316\u8868\u8fbe" },
         { id: "as-concept-\u8bc4\u5ba1\u8bbe\u8ba1\u53ef\u884c\u6027\u5148\u95ee\u65b9\u6848\uff0c\u518d\u5b9a\u96be\u5ea6" },
       ],
@@ -615,7 +1620,12 @@ export const AGENT_SESSION_META: WikiMeta = {
       id: "ch-知识库架构",
       title: "知识库架构",
       entries: [
+        { id: "as-concept-Agent-\u8bfb\u8bed\u4e49\u6587\u4ef6\uff0cApp-\u8bfb\u7ed3\u6784\u5316\u5b58\u50a8" },
         { id: "as-concept-\u5165\u5e93\u524d\u5148\u5206\u5c42\u6e05\u6d17" },
+        { id: "as-concept-\u5bfc\u5165\u8981\u4fdd\u7559\u6765\u6e90\u7c7b\u578b\u4ee5\u9009\u5bf9\u6e32\u67d3\u94fe" },
+        { id: "as-concept-\u653e\u5bbd\u8fc7\u6ee4\u4f1a\u8fde\u566a\u58f0\u4e00\u8d77\u653e\u8fdb\u6765" },
+        { id: "as-concept-\u6570\u636e\u6743\u5a01\u6a21\u578b\u8981\u5148\u4e8e\u540c\u6b65\u4e0e\u8fc1\u79fb\u786e\u5b9a" },
+        { id: "as-concept-\u6587\u7ae0\u5143\u4fe1\u606f\u7528\u53d1\u5e03\u65e5\u671f\u800c\u975e\u521b\u5efa\u65e5\u671f" },
         { id: "as-concept-\u6e05\u6d17\u5408\u5e76\u4f1a\u7834\u574f\u6e90\u683c\u5f0f\u8bed\u4e49" },
         { id: "as-concept-\u77e5\u8bc6\u5165\u5e93\u7684\u7b5b\u9009\u6807\u51c6" },
       ],
@@ -624,11 +1634,25 @@ export const AGENT_SESSION_META: WikiMeta = {
       id: "ch-本机排障",
       title: "本机排障",
       entries: [
-        { id: "as-concept-GitHub \u6253\u4e0d\u5f00\u5148\u5206\u6e05\u4e3b\u7ad9\u4e0e\u9759\u6001\u8d44\u6e90\u57df\u540d" },
+        { id: "as-concept-GitHub-\u6253\u4e0d\u5f00\u5148\u5206\u6e05\u4e3b\u7ad9\u4e0e\u9759\u6001\u8d44\u6e90\u57df\u540d" },
+        { id: "as-concept-INSERT-OR-IGNORE-\u4f1a\u8ba9\u65e7\u884c\u4e0d\u66f4\u65b0" },
+        { id: "as-concept-\u4e2d\u8f6c\u6e90\u4e0d\u66f4\u65b0\uff0c\u5148\u5206\u6e05\u662f\u54ea\u4e00\u5c42" },
+        { id: "as-concept-\u4ed3\u5e93\u6b8b\u7559\u4f1a\u8bef\u5bfc\u5bf9\u73b0\u72b6\u7684\u5224\u65ad" },
+        { id: "as-concept-\u4ee5\u524d\u80fd\u7528\u6700\u8fd1\u574f\u4e86\uff0c\u5148\u67e5\u81ea\u5df1\u6700\u8fd1\u7684\u6539\u52a8" },
         { id: "as-concept-\u5148\u5206\u6e05\u5e73\u53f0\u9519\u8bef\u8fd8\u662f\u5e94\u7528\u9519\u8bef" },
+        { id: "as-concept-\u529f\u80fd\u7f3a\u5931\u5148\u786e\u8ba4\u8fd0\u884c\u7684\u662f\u54ea\u4efd\u4ea7\u7269" },
+        { id: "as-concept-\u5408\u76d6\u4ecd\u4f1a\u7761\u7720\u540e\u53f0\u4efb\u52a1\u4f1a\u88ab\u4e2d\u65ad" },
+        { id: "as-concept-\u540c\u4e00\u5e94\u7528\u5f00\u51fa\u4e24\u4e2a\u7a97\u53e3\u5148\u67e5\u5355\u5b9e\u4f8b\u9650\u5236" },
+        { id: "as-concept-\u5907\u7528\u6784\u5efa\u76ee\u5f55\u4e0d\u8981\u5d4c\u5728-next-\u76ee\u5f55\u91cc" },
+        { id: "as-concept-\u5bf9\u7167\u4e24\u7aef\u8981\u7528\u540c\u4e00\u6761\u6807\u8bc6" },
+        { id: "as-concept-\u6587\u4ef6\u88ab\u56de\u9000\u5148\u5206\u6e05\u662f\u5de5\u5177\u8fd8\u662f\u5e76\u53d1\u4f1a\u8bdd" },
+        { id: "as-concept-\u672c\u673a\u5361\u987f\u5148\u6e05\u6b8b\u7559\u5f00\u53d1\u8fdb\u7a0b" },
         { id: "as-concept-\u6740\u7aef\u53e3\u8981\u533a\u5206\u670d\u52a1\u7aef\u4e0e\u5ba2\u6237\u7aef\u8fde\u63a5" },
         { id: "as-concept-\u6837\u5f0f\u4e22\u5931\u5148\u6838\u5bf9\u7c7b\u540d\uff0c\u518d\u6000\u7591\u7f13\u5b58\u4e0e\u6743\u9650" },
-        { id: "as-concept-\u8bb2 bug \u5148\u8bb2\u73b0\u8c61\uff0c\u518d\u8bb2\u6839\u56e0" },
+        { id: "as-concept-\u771f\u673a\u767d\u5c4f\u5148\u5206\u6e05-Debug-\u5305\u4e0e\u8bc1\u4e66" },
+        { id: "as-concept-\u8bb2-bug-\u5148\u8bb2\u73b0\u8c61\uff0c\u518d\u8bb2\u6839\u56e0" },
+        { id: "as-concept-\u8fdc\u7aef\u4e3b\u7ebf\u53ef\u80fd\u4e0e\u672c\u5730\u4e3b\u7ebf\u65e0\u5171\u540c\u7956\u5148" },
+        { id: "as-concept-\u9700\u8981\u8ba4\u8bc1\u7684\u547d\u4ee4\u4e0d\u8981\u5e76\u884c\u6267\u884c" },
         { id: "as-concept-\u9762\u677f\u4e0a\u591a\u51fa\u7684\u56fa\u5b9a\u533a\u5757\u5148\u67e5\u6570\u636e\u6e90\u518d\u6539\u524d\u7aef" },
         { id: "as-concept-\u9ad8\u8d1f\u8f7d\u53d1\u70eb\u5148\u6392\u9664\u8d1f\u8f7d\u800c\u975e\u786c\u4ef6" },
       ],
@@ -637,9 +1661,14 @@ export const AGENT_SESSION_META: WikiMeta = {
       id: "ch-项目",
       title: "项目",
       entries: [
+        { id: "as-topic-UI\u539f\u578b\u4fdd\u771f" },
+        { id: "as-topic-\u51e0\u4f55\u9898-3D-\u5316\u7684\u9898\u5e93\u5b9a\u4f4d" },
+        { id: "as-topic-\u591aAgent\u534f\u4f5c\u63a7\u5236\u9762" },
         { id: "as-topic-\u6267\u884c\u529b\u7684\u590d\u76d8" },
         { id: "as-topic-\u6570\u636e\u6307\u6807\u7684\u89e3\u8bfb" },
+        { id: "as-topic-\u672c\u5730\u4f18\u5148\u77e5\u8bc6\u4ea7\u54c1\u7684\u67b6\u6784\u6f14\u8fdb" },
         { id: "as-topic-\u7528\u6237\u8bbf\u8c08\u4e0e\u9700\u6c42\u6316\u6398" },
+        { id: "as-topic-\u7b80\u5386\u6a21\u677f\u7684\u4e09\u5c42\u6e32\u67d3\u534f\u8bae\u4e0e\u8fc1\u79fb" },
       ],
     },
     {
@@ -647,8 +1676,16 @@ export const AGENT_SESSION_META: WikiMeta = {
       title: "跨源综述",
       entries: [
         { id: "as-synthesis-\u5148\u5b9a\u4f4d\u5f52\u5c5e\u5c42\u518d\u52a8\u624b" },
+        { id: "as-synthesis-\u5206\u5c42\u8981\u843d\u5230\u8fd0\u884c\u65f6\u624d\u6709\u6548" },
+        { id: "as-synthesis-\u5224\u636e\u8981\u7528\u771f\u503c\u800c\u975e\u4ee3\u7406" },
         { id: "as-synthesis-\u53e3\u5f84\u5148\u4e8e\u6570\u503c" },
+        { id: "as-synthesis-\u53ef\u590d\u7528\u7269\u4e0e\u4e0d\u53ef\u590d\u7528\u7269\u5206\u5f00" },
+        { id: "as-synthesis-\u5951\u7ea6\u53ea\u627f\u8f7d\u7ed3\u6784\uff0c\u4e2a\u6027\u7559\u7ed9\u6269\u5c55\u5c42" },
+        { id: "as-synthesis-\u5b58\u91cf\u4e0d\u4f1a\u81ea\u52a8\u8ddf\u4e0a\u65b0\u903b\u8f91" },
+        { id: "as-synthesis-\u5b9a\u4e49\u8981\u7531\u4f7f\u7528\u8005\u786e\u8ba4" },
         { id: "as-synthesis-\u5bf9\u7167\u624d\u4ea7\u751f\u4fe1\u606f" },
+        { id: "as-synthesis-\u66f4\u65b0\u65f6\u5e8f\u8981\u7531\u672c\u5730\u6700\u65b0\u72b6\u6001\u51b3\u5b9a" },
+        { id: "as-synthesis-\u771f\u6e90\u8981\u6309\u7ef4\u5ea6\u663e\u5f0f\u6307\u5b9a" },
       ],
     },
   ],
