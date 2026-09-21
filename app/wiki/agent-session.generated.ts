@@ -8,12 +8,11 @@ export const AGENT_SESSION_ENTRIES: WikiEntry[] = [
   "updatedAt": "2026-09-21",
   "wikiSlug": "agent-session",
   "term": "总览",
-  "oneLiner": "> 产出层（Obsidian）。维护规范在工作区 `进行中/llm wiki/AGENTS.md`。",
+  "oneLiner": "总览",
   "body": [
-    "## > 收录准则：**只放知识、经验、复盘**。待办/动作/agent观察一律不放。",
     "## Concepts（可复用的判断）\n\n- [用户可感知的价值与差异化表达](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E5%8F%AF%E6%84%9F%E7%9F%A5%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B8%8E%E5%B7%AE%E5%BC%82%E5%8C%96%E8%A1%A8%E8%BE%BE) — 价值只有变成用户能感知的对照才存在；公式 = 痛点+场景+对比+结果\n- [一词多义先确认所指](/wiki/agent-session/as-%E4%B8%80%E8%AF%8D%E5%A4%9A%E4%B9%89%E5%85%88%E7%A1%AE%E8%AE%A4%E6%89%80%E6%8C%87) — 有 ≥2 种解释时先确认；反复追问 = 知识体系有洞\n- [scaling-law](/wiki/agent-session/as-scaling-law) — 能力随参数/数据/算力可预测提升；Chinchilla 打脸「只堆模型」\n- [实时与异步](/wiki/agent-session/as-%E5%AE%9E%E6%97%B6%E4%B8%8E%E5%BC%82%E6%AD%A5) — 选型不看技术难度，看内容变化速度\n- [长尾查询](/wiki/agent-session/as-%E9%95%BF%E5%B0%BE%E6%9F%A5%E8%AF%A2) — 冷门具体查询决定搜索源选择\n- [技术性通缩与经济学通缩](/wiki/agent-session/as-%E6%8A%80%E6%9C%AF%E6%80%A7%E9%80%9A%E7%BC%A9%E4%B8%8E%E7%BB%8F%E6%B5%8E%E5%AD%A6%E9%80%9A%E7%BC%A9) — 生产率降价是好事，货币通缩是病\n- [缓存命中率](/wiki/agent-session/as-%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87) — 先怀疑「每次都是首请求」，再怀疑实现",
     "## Topics（领域聚合）\n\n- [执行力的复盘](/wiki/agent-session/as-%E6%89%A7%E8%A1%8C%E5%8A%9B%E7%9A%84%E5%A4%8D%E7%9B%98) — 野心是水不是火；结果锚点 vs 产出锚点；拖延是环境问题\n- [数据指标的解读](/wiki/agent-session/as-%E6%95%B0%E6%8D%AE%E6%8C%87%E6%A0%87%E7%9A%84%E8%A7%A3%E8%AF%BB) — 整体 vs 净成、ROI 成对看、必须补自然流量/内容/画像\n- [用户访谈与需求挖掘](/wiki/agent-session/as-%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88%E4%B8%8E%E9%9C%80%E6%B1%82%E6%8C%96%E6%8E%98) — 邀约措辞 + 第一句\"先给料再提问\"",
-    "## 待探索（有问题没答案 —— 最有价值的钩子）\n\n- 遇到**具体难题**想逃避，怎么破（已有环境/具体动作框架，缺难题切入法）\n- 各渠道免费额度的**刷新机制**横向对比\n- 数据缺**趋势视角**：环比/同周期对比怎么建\n- 「回归」「RAG vs 微调」补成正式概念页\n\n---\n\n*共 8 页 · 2026-08-11 ~ 09-20 一个月 · 106 个 session*"
+    "## 待探索（有问题没答案 —— 最有价值的钩子）\n\n- 遇到**具体难题**想逃避，怎么破（已有环境/具体动作框架，缺难题切入法）\n- 各渠道免费额度的**刷新机制**横向对比\n- 数据缺**趋势视角**：环比/同周期对比怎么建\n- 「RAG vs 微调」补成正式概念页（clean 里只有 agent 提及，缺你的提问作为依据）\n\n---\n\n*共 18 页 · 更新于 2026-09-21*"
   ]
 },
 {
